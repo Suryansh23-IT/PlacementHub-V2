@@ -1,0 +1,18 @@
+{
+  "name": "placementhub-backend",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "node --watch src/server.js",
+    "start": "node src/server.js",
+    "check": "node --check src/app.js && node --check src/server.js && node --check src/config/env.js && node --check src/config/database.js && node --check src/errors/app-error.js && node --check src/middleware/error-handler.js && node --check src/middleware/not-found.js && node --check src/modules/health/health.controller.js && node --check src/modules/health/health.routes.js && node --check src/utils/api-response.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.6",
+    "dotenv": "^18.0.3",
+    "express": "^5.2.1",
+    "mongoose": "^9.10.2",
+    "zod": "^4.6.5"
+  }
+}

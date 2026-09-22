@@ -4,7 +4,7 @@ PlacementHub V2 is a MERN platform for one college placement cell. Students mana
 
 ## Current status
 
-**M0 — Planning and documentation complete.** Application code has not been created yet.
+**M1 — Foundation in progress.** React, Express, configuration, errors, and database connectivity are being established.
 
 ## Planned stack
 
@@ -33,7 +33,21 @@ PlacementHub V2 is a MERN platform for one college placement cell. Students mana
 ## Planned structure
 
 ```text
-frontend/     React application (M1)
-backend/      Express API (M1)
+frontend/     React application
+backend/      Express API
 docs/         Approved project documentation
 ```
+
+## Local setup
+
+1. Copy `backend/.env.example` to `backend/.env` and replace `JWT_SECRET` with a secure value of at least 32 characters. Set `MONGO_URI` to a reachable MongoDB database.
+2. Copy `frontend/.env.example` to `frontend/.env` if the API uses a different address.
+3. Run `npm run dev:backend` to start the API on port 5000.
+4. Run `npm run dev:frontend` to start the web app.
+
+## Checks
+
+- `npm run build --prefix frontend`
+- `npm run lint --prefix frontend`
+- `npm run check:backend`
+- `npm start --prefix backend`
