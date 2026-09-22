@@ -37,6 +37,14 @@ Use 200 for successful reads/updates, 201 for creation, 400 for malformed reques
 
 Routes must authenticate, authorize the role, validate input, and check resource ownership before calling the service.
 
+## Authentication and RBAC
+
+`POST /auth/register` creates student or company accounts and returns a JWT access token plus safe user data. `POST /auth/login` does the same after credential verification. `GET /auth/me` requires a valid bearer token and returns the current active user. Password hashes are never returned.
+
+The `placement_admin` role is not available through ordinary registration. It can create one initial Placement Admin account only when the configured `ADMIN_BOOTSTRAP_SECRET` is supplied; the secret is never returned or stored. Authentication loads the current user from the database for each protected request, so inactive accounts and changed roles cannot continue using a previously issued token.
+
+Registration and login use the configured authentication rate limit and return `429 RATE_LIMITED` after too many attempts.
+
 ## Placement Admin responsibilities
 
 Only a Placement Admin may read or update the singleton institution profile, list students for review, change a student verification status, approve companies/jobs, and read the placement dashboard. Student verification accepts only `pending -> verified` or `pending -> rejected`; it records the reviewer and optional rejection reason.

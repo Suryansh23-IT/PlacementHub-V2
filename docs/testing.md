@@ -2,7 +2,7 @@
 
 ## Automated checks
 
-Run frontend lint/build checks and backend test/lint checks once tooling exists. Add focused automated tests for authentication, student-verification transitions and enforcement, eligibility, duplicate-application prevention, ownership checks, recruitment transitions, deterministic dashboard aggregates, and AI-response validation.
+Run frontend lint/build checks and backend test/lint checks once tooling exists. Add focused automated tests for registration, duplicate-email prevention, password hashing, login failure/inactive-account behavior, JWT verification, protected-route rejection, role authorization, student-verification transitions and enforcement, eligibility, duplicate-application prevention, ownership checks, recruitment transitions, deterministic dashboard aggregates, and AI-response validation.
 
 ## API checks
 

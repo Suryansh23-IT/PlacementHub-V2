@@ -6,7 +6,7 @@ MongoDB stores one document collection per primary domain. Mongoose validates sc
 
 | Entity | Essential relationships and purpose |
 | --- | --- |
-| User | Authentication identity; `name`, `email`, `passwordHash`, `role`, `isActive`. |
+| User | Authentication identity; `name`, unique `email`, bcrypt `passwordHash`, `role` (`student`, `company`, or `placement_admin`), and `isActive`. No profile document is created in M2. |
 | InstitutionProfile | One singleton document for the college; college name, logo reference, location, placement contact information, and placement-relevant branches/departments. |
 | StudentProfile | One-to-one with User; academic details, skills, embedded projects, `verificationStatus` (`pending`, `verified`, or `rejected`), review metadata, and resume reference. |
 | Company | One-to-one with User; company and recruiter details, approval status. |
@@ -23,6 +23,7 @@ MongoDB stores one document collection per primary domain. Mongoose validates sc
 ## Key indexes and constraints
 
 - `User.email` is unique.
+- At most one `placement_admin` User may exist; the role uses a partial unique index while student and company accounts remain unrestricted by role count.
 - `InstitutionProfile` is a singleton for the configured college; it does not introduce tenant isolation or a college foreign key on other records.
 - `StudentProfile.userId` and `Company.userId` are unique.
 - `Application` has a unique compound index on `studentId + jobId`.

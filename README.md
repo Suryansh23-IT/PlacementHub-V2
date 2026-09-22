@@ -40,7 +40,7 @@ docs/         Approved project documentation
 
 ## Local setup
 
-1. Copy `backend/.env.example` to `backend/.env` and replace `JWT_SECRET` with a secure value of at least 32 characters. Set `MONGO_URI` to a reachable MongoDB database.
+1. Copy `backend/.env.example` to `backend/.env`; set `MONGO_URI`, `JWT_SECRET`, and `ADMIN_BOOTSTRAP_SECRET` to separate secure values of at least 32 characters. The bootstrap secret is needed only to create the first Placement Admin account. Keep the provided authentication rate-limit values unless the deployment needs a documented adjustment.
 2. Copy `frontend/.env.example` to `frontend/.env` if the API uses a different address.
 3. Run `npm run dev:backend` to start the API on port 5000.
 4. Run `npm run dev:frontend` to start the web app.
