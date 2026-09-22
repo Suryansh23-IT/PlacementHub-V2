@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "node --watch src/server.js",
     "start": "node src/server.js",
-    "check": "node --check src/app.js && node --check src/server.js && node --check src/config/env.js && node --check src/config/database.js && node --check src/errors/app-error.js && node --check src/middleware/error-handler.js && node --check src/middleware/not-found.js && node --check src/middleware/validate-request.js && node --check src/modules/auth/auth.constants.js && node --check src/modules/auth/auth.model.js && node --check src/modules/auth/auth.validation.js && node --check src/modules/auth/auth.service.js && node --check src/modules/auth/auth.middleware.js && node --check src/modules/auth/auth-rate-limit.js && node --check src/modules/auth/auth.controller.js && node --check src/modules/auth/auth.routes.js && node --check src/modules/health/health.controller.js && node --check src/modules/health/health.routes.js && node --check src/utils/api-response.js",
+    "check": "node --check src/app.js && node --check src/server.js && node --check src/config/env.js && node --check src/config/database.js && node --check src/errors/app-error.js && node --check src/middleware/error-handler.js && node --check src/middleware/not-found.js && node --check src/middleware/validate-request.js && node --check src/modules/auth/auth.constants.js && node --check src/modules/auth/auth.model.js && node --check src/modules/auth/auth.validation.js && node --check src/modules/auth/auth.service.js && node --check src/modules/auth/auth.middleware.js && node --check src/modules/auth/auth-rate-limit.js && node --check src/modules/auth/auth.controller.js && node --check src/modules/auth/auth.routes.js && node --check src/modules/health/health.controller.js && node --check src/modules/health/health.routes.js && node --check src/modules/students/student.model.js && node --check src/modules/students/student.validation.js && node --check src/modules/students/student.service.js && node --check src/modules/students/student.controller.js && node --check src/modules/students/student.routes.js && node --check src/utils/api-response.js",
     "test": "node --test"
   },
   "dependencies": {
@@ -17,6 +17,7 @@
     "express-rate-limit": "^8.7.0",
     "jsonwebtoken": "^9.0.3",
     "mongoose": "^9.10.2",
+    "multer": "^2.0.2",
     "zod": "^4.6.5"
   }
 }

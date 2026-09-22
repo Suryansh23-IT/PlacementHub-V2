@@ -1,7 +1,8 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { ErrorState } from '../components/feedback/ErrorState.jsx'
-import { AuthField } from './LoginPage.jsx'
+import { Button } from '../components/ui/Button.jsx'
+import { FormField } from '../components/ui/FormField.jsx'
 import { useAuth } from '../features/auth/useAuth.js'
 import { registerFormSchema } from '../features/auth/auth.schemas.js'
 import { registerAccount } from '../services/auth.service.js'
@@ -110,7 +111,7 @@ function RoleSelection({ form, error, onSelect, onContinue }) {
           </button>
         })}
       </fieldset>
-      <button className="mt-7 w-full rounded-lg bg-violet-700 px-4 py-3 font-semibold text-white hover:bg-violet-800 disabled:cursor-not-allowed disabled:bg-violet-400" onClick={onContinue} disabled={!form.role}>Continue</button>
+      <Button className="mt-7 w-full" onClick={onContinue} disabled={!form.role}>Continue</Button>
       <p className="mt-5 text-sm text-slate-600">Already registered? <Link className="font-semibold text-violet-700" to="/login">Sign in</Link>.</p>
     </div>
   )
@@ -124,14 +125,14 @@ function AccountDetails({ form, details, error, isSubmitting, onChange, onBack, 
       <p className="mt-3 leading-6 text-slate-600">{details.description}</p>
       {error && <div className="mt-5"><ErrorState message={error} /></div>}
       <form className="mt-7 space-y-4" onSubmit={onSubmit}>
-        <AuthField label={details.nameLabel} type="text" value={form.name} onChange={(event) => onChange('name', event.target.value)} autoComplete="name" />
-        <AuthField label={details.emailLabel} type="email" value={form.email} onChange={(event) => onChange('email', event.target.value)} autoComplete="email" />
-        <AuthField label="Password" type="password" value={form.password} onChange={(event) => onChange('password', event.target.value)} autoComplete="new-password" placeholder="At least 8 characters" />
-        <AuthField label="Confirm password" type="password" value={form.confirmPassword} onChange={(event) => onChange('confirmPassword', event.target.value)} autoComplete="new-password" />
+        <FormField label={details.nameLabel} type="text" value={form.name} onChange={(event) => onChange('name', event.target.value)} autoComplete="name" />
+        <FormField label={details.emailLabel} type="email" value={form.email} onChange={(event) => onChange('email', event.target.value)} autoComplete="email" />
+        <FormField label="Password" type="password" value={form.password} onChange={(event) => onChange('password', event.target.value)} autoComplete="new-password" placeholder="At least 8 characters" />
+        <FormField label="Confirm password" type="password" value={form.confirmPassword} onChange={(event) => onChange('confirmPassword', event.target.value)} autoComplete="new-password" />
         <p className="rounded-xl bg-slate-50 p-4 text-sm leading-6 text-slate-600">{details.note}</p>
         <div className="flex flex-col-reverse gap-3 pt-2 sm:flex-row">
-          <button type="button" className="rounded-lg px-4 py-3 font-semibold text-slate-700 hover:bg-slate-100" onClick={onBack} disabled={isSubmitting}>Back</button>
-          <button className="flex-1 rounded-lg bg-violet-700 px-4 py-3 font-semibold text-white hover:bg-violet-800 disabled:cursor-not-allowed disabled:bg-violet-400" disabled={isSubmitting}>{isSubmitting ? 'Creating account…' : `Create ${details.eyebrow}`}</button>
+          <Button variant="quiet" className="sm:w-auto" onClick={onBack} disabled={isSubmitting}>Back</Button>
+          <Button type="submit" className="flex-1" disabled={isSubmitting}>{isSubmitting ? 'Creating account…' : `Create ${details.eyebrow}`}</Button>
         </div>
       </form>
       <p className="mt-5 text-sm text-slate-600">Already registered? <Link className="font-semibold text-violet-700" to="/login">Sign in</Link>.</p>

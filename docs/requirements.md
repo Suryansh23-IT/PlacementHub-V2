@@ -20,7 +20,7 @@ Authentication and RBAC; a basic single-college institution profile/settings sec
 
 PlacementHub V2 serves one college only. The Placement Admin maintains one basic institution profile containing the college name, logo, location, placement contact information, and placement-relevant academic branches/departments. It is not a multi-college tenant model.
 
-Student profiles begin with `pending` verification. A Placement Admin reviews each student and moves the status to either `verified` or `rejected`. Only verified students can perform placement actions that require verification, including receiving a positive placement-eligibility result and submitting an application. Pending or rejected students may manage their own profile and resume, but receive a clear status/reason when an action is unavailable.
+Student profiles begin with `pending` verification. A Placement Admin reviews each student and moves the status to either `verified` or `rejected`. A rejected Student may correct the profile/resume and explicitly resubmit it, changing the status back to `pending` and clearing the previous review decision for a new Admin review. Verified is final for this workflow. Only verified students can perform placement actions that require verification, including receiving a positive placement-eligibility result and submitting an application. Pending or rejected students may manage their own profile and resume, but receive a clear status/reason when an action is unavailable.
 
 ## Placement dashboard
 

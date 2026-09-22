@@ -47,7 +47,7 @@ Registration and login use the configured authentication rate limit and return `
 
 ## Placement Admin responsibilities
 
-Only a Placement Admin may read or update the singleton institution profile, list students for review, change a student verification status, approve companies/jobs, and read the placement dashboard. Student verification accepts only `pending -> verified` or `pending -> rejected`; it records the reviewer and optional rejection reason.
+Only a Placement Admin may read or update the singleton institution profile, list students for review, change a student verification status, approve companies/jobs, and read the placement dashboard. An Admin can review only `pending -> verified` or `pending -> rejected`; it records the reviewer and optional rejection reason. A rejected Student who has corrected the required academic details and resume may explicitly call `POST /students/me/verification/resubmit`, which changes `rejected -> pending` and clears the previous reviewer, review time, and rejection reason. Verified profiles are final for this workflow.
 
 Student profile responses expose the student's own verification status. Placement eligibility and application services must reject non-verified students with a consistent `403` response and a clear verification-status message. Browsing jobs, editing a profile, and managing resume metadata remain available to pending/rejected students.
 

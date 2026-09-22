@@ -1,4 +1,5 @@
 import { ZodError } from 'zod'
+import multer from 'multer'
 import { sendError } from '../utils/api-response.js'
 
 export function errorHandler(error, request, response, next) {
@@ -12,6 +13,14 @@ export function errorHandler(error, request, response, next) {
       message: 'Request validation failed.',
       errorCode: 'VALIDATION_ERROR',
       details: error.flatten(),
+    })
+  }
+
+  if (error instanceof multer.MulterError) {
+    return sendError(response, {
+      statusCode: 422,
+      message: error.code === 'LIMIT_FILE_SIZE' ? 'Resume files must be 5 MB or smaller.' : 'Resume upload could not be processed.',
+      errorCode: 'VALIDATION_ERROR',
     })
   }
 

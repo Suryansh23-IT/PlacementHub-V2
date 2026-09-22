@@ -11,6 +11,8 @@ const environmentSchema = z.object({
   ADMIN_BOOTSTRAP_SECRET: z.string().min(32, 'ADMIN_BOOTSTRAP_SECRET must contain at least 32 characters.').optional(),
   AUTH_RATE_LIMIT_WINDOW_MS: z.coerce.number().int().min(60_000).default(900_000),
   AUTH_RATE_LIMIT_MAX: z.coerce.number().int().min(3).max(100).default(10),
+  RESUME_UPLOAD_DIR: z.string().trim().min(1).default('uploads/resumes'),
+  RESUME_MAX_FILE_SIZE_BYTES: z.coerce.number().int().min(1).max(10 * 1024 * 1024).default(5 * 1024 * 1024),
 })
 
 const parsedEnvironment = environmentSchema.safeParse(process.env)

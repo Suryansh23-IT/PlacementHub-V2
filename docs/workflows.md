@@ -27,9 +27,11 @@ Student completes profile
   -> StudentProfile verificationStatus is pending
   -> Placement Admin reviews the profile
   -> verified or rejected
+  -> rejected Student corrects profile/resume and explicitly resubmits
+  -> pending review again
 ```
 
-Only the Placement Admin can make the review decision. The allowed transitions are `pending -> verified` and `pending -> rejected`. The review records the administrator, time, and optional rejection reason. Profile/resume editing remains available to the student; placement eligibility and application submission require `verified`.
+Only the Placement Admin can make the review decision. Admin review transitions are `pending -> verified` and `pending -> rejected`. A rejected Student may explicitly resubmit only after completing the required academic details and resume; the resubmission transition is `rejected -> pending` and clears the previous review metadata. Verified is final for this workflow. Profile/resume editing remains available to the student; placement eligibility and application submission require `verified`.
 
 ## Institution settings and placement dashboard
 
