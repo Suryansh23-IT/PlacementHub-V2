@@ -14,7 +14,13 @@ Student: dashboard, profile, resume, jobs, job detail, applications, interviews,
 
 Company: dashboard, profile, jobs, job editor, applicants, recruitment, interviews, notifications, feed.
 
-Admin: dashboard, students, company approvals, job approvals, placements, reports, notifications, feed.
+Admin: dashboard, institution settings, students and verification review, company approvals, job approvals, placements, reports, notifications, feed.
+
+## Admin-specific states
+
+Institution settings display the single college profile. The students screen shows `pending`, `verified`, and `rejected` verification states, a review action only for pending students, and an understandable reason when a placement action is unavailable.
+
+The placement dashboard presents total students, verified students, approved companies, published jobs/drives, total applications, placed students, placement rate, available package statistics, and recent placement/recruitment activity. Zero-data cards and unavailable package statistics have clear empty states.
 
 ## Required states
 

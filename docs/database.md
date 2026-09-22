@@ -7,7 +7,8 @@ MongoDB stores one document collection per primary domain. Mongoose validates sc
 | Entity | Essential relationships and purpose |
 | --- | --- |
 | User | Authentication identity; `name`, `email`, `passwordHash`, `role`, `isActive`. |
-| StudentProfile | One-to-one with User; academic details, skills, embedded projects, verification status, resume reference. |
+| InstitutionProfile | One singleton document for the college; college name, logo reference, location, placement contact information, and placement-relevant branches/departments. |
+| StudentProfile | One-to-one with User; academic details, skills, embedded projects, `verificationStatus` (`pending`, `verified`, or `rejected`), review metadata, and resume reference. |
 | Company | One-to-one with User; company and recruiter details, approval status. |
 | Resume | Belongs to a student; file metadata, storage URL, optional parsed text. |
 | Job | Belongs to Company; eligibility rules, deadline, approval and publishing status. |
@@ -22,6 +23,7 @@ MongoDB stores one document collection per primary domain. Mongoose validates sc
 ## Key indexes and constraints
 
 - `User.email` is unique.
+- `InstitutionProfile` is a singleton for the configured college; it does not introduce tenant isolation or a college foreign key on other records.
 - `StudentProfile.userId` and `Company.userId` are unique.
 - `Application` has a unique compound index on `studentId + jobId`.
 - `PostLike` has a unique compound index on `postId + userId`.
@@ -29,4 +31,4 @@ MongoDB stores one document collection per primary domain. Mongoose validates sc
 
 ## Data ownership
 
-Student projects and skills are embedded because they belong to one profile. Applications, jobs, recruitment rounds, and posts are separate documents because they must be queried independently. Core data never depends on AIAnalysis.
+Student projects and skills are embedded because they belong to one profile. Applications, jobs, recruitment rounds, and posts are separate documents because they must be queried independently. Core data never depends on AIAnalysis. Student verification review metadata records the Placement Admin reviewer, review time, and optional rejection reason.

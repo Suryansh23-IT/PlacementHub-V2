@@ -7,12 +7,12 @@ Only one milestone is active at a time. Each milestone requires implementation c
 | M0 | Documentation and approved V2 blueprint. |
 | M1 | React/Express foundation, database connection, configuration, errors. |
 | M2 | Authentication, JWT, roles, protected routes. |
-| M3 | Student profile, skills/projects, resume metadata and upload. |
-| M4 | Company profile and admin company approval. |
-| M5 | Job creation, job approval, listing, and deterministic eligibility. |
-| M6 | Applications and student/company application views. |
+| M3 | Student profile, skills/projects, resume metadata/upload, and Placement Admin student verification. |
+| M4 | Company profile, basic institution profile/settings, and admin company approval. |
+| M5 | Job creation, job approval, listing, and deterministic eligibility including student-verification checks. |
+| M6 | Applications and student/company application views, with verified-student application enforcement. |
 | M7 | Recruitment rounds, interviews, outcomes, and placement records. |
-| M8 | Dashboards, notifications, Excel reports. |
+| M8 | Deterministic placement dashboards/statistics, notifications, Excel reports. |
 | M9 | Posts, likes, and comments. |
 | M10 | Resume feedback and job-preparation AI. |
 | M11 | Full QA, responsive polish, demo data, deployment, and viva material. |

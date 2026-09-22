@@ -18,7 +18,22 @@ Placement Admin approves Company
 
 ## Eligibility
 
-The backend evaluates CGPA, branch, backlog count, and graduation year against the published job rules. It returns `eligible` plus human-readable reasons. AI never decides eligibility.
+The backend evaluates student verification, CGPA, branch, backlog count, and graduation year against the published job rules. It returns `eligible` plus human-readable reasons. A non-verified student is not eligible and cannot submit an application. AI never decides eligibility.
+
+## Student verification
+
+```text
+Student completes profile
+  -> StudentProfile verificationStatus is pending
+  -> Placement Admin reviews the profile
+  -> verified or rejected
+```
+
+Only the Placement Admin can make the review decision. The allowed transitions are `pending -> verified` and `pending -> rejected`. The review records the administrator, time, and optional rejection reason. Profile/resume editing remains available to the student; placement eligibility and application submission require `verified`.
+
+## Institution settings and placement dashboard
+
+The Placement Admin maintains the one institution profile; it is shared college presentation/settings data, not a tenant. The dashboard derives counts and package statistics directly from StudentProfile, Company, Job, Application, and PlacementRecord documents, then lists recent application, recruitment, interview, and placement-record activity by date. It does not use AI.
 
 ## Recruitment states
 

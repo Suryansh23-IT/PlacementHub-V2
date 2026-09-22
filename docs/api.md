@@ -29,10 +29,18 @@ Use 200 for successful reads/updates, 201 for creation, 400 for malformed reques
 | Auth | `POST /auth/register`, `POST /auth/login`, `GET /auth/me` |
 | Student | `GET/PATCH /students/me`, `POST /students/me/resume` |
 | Company | `GET/PATCH /companies/me`, `POST /companies/me/jobs` |
-| Admin | `PATCH /admin/companies/:id/approval`, `PATCH /admin/jobs/:id/approval` |
+| Admin | `GET/PATCH /admin/institution`, `GET /admin/students`, `PATCH /admin/students/:id/verification`, `PATCH /admin/companies/:id/approval`, `PATCH /admin/jobs/:id/approval`, `GET /admin/dashboard` |
 | Jobs | `GET /jobs`, `GET /jobs/:id`, `GET /jobs/:id/eligibility` |
 | Applications | `POST /applications`, `GET /applications/me`, `PATCH /applications/:id/status` |
 | Recruitment | `POST /applications/:id/rounds`, `PATCH /rounds/:id` |
 | Reports | `GET /reports/placements/export` |
 
 Routes must authenticate, authorize the role, validate input, and check resource ownership before calling the service.
+
+## Placement Admin responsibilities
+
+Only a Placement Admin may read or update the singleton institution profile, list students for review, change a student verification status, approve companies/jobs, and read the placement dashboard. Student verification accepts only `pending -> verified` or `pending -> rejected`; it records the reviewer and optional rejection reason.
+
+Student profile responses expose the student's own verification status. Placement eligibility and application services must reject non-verified students with a consistent `403` response and a clear verification-status message. Browsing jobs, editing a profile, and managing resume metadata remain available to pending/rejected students.
+
+`GET /admin/dashboard` returns deterministic aggregates: total students, verified students, approved companies, published jobs/drives, total applications, distinct placed students, placement rate, package statistics when placement records contain package values, and a date-descending recent placement/recruitment activity list. Placement rate is `distinct placed students / verified students * 100`; it is `0` when there are no verified students. Package statistics use PlacementRecord package values only. No AI output is used.
