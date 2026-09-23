@@ -1,14 +1,22 @@
-import { EmptyState } from '../components/feedback/EmptyState.jsx'
+import { Link } from 'react-router-dom'
+import nitRaipurLogo from '../assets/nit-raipur-logo.png'
+
+const roles = [
+  ['Students', 'Keep your placement profile, documents, and policy agreement in one clear workspace.'],
+  ['Recruiters', 'Create structured placement proposals and track each review decision with confidence.'],
+  ['Placement Team', 'Review student and Company readiness through a focused approval workflow.'],
+]
+
+const process = ['Student Profile', 'Company Approval', 'Placement Proposal', 'Applications', 'Recruitment Phases', 'Placement Outcome']
 
 export function HomePage() {
-  return (
-    <div className="space-y-10">
-      <section className="max-w-3xl">
-        <p className="text-sm font-semibold uppercase tracking-[0.18em] text-violet-700">Placement management</p>
-        <h1 className="mt-3 text-4xl font-bold tracking-tight text-slate-950 sm:text-5xl">A clear path from profile to placement.</h1>
-        <p className="mt-5 text-lg leading-8 text-slate-600">PlacementHub brings students, recruiters, and placement administrators into one reliable workflow.</p>
-      </section>
-      <EmptyState title="The application foundation is ready." description="Authentication, profiles, jobs, and dashboards will arrive in the next milestones." />
-    </div>
-  )
+  return <div className="space-y-14 sm:space-y-16">
+    <section className="relative overflow-hidden rounded-3xl border border-violet-100 bg-white px-6 py-10 shadow-sm sm:px-10 sm:py-14 lg:px-14">
+      <div className="absolute -right-24 -top-24 h-64 w-64 rounded-full bg-violet-100/70 blur-3xl" />
+      <div className="absolute -bottom-28 left-1/3 h-48 w-48 rounded-full bg-sky-100/60 blur-3xl" />
+      <div className="relative grid items-center gap-9 lg:grid-cols-[minmax(0,1fr)_13rem]"><div className="max-w-3xl"><div className="flex items-center gap-3"><img className="h-12 w-12 rounded-xl border border-slate-200 bg-white object-contain p-1 shadow-sm" src={nitRaipurLogo} alt="National Institute of Technology Raipur" /><div><p className="text-xs font-bold uppercase tracking-[0.18em] text-violet-700">PlacementHub</p><p className="mt-1 text-sm font-semibold text-slate-700">National Institute of Technology Raipur</p></div></div><p className="mt-8 text-xs font-bold uppercase tracking-[0.18em] text-violet-700">Career Development Centre</p><h1 className="mt-4 text-4xl font-bold tracking-tight text-slate-950 sm:text-5xl lg:text-6xl">Campus placements, organized from opportunity to outcome.</h1><p className="mt-5 max-w-2xl text-lg leading-8 text-slate-600">A focused academic prototype for the NIT Raipur Placement Cell, bringing students, recruiters, and placement teams into one dependable workflow.</p><div className="mt-8 flex flex-wrap gap-3"><Link className="inline-flex min-h-11 items-center justify-center rounded-xl bg-violet-700 px-5 py-2.5 text-sm font-semibold text-white shadow-sm shadow-violet-200 transition hover:bg-violet-800 hover:shadow-md" to="/login">Sign in</Link><Link className="inline-flex min-h-11 items-center justify-center rounded-xl border border-slate-300 bg-white px-5 py-2.5 text-sm font-semibold text-slate-700 shadow-sm transition hover:border-slate-400 hover:bg-slate-50" to="/register">Create account</Link></div></div><aside className="hidden rounded-3xl border border-violet-100 bg-violet-50/70 p-5 text-center lg:block"><img className="mx-auto h-28 w-28 object-contain" src={nitRaipurLogo} alt="" /><p className="mt-4 text-xs font-bold uppercase tracking-[0.16em] text-violet-700">NIT Raipur</p><p className="mt-2 text-sm leading-6 text-slate-600">Career Development Centre</p></aside></div>
+    </section>
+    <section><div className="max-w-2xl"><p className="text-xs font-bold uppercase tracking-[0.16em] text-violet-700">Built for every role</p><h2 className="mt-2 text-2xl font-bold tracking-tight text-slate-950 sm:text-3xl">One placement process, with the right level of detail.</h2></div><div className="mt-6 grid gap-4 md:grid-cols-3">{roles.map(([title, description], index) => <article key={title} className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm"><span className="flex h-8 w-8 items-center justify-center rounded-lg bg-violet-50 text-sm font-bold text-violet-700">0{index + 1}</span><h3 className="mt-5 text-lg font-bold text-slate-950">{title}</h3><p className="mt-2 leading-6 text-slate-600">{description}</p></article>)}</div></section>
+    <section className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8"><div className="max-w-2xl"><p className="text-xs font-bold uppercase tracking-[0.16em] text-violet-700">Placement process</p><h2 className="mt-2 text-2xl font-bold tracking-tight text-slate-950 sm:text-3xl">A connected journey from readiness to outcome.</h2></div><ol className="mt-7 flex flex-wrap items-center gap-x-3 gap-y-3">{process.map((step, index) => <li key={step} className="flex items-center gap-3"><span className="rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 text-sm font-semibold text-slate-700">{step}</span>{index < process.length - 1 && <span aria-hidden="true" className="text-lg font-semibold text-violet-500">→</span>}</li>)}</ol></section>
+  </div>
 }

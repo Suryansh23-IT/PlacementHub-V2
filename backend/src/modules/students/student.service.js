@@ -24,7 +24,7 @@ export async function updateStudentProfile(userId, input, { profileModel = Stude
   const current = await ensureStudentProfile(userId, { profileModel })
   const institution = await institutionService()
   const branches = institution.branches ?? []
-  if (branches.length && !branches.includes(input.branch)) throw new AppError('Select a branch configured by the Placement Admin.', { statusCode: 422, errorCode: 'VALIDATION_ERROR' })
+  if (!branches.includes(input.branch)) throw new AppError('Select a branch configured by the Placement Admin.', { statusCode: 422, errorCode: 'VALIDATION_ERROR' })
   const material = hasVerificationCriticalChanges(current, input)
   // PATCH validation intentionally excludes document metadata. Merge the existing
   // optional marksheets so an ordinary profile save cannot replace their subdocuments.

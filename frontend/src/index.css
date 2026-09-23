@@ -3,6 +3,7 @@
 @theme { --font-sans: "Inter", "Segoe UI", sans-serif; }
 
 * { box-sizing: border-box; }
-html { background: #f8fafc; }
-body { margin: 0; min-width: 320px; background: #f8fafc; }
+html { background: #f7f8fc; }
+body { margin: 0; min-width: 320px; background: linear-gradient(180deg, #fbfcff 0, #f7f8fc 32rem); color: #0f172a; }
 button, input, select, textarea { font: inherit; }
+::selection { background: #ddd6fe; color: #312e81; }

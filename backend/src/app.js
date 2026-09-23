@@ -10,6 +10,7 @@ import { adminCompanyRouter, companyRouter } from './modules/companies/company.r
 import { institutionRouter } from './modules/institution/institution.routes.js'
 import { adminStudentPolicyRouter, studentPolicyRouter } from './modules/student-policy/student-policy.routes.js'
 import { adminRecruiterPolicyRouter, recruiterPolicyRouter } from './modules/recruiter-policy/recruiter-policy.routes.js'
+import { adminPlacementDriveRouter, companyPlacementDriveRouter } from './modules/placement-drives/placement-drive.routes.js'
 
 export const app = express()
 
@@ -26,5 +27,7 @@ app.use('/api/v1/students', studentPolicyRouter)
 app.use('/api/v1/admin/student-policy', adminStudentPolicyRouter)
 app.use('/api/v1/companies', recruiterPolicyRouter)
 app.use('/api/v1/admin/recruiter-policy', adminRecruiterPolicyRouter)
+app.use('/api/v1/companies', companyPlacementDriveRouter)
+app.use('/api/v1/admin/placement-drives', adminPlacementDriveRouter)
 app.use(notFound)
 app.use(errorHandler)

@@ -3,22 +3,36 @@
 ## Golden placement workflow
 
 ```text
-Placement Admin approves Company
-  -> Company creates Job (draft)
-  -> Company submits Job for approval
-  -> Admin approves and publishes Job
-  -> Student views Job and eligibility result
-  -> Eligible Student applies once
-  -> Company shortlists and creates recruitment rounds
-  -> Company schedules Interview
-  -> Company records selected/rejected outcome
+Approved Company with accepted Recruiter Placement Policy
+  -> Company creates a Placement Drive proposal for one role
+  -> Company submits structured details, eligibility, two PDFs, and 1–5 phases
+  -> Admin approves, rejects, or requests changes
+  -> Admin publishes an approved drive
+  -> Student views the drive, PDFs, and recruitment journey
+  -> Student applies; backend evaluates deterministic eligibility
+  -> Eligible Student enters system Phase 0 (applicant/screening pool)
+  -> Company executes configured phases and records candidate outcomes
   -> Selected outcome creates PlacementRecord
-  -> Admin dashboard and Excel report reflect the placement
+  -> M8 dashboards and Excel exports report the same underlying data
 ```
 
-## Eligibility
+## M5: Placement Drive proposal and review
 
-The backend evaluates student verification, CGPA, branch, backlog count, and graduation year against the published job rules. It returns `eligible` plus human-readable reasons. A non-verified student is not eligible and cannot submit an application. AI never decides eligibility.
+A Placement Drive is one Company role; a Company can create multiple drives. An approved Company with a current Recruiter Placement Policy acceptance may submit a proposal. The proposal contains structured job details, structured eligibility rules, a Company/recruitment-information PDF, a Placement Drive/job-description PDF, and one to five Company-defined recruitment phases. Phase 0 is never Company-defined.
+
+Admin proposal decisions are approve, reject, or request changes. Review status is separate from publication/lifecycle status. M5 reserves `postponed` and `cancelled` drive states for later use; M7 gives the Admin those actions. Eligibility rules are defined and validated in M5, but eligibility is not evaluated until application in M6.
+
+## M6: Published drives, eligibility, and applications
+
+The Admin publishes an approved drive. Students can see published drive details, both PDFs, and the planned recruitment journey. Applying runs deterministic backend eligibility against student verification, CGPA, branch, backlog count, graduation year, and the drive's stored rules. The response includes eligibility plus human-readable reasons; AI never decides eligibility.
+
+An eligible application is created once per Student and drive and starts in Phase 0, the system-owned applicant/screening pool. Future AI or ATS screening may attach to Phase 0 without making it a Company-defined phase. Student views show personal application, status, and history; Company views expose rich applicant data; Admin views expose lighter monitoring data. Applications support withdrawal, status, and history.
+
+## M7: Phase execution and placement outcomes
+
+M7 executes the phases designed in M5. Companies can schedule each phase, provide external links and instructions, and notify candidates in that phase. Candidate states include `pending`, `result_pending`, `qualified`, `rejected`, `absent`, `disqualified`, and `selected`. Companies can promote or demote candidates between Phase 0 and configured phases while preserving phase history.
+
+Students see a personal phase journey. Admin monitors the same drive, application, phase, and history data without a duplicate phase/student store. A selected result creates one controlled PlacementRecord. The Admin can postpone or cancel a drive.
 
 ## Student verification
 
@@ -39,18 +53,10 @@ The Admin inserts the approved Recruiter policy text, academic year and version,
 
 Only approved Companies can read and sign the active Recruiter policy. The Company confirms representative authority and agreement, then explicitly accepts the displayed version. Each acceptance is permanent for that Company user and policy ID, with server time and version stored. A different active version needs its own acceptance; reactivating an already signed version retains that signature. Admin Company Review shows agreement status against the active version, or Not Accepted with no policy metadata when none is active. Admin cannot sign on behalf of the Company. Student policy behavior is unchanged. Job creation enforcement remains deferred to M5.
 
-## Institution settings and placement dashboard
+## M8: dashboards, analytics, and exports
 
-The Placement Admin maintains the one institution profile; it is shared college presentation/settings data, not a tenant. The dashboard derives counts and package statistics directly from StudentProfile, Company, Job, Application, and PlacementRecord documents, then lists recent application, recruitment, interview, and placement-record activity by date. It does not use AI.
+M8 adds no core placement decision logic. It presents clean Admin, Company, and Student dashboards using M3–M7 data: Placement Drive monitoring, filters and search, notification-center polish, analytics, and Excel exports. The Student Placement Center groups Open Drives, My Applications, and History. The Placement Admin dashboard derives its statistics from stored data, including verified students, approved companies, published drives, applications, placement records, placement rate, package statistics when available, and recent activity. AI does not generate, rank, or modify these statistics.
 
-## Recruitment states
+## Notifications across M5–M7
 
-Application states: `applied`, `in_progress`, `selected`, `rejected`, `withdrawn`.
-
-Round states: `pending`, `scheduled`, `in_progress`, `passed`, `failed`, `cancelled`.
-
-Only valid transitions are allowed. For example, a rejected application cannot move to selected without an explicit, documented correction workflow.
-
-## Notifications
-
-Backend services create in-app notifications after application submission, shortlist, interview scheduling, selection, and rejection. A notification failure must not cancel the main action.
+Notifications support meaningful placement events only: Admin to Students, Admin to Companies, Company to Admin, and Company to Students in that Company's own drive or phase. They are used for proposal decisions, publishing, application and material phase updates, schedules, selection, rejection, postponement, cancellation, and similar actionable changes. The system must not notify users for every small status change.

@@ -59,6 +59,13 @@ test('student profile validation accepts the complete richer profile and rejects
   assert.equal(studentProfileSchema.safeParse({ ...completeProfileInput, graduationYear: 1999, cgpa: 11, activeBacklogs: -1 }).success, false)
 })
 
+test('student profiles accept only canonical InstitutionProfile branch values', async () => {
+  await assert.rejects(
+    updateStudentProfile('student-1', { ...completeProfileInput, branch: 'Unconfigured Branch' }, { profileModel: createProfileModel(), institutionService }),
+    { errorCode: 'VALIDATION_ERROR' },
+  )
+})
+
 test('optional professional and coding links persist without affecting completion', () => {
   const input = { ...completeProfileInput, professionalLinks: { linkedin: 'https://linkedin.com/in/example', github: 'https://github.com/example', portfolio: 'https://example.test' }, codingProfiles: [{ platform: 'LeetCode', url: 'https://leetcode.com/example' }, { platform: 'CodeChef', url: 'https://www.codechef.com/users/example' }] }
   const parsed = studentProfileSchema.parse(input)

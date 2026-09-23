@@ -18,6 +18,10 @@ import { StudentPolicyPage } from './pages/StudentPolicyPage.jsx'
 import { AdminStudentPolicyPage } from './pages/AdminStudentPolicyPage.jsx'
 import { AdminRecruiterPolicyPage } from './pages/AdminRecruiterPolicyPage.jsx'
 import { RecruiterPolicyPage } from './pages/RecruiterPolicyPage.jsx'
+import { CompanyPlacementDrivesPage } from './pages/CompanyPlacementDrivesPage.jsx'
+import { CompanyPlacementDriveFormPage } from './pages/CompanyPlacementDriveFormPage.jsx'
+import { AdminPlacementDrivesPage } from './pages/AdminPlacementDrivesPage.jsx'
+import { AdminPlacementDriveReviewPage } from './pages/AdminPlacementDriveReviewPage.jsx'
 
 export default function App() {
   return (
@@ -34,10 +38,15 @@ export default function App() {
         <Route path="company/profile" element={<RequireAuth><RequireRole roles={['company']}><CompanyProfilePage /></RequireRole></RequireAuth>} />
         <Route path="admin/companies" element={<RequireAuth><RequireRole roles={['placement_admin']}><AdminCompaniesPage /></RequireRole></RequireAuth>} />
         <Route path="admin/companies/:id" element={<RequireAuth><RequireRole roles={['placement_admin']}><AdminCompanyReviewPage /></RequireRole></RequireAuth>} />
+        <Route path="admin/placement-drives" element={<RequireAuth><RequireRole roles={['placement_admin']}><AdminPlacementDrivesPage /></RequireRole></RequireAuth>} />
+        <Route path="admin/placement-drives/:id" element={<RequireAuth><RequireRole roles={['placement_admin']}><AdminPlacementDriveReviewPage /></RequireRole></RequireAuth>} />
         <Route path="admin/institution" element={<RequireAuth><RequireRole roles={['placement_admin']}><AdminInstitutionPage /></RequireRole></RequireAuth>} />
         <Route path="admin/student-policy" element={<RequireAuth><RequireRole roles={['placement_admin']}><AdminStudentPolicyPage /></RequireRole></RequireAuth>} />
         <Route path="admin/recruiter-policy" element={<RequireAuth><RequireRole roles={['placement_admin']}><AdminRecruiterPolicyPage /></RequireRole></RequireAuth>} />
         <Route path="company/policy" element={<RequireAuth><RequireRole roles={['company']}><RecruiterPolicyPage /></RequireRole></RequireAuth>} />
+        <Route path="company/placement-drives" element={<RequireAuth><RequireRole roles={['company']}><CompanyPlacementDrivesPage /></RequireRole></RequireAuth>} />
+        <Route path="company/placement-drives/new" element={<RequireAuth><RequireRole roles={['company']}><CompanyPlacementDriveFormPage /></RequireRole></RequireAuth>} />
+        <Route path="company/placement-drives/:id" element={<RequireAuth><RequireRole roles={['company']}><CompanyPlacementDriveFormPage /></RequireRole></RequireAuth>} />
         <Route path="*" element={<NotFoundPage />} />
       </Route>
     </Routes>
