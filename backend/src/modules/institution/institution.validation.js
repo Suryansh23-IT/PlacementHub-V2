@@ -1,0 +1,3 @@
+import { z } from 'zod'
+const required = (label, max) => z.string().trim().min(2, `${label} is required.`).max(max)
+export const institutionSchema = z.object({ collegeName: required('College name', 160), logoUrl: z.string().trim().url('Logo URL must be valid.').max(500).or(z.literal('')).transform((v) => v || undefined), location: required('Location', 200), placementEmail: z.string().trim().email('Enter a valid placement email.').max(254), placementPhone: z.string().trim().min(6, 'Enter a valid placement phone number.').max(30), branches: z.array(required('Branch', 100)).min(1, 'Add at least one placement branch.').max(50) })

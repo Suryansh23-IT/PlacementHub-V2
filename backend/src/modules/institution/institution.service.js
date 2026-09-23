@@ -1,0 +1,3 @@
+import { InstitutionProfile } from './institution.model.js'
+export async function getInstitutionProfile({ institutionModel = InstitutionProfile } = {}) { return institutionModel.findOneAndUpdate({ singletonKey: 'placementhub-v2' }, { $setOnInsert: { singletonKey: 'placementhub-v2' } }, { new: true, upsert: true, setDefaultsOnInsert: true }) }
+export async function updateInstitutionProfile(input, { institutionModel = InstitutionProfile } = {}) { await getInstitutionProfile({ institutionModel }); return institutionModel.findOneAndUpdate({ singletonKey: 'placementhub-v2' }, { $set: input }, { new: true, runValidators: true }) }

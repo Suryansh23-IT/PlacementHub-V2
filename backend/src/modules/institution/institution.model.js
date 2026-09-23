@@ -1,0 +1,3 @@
+import mongoose from 'mongoose'
+const institutionSchema = new mongoose.Schema({ singletonKey: { type: String, required: true, unique: true, default: 'placementhub-v2' }, collegeName: { type: String, trim: true, maxlength: 160 }, logoUrl: { type: String, trim: true, maxlength: 500 }, location: { type: String, trim: true, maxlength: 200 }, placementEmail: { type: String, trim: true, lowercase: true, maxlength: 254 }, placementPhone: { type: String, trim: true, maxlength: 30 }, branches: [{ type: String, trim: true, maxlength: 100 }] }, { timestamps: true })
+export const InstitutionProfile = mongoose.models.InstitutionProfile ?? mongoose.model('InstitutionProfile', institutionSchema)

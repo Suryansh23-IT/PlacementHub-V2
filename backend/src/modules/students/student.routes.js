@@ -5,11 +5,11 @@ import { Router } from 'express'
 import multer from 'multer'
 import { env } from '../../config/env.js'
 import { AppError } from '../../errors/app-error.js'
-import { validateBody } from '../../middleware/validate-request.js'
+import { validateBody, validateParams } from '../../middleware/validate-request.js'
 import { authenticate, authorizeRoles } from '../auth/auth.middleware.js'
 import { USER_ROLES } from '../auth/auth.constants.js'
-import { downloadMyResume, getMyProfile, getStudentsForReview, patchMyProfile, patchStudentVerification, resubmitMyProfileForVerification, uploadMyResume } from './student.controller.js'
-import { studentProfileSchema, verificationSchema } from './student.validation.js'
+import { downloadMyMarksheet, downloadMyResume, downloadStudentDocumentForAdmin, getAvailableBranches, getMyProfile, getStudentForReview, getStudentsForReview, patchMyProfile, patchStudentVerification, resubmitMyProfileForVerification, uploadMyMarksheet, uploadMyResume } from './student.controller.js'
+import { adminStudentDocumentParamsSchema, documentTypeParamsSchema, studentIdParamsSchema, studentProfileSchema, verificationSchema } from './student.validation.js'
 
 const resumeDirectory = path.resolve(env.RESUME_UPLOAD_DIR)
 await mkdir(resumeDirectory, { recursive: true })
@@ -30,12 +30,17 @@ const resumeUpload = multer({
 export const studentRouter = Router()
 studentRouter.use(authenticate, authorizeRoles(USER_ROLES.STUDENT))
 studentRouter.get('/me', getMyProfile)
+studentRouter.get('/me/branches', getAvailableBranches)
 studentRouter.patch('/me', validateBody(studentProfileSchema), patchMyProfile)
 studentRouter.post('/me/resume', resumeUpload.single('resume'), uploadMyResume)
 studentRouter.get('/me/resume/download', downloadMyResume)
+studentRouter.post('/me/documents/:type', validateParams(documentTypeParamsSchema), resumeUpload.single('marksheet'), uploadMyMarksheet)
+studentRouter.get('/me/documents/:type/download', validateParams(documentTypeParamsSchema), downloadMyMarksheet)
 studentRouter.post('/me/verification/resubmit', resubmitMyProfileForVerification)
 
 export const adminStudentRouter = Router()
 adminStudentRouter.use(authenticate, authorizeRoles(USER_ROLES.PLACEMENT_ADMIN))
 adminStudentRouter.get('/', getStudentsForReview)
-adminStudentRouter.patch('/:id/verification', validateBody(verificationSchema), patchStudentVerification)
+adminStudentRouter.get('/:id/documents/:type/download', validateParams(adminStudentDocumentParamsSchema), downloadStudentDocumentForAdmin)
+adminStudentRouter.get('/:id', validateParams(studentIdParamsSchema), getStudentForReview)
+adminStudentRouter.patch('/:id/verification', validateParams(studentIdParamsSchema), validateBody(verificationSchema), patchStudentVerification)

@@ -4,7 +4,7 @@ PlacementHub V2 is a MERN platform for one college placement cell. Students mana
 
 ## Current status
 
-**Roadmap status:** M0 documentation complete; M1 foundation complete; M2 authentication and authorization complete; M3 student profiles, resumes, and verification is in review.
+**Roadmap status:** M0 documentation complete; M1 foundation complete; M2 authentication and authorization complete; M3 student profiles, resumes, and verification complete; M4 company profiles, institution settings, and company approval complete.
 
 ## Planned stack
 

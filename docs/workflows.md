@@ -33,6 +33,12 @@ Student completes profile
 
 Only the Placement Admin can make the review decision. Admin review transitions are `pending -> verified` and `pending -> rejected`. A rejected Student may explicitly resubmit only after completing the required academic details and resume; the resubmission transition is `rejected -> pending` and clears the previous review metadata. Verified is final for this workflow. Profile/resume editing remains available to the student; placement eligibility and application submission require `verified`.
 
+## Recruiter Placement Agreement
+
+The Admin inserts the approved Recruiter policy text, academic year and version, then activates it. No default Recruiter policy text is seeded: the repository currently contains no supplied Recruiter policy artifact. Inactive versions remain available in Admin management. Activating a version deactivates the previous one; saved text cannot be edited in place, so revisions require a new academic-year/version pair.
+
+Only approved Companies can read and sign the active Recruiter policy. The Company confirms representative authority and agreement, then explicitly accepts the displayed version. Each acceptance is permanent for that Company user and policy ID, with server time and version stored. A different active version needs its own acceptance; reactivating an already signed version retains that signature. Admin Company Review shows agreement status against the active version, or Not Accepted with no policy metadata when none is active. Admin cannot sign on behalf of the Company. Student policy behavior is unchanged. Job creation enforcement remains deferred to M5.
+
 ## Institution settings and placement dashboard
 
 The Placement Admin maintains the one institution profile; it is shared college presentation/settings data, not a tenant. The dashboard derives counts and package statistics directly from StudentProfile, Company, Job, Application, and PlacementRecord documents, then lists recent application, recruitment, interview, and placement-record activity by date. It does not use AI.
