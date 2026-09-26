@@ -28,6 +28,8 @@ The Admin publishes an approved drive. Students can see published drive details,
 
 An eligible application is created once per Student and drive and starts in Phase 0, the system-owned applicant/screening pool. Future AI or ATS screening may attach to Phase 0 without making it a Company-defined phase. Student views show personal application, status, and history; Company views expose rich applicant data; Admin views expose lighter monitoring data. Applications support withdrawal, status, and history.
 
+Published Drive visibility is separate from its application window. A published Drive accepts new applications only until its stored deadline and while Placement Administration has not manually closed intake. An Admin may extend a deadline, close applications early, or reopen a manually closed window; those actions never change the published timestamp, existing Applications, or Phase 0 history. Natural deadline expiry is calculated when eligibility or application submission runs and does not require a background job.
+
 ## M7: Phase execution and placement outcomes
 
 M7 executes the phases designed in M5. Companies can schedule each phase, provide external links and instructions, and notify candidates in that phase. Candidate states include `pending`, `result_pending`, `qualified`, `rejected`, `absent`, `disqualified`, and `selected`. Companies can promote or demote candidates between Phase 0 and configured phases while preserving phase history.

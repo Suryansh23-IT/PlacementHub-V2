@@ -1,29 +1,21 @@
-import { NavLink, Outlet, useNavigate } from 'react-router-dom'
+import { useEffect, useRef, useState } from 'react'
+import { NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom'
 import { useAuth } from '../features/auth/useAuth.js'
-import nitRaipurLogo from '../assets/nit-raipur-logo.png'
+import { BrandLogo } from '../components/brand/BrandLogo.jsx'
+import { HelpSupportIcon } from '../components/help/HelpSupportIcon.jsx'
+
+const marketingPaths = new Set(['/', '/institutions', '/employers', '/students'])
 
 export function AppLayout() {
   const { session, endSession } = useAuth()
   const navigate = useNavigate()
-
-  function handleSignOut() {
-    endSession()
-    navigate('/')
-  }
-
-  return (
-    <div className="min-h-screen text-slate-900">
-      <header className="sticky top-0 z-10 border-b border-slate-200/90 bg-white/90 backdrop-blur-xl">
-        <div className="mx-auto flex max-w-7xl flex-wrap items-center gap-x-5 gap-y-2 px-4 py-3 sm:px-6">
-          <NavLink className="mr-auto flex shrink-0 items-center gap-2 text-lg font-bold tracking-tight text-violet-700" to="/"><span className="flex h-8 w-8 items-center justify-center overflow-hidden rounded-lg border border-violet-100 bg-white shadow-sm"><img className="h-7 w-7 object-contain" src={nitRaipurLogo} alt="" /></span>PlacementHub</NavLink>
-          <div className="flex max-w-full items-center gap-1 overflow-x-auto text-sm sm:gap-1.5"><span className="hidden whitespace-nowrap pr-2 text-xs font-medium text-slate-500 lg:inline">NIT Raipur · Placement Cell</span>{session ? <><HeaderLink to="/dashboard">Dashboard</HeaderLink>{session.user.role === 'student' && <><HeaderLink to="/student/profile">My profile</HeaderLink><HeaderLink to="/student/policy">Policy</HeaderLink></>}{session.user.role === 'company' && <><HeaderLink to="/company/profile">Company profile</HeaderLink><HeaderLink to="/company/placement-drives">Placement drives</HeaderLink><HeaderLink to="/company/policy">Recruiter policy</HeaderLink></>}{session.user.role === 'placement_admin' && <><HeaderLink to="/admin/students">Students</HeaderLink><HeaderLink to="/admin/companies">Companies</HeaderLink><HeaderLink to="/admin/placement-drives">Proposals</HeaderLink><HeaderLink to="/admin/institution">Institution</HeaderLink><HeaderLink to="/admin/student-policy">Student policy</HeaderLink><HeaderLink to="/admin/recruiter-policy">Recruiter policy</HeaderLink></>}<button className="whitespace-nowrap rounded-lg px-2.5 py-2 font-semibold text-slate-600 hover:bg-slate-100 hover:text-slate-950" onClick={handleSignOut}>Sign out</button></> : <HeaderLink to="/login">Sign in</HeaderLink>}</div>
-        </div>
-      </header>
-      <main className="mx-auto max-w-7xl px-4 py-8 sm:px-6 sm:py-10 lg:py-12"><Outlet /></main>
-    </div>
-  )
+  const location = useLocation()
+  const marketing = marketingPaths.has(location.pathname)
+  function handleSignOut() { endSession(); navigate('/') }
+  return <div className="app-shell"><header className={`app-nav ${session ? 'app-nav-private' : 'app-nav-public'} sticky top-0 z-20`}><div className="app-nav-inner mx-auto flex flex-wrap items-center gap-x-4 gap-y-2 px-4 py-3 sm:px-6"><BrandLogo /><div className="app-nav-links ml-auto flex max-w-full items-center gap-1 overflow-x-auto text-sm sm:gap-1.5 lg:overflow-visible">{session ? <AuthenticatedNavigation session={session} pathname={location.pathname} onSignOut={handleSignOut} /> : <PublicNavigation />}</div></div></header><main className={marketing ? '' : 'mx-auto max-w-7xl px-4 py-8 sm:px-6 sm:py-10 lg:py-12'}><Outlet /></main></div>
 }
-
-function HeaderLink({ to, children }) {
-  return <NavLink className={({ isActive }) => `whitespace-nowrap rounded-lg px-2.5 py-2 font-semibold transition ${isActive ? 'bg-violet-50 text-violet-800' : 'text-slate-600 hover:bg-slate-100 hover:text-slate-950'}`} to={to}>{children}</NavLink>
-}
+function PublicNavigation() { return <nav className="ph-public-nav" aria-label="Public navigation"><HeaderLink to="/">Home</HeaderLink><HeaderLink to="/institutions">Institutions</HeaderLink><HeaderLink to="/employers">Employers</HeaderLink><HeaderLink to="/students">Students</HeaderLink><HeaderLink to="/help-support"><span className="inline-flex items-center gap-1.5"><HelpSupportIcon />Help &amp; Support</span></HeaderLink><HeaderLink to="/login">Log in</HeaderLink><NavLink className="ph-nav-cta" to="/register">Get started</NavLink></nav> }
+function AuthenticatedNavigation({ session, pathname, onSignOut }) { return <><HeaderLink to="/dashboard">Dashboard</HeaderLink>{session.user.role === 'student' && <><HeaderLink to="/student/profile">My profile</HeaderLink><HeaderLink to="/student/placement">Placement</HeaderLink><HeaderLink to="/student/notifications">Notifications</HeaderLink><HeaderLink to="/student/policy">Policy</HeaderLink></>}{session.user.role === 'company' && <><HeaderLink to="/company/profile">Company profile</HeaderLink><HeaderLink to="/company/placement-drives">Placement drives</HeaderLink><HeaderLink to="/company/notifications">Notifications</HeaderLink><HeaderLink to="/company/policy">Recruiter policy</HeaderLink></>}{session.user.role === 'placement_admin' && <><HeaderLink to="/admin/students">Students</HeaderLink><HeaderLink to="/admin/companies">Companies</HeaderLink><HeaderLink to="/admin/placement-drives">Proposals</HeaderLink><HeaderLink to="/admin/placement-drives/monitoring">Active Drives</HeaderLink><HeaderLink to="/admin/placement-discipline">Discipline</HeaderLink><HeaderLink to="/admin/notifications">Notifications</HeaderLink><HeaderLink to="/admin/institution">Institution</HeaderLink><PolicyMenu active={pathname === '/admin/student-policy' || pathname === '/admin/recruiter-policy'} /></>}<HeaderLink to="/help-support"><span className="inline-flex items-center gap-1.5"><HelpSupportIcon />Help &amp; Support</span></HeaderLink><button className="whitespace-nowrap rounded-xl px-2.5 py-2 font-bold text-slate-600 transition hover:bg-slate-100 hover:text-slate-950" onClick={onSignOut}>Sign out</button></> }
+function HeaderLink({ to, children }) { return <NavLink className={({ isActive }) => `nav-link whitespace-nowrap px-2.5 py-2 ${isActive ? 'nav-link-active' : ''}`} to={to}>{children}</NavLink> }
+function PolicyMenu({ active }) { const [open, setOpen] = useState(false); const menuRef = useRef(null); useEffect(() => { function closeOnOutsideClick(event) { if (!menuRef.current?.contains(event.target)) setOpen(false) } function closeOnEscape(event) { if (event.key === 'Escape') setOpen(false) } document.addEventListener('mousedown', closeOnOutsideClick); document.addEventListener('keydown', closeOnEscape); return () => { document.removeEventListener('mousedown', closeOnOutsideClick); document.removeEventListener('keydown', closeOnEscape) } }, []); return <div className="policy-menu shrink-0" ref={menuRef}><button type="button" className={`nav-link inline-flex items-center gap-1 whitespace-nowrap px-2.5 py-2 ${active ? 'nav-link-active' : ''}`} aria-expanded={open} aria-haspopup="menu" onClick={() => setOpen(value => !value)}>Policies <span className={`text-xs transition ${open ? 'rotate-180' : ''}`} aria-hidden="true">⌄</span></button>{open && <div className="policy-menu-panel" role="menu" aria-label="Policies"><p className="px-3 pb-1 pt-2 text-[.62rem] font-extrabold uppercase tracking-[.14em] text-slate-400">Placement policies</p><PolicyLink to="/admin/student-policy" onClick={() => setOpen(false)}>Student Policy<span>For Students</span></PolicyLink><PolicyLink to="/admin/recruiter-policy" onClick={() => setOpen(false)}>Recruiter Policy<span>For Companies</span></PolicyLink></div>}</div> }
+function PolicyLink({ to, children, onClick }) { const [title, description] = Array.isArray(children) ? children : [children]; return <NavLink onClick={onClick} className={({ isActive }) => `policy-menu-link ${isActive ? 'policy-menu-link-active' : ''}`} to={to} role="menuitem"><strong>{title}</strong>{description && <span>{description}</span>}</NavLink> }

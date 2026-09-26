@@ -13,7 +13,7 @@ MongoDB stores one document collection per primary domain. Mongoose validates sc
 | RecruiterPlacementPolicy | Title, academic year, version, policy text and active flag; shares the Student policy schema factory but uses a separate collection. |
 | RecruiterPolicyAcceptance | `companyId` references the Company User; stores policy ID, policy version and server-generated acceptedAt. Separate from Company approval/completion. |
 | Resume | Belongs to a student; file metadata, storage URL, optional parsed text. |
-| PlacementDrive | Belongs to a Company and represents one role. Stores structured job details, eligibility rules, the Company/recruitment PDF, the drive/JD PDF, 1–5 ordered Company-defined phase definitions, proposal-review status, publication/lifecycle status, and review metadata. Phase 0 is system-owned and is not stored as a Company phase definition. |
+| PlacementDrive | Belongs to a Company and represents one role. Stores structured job details, eligibility rules, the Company/recruitment PDF, the drive/JD PDF, 1–5 ordered Company-defined phase definitions, proposal-review status, publication/lifecycle status, and review metadata. It also stores application-window metadata for an Admin manual close and deadline extension; this does not alter the Drive lifecycle or existing Applications. Phase 0 is system-owned and is not stored as a Company phase definition. |
 | Application | Joins one Student and PlacementDrive. Stores `currentPhase`, `currentStatus`, withdrawal/outcome data, and append-only `phaseHistory`; Phase 0 is the initial applicant/screening pool. |
 | PlacementRecord | Controlled record created from a selected Application; records the Student, Company, PlacementDrive, package, joining date, and placement year. |
 | Notification | Belongs to a User; stores event type, concise text, relevant drive/application/phase references, read status, and actor/recipient context for authorized delivery. |
@@ -32,7 +32,8 @@ MongoDB stores one document collection per primary domain. Mongoose validates sc
 - `Application` has a unique compound index on `studentId + placementDriveId`; index drive plus current phase/status for Company and Admin monitoring.
 - `PlacementRecord` should be unique per selected Application and indexed by student, company, drive, and placement year.
 - `Notification` should be indexed by recipient, read status, and created date.
-- `PlacementRestriction`, if introduced, should be indexed by student and active/effective dates.
+- `IncidentReport` retains its review decision and optional resolved-matter archival metadata; closing a matter never changes the decision or a restriction.
+- `PlacementRestriction` is indexed by student and active status. Multiple historical restrictions may belong to one Student; only the active record affects eligibility.
 - `PostLike` has a unique compound index on `postId + userId`.
 
 ## Data ownership

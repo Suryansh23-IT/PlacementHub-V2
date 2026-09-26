@@ -51,3 +51,12 @@ docs/         Approved project documentation
 - `npm run lint --prefix frontend`
 - `npm run check:backend`
 - `npm start --prefix backend`
+
+## Local smoke fixture
+
+The controlled TCS browser-smoke fixture is optional and is kept separate from normal local data.
+
+- `npm run fixture:tcs-smoke --prefix backend` creates or replaces only the fixture records tracked by `placementhub-v2-tcs-smoke-fixture-v1`.
+- `npm run fixture:tcs-smoke:clean --prefix backend` prints the tracked-record audit, then removes only that fixture’s notifications, workflow records, fixture accounts/profiles, policy acceptances, store entry, and generated local manifest.
+
+The cleanup never selects records by Company name and does not remove manual or demo-seeded data.

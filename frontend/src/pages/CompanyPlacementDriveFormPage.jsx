@@ -2,12 +2,15 @@ import { useEffect, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import { ErrorState } from '../components/feedback/ErrorState.jsx'
 import { LoadingState } from '../components/feedback/LoadingState.jsx'
+import { DriveContextHeader } from '../components/placement-drives/DriveContextHeader.jsx'
+import { DriveMessageComposer } from '../components/notifications/DriveMessageComposer.jsx'
 import { Button } from '../components/ui/Button.jsx'
 import { FormField } from '../components/ui/FormField.jsx'
 import { PageHeader } from '../components/ui/PageHeader.jsx'
 import { StatusBadge } from '../components/ui/StatusBadge.jsx'
 import { useAuth } from '../features/auth/useAuth.js'
 import { createMyPlacementDrive, downloadMyPlacementDriveDocument, getMyPlacementDrive, getMyPlacementDriveBranches, resubmitMyPlacementDrive, submitMyPlacementDrive, updateMyPlacementDrive, uploadMyPlacementDriveDocument } from '../services/placement-drive.service.js'
+import { sendCompanyAdminNotification, sendCompanyDriveApplicantsNotification } from '../services/company-notification.service.js'
 
 const blank = {
   role: { title: '', domain: '', employmentType: 'full_time', description: '', requiredSkills: '' },
@@ -135,8 +138,10 @@ export function CompanyPlacementDriveFormPage() {
   const feedback = drive?.review?.requestedChanges || drive?.review?.rejectionReason
   return <section className="space-y-7">
     <Link className="text-sm font-bold text-violet-700" to="/company/placement-drives">← Placement Drive proposals</Link>
-    <PageHeader eyebrow="Company" title={drive ? drive.role.title : 'Create Placement Drive proposal'} description="One proposal represents one role. Phase 0 is reserved for the future applicant screening flow and cannot be configured here." action={drive ? <div className="flex gap-2"><StatusBadge status={status} /><StatusBadge status={drive.lifecycleStatus} /></div> : null} />
+    <PageHeader eyebrow="Company" title={drive ? drive.role.title : 'Create Placement Drive proposal'} description="One proposal represents one role. Phase 0 is reserved for the future applicant screening flow and cannot be configured here." action={drive ? <div className="flex flex-wrap justify-end gap-2"><StatusBadge status={status} /><StatusBadge status={drive.lifecycleStatus} />{drive.lifecycleStatus === 'published' && <Link className="inline-flex min-h-10 items-center justify-center rounded-lg bg-violet-700 px-3 py-2 text-sm font-semibold text-white hover:bg-violet-800" to={`/company/placement-drives/${drive._id}/applicants`}>View applicants</Link>}</div> : null} />
+    {drive && <DriveContextHeader drive={drive} />}
     {feedback && <section className="rounded-2xl border border-amber-200 bg-amber-50 p-5 text-amber-950"><h2 className="font-bold">Admin feedback</h2><p className="mt-2 text-sm leading-6">{feedback}</p></section>}
+    {drive && <DriveMessageComposer driveName={drive.role?.title} actions={[{ id: 'admin', label: 'Message Placement Admin', description: 'Send a placement-related message with this Drive already attached.', send: form => sendCompanyAdminNotification(session.accessToken, { ...form, placementDriveId: drive._id }), success: () => 'Message sent to Placement Admin.' }, ...(drive.lifecycleStatus === 'published' ? [{ id: 'applicants', label: 'Notify Applicants', description: 'Send this message to active Phase 0 applicants of this Drive. Withdrawn candidates are excluded.', send: form => sendCompanyDriveApplicantsNotification(session.accessToken, { ...form, placementDriveId: drive._id }), success: result => `Notification sent to ${result.data?.notificationsCreated ?? 0} active applicant${result.data?.notificationsCreated === 1 ? '' : 's'}.` }] : [])]} />}
     {error && <ErrorState message={error} />}
     {success && <p role="status" className="rounded-xl border border-emerald-200 bg-emerald-50 p-4 text-sm text-emerald-800">{success}</p>}
     {!editable && <p className="rounded-xl border border-slate-200 bg-slate-100 p-4 text-sm text-slate-700">This proposal is {status.replace('_', ' ')} and cannot be edited at this stage.</p>}

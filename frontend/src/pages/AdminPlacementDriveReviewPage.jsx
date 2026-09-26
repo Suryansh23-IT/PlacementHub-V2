@@ -3,13 +3,14 @@ import { Link, useParams, useSearchParams } from 'react-router-dom'
 import { z } from 'zod'
 import { ErrorState } from '../components/feedback/ErrorState.jsx'
 import { LoadingState } from '../components/feedback/LoadingState.jsx'
+import { DriveContextHeader } from '../components/placement-drives/DriveContextHeader.jsx'
 import { Button } from '../components/ui/Button.jsx'
 import { FormField } from '../components/ui/FormField.jsx'
 import { PageHeader } from '../components/ui/PageHeader.jsx'
 import { StatusBadge } from '../components/ui/StatusBadge.jsx'
 import { useAuth } from '../features/auth/useAuth.js'
 import { getCompanies } from '../services/company.service.js'
-import { downloadAdminPlacementDriveDocument, getAdminPlacementDrive, reviewAdminPlacementDrive } from '../services/placement-drive.service.js'
+import { downloadAdminPlacementDriveDocument, getAdminPlacementDrive, publishAdminPlacementDrive, reviewAdminPlacementDrive } from '../services/placement-drive.service.js'
 
 const reasonSchema = z.string().trim().min(2, 'Provide feedback of at least 2 characters.').max(1500, 'Use at most 1500 characters.')
 const list = value => value?.length ? value.join(', ') : null
@@ -39,6 +40,7 @@ function ProposalReviewRecord({ id, session }) {
   const [reason, setReason] = useState('')
   const [reasonError, setReasonError] = useState('')
   const [decision, setDecision] = useState('')
+  const [publishing, setPublishing] = useState(false)
   const [documentError, setDocumentError] = useState('')
   const [busyDocument, setBusyDocument] = useState('')
   const filter = ['submitted', 'changes_requested', 'approved', 'rejected', 'all'].includes(search.get('status')) ? search.get('status') : 'submitted'
@@ -102,17 +104,31 @@ function ProposalReviewRecord({ id, session }) {
     } catch (error) { viewer?.close(); setDocumentError(error.message) } finally { setBusyDocument('') }
   }
 
+  async function publish() {
+    if (!drive || publishing || drive.proposalStatus !== 'approved' || drive.lifecycleStatus !== 'unpublished') return
+    setPublishing(true)
+    setError('')
+    setSuccess('')
+    try {
+      const { data } = await publishAdminPlacementDrive(session.accessToken, id)
+      setDrive(data.drive)
+      setSuccess(data.alreadyPublished ? 'Placement Drive is already published.' : `Placement Drive published successfully. It is now open to Students${data.notificationsCreated ? `, and ${data.notificationsCreated} eligible Student notification${data.notificationsCreated === 1 ? '' : 's'} were created.` : '.'}`)
+    } catch (error) { setError(error.message) } finally { setPublishing(false) }
+  }
+
   const back = <Link className="text-sm font-bold text-violet-700" to={`/admin/placement-drives?status=${filter}`}>← Placement proposals</Link>
   if (loading) return <LoadingState message="Loading Placement Drive proposal…" />
   if (!drive) return <section className="space-y-6">{back}<ErrorState message={error || 'Placement Drive proposal could not be loaded.'} /></section>
   const profile = company?.company || {}
   const canReview = drive.proposalStatus === 'submitted'
+  const canPublish = drive.proposalStatus === 'approved' && drive.lifecycleStatus === 'unpublished'
   const phases = [...(drive.phases || [])].filter(phase => phase.phaseNumber >= 1).sort((left, right) => left.phaseNumber - right.phaseNumber)
   const feedback = drive.review?.requestedChanges || drive.review?.rejectionReason
 
   return <section className="space-y-6">
     {back}
     <PageHeader eyebrow="Placement proposal review" title={drive.role?.title || 'Placement Drive'} description={drive.role?.domain || 'Role details'} action={<div className="flex flex-wrap justify-end gap-2"><StatusBadge status={drive.proposalStatus} /><StatusBadge status={drive.lifecycleStatus} /></div>} />
+    <DriveContextHeader drive={{ ...drive, company: profile }} />
     {feedback && <section className="rounded-2xl border border-amber-200 bg-amber-50 p-5"><h2 className="font-bold text-amber-950">Previous Admin feedback</h2><p className="mt-2 whitespace-pre-wrap text-sm text-amber-900">{feedback}</p></section>}
     <Record title="Company summary" items={[
       ['Company name', profile.companyName || company?.name], ['Recruiter / SPOC', [profile.recruiterName, profile.recruiterDesignation].filter(Boolean).join(' · ')], ['Official email', profile.officialEmail || profile.recruiterEmail], ['Phone', profile.recruiterPhone], ['Website', profile.website],
@@ -129,6 +145,8 @@ function ProposalReviewRecord({ id, session }) {
     <Record title="Proposal status" items={[
       ['Current proposal status', titleCase(drive.proposalStatus)], ['Drive lifecycle', titleCase(drive.lifecycleStatus)], ['Last reviewed', dateLabel(drive.review?.reviewedAt)], ['Changes requested', drive.review?.requestedChanges], ['Rejection reason', drive.review?.rejectionReason],
     ]} />
+    {canPublish && <section className="rounded-2xl border border-violet-200 bg-violet-50 p-5"><div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between"><div><h2 className="font-bold text-violet-950">Publish Placement Drive</h2><p className="mt-1 max-w-2xl text-sm leading-6 text-violet-900">Publishing opens this approved drive to Students. Eligible Students are notified automatically by the existing publish flow.</p></div><Button disabled={publishing} onClick={publish}>{publishing ? 'Publishing…' : 'Publish Drive'}</Button></div></section>}
+    {drive.lifecycleStatus === 'published' && <section className="flex flex-col gap-3 rounded-2xl border border-emerald-200 bg-emerald-50 p-5 sm:flex-row sm:items-center sm:justify-between"><div><h2 className="font-bold text-emerald-950">Drive is open to Students</h2><p className="mt-1 text-sm text-emerald-800">Open the Active Placement Drive workspace for applications and current Phase 0 status.</p></div><Link className="inline-flex min-h-11 items-center justify-center rounded-xl border border-emerald-300 bg-white px-4 py-2.5 text-sm font-semibold text-emerald-800 shadow-sm hover:bg-emerald-100" to={`/admin/placement-drives/${drive._id}/monitoring`}>Open Active Drive</Link></section>}
     {error && <ErrorState message={error} />}
     {success && <p role="status" className="rounded-xl bg-emerald-50 p-4 text-sm text-emerald-800">{success}</p>}
     {canReview && <section className="rounded-2xl border border-violet-200 bg-violet-50 p-5"><h2 className="font-bold">Review decision</h2><div className="mt-4"><FormField as="textarea" rows="4" label="Feedback (required to request changes or reject)" hint="2–1500 characters. Not required for approval." maxLength={1500} value={reason} error={reasonError} disabled={Boolean(decision)} onChange={event => { setReason(event.target.value); setReasonError('') }} /></div><div className="mt-4 flex flex-wrap gap-3"><Button disabled={Boolean(decision)} onClick={() => decide('approved')}>{decision === 'approved' ? 'Approving…' : 'Approve'}</Button><Button variant="secondary" disabled={Boolean(decision)} onClick={() => decide('changes_requested')}>{decision === 'changes_requested' ? 'Sending…' : 'Request Changes'}</Button><Button variant="danger" disabled={Boolean(decision)} onClick={() => decide('rejected')}>{decision === 'rejected' ? 'Rejecting…' : 'Reject'}</Button></div></section>}

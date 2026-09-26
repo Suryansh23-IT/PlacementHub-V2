@@ -9,7 +9,7 @@ process.env.JWT_SECRET = 'm3-student-test-secret-which-is-safely-long-enough'
 process.env.CLIENT_URL = 'http://localhost:5173'
 
 const { USER_ROLES } = await import('../src/modules/auth/auth.constants.js')
-const { ensureStudentProfile, getAcademicMarksheet, getProfileCompletion, getStudentDocumentForAdmin, resubmitStudentVerification, reviewStudentVerification, saveAcademicMarksheet, saveResume, updateStudentProfile } = await import('../src/modules/students/student.service.js')
+const { ensureStudentProfile, getAcademicMarksheet, getProfileCompletion, getStudentDocumentForAdmin, getStudentIdentityContext, resubmitStudentVerification, reviewStudentVerification, saveAcademicMarksheet, saveResume, updateStudentProfile } = await import('../src/modules/students/student.service.js')
 const { studentProfileSchema, verificationSchema } = await import('../src/modules/students/student.validation.js')
 const { toProfileResponse } = await import('../src/modules/students/student.controller.js')
 
@@ -57,6 +57,14 @@ const institutionService = async () => ({ branches: ['Information Technology', '
 test('student profile validation accepts the complete richer profile and rejects invalid values', () => {
   assert.equal(studentProfileSchema.safeParse(completeProfileInput).success, true)
   assert.equal(studentProfileSchema.safeParse({ ...completeProfileInput, graduationYear: 1999, cgpa: 11, activeBacklogs: -1 }).success, false)
+})
+
+test('student identity context reads the authenticated name and existing institution without changing the profile', async () => {
+  const context = await getStudentIdentityContext(
+    { name: 'Aarav Mehta' },
+    { institutionService: async () => ({ collegeName: 'National Institute of Technology Raipur' }) },
+  )
+  assert.deepEqual(context, { studentName: 'Aarav Mehta', institutionName: 'National Institute of Technology Raipur' })
 })
 
 test('student profiles accept only canonical InstitutionProfile branch values', async () => {

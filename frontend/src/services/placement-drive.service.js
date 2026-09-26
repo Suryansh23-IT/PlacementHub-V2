@@ -27,6 +27,12 @@ export async function downloadMyPlacementDriveDocument(token, id, type) {
 export const listAdminPlacementDrives = token => apiRequest('/admin/placement-drives', { headers: headers(token) })
 export const getAdminPlacementDrive = (token, id) => apiRequest(adminDrivePath(id), { headers: headers(token) })
 export const reviewAdminPlacementDrive = (token, id, body) => apiRequest(`${adminDrivePath(id)}/review`, { method: 'PATCH', headers: headers(token), body: JSON.stringify(body) })
+export const publishAdminPlacementDrive = (token, id) => apiRequest(`${adminDrivePath(id)}/publish`, { method: 'PATCH', headers: headers(token) })
+export const listAdminPublishedDriveMonitoring = token => apiRequest('/admin/placement-drives/monitoring', { headers: headers(token) })
+export const getAdminPublishedDriveMonitoring = (token, id) => apiRequest(`${adminDrivePath(id)}/monitoring`, { headers: headers(token) })
+export const extendAdminPlacementDriveDeadline = (token, id, body) => apiRequest(`${adminDrivePath(id)}/application-window/deadline`, { method: 'PATCH', headers: headers(token), body: JSON.stringify(body) })
+export const closeAdminPlacementDriveApplications = (token, id) => apiRequest(`${adminDrivePath(id)}/application-window/close`, { method: 'PATCH', headers: headers(token) })
+export const reopenAdminPlacementDriveApplications = (token, id, body = {}) => apiRequest(`${adminDrivePath(id)}/application-window/reopen`, { method: 'PATCH', headers: headers(token), body: JSON.stringify(body) })
 
 export async function downloadAdminPlacementDriveDocument(token, id, type) {
   const response = await fetch(`${API_URL}${adminDrivePath(id)}/documents/${encodeURIComponent(type)}/download`, { headers: headers(token) })

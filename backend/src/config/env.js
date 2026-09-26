@@ -13,6 +13,7 @@ const environmentSchema = z.object({
   AUTH_RATE_LIMIT_MAX: z.coerce.number().int().min(3).max(100).default(10),
   RESUME_UPLOAD_DIR: z.string().trim().min(1).default('uploads/resumes'),
   RESUME_MAX_FILE_SIZE_BYTES: z.coerce.number().int().min(1).max(10 * 1024 * 1024).default(5 * 1024 * 1024),
+  PLACEMENT_WITHDRAWAL_RESTRICTION_DRIVES: z.coerce.number().int().min(1).max(50).default(5),
 })
 
 const parsedEnvironment = environmentSchema.safeParse(process.env)

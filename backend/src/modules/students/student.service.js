@@ -20,6 +20,14 @@ export async function getStudentProfile(userId, dependencies = {}) {
   return ensureStudentProfile(userId, dependencies)
 }
 
+export async function getStudentIdentityContext(user, { institutionService = getInstitutionProfile } = {}) {
+  const institution = await institutionService()
+  return {
+    studentName: user.name ?? '',
+    institutionName: institution?.collegeName ?? '',
+  }
+}
+
 export async function updateStudentProfile(userId, input, { profileModel = StudentProfile, institutionService = getInstitutionProfile } = {}) {
   const current = await ensureStudentProfile(userId, { profileModel })
   const institution = await institutionService()

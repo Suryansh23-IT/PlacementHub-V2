@@ -61,6 +61,11 @@ const placementDriveSchema = new mongoose.Schema({
   },
   proposalStatus: { type: String, required: true, enum: Object.values(PLACEMENT_DRIVE_PROPOSAL_STATUSES), default: PLACEMENT_DRIVE_PROPOSAL_STATUSES.DRAFT, index: true },
   lifecycleStatus: { type: String, required: true, enum: Object.values(PLACEMENT_DRIVE_LIFECYCLE_STATUSES), default: PLACEMENT_DRIVE_LIFECYCLE_STATUSES.UNPUBLISHED, index: true },
+  publishedAt: { type: Date },
+  applicationsManuallyClosedAt: { type: Date },
+  applicationsManuallyClosedBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+  applicationDeadlineExtendedAt: { type: Date },
+  applicationDeadlineExtendedBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
   review: {
     requestedChanges: { type: String, trim: true, maxlength: 1500 },
     rejectionReason: { type: String, trim: true, maxlength: 1500 },

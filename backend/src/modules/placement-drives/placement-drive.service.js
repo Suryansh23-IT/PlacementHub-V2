@@ -1,11 +1,17 @@
 import { readFile, unlink } from 'node:fs/promises'
 import { AppError } from '../../errors/app-error.js'
+import { evaluatePlacementDriveEligibility } from '../applications/application.service.js'
+import { Application } from '../applications/application.model.js'
 import { Company } from '../companies/company.model.js'
 import { getInstitutionProfile } from '../institution/institution.service.js'
+import { Notification } from '../notifications/notification.model.js'
+import { createNotifications } from '../notifications/notification.service.js'
 import { getRecruiterPolicyStatus } from '../recruiter-policy/recruiter-policy.service.js'
+import { StudentProfile } from '../students/student.model.js'
 import { PLACEMENT_DRIVE_LIFECYCLE_STATUSES, PLACEMENT_DRIVE_PROPOSAL_STATUSES } from './placement-drive.constants.js'
 import { PlacementDrive } from './placement-drive.model.js'
 import { placementDriveSubmissionSchema } from './placement-drive.validation.js'
+import { getApplicationWindowStatus } from './placement-drive.application-window.js'
 
 const notFound = () => new AppError('Placement Drive proposal was not found.', { statusCode: 404, errorCode: 'NOT_FOUND' })
 const conflict = (message) => new AppError(message, { statusCode: 409, errorCode: 'CONFLICT' })
@@ -146,6 +152,139 @@ export async function reviewPlacementDriveProposal(driveId, adminId, input, depe
     assignDrive(drive, { proposalStatus: PLACEMENT_DRIVE_PROPOSAL_STATUSES.CHANGES_REQUESTED, review: { ...review, requestedChanges: input.reason } })
   }
   return drive.save()
+}
+
+async function listVerifiedStudentIds(profileModel) {
+  const profiles = await profileModel.find({ verificationStatus: 'verified' }).select('userId').lean()
+  return profiles.map(profile => profile.userId)
+}
+
+export async function publishPlacementDriveProposal(driveId, adminId, {
+  placementDriveModel = PlacementDrive,
+  profileModel = StudentProfile,
+  notificationModel = Notification,
+  notificationService = createNotifications,
+  eligibilityService = evaluatePlacementDriveEligibility,
+  studentPolicyStatusService,
+  placementRestrictionService,
+  policyDependencies,
+  restrictionDependencies,
+  now = new Date(),
+} = {}) {
+  const drive = await getPlacementDriveProposal(driveId, { placementDriveModel })
+  if (drive.proposalStatus !== PLACEMENT_DRIVE_PROPOSAL_STATUSES.APPROVED) throw conflict('Only approved Placement Drive proposals can be published.')
+  if (drive.lifecycleStatus === PLACEMENT_DRIVE_LIFECYCLE_STATUSES.PUBLISHED) return { drive, notificationsCreated: 0, alreadyPublished: true }
+  if (drive.lifecycleStatus !== PLACEMENT_DRIVE_LIFECYCLE_STATUSES.UNPUBLISHED) throw conflict('Only unpublished approved Placement Drive proposals can be published.')
+
+  assignDrive(drive, { lifecycleStatus: PLACEMENT_DRIVE_LIFECYCLE_STATUSES.PUBLISHED, publishedAt: now })
+  const publishedDrive = await drive.save()
+  const studentIds = await listVerifiedStudentIds(profileModel)
+  const eligibilityDependencies = { profileModel, placementDriveModel, ...(studentPolicyStatusService ? { studentPolicyStatusService } : {}), ...(placementRestrictionService ? { placementRestrictionService } : {}), policyDependencies, restrictionDependencies, now }
+  const evaluations = await Promise.all(studentIds.map(async studentId => ({ studentId, result: await eligibilityService(studentId, publishedDrive._id, eligibilityDependencies) })))
+  const recipients = evaluations.filter(({ result }) => result.eligible).map(({ studentId }) => studentId)
+  const role = publishedDrive.role?.title || 'a Placement Drive'
+  const notifications = recipients.map(recipientId => ({
+    recipientId,
+    senderId: adminId,
+    category: 'placement_drive',
+    type: 'placement_drive_published',
+    source: 'placement_system',
+    title: 'New Placement Drive open',
+    message: `${role} is now open for applications.`,
+    placementDriveId: publishedDrive._id,
+    ...(publishedDrive.companyId ? { companyId: publishedDrive.companyId } : {}),
+    context: { action: 'view_drive', audience: 'eligible_students' },
+  }))
+  const created = await notificationService(notifications, { notificationModel })
+  return { drive: publishedDrive, notificationsCreated: created.length, alreadyPublished: false }
+}
+
+const applicationWindowNotPublished = () => new AppError('Only published Placement Drives can have their application window managed.', { statusCode: 409, errorCode: 'CONFLICT' })
+const futureDeadlineRequired = () => new AppError('Provide a future application deadline.', { statusCode: 422, errorCode: 'VALIDATION_ERROR' })
+
+function assertPublishedForApplicationWindow(drive) {
+  if (drive.proposalStatus !== PLACEMENT_DRIVE_PROPOSAL_STATUSES.APPROVED || drive.lifecycleStatus !== PLACEMENT_DRIVE_LIFECYCLE_STATUSES.PUBLISHED) throw applicationWindowNotPublished()
+}
+
+function assertFutureDeadline(deadline, now) {
+  if (!deadline || new Date(deadline).getTime() <= new Date(now).getTime()) throw futureDeadlineRequired()
+}
+
+async function applicationWindowRecipients(drive, audience, dependencies) {
+  if (audience === 'drive_applicants') {
+    const applicationModel = dependencies.applicationModel ?? Application
+    const applications = await applicationModel.find({ placementDriveId: drive._id, currentStatus: { $ne: 'withdrawn' } }).select('studentId').lean()
+    return [...new Set(applications.map(application => String(application.studentId)))]
+  }
+  const studentIds = await listVerifiedStudentIds(dependencies.profileModel ?? StudentProfile)
+  const evaluations = await Promise.all(studentIds.map(async studentId => ({
+    studentId,
+    result: await (dependencies.eligibilityService ?? evaluatePlacementDriveEligibility)(studentId, drive._id, {
+      profileModel: dependencies.profileModel ?? StudentProfile,
+      placementDriveModel: dependencies.placementDriveModel ?? PlacementDrive,
+      ...(dependencies.studentPolicyStatusService ? { studentPolicyStatusService: dependencies.studentPolicyStatusService } : {}),
+      ...(dependencies.placementRestrictionService ? { placementRestrictionService: dependencies.placementRestrictionService } : {}),
+      policyDependencies: dependencies.policyDependencies,
+      restrictionDependencies: dependencies.restrictionDependencies,
+      now: dependencies.now,
+    }),
+  })))
+  return evaluations.filter(({ result }) => result.eligible).map(({ studentId }) => studentId)
+}
+
+async function notifyApplicationWindowChange(drive, adminId, kind, dependencies) {
+  const messages = {
+    deadline_extended: { audience: 'eligible_students', type: 'application_deadline_extended', title: 'Application deadline extended', message: `${drive.role?.title || 'This Placement Drive'} now accepts applications until ${new Date(drive.driveDetails.applicationDeadline).toLocaleDateString('en-IN')}.` },
+    manually_closed: { audience: 'drive_applicants', type: 'applications_manually_closed', title: 'Applications closed', message: `Applications for ${drive.role?.title || 'this Placement Drive'} were closed by Placement Administration. Your existing application remains active.` },
+    reopened: { audience: 'eligible_students', type: 'applications_reopened', title: 'Applications reopened', message: `${drive.role?.title || 'This Placement Drive'} is open for applications until ${new Date(drive.driveDetails.applicationDeadline).toLocaleDateString('en-IN')}.` },
+  }
+  const event = messages[kind]
+  const recipientIds = await applicationWindowRecipients(drive, event.audience, dependencies)
+  const notifications = recipientIds.map(recipientId => ({ recipientId, senderId: adminId, category: 'placement_drive', type: event.type, source: 'placement_system', title: event.title, message: event.message, placementDriveId: drive._id, companyId: drive.companyId, context: { action: 'view_drive', audience: event.audience } }))
+  const created = await (dependencies.notificationService ?? createNotifications)(notifications, { notificationModel: dependencies.notificationModel ?? Notification })
+  return created.length
+}
+
+export async function extendPlacementDriveApplicationDeadline(driveId, adminId, input, dependencies = {}) {
+  const now = dependencies.now ?? new Date()
+  const drive = await getPlacementDriveProposal(driveId, dependencies)
+  assertPublishedForApplicationWindow(drive)
+  const nextDeadline = new Date(input.applicationDeadline)
+  assertFutureDeadline(nextDeadline, now)
+  if (nextDeadline.getTime() <= new Date(drive.driveDetails.applicationDeadline).getTime()) throw new AppError('The new application deadline must be later than the current deadline.', { statusCode: 422, errorCode: 'VALIDATION_ERROR' })
+  assignDrive(drive, { driveDetails: { ...(drive.driveDetails?.toObject ? drive.driveDetails.toObject() : drive.driveDetails), applicationDeadline: nextDeadline }, applicationDeadlineExtendedAt: now, applicationDeadlineExtendedBy: adminId })
+  const saved = await drive.save()
+  const notificationsCreated = await notifyApplicationWindowChange(saved, adminId, 'deadline_extended', { ...dependencies, now })
+  return { drive: saved, notificationsCreated, applicationWindow: getApplicationWindowStatus(saved, now) }
+}
+
+export async function closePlacementDriveApplications(driveId, adminId, dependencies = {}) {
+  const now = dependencies.now ?? new Date()
+  const drive = await getPlacementDriveProposal(driveId, dependencies)
+  assertPublishedForApplicationWindow(drive)
+  if (drive.applicationsManuallyClosedAt) return { drive, notificationsCreated: 0, alreadyClosed: true, applicationWindow: getApplicationWindowStatus(drive, now) }
+  assignDrive(drive, { applicationsManuallyClosedAt: now, applicationsManuallyClosedBy: adminId })
+  const saved = await drive.save()
+  const notificationsCreated = await notifyApplicationWindowChange(saved, adminId, 'manually_closed', { ...dependencies, now })
+  return { drive: saved, notificationsCreated, alreadyClosed: false, applicationWindow: getApplicationWindowStatus(saved, now) }
+}
+
+export async function reopenPlacementDriveApplications(driveId, adminId, input, dependencies = {}) {
+  const now = dependencies.now ?? new Date()
+  const drive = await getPlacementDriveProposal(driveId, dependencies)
+  assertPublishedForApplicationWindow(drive)
+  if (!drive.applicationsManuallyClosedAt) return { drive, notificationsCreated: 0, alreadyOpen: true, applicationWindow: getApplicationWindowStatus(drive, now) }
+  const currentDeadline = new Date(drive.driveDetails.applicationDeadline)
+  const nextDeadline = input.applicationDeadline ? new Date(input.applicationDeadline) : null
+  if (currentDeadline.getTime() <= new Date(now).getTime() && !nextDeadline) throw futureDeadlineRequired()
+  if (nextDeadline) {
+    assertFutureDeadline(nextDeadline, now)
+    if (nextDeadline.getTime() <= currentDeadline.getTime()) throw new AppError('The new application deadline must be later than the current deadline.', { statusCode: 422, errorCode: 'VALIDATION_ERROR' })
+  }
+  assignDrive(drive, { applicationsManuallyClosedAt: undefined, applicationsManuallyClosedBy: undefined, ...(nextDeadline ? { driveDetails: { ...(drive.driveDetails?.toObject ? drive.driveDetails.toObject() : drive.driveDetails), applicationDeadline: nextDeadline }, applicationDeadlineExtendedAt: now, applicationDeadlineExtendedBy: adminId } : {}) })
+  const saved = await drive.save()
+  const notificationsCreated = await notifyApplicationWindowChange(saved, adminId, 'reopened', { ...dependencies, now })
+  return { drive: saved, notificationsCreated, alreadyOpen: false, applicationWindow: getApplicationWindowStatus(saved, now) }
 }
 
 export async function getPlacementDriveDocumentForAdmin(driveId, type, dependencies = {}) {

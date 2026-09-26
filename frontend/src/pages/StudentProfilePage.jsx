@@ -4,9 +4,11 @@ import { FormField } from '../components/ui/FormField.jsx'
 import { PageHeader } from '../components/ui/PageHeader.jsx'
 import { StatusBadge } from '../components/ui/StatusBadge.jsx'
 import { useAuth } from '../features/auth/useAuth.js'
+import { displayInstitutionName } from '../utils/institution-branding.js'
 import {
   downloadMyDocument,
   getAvailableBranches,
+  getMyStudentIdentityContext,
   getMyStudentProfile,
   resubmitMyProfileForVerification,
   updateMyStudentProfile,
@@ -40,6 +42,7 @@ export function StudentProfilePage() {
   const [profile, setProfile] = useState(null)
   const [form, setForm] = useState(empty)
   const [branches, setBranches] = useState([])
+  const [identity, setIdentity] = useState(null)
   const [message, setMessage] = useState(null)
   const [isLoading, setIsLoading] = useState(true)
   const [isSaving, setIsSaving] = useState(false)
@@ -49,6 +52,7 @@ export function StudentProfilePage() {
   useEffect(() => {
     getMyStudentProfile(session.accessToken).then(({ data }) => { setProfile(data); setForm(formFrom(data)) }).catch((error) => setMessage({ type: 'error', text: error.message })).finally(() => setIsLoading(false))
     getAvailableBranches(session.accessToken).then(({ data }) => setBranches(data)).catch(() => setBranches([]))
+    getMyStudentIdentityContext(session.accessToken).then(({ data }) => setIdentity(data)).catch(() => setIdentity(null))
   }, [session.accessToken])
 
   const change = (key, value) => setForm((current) => ({ ...current, [key]: value }))
@@ -137,6 +141,8 @@ export function StudentProfilePage() {
     <PageHeader eyebrow="Student record" title="Placement profile" description="Keep your placement information accurate and ready for review." action={<StatusBadge status={profile.verificationStatus} />} />
     {message && <Feedback type={message.type}>{message.text}</Feedback>}
 
+    <StudentIdentityHeader identity={identity} profile={profile} fallbackName={session.user.name} />
+
     <section className="grid gap-5 lg:grid-cols-[minmax(0,1fr)_20rem]">
       <div className="rounded-2xl border border-violet-100 bg-violet-50/60 p-5 sm:p-6">
         <p className="text-xs font-bold uppercase tracking-[0.16em] text-violet-700">Profile review</p>
@@ -194,6 +200,7 @@ export function StudentProfilePage() {
 
 function LoadingState() { return <div className="rounded-2xl border border-slate-200 bg-white p-6 text-sm text-slate-600 shadow-sm">Loading your placement profile…</div> }
 function Feedback({ type, children }) { const styles = type === 'error' ? 'border-rose-200 bg-rose-50 text-rose-800' : 'border-emerald-200 bg-emerald-50 text-emerald-800'; return <p className={`rounded-xl border px-4 py-3 text-sm font-medium ${styles}`} role={type === 'error' ? 'alert' : 'status'}>{children}</p> }
+function StudentIdentityHeader({ identity, profile, fallbackName }) { const details = [profile.branch, profile.rollNumber].filter(Boolean).join(' • '); return <section className="rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-700"><div className="flex flex-wrap gap-x-6 gap-y-2"><p><span className="font-bold text-slate-950">Student:</span> {identity?.studentName || fallbackName || 'Student'}</p><p><span className="font-bold text-slate-950">Institution:</span> {displayInstitutionName(identity?.institutionName)}</p>{details && <p className="text-slate-500">{details}</p>}</div></section> }
 function ProfileSection({ title, description, children }) { return <section className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6"><div className="max-w-2xl"><h2 className="text-lg font-bold tracking-tight text-slate-950">{title}</h2><p className="mt-1.5 text-sm leading-6 text-slate-500">{description}</p></div><div className="mt-5">{children}</div></section> }
 
 function CompletionSummary({ percentage, checks }) {

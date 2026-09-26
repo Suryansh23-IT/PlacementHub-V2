@@ -7,6 +7,7 @@ function bearer(accessToken) {
 export function getMyStudentProfile(accessToken) {
   return apiRequest('/students/me', { headers: bearer(accessToken) })
 }
+export function getMyStudentIdentityContext(accessToken) { return apiRequest('/students/me/identity-context', { headers: bearer(accessToken) }) }
 export function getAvailableBranches(accessToken) { return apiRequest('/students/me/branches', { headers: bearer(accessToken) }) }
 
 export function updateMyStudentProfile(accessToken, input) {

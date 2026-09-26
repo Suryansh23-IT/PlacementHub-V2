@@ -27,7 +27,7 @@ Use 200 for successful reads/updates, 201 for creation, 400 for malformed reques
 | Group | Examples |
 | --- | --- |
 | Auth | `POST /auth/register`, `POST /auth/login`, `GET /auth/me` |
-| Student | `GET/PATCH /students/me`, `POST /students/me/resume` |
+| Student | `GET/PATCH /students/me`, `GET /students/me/identity-context`, `POST /students/me/resume` |
 | Company | `GET/PATCH /companies/me`, `POST /companies/me/jobs` |
 | Admin | `GET/PATCH /admin/institution`, `GET /admin/students`, `PATCH /admin/students/:id/verification`, `PATCH /admin/companies/:id/approval`, `PATCH /admin/jobs/:id/approval`, `GET /admin/dashboard` |
 | Jobs | `GET /jobs`, `GET /jobs/:id`, `GET /jobs/:id/eligibility` |
@@ -36,6 +36,10 @@ Use 200 for successful reads/updates, 201 for creation, 400 for malformed reques
 | Reports | `GET /reports/placements/export` |
 
 Routes must authenticate, authorize the role, validate input, and check resource ownership before calling the service.
+
+For a published Placement Drive, Placement Admins may manage application intake with `PATCH /admin/placement-drives/:id/application-window/deadline`, `PATCH /admin/placement-drives/:id/application-window/close`, and `PATCH /admin/placement-drives/:id/application-window/reopen`. Deadline and reopen requests use `{ applicationDeadline? }`; an extension must be later than the current deadline and every supplied deadline must be in the future. These endpoints do not modify existing Applications or the Drive lifecycle status.
+
+Notification history is read-only: `GET /admin/notifications` and `GET /companies/me/notifications` return received items for the authenticated account, while `/admin/notifications/sent` and `/companies/me/notifications/sent` return one grouped item per notification send action, with recipient and read totals. Student notification routes remain received-only.
 
 ## Authentication and RBAC
 

@@ -1,10 +1,3 @@
 export function PageHeader({ eyebrow, title, description, action }) {
-  return <div className="flex flex-col gap-5 border-b border-slate-200/80 pb-6 sm:flex-row sm:items-end sm:justify-between">
-    <div className="max-w-3xl">
-      {eyebrow && <p className="text-xs font-bold uppercase tracking-[0.16em] text-violet-700">{eyebrow}</p>}
-      <h1 className="mt-2 text-3xl font-bold tracking-tight text-slate-950 sm:text-[2.5rem] sm:leading-tight">{title}</h1>
-      {description && <p className="mt-3 max-w-2xl leading-7 text-slate-600">{description}</p>}
-    </div>
-    {action}
-  </div>
+  return <div className="flex flex-col gap-5 border-b border-slate-200/80 pb-7 sm:flex-row sm:items-end sm:justify-between"><div className="max-w-3xl">{eyebrow && <p className="text-xs font-extrabold uppercase tracking-[0.16em] text-violet-700">{eyebrow}</p>}<h1 className="mt-2 text-3xl font-extrabold tracking-[-0.04em] text-slate-950 sm:text-[2.35rem] sm:leading-tight">{title}</h1>{description && <div className="mt-3 max-w-2xl text-[.97rem] leading-7 text-slate-600">{description}</div>}</div>{action && <div className="shrink-0">{action}</div>}</div>
 }

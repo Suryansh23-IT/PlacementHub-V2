@@ -1,5 +1,6 @@
 import { sendSuccess } from '../../utils/api-response.js'
-import { createPlacementDriveDraft, getMyPlacementDrive, getMyPlacementDriveDocument, getPlacementDriveDocumentForAdmin, getPlacementDriveBranches, getPlacementDriveProposal, listMyPlacementDrives, listPlacementDriveProposals, resubmitMyPlacementDrive, reviewPlacementDriveProposal, saveMyPlacementDriveDocument, submitMyPlacementDrive, updateMyPlacementDrive } from './placement-drive.service.js'
+import { closePlacementDriveApplications, createPlacementDriveDraft, extendPlacementDriveApplicationDeadline, getMyPlacementDrive, getMyPlacementDriveDocument, getPlacementDriveDocumentForAdmin, getPlacementDriveBranches, getPlacementDriveProposal, listMyPlacementDrives, listPlacementDriveProposals, publishPlacementDriveProposal, reopenPlacementDriveApplications, resubmitMyPlacementDrive, reviewPlacementDriveProposal, saveMyPlacementDriveDocument, submitMyPlacementDrive, updateMyPlacementDrive } from './placement-drive.service.js'
+import { getApplicationWindowStatus } from './placement-drive.application-window.js'
 
 function publicDocument(document) {
   if (!document) return undefined
@@ -9,7 +10,7 @@ function publicDocument(document) {
 
 export function toPlacementDriveResponse(drive) {
   const value = drive.toObject ? drive.toObject() : drive
-  return { ...value, documents: { companyRecruitmentInformation: publicDocument(value.documents?.companyRecruitmentInformation), placementDriveJobDescription: publicDocument(value.documents?.placementDriveJobDescription) } }
+  return { ...value, applicationWindow: getApplicationWindowStatus(value), documents: { companyRecruitmentInformation: publicDocument(value.documents?.companyRecruitmentInformation), placementDriveJobDescription: publicDocument(value.documents?.placementDriveJobDescription) } }
 }
 
 export async function createMyPlacementDrive(request, response) { return sendSuccess(response, { statusCode: 201, message: 'Placement Drive draft created.', data: toPlacementDriveResponse(await createPlacementDriveDraft(request.user._id, request.body)) }) }
@@ -24,4 +25,8 @@ export async function resubmitMyDrive(request, response) { return sendSuccess(re
 export async function listAdminDrives(request, response) { return sendSuccess(response, { message: 'Placement Drive proposals retrieved.', data: (await listPlacementDriveProposals()).map(toPlacementDriveResponse) }) }
 export async function getAdminDrive(request, response) { return sendSuccess(response, { message: 'Placement Drive proposal retrieved.', data: toPlacementDriveResponse(await getPlacementDriveProposal(request.params.id)) }) }
 export async function reviewAdminDrive(request, response) { return sendSuccess(response, { message: 'Placement Drive proposal reviewed.', data: toPlacementDriveResponse(await reviewPlacementDriveProposal(request.params.id, request.user._id, request.body)) }) }
+export async function publishAdminDrive(request, response) { const result = await publishPlacementDriveProposal(request.params.id, request.user._id); return sendSuccess(response, { message: result.alreadyPublished ? 'Placement Drive is already published.' : 'Placement Drive published successfully.', data: { drive: toPlacementDriveResponse(result.drive), notificationsCreated: result.notificationsCreated, alreadyPublished: result.alreadyPublished } }) }
+export async function extendAdminDriveApplicationDeadline(request, response) { const result = await extendPlacementDriveApplicationDeadline(request.params.id, request.user._id, request.body); return sendSuccess(response, { message: 'Application deadline extended.', data: { drive: toPlacementDriveResponse(result.drive), notificationsCreated: result.notificationsCreated, applicationWindow: result.applicationWindow } }) }
+export async function closeAdminDriveApplications(request, response) { const result = await closePlacementDriveApplications(request.params.id, request.user._id); return sendSuccess(response, { message: result.alreadyClosed ? 'Applications are already closed.' : 'Applications closed.', data: { drive: toPlacementDriveResponse(result.drive), notificationsCreated: result.notificationsCreated, alreadyClosed: result.alreadyClosed, applicationWindow: result.applicationWindow } }) }
+export async function reopenAdminDriveApplications(request, response) { const result = await reopenPlacementDriveApplications(request.params.id, request.user._id, request.body); return sendSuccess(response, { message: result.alreadyOpen ? 'Applications are already open.' : 'Applications reopened.', data: { drive: toPlacementDriveResponse(result.drive), notificationsCreated: result.notificationsCreated, alreadyOpen: result.alreadyOpen, applicationWindow: result.applicationWindow } }) }
 export async function downloadAdminDriveDocument(request, response) { const file = await getPlacementDriveDocumentForAdmin(request.params.id, request.params.type); return response.download(file.storagePath, file.originalName) }

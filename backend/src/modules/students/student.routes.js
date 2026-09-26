@@ -8,7 +8,7 @@ import { AppError } from '../../errors/app-error.js'
 import { validateBody, validateParams } from '../../middleware/validate-request.js'
 import { authenticate, authorizeRoles } from '../auth/auth.middleware.js'
 import { USER_ROLES } from '../auth/auth.constants.js'
-import { downloadMyMarksheet, downloadMyResume, downloadStudentDocumentForAdmin, getAvailableBranches, getMyProfile, getStudentForReview, getStudentsForReview, patchMyProfile, patchStudentVerification, resubmitMyProfileForVerification, uploadMyMarksheet, uploadMyResume } from './student.controller.js'
+import { downloadMyMarksheet, downloadMyResume, downloadStudentDocumentForAdmin, getAvailableBranches, getMyIdentityContext, getMyProfile, getStudentForReview, getStudentsForReview, patchMyProfile, patchStudentVerification, resubmitMyProfileForVerification, uploadMyMarksheet, uploadMyResume } from './student.controller.js'
 import { adminStudentDocumentParamsSchema, documentTypeParamsSchema, studentIdParamsSchema, studentProfileSchema, verificationSchema } from './student.validation.js'
 
 const resumeDirectory = path.resolve(env.RESUME_UPLOAD_DIR)
@@ -30,6 +30,7 @@ const resumeUpload = multer({
 export const studentRouter = Router()
 studentRouter.use(authenticate, authorizeRoles(USER_ROLES.STUDENT))
 studentRouter.get('/me', getMyProfile)
+studentRouter.get('/me/identity-context', getMyIdentityContext)
 studentRouter.get('/me/branches', getAvailableBranches)
 studentRouter.patch('/me', validateBody(studentProfileSchema), patchMyProfile)
 studentRouter.post('/me/resume', resumeUpload.single('resume'), uploadMyResume)

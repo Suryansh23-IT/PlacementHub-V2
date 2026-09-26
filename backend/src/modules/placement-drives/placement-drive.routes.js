@@ -8,8 +8,10 @@ import { AppError } from '../../errors/app-error.js'
 import { validateBody, validateParams } from '../../middleware/validate-request.js'
 import { authenticate, authorizeRoles } from '../auth/auth.middleware.js'
 import { USER_ROLES } from '../auth/auth.constants.js'
-import { createMyPlacementDrive, downloadAdminDriveDocument, downloadMyDriveDocument, getAdminDrive, getMyDrive, listAdminDrives, listMyPlacementDriveBranches, listMyDrives, resubmitMyDrive, reviewAdminDrive, submitMyDrive, updateMyDrive, uploadMyDriveDocument } from './placement-drive.controller.js'
-import { placementDriveCreateSchema, placementDriveDocumentParamsSchema, placementDriveIdParamsSchema, placementDriveReviewSchema, placementDriveUpdateSchema } from './placement-drive.validation.js'
+import { closeAdminDriveApplications, createMyPlacementDrive, downloadAdminDriveDocument, downloadMyDriveDocument, extendAdminDriveApplicationDeadline, getAdminDrive, getMyDrive, listAdminDrives, listMyPlacementDriveBranches, listMyDrives, publishAdminDrive, reopenAdminDriveApplications, resubmitMyDrive, reviewAdminDrive, submitMyDrive, updateMyDrive, uploadMyDriveDocument } from './placement-drive.controller.js'
+import { downloadDriveApplicantResume, getDriveApplicant, listDriveApplicants } from '../applications/company-drive-applicant.controller.js'
+import { getPublishedDriveMonitoring, listPublishedDriveMonitoring } from '../applications/admin-drive-monitoring.controller.js'
+import { placementDriveApplicantParamsSchema, placementDriveApplicationWindowDeadlineSchema, placementDriveApplicationWindowReopenSchema, placementDriveCreateSchema, placementDriveDocumentParamsSchema, placementDriveIdParamsSchema, placementDriveReviewSchema, placementDriveUpdateSchema } from './placement-drive.validation.js'
 
 const uploadDirectory = path.resolve(env.RESUME_UPLOAD_DIR)
 await mkdir(uploadDirectory, { recursive: true })
@@ -26,6 +28,9 @@ companyPlacementDriveRouter.use(authenticate, authorizeRoles(USER_ROLES.COMPANY)
 companyPlacementDriveRouter.post('/me/placement-drives', validateBody(placementDriveCreateSchema), createMyPlacementDrive)
 companyPlacementDriveRouter.get('/me/placement-drives/branches', listMyPlacementDriveBranches)
 companyPlacementDriveRouter.get('/me/placement-drives', listMyDrives)
+companyPlacementDriveRouter.get('/me/placement-drives/:id/applicants', validateParams(placementDriveIdParamsSchema), listDriveApplicants)
+companyPlacementDriveRouter.get('/me/placement-drives/:id/applicants/:studentId/resume/download', validateParams(placementDriveApplicantParamsSchema), downloadDriveApplicantResume)
+companyPlacementDriveRouter.get('/me/placement-drives/:id/applicants/:studentId', validateParams(placementDriveApplicantParamsSchema), getDriveApplicant)
 companyPlacementDriveRouter.get('/me/placement-drives/:id', validateParams(placementDriveIdParamsSchema), getMyDrive)
 companyPlacementDriveRouter.patch('/me/placement-drives/:id', validateParams(placementDriveIdParamsSchema), validateBody(placementDriveUpdateSchema), updateMyDrive)
 companyPlacementDriveRouter.post('/me/placement-drives/:id/documents/:type', validateParams(placementDriveDocumentParamsSchema), upload.single('document'), uploadMyDriveDocument)
@@ -35,7 +40,13 @@ companyPlacementDriveRouter.post('/me/placement-drives/:id/resubmit', validatePa
 
 export const adminPlacementDriveRouter = Router()
 adminPlacementDriveRouter.use(authenticate, authorizeRoles(USER_ROLES.PLACEMENT_ADMIN))
+adminPlacementDriveRouter.get('/monitoring', listPublishedDriveMonitoring)
+adminPlacementDriveRouter.get('/:id/monitoring', validateParams(placementDriveIdParamsSchema), getPublishedDriveMonitoring)
 adminPlacementDriveRouter.get('/', listAdminDrives)
 adminPlacementDriveRouter.get('/:id', validateParams(placementDriveIdParamsSchema), getAdminDrive)
 adminPlacementDriveRouter.get('/:id/documents/:type/download', validateParams(placementDriveDocumentParamsSchema), downloadAdminDriveDocument)
 adminPlacementDriveRouter.patch('/:id/review', validateParams(placementDriveIdParamsSchema), validateBody(placementDriveReviewSchema), reviewAdminDrive)
+adminPlacementDriveRouter.patch('/:id/publish', validateParams(placementDriveIdParamsSchema), publishAdminDrive)
+adminPlacementDriveRouter.patch('/:id/application-window/deadline', validateParams(placementDriveIdParamsSchema), validateBody(placementDriveApplicationWindowDeadlineSchema), extendAdminDriveApplicationDeadline)
+adminPlacementDriveRouter.patch('/:id/application-window/close', validateParams(placementDriveIdParamsSchema), closeAdminDriveApplications)
+adminPlacementDriveRouter.patch('/:id/application-window/reopen', validateParams(placementDriveIdParamsSchema), validateBody(placementDriveApplicationWindowReopenSchema), reopenAdminDriveApplications)

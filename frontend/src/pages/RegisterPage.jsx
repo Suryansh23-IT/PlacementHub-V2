@@ -1,5 +1,7 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import { BrandLogo } from '../components/brand/BrandLogo.jsx'
+import '../styles/public-site.css'
 import { ErrorState } from '../components/feedback/ErrorState.jsx'
 import { Button } from '../components/ui/Button.jsx'
 import { FormField } from '../components/ui/FormField.jsx'
@@ -76,9 +78,10 @@ export function RegisterPage() {
   }
 
   return (
-    <section className="mx-auto grid max-w-5xl overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm lg:grid-cols-[0.9fr_1.1fr]">
-      <aside className="bg-gradient-to-br from-violet-800 via-violet-700 to-indigo-800 p-8 text-white sm:p-10">
-        <p className="text-sm font-semibold uppercase tracking-[0.18em] text-violet-200">PlacementHub</p>
+    <div className="ph-auth"><section className="ph-auth-panel mx-auto max-w-5xl">
+      <aside className="ph-auth-aside">
+        <BrandLogo inverse link={false} />
+        <p className="mt-9 text-sm font-semibold uppercase tracking-[0.18em] text-violet-200">Apex Institute of Technology · Placement Cell</p>
         <h1 className="mt-4 text-3xl font-bold tracking-tight sm:text-4xl">One account. A clearer placement journey.</h1>
         <p className="mt-4 max-w-sm leading-7 text-violet-100">Begin with a secure identity. The right placement tools will appear as your account progresses through the platform.</p>
         <ol className="mt-10 space-y-5" aria-label="Registration progress">
@@ -87,10 +90,10 @@ export function RegisterPage() {
         </ol>
       </aside>
 
-      <div className="p-6 sm:p-10">
+      <div className="ph-auth-form">
         {step === 1 ? <RoleSelection form={form} error={error} onSelect={selectRole} onContinue={continueToDetails} /> : <AccountDetails form={form} details={roleDetails} error={error} isSubmitting={isSubmitting} onChange={(field, value) => setForm({ ...form, [field]: value })} onBack={() => { setError(''); setStep(1) }} onSubmit={handleSubmit} />}
       </div>
-    </section>
+    </section></div>
   )
 }
 

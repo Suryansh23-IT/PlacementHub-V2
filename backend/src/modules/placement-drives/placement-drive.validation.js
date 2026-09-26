@@ -71,6 +71,9 @@ export const placementDriveSubmissionSchema = basePlacementDriveSchema.superRefi
 })
 
 export const placementDriveIdParamsSchema = z.object({ id: z.string().regex(/^[a-f\d]{24}$/i, 'Placement Drive ID must be valid.') })
+export const placementDriveApplicationWindowDeadlineSchema = z.object({ applicationDeadline: z.coerce.date() })
+export const placementDriveApplicationWindowReopenSchema = z.object({ applicationDeadline: z.coerce.date().optional() })
+export const placementDriveApplicantParamsSchema = placementDriveIdParamsSchema.extend({ studentId: z.string().regex(/^[a-f\d]{24}$/i, 'Student ID must be valid.') })
 export const placementDriveDocumentParamsSchema = placementDriveIdParamsSchema.extend({ type: z.enum(['companyRecruitmentInformation', 'placementDriveJobDescription']) })
 export const placementDriveReviewSchema = z.object({
   decision: z.enum(['approved', 'rejected', 'changes_requested']),

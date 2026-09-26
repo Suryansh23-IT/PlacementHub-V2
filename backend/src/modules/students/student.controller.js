@@ -1,7 +1,7 @@
 import { sendSuccess } from '../../utils/api-response.js'
 import { getInstitutionProfile } from '../institution/institution.service.js'
 import { getStudentPolicyAgreementSummary } from '../student-policy/student-policy.service.js'
-import { getAcademicMarksheet, getProfileCompletion, getResumeForDownload, getStudentDocumentForAdmin, getStudentProfile, listStudentsForReview, resubmitStudentVerification, reviewStudentVerification, saveAcademicMarksheet, saveResume, updateStudentProfile } from './student.service.js'
+import { getAcademicMarksheet, getProfileCompletion, getResumeForDownload, getStudentDocumentForAdmin, getStudentIdentityContext, getStudentProfile, listStudentsForReview, resubmitStudentVerification, reviewStudentVerification, saveAcademicMarksheet, saveResume, updateStudentProfile } from './student.service.js'
 
 export function toProfileResponse(profile, { includeResumeDownloadUrl = false, adminStudentId } = {}) {
   const value = profile.toObject ? profile.toObject() : profile
@@ -17,6 +17,7 @@ export async function getMyProfile(request, response) {
   const profile = await getStudentProfile(request.user._id)
   return sendSuccess(response, { message: 'Student profile retrieved successfully.', data: toProfileResponse(profile, { includeResumeDownloadUrl: true }) })
 }
+export async function getMyIdentityContext(request, response) { return sendSuccess(response, { message: 'Student identity context retrieved successfully.', data: await getStudentIdentityContext(request.user) }) }
 export async function getAvailableBranches(request, response) { const institution = await getInstitutionProfile(); return sendSuccess(response, { message: 'Available branches retrieved successfully.', data: institution.branches ?? [] }) }
 
 export async function patchMyProfile(request, response) {
