@@ -16,3 +16,8 @@ export const adminCompanyNotificationParamsSchema = z.object({ companyUserId: ob
 export const adminCompanyNotificationSchema = messageFields.extend({ placementDriveId: objectId('Placement Drive ID').optional() })
 export const companyAdminNotificationSchema = messageFields.extend({ placementDriveId: objectId('Placement Drive ID').optional() })
 export const companyDriveApplicantsNotificationSchema = messageFields.extend({ placementDriveId: objectId('Placement Drive ID') })
+export const companyPhaseCandidatesNotificationSchema = messageFields.extend({
+  placementDriveId: objectId('Placement Drive ID'),
+  phaseNumber: z.coerce.number().int().min(1).max(5),
+  requestId: z.string().uuid('Request ID must be a UUID.'),
+})

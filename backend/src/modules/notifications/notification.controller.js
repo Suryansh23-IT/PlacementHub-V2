@@ -1,5 +1,5 @@
 import { sendSuccess } from '../../utils/api-response.js'
-import { listNotifications, listSentNotifications, listStudentNotifications, markStudentNotificationRead, sendAdminCompanyNotification, sendAdminStudentNotification, sendCompanyAdminNotification, sendCompanyDriveApplicantsNotification } from './notification.service.js'
+import { listNotifications, listSentNotifications, listStudentNotifications, markStudentNotificationRead, sendAdminCompanyNotification, sendAdminStudentNotification, sendCompanyAdminNotification, sendCompanyDriveApplicantsNotification, sendCompanyPhaseCandidatesNotification } from './notification.service.js'
 
 export async function listMyNotifications(request, response) {
   return sendSuccess(response, { message: 'Notifications retrieved.', data: await listStudentNotifications(request.user._id) })
@@ -19,3 +19,4 @@ export async function sendStudentsNotification(request, response) { return sendS
 export async function sendCompanyNotification(request, response) { return sendSuccess(response, { statusCode: 201, message: 'Company notification sent.', data: await sendAdminCompanyNotification(request.user._id, request.params.companyUserId, request.body) }) }
 export async function sendAdminNotification(request, response) { return sendSuccess(response, { statusCode: 201, message: 'Placement Admin notification sent.', data: await sendCompanyAdminNotification(request.user._id, request.body) }) }
 export async function sendDriveApplicantsNotification(request, response) { return sendSuccess(response, { statusCode: 201, message: 'Applicant notification sent.', data: await sendCompanyDriveApplicantsNotification(request.user._id, request.body) }) }
+export async function sendPhaseCandidatesNotification(request, response) { return sendSuccess(response, { statusCode: 201, message: 'Phase candidate notification sent.', data: await sendCompanyPhaseCandidatesNotification(request.user._id, request.body) }) }

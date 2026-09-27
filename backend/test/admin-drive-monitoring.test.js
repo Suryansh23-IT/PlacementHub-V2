@@ -17,7 +17,7 @@ const applications = [
 
 function dependencies() {
   const drives = [drive, { ...drive, _id: ids.hidden, lifecycleStatus: 'unpublished' }]
-  const matches = (item, query) => Object.entries(query).every(([key, value]) => String(item[key]) === String(value))
+  const matches = (item, query) => Object.entries(query).every(([key, value]) => value?.$in ? value.$in.includes(item[key]) : String(item[key]) === String(value))
   return {
     placementDriveModel: { find: query => ({ sort: async () => drives.filter(item => matches(item, query)) }), findOne: async query => drives.find(item => matches(item, query)) ?? null },
     applicationModel: { countDocuments: async ({ placementDriveId, currentStatus }) => applications.filter(item => item.placementDriveId === placementDriveId && (currentStatus == null || (currentStatus.$ne ? item.currentStatus !== currentStatus.$ne : item.currentStatus === currentStatus))).length, find: ({ placementDriveId }) => ({ sort: async () => applications.filter(item => item.placementDriveId === placementDriveId) }) },

@@ -2,6 +2,7 @@ import { readFile, unlink } from 'node:fs/promises'
 import { AppError } from '../../errors/app-error.js'
 import { evaluatePlacementDriveEligibility } from '../applications/application.service.js'
 import { Application } from '../applications/application.model.js'
+import { RECRUITMENT_ACTIVE_STATUSES } from '../applications/application.constants.js'
 import { Company } from '../companies/company.model.js'
 import { getInstitutionProfile } from '../institution/institution.service.js'
 import { Notification } from '../notifications/notification.model.js'
@@ -286,6 +287,49 @@ export async function reopenPlacementDriveApplications(driveId, adminId, input, 
   const notificationsCreated = await notifyApplicationWindowChange(saved, adminId, 'reopened', { ...dependencies, now })
   return { drive: saved, notificationsCreated, alreadyOpen: false, applicationWindow: getApplicationWindowStatus(saved, now) }
 }
+
+async function ensureLifecycleNotifications(drive, adminId, status, dependencies = {}) {
+  const applicationModel = dependencies.applicationModel ?? Application
+  const notificationModel = dependencies.notificationModel ?? Notification
+  const applications = await applicationModel.find({ placementDriveId: drive._id, currentStatus: { $in: [...RECRUITMENT_ACTIVE_STATUSES, 'selected_pending_confirmation'] } }).select('_id studentId').lean()
+  const idempotencyKey = `drive-lifecycle:${status}:${drive._id}`
+  const existing = await notificationModel.find({ idempotencyKey }).select('recipientId').lean()
+  const existingRecipients = new Set(existing.map(item => String(item.recipientId)))
+  const type = status === PLACEMENT_DRIVE_LIFECYCLE_STATUSES.POSTPONED ? 'placement_drive_postponed' : 'placement_drive_cancelled'
+  const title = status === PLACEMENT_DRIVE_LIFECYCLE_STATUSES.POSTPONED ? 'Placement Drive postponed' : 'Placement Drive cancelled'
+  const message = status === PLACEMENT_DRIVE_LIFECYCLE_STATUSES.POSTPONED
+    ? `${drive.role?.title || 'This Placement Drive'} has been postponed by Placement Administration. Your application and recruitment history are preserved.`
+    : `${drive.role?.title || 'This Placement Drive'} has been cancelled by Placement Administration. Your application and recruitment history remain available.`
+  const pending = applications.filter(item => !existingRecipients.has(String(item.studentId))).map(item => ({
+    recipientId: item.studentId, senderId: adminId, idempotencyKey, notificationBatchId: idempotencyKey,
+    category: 'placement_drive', type, source: 'placement_system', title, message,
+    placementDriveId: drive._id, applicationId: item._id, companyId: drive.companyId,
+    context: { action: 'view_application', audience: 'student', roleTitle: drive.role?.title },
+  }))
+  const created = await (dependencies.notificationService ?? createNotifications)(pending, { notificationModel })
+  return created.length
+}
+
+async function changePlacementDriveLifecycle(driveId, adminId, status, reason, dependencies = {}) {
+  const drive = await getPlacementDriveProposal(driveId, dependencies)
+  if (drive.proposalStatus !== PLACEMENT_DRIVE_PROPOSAL_STATUSES.APPROVED) throw conflict('Only an approved Placement Drive can receive a recruitment lifecycle action.')
+  if (drive.lifecycleStatus === status) {
+    const notificationsCreated = await ensureLifecycleNotifications(drive, adminId, status, dependencies)
+    return { drive, notificationsCreated, alreadyChanged: true }
+  }
+  const allowed = status === PLACEMENT_DRIVE_LIFECYCLE_STATUSES.POSTPONED
+    ? [PLACEMENT_DRIVE_LIFECYCLE_STATUSES.PUBLISHED]
+    : [PLACEMENT_DRIVE_LIFECYCLE_STATUSES.PUBLISHED, PLACEMENT_DRIVE_LIFECYCLE_STATUSES.POSTPONED]
+  if (!allowed.includes(drive.lifecycleStatus)) throw conflict(status === PLACEMENT_DRIVE_LIFECYCLE_STATUSES.POSTPONED ? 'Only a published Placement Drive can be postponed.' : 'Only a published or postponed Placement Drive can be cancelled.')
+  const now = new Date(dependencies.now ?? Date.now())
+  assignDrive(drive, { lifecycleStatus: status, lifecycleHistory: [...(drive.lifecycleHistory ?? []), { event: status, status, reason, actorId: adminId, occurredAt: now }] })
+  const saved = await drive.save()
+  const notificationsCreated = await ensureLifecycleNotifications(saved, adminId, status, dependencies)
+  return { drive: saved, notificationsCreated, alreadyChanged: false }
+}
+
+export const postponePlacementDrive = (driveId, adminId, reason, dependencies) => changePlacementDriveLifecycle(driveId, adminId, PLACEMENT_DRIVE_LIFECYCLE_STATUSES.POSTPONED, reason, dependencies)
+export const cancelPlacementDrive = (driveId, adminId, reason, dependencies) => changePlacementDriveLifecycle(driveId, adminId, PLACEMENT_DRIVE_LIFECYCLE_STATUSES.CANCELLED, reason, dependencies)
 
 export async function getPlacementDriveDocumentForAdmin(driveId, type, dependencies = {}) {
   const drive = await getPlacementDriveProposal(driveId, dependencies)

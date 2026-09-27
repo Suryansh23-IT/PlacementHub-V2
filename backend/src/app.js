@@ -15,6 +15,7 @@ import { studentPlacementDriveRouter } from './modules/applications/student-plac
 import { adminNotificationRouter, companyNotificationRouter, studentNotificationRouter } from './modules/notifications/notification.routes.js'
 import { adminIncidentRouter, companyIncidentRouter } from './modules/incidents/incident-report.routes.js'
 import { adminDashboardRouter, companyDashboardRouter, studentDashboardRouter } from './modules/dashboard/dashboard.routes.js'
+import { adminPlacementRecordRouter, studentPlacementRecordRouter } from './modules/placements/placement-record.routes.js'
 
 export const app = express()
 
@@ -29,6 +30,7 @@ app.use('/api/v1/admin/companies', adminCompanyRouter)
 app.use('/api/v1/admin/institution', institutionRouter)
 app.use('/api/v1/students', studentPolicyRouter)
 app.use('/api/v1/students', studentPlacementDriveRouter)
+app.use('/api/v1/students', studentPlacementRecordRouter)
 app.use('/api/v1/students', studentNotificationRouter)
 app.use('/api/v1/students', studentDashboardRouter)
 app.use('/api/v1/companies', companyNotificationRouter)
@@ -42,5 +44,6 @@ app.use('/api/v1/companies', recruiterPolicyRouter)
 app.use('/api/v1/admin/recruiter-policy', adminRecruiterPolicyRouter)
 app.use('/api/v1/companies', companyPlacementDriveRouter)
 app.use('/api/v1/admin/placement-drives', adminPlacementDriveRouter)
+app.use('/api/v1/admin/placement-outcomes', adminPlacementRecordRouter)
 app.use(notFound)
 app.use(errorHandler)

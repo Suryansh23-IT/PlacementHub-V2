@@ -18,12 +18,15 @@ export async function evaluatePlacementDriveEligibility(studentId, placementDriv
   placementRestrictionService = getActivePlacementRestriction,
   restrictionDependencies,
   policyDependencies,
+  placementRecordModel = null,
+  enforceConfirmedPlacementLock = false,
   now = new Date(),
 } = {}) {
-  const [student, drive, restriction] = await Promise.all([
+  const [student, drive, restriction, confirmedOutcome] = await Promise.all([
     profileModel.findOne({ userId: studentId }),
     placementDriveModel.findOne({ _id: placementDriveId }),
     placementRestrictionService(studentId, restrictionDependencies),
+    enforceConfirmedPlacementLock && placementRecordModel ? placementRecordModel.findOne({ studentId, verificationState: 'confirmed', outcomeType: { $in: ['full_time', 'ppo', 'internship_and_ppo'] } }) : Promise.resolve(null),
   ])
   const reasons = []
 
@@ -33,6 +36,7 @@ export async function evaluatePlacementDriveEligibility(studentId, placementDriv
       : `Restricted from the next ${restriction.remainingDriveCount} Placement Drive${restriction.remainingDriveCount === 1 ? '' : 's'}.`
     reasons.push(ineligible(ELIGIBILITY_REASON_CODES.PLACEMENT_RESTRICTED, message))
   }
+  if (confirmedOutcome) reasons.push(ineligible(ELIGIBILITY_REASON_CODES.PLACEMENT_CONFIRMED_ELSEWHERE, 'You have a confirmed placement-equivalent outcome and cannot apply to another incompatible Placement Drive.'))
 
   if (!student) reasons.push(ineligible(ELIGIBILITY_REASON_CODES.STUDENT_NOT_FOUND, 'Student profile was not found.'))
   else if (student.verificationStatus !== 'verified') reasons.push(ineligible(ELIGIBILITY_REASON_CODES.STUDENT_NOT_VERIFIED, 'Student profile must be verified before applying.'))

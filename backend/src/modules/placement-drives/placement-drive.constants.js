@@ -21,3 +21,7 @@ export const COMPANY_PHASE_TYPES = Object.freeze([
   'hr_interview',
   'other',
 ])
+
+export const PHASE_EXECUTION_STATUSES = Object.freeze(['unscheduled', 'scheduled', 'live', 'completed', 'skipped', 'cancelled'])
+export const PHASE_EXECUTION_MODES = Object.freeze(['online', 'offline', 'hybrid'])
+export const PHASE_RESOURCE_TYPES = Object.freeze(['test_link', 'form', 'meeting_link', 'whatsapp', 'other'])

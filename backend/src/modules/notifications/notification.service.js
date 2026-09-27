@@ -28,6 +28,7 @@ function publicNotification(notification) {
     placementDriveId: value.placementDriveId,
     applicationId: value.applicationId,
     companyId: value.companyId,
+    phaseNumber: value.phaseNumber,
     context: value.context,
     isRead: value.isRead,
     readAt: value.readAt,
@@ -164,4 +165,33 @@ export async function sendCompanyDriveApplicantsNotification(companyUserId, inpu
   const notifications = recipientIds.map(recipientId => ({ recipientId, senderId: companyUserId, notificationBatchId, category: 'manual_placement_message', type: 'company_to_drive_applicants', source: 'company', title: input.title, message: input.message, placementDriveId: drive._id, companyId: company._id, context: { action: 'view_drive', audience: 'drive_applicants' } }))
   const created = await createNotifications(notifications, { notificationModel })
   return { notificationsCreated: created.length }
+}
+
+/**
+ * Sends only to candidates who are active at the specified Company-defined
+ * phase at send time. The client request id doubles as a notification batch
+ * id so an accidental retry remains one send action.
+ */
+export async function sendCompanyPhaseCandidatesNotification(companyUserId, input, { companyModel = Company, placementDriveModel = PlacementDrive, applicationModel = Application, notificationModel = Notification } = {}) {
+  const company = await companyModel.findOne({ userId: companyUserId, approvalStatus: 'approved' })
+  if (!company) throw new AppError('Only approved Companies can notify phase candidates.', { statusCode: 403, errorCode: 'FORBIDDEN' })
+  const drive = await placementDriveModel.findOne({ _id: input.placementDriveId, companyId: company._id, proposalStatus: PLACEMENT_DRIVE_PROPOSAL_STATUSES.APPROVED, lifecycleStatus: PLACEMENT_DRIVE_LIFECYCLE_STATUSES.PUBLISHED })
+  if (!drive) throw missing('Published Placement Drive was not found for this Company.')
+  if (!(drive.phases ?? []).some(phase => phase.phaseNumber === input.phaseNumber)) throw new AppError('The requested Company phase does not exist on this Placement Drive.', { statusCode: 422, errorCode: 'VALIDATION_ERROR' })
+
+  const prior = await notificationModel.find({ senderId: companyUserId, idempotencyKey: input.requestId }).select('recipientId').lean()
+  if (prior.length) return { notificationsCreated: prior.length, recipientCount: prior.length, alreadySent: true, notificationBatchId: input.requestId }
+
+  const applications = await applicationModel.find({ placementDriveId: drive._id, currentPhase: input.phaseNumber, currentStatus: 'active' }).select('_id studentId').lean()
+  const recipients = [...new Map(applications.map(application => [String(application.studentId), application])).values()]
+  const notifications = recipients.map(application => ({ recipientId: application.studentId, senderId: companyUserId, notificationBatchId: input.requestId, idempotencyKey: input.requestId, category: 'manual_placement_message', type: 'company_to_phase_candidates', source: 'company', title: input.title, message: input.message, placementDriveId: drive._id, applicationId: application._id, companyId: company._id, phaseNumber: input.phaseNumber, context: { action: 'view_phase', audience: 'phase_candidates', roleTitle: drive.role?.title } }))
+  if (!notifications.length) return { notificationsCreated: 0, recipientCount: 0, alreadySent: false, notificationBatchId: input.requestId }
+  try {
+    const created = await createNotifications(notifications, { notificationModel })
+    return { notificationsCreated: created.length, recipientCount: recipients.length, alreadySent: false, notificationBatchId: input.requestId }
+  } catch (error) {
+    if (error?.code !== 11000) throw error
+    const existing = await notificationModel.find({ senderId: companyUserId, idempotencyKey: input.requestId }).select('recipientId').lean()
+    return { notificationsCreated: existing.length, recipientCount: existing.length, alreadySent: true, notificationBatchId: input.requestId }
+  }
 }

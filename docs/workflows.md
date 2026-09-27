@@ -34,9 +34,21 @@ Admin discipline reviews: `No action / forgive` closes the review and moves the 
 
 ## M7: Phase execution and placement outcomes
 
-M7 executes the phases designed in M5. Companies can schedule each phase, provide external links and instructions, and notify candidates in that phase. Candidate states include `pending`, `result_pending`, `qualified`, `rejected`, `absent`, `disqualified`, and `selected`. Companies can promote or demote candidates between Phase 0 and configured phases while preserving phase history.
+M7A keeps the M5 phase blueprint immutable and adds runtime `phaseExecution` metadata keyed by phase number. It holds each Company phase's schedule, optional deadline, mode, venue, instructions, resource links, instruction PDF, and execution status. Phase 0 remains system-owned and has no Company execution metadata.
+
+The existing Application is the only candidate record. Company transition actions append an audit event to `phaseHistory`: advance only to the next configured phase, move backward with a reason, reject, mark absent, restore absent, restore rejected with a reason, provisionally select only from the final Company phase, unselect with a reason, or close the application because the Student was placed elsewhere. Withdrawn and placement-confirmed applications cannot advance. A published Drive is required; application-window closure stops new applications but does not alter existing recruitment journeys. Placement restrictions keep their M6 meaning as future-drive eligibility controls and do not retroactively remove an existing applicant from a Drive.
+
+M7A defines the PlacementRecord data foundation only. It does not yet create records or provide Company, Student, or Admin confirmation UI; later M7 work owns those confirmation transitions.
+
+M7C makes a Company phase operational without changing that blueprint: Company may save execution details and optional instruction PDF, export a current phase or provisional-selected candidate pool, and explicitly notify only applications currently `active` in that exact phase. Messages retain drive, Company, role, phase, and batched-send context. Student reads are limited to the authenticated Student's current active (or provisionally selected final) phase; a Student cannot choose an arbitrary phase or attachment URL.
+
+M7D presents the Student-owned recruitment journey from the same Application record. Its timeline retains append-only phase events but hides internal notes. The active phase card shows only that phase's execution details and PDF action. Rejected, absent, withdrawn, closed, and completed states retain history but receive no active-only resources.
+
+M7E makes Company final-phase selection provisional. A Student can create or update the single PlacementRecord for that Application only while it is provisionally selected, including PDF proof. The record moves through `pending_admin_verification`, `confirmed`, `rejected`, and `revoked`; only Placement Admin confirmation changes the Application to `placement_confirmed`. Confirmed full-time, PPO, and internship-and-PPO records block future incompatible applications and close other active applications as `closed_placed_elsewhere`; internship-only records do not impose that hard lock. Revocation preserves history and recalculates future eligibility from remaining confirmed records, but never reopens old closed applications automatically.
 
 Students see a personal phase journey. Admin monitors the same drive, application, phase, and history data without a duplicate phase/student store. A selected result creates one controlled PlacementRecord. The Admin can postpone or cancel a drive.
+
+Drive lifecycle control is deliberately narrow: `published -> postponed` and `published|postponed -> cancelled`, with a required reason. Both states freeze new applications, Company transitions, runtime phase editing, and phase messaging without changing Applications, phase history, resources, or PlacementRecords. Active applicants receive one notification for each lifecycle action. No resume transition is exposed because the current lifecycle policy does not define a safe reactivation path.
 
 ## Student verification
 

@@ -82,3 +82,4 @@ export const placementDriveReviewSchema = z.object({
   if (value.decision !== 'approved' && !value.reason) context.addIssue({ code: 'custom', path: ['reason'], message: 'Provide a reason for rejection or requested changes.' })
   if (value.decision === 'approved' && value.reason) context.addIssue({ code: 'custom', path: ['reason'], message: 'A reason is only allowed for rejection or requested changes.' })
 })
+export const placementDriveLifecycleReasonSchema = z.object({ reason: z.string().trim().min(2, 'Provide a reason for this Drive lifecycle change.').max(1500) })

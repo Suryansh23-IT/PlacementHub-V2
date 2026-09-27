@@ -38,6 +38,6 @@ export function StudentNotificationsPage() {
   return <section className="space-y-6">
     <PageHeader eyebrow="Student Placement Portal" title="Notifications" description="Updates about published opportunities and your placement activity." action={<StatusBadge status="neutral">{unread} unread</StatusBadge>} />
     {error && <ErrorState message={error} />}
-    <NotificationInbox notifications={notifications} drives={drives} busyId={busyId} onMarkRead={markRead} driveTo={driveId => `/student/placement/${driveId}`} emptyTitle="No unread notifications" emptyDescription="Placement updates will appear here when there is something for you to review." />
+    <NotificationInbox notifications={notifications} drives={drives} busyId={busyId} onMarkRead={markRead} driveTo={driveId => `/student/placement/${driveId}`} journeyTo={applicationId => `/student/applications/${applicationId}/journey`} emptyTitle="No unread notifications" emptyDescription="Placement updates will appear here when there is something for you to review." />
   </section>
 }

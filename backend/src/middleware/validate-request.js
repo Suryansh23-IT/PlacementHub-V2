@@ -23,3 +23,16 @@ export function validateParams(schema) {
     return next()
   }
 }
+
+export function validateQuery(schema) {
+  return (request, response, next) => {
+    const result = schema.safeParse(request.query)
+
+    if (!result.success) {
+      return next(result.error)
+    }
+
+    request.validatedQuery = result.data
+    return next()
+  }
+}

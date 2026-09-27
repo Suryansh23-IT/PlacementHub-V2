@@ -25,6 +25,7 @@ import { AdminPlacementDrivesPage } from './pages/AdminPlacementDrivesPage.jsx'
 import { AdminPlacementDriveReviewPage } from './pages/AdminPlacementDriveReviewPage.jsx'
 import { StudentPlacementCenterPage } from './pages/StudentPlacementCenterPage.jsx'
 import { StudentPlacementDriveDetailPage } from './pages/StudentPlacementDriveDetailPage.jsx'
+import { StudentRecruitmentJourneyPage } from './pages/StudentRecruitmentJourneyPage.jsx'
 import { CompanyPlacementDriveApplicantsPage } from './pages/CompanyPlacementDriveApplicantsPage.jsx'
 import { CompanyPlacementDriveApplicantPage } from './pages/CompanyPlacementDriveApplicantPage.jsx'
 import { AdminPlacementDriveMonitoringPage } from './pages/AdminPlacementDriveMonitoringPage.jsx'
@@ -33,6 +34,7 @@ import { StudentNotificationsPage } from './pages/StudentNotificationsPage.jsx'
 import { CompanyNotificationsPage } from './pages/CompanyNotificationsPage.jsx'
 import { AdminNotificationsPage } from './pages/AdminNotificationsPage.jsx'
 import { AdminPlacementDisciplinePage } from './pages/AdminPlacementDisciplinePage.jsx'
+import { AdminPlacementOutcomesPage } from './pages/AdminPlacementOutcomesPage.jsx'
 import { HelpSupportPage } from './pages/HelpSupportPage.jsx'
 
 export default function App() {
@@ -51,6 +53,7 @@ export default function App() {
         <Route path="student/policy" element={<RequireAuth><RequireRole roles={['student']}><StudentPolicyPage /></RequireRole></RequireAuth>} />
         <Route path="student/placement" element={<RequireAuth><RequireRole roles={['student']}><StudentPlacementCenterPage /></RequireRole></RequireAuth>} />
         <Route path="student/placement/:id" element={<RequireAuth><RequireRole roles={['student']}><StudentPlacementDriveDetailPage /></RequireRole></RequireAuth>} />
+        <Route path="student/applications/:id/journey" element={<RequireAuth><RequireRole roles={['student']}><StudentRecruitmentJourneyPage /></RequireRole></RequireAuth>} />
         <Route path="student/notifications" element={<RequireAuth><RequireRole roles={['student']}><StudentNotificationsPage /></RequireRole></RequireAuth>} />
         <Route path="admin/students" element={<RequireAuth><RequireRole roles={['placement_admin']}><AdminStudentsPage /></RequireRole></RequireAuth>} />
         <Route path="admin/students/:id" element={<RequireAuth><RequireRole roles={['placement_admin']}><AdminCandidateReviewPage /></RequireRole></RequireAuth>} />
@@ -66,6 +69,7 @@ export default function App() {
         <Route path="admin/recruiter-policy" element={<RequireAuth><RequireRole roles={['placement_admin']}><AdminRecruiterPolicyPage /></RequireRole></RequireAuth>} />
         <Route path="admin/notifications" element={<RequireAuth><RequireRole roles={['placement_admin']}><AdminNotificationsPage /></RequireRole></RequireAuth>} />
         <Route path="admin/placement-discipline" element={<RequireAuth><RequireRole roles={['placement_admin']}><AdminPlacementDisciplinePage /></RequireRole></RequireAuth>} />
+        <Route path="admin/placement-outcomes" element={<RequireAuth><RequireRole roles={['placement_admin']}><AdminPlacementOutcomesPage /></RequireRole></RequireAuth>} />
         <Route path="company/policy" element={<RequireAuth><RequireRole roles={['company']}><RecruiterPolicyPage /></RequireRole></RequireAuth>} />
         <Route path="company/notifications" element={<RequireAuth><RequireRole roles={['company']}><CompanyNotificationsPage /></RequireRole></RequireAuth>} />
         <Route path="company/placement-drives" element={<RequireAuth><RequireRole roles={['company']}><CompanyPlacementDrivesPage /></RequireRole></RequireAuth>} />

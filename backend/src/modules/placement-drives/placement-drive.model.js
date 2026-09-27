@@ -1,5 +1,5 @@
 import mongoose from 'mongoose'
-import { COMPANY_PHASE_TYPES, PLACEMENT_DRIVE_LIFECYCLE_STATUSES, PLACEMENT_DRIVE_PROPOSAL_STATUSES } from './placement-drive.constants.js'
+import { COMPANY_PHASE_TYPES, PHASE_EXECUTION_MODES, PHASE_EXECUTION_STATUSES, PHASE_RESOURCE_TYPES, PLACEMENT_DRIVE_LIFECYCLE_STATUSES, PLACEMENT_DRIVE_PROPOSAL_STATUSES } from './placement-drive.constants.js'
 
 const pdfMetadataSchema = new mongoose.Schema({
   originalName: { type: String, trim: true, maxlength: 255 },
@@ -14,6 +14,34 @@ const phaseSchema = new mongoose.Schema({
   title: { type: String, required: true, trim: true, maxlength: 120 },
   type: { type: String, required: true, enum: COMPANY_PHASE_TYPES },
   description: { type: String, trim: true, maxlength: 1500 },
+}, { _id: false })
+
+const phaseResourceSchema = new mongoose.Schema({
+  type: { type: String, required: true, enum: PHASE_RESOURCE_TYPES },
+  label: { type: String, trim: true, maxlength: 120 },
+  url: { type: String, required: true, trim: true, maxlength: 2000, match: /^https?:\/\/.+/i },
+}, { _id: false })
+
+// Runtime execution is deliberately separate from the approved M5 blueprint.
+// Entries use phaseNumber as identity and never duplicate or alter phase titles.
+const phaseExecutionSchema = new mongoose.Schema({
+  phaseNumber: { type: Number, required: true, min: 1, max: 5 },
+  scheduledAt: { type: Date },
+  deadlineAt: { type: Date },
+  mode: { type: String, enum: PHASE_EXECUTION_MODES },
+  venue: { type: String, trim: true, maxlength: 300 },
+  instructions: { type: String, trim: true, maxlength: 3000 },
+  resources: { type: [phaseResourceSchema], default: [] },
+  instructionPdf: pdfMetadataSchema,
+  status: { type: String, required: true, enum: PHASE_EXECUTION_STATUSES, default: 'unscheduled' },
+}, { _id: false })
+
+const lifecycleHistorySchema = new mongoose.Schema({
+  event: { type: String, required: true, enum: ['postponed', 'cancelled'] },
+  status: { type: String, required: true, enum: Object.values(PLACEMENT_DRIVE_LIFECYCLE_STATUSES) },
+  reason: { type: String, required: true, trim: true, maxlength: 1500 },
+  actorId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+  occurredAt: { type: Date, required: true },
 }, { _id: false })
 
 const placementDriveSchema = new mongoose.Schema({
@@ -59,8 +87,17 @@ const placementDriveSchema = new mongoose.Schema({
       message: 'Define one to five consecutive Company phases numbered from 1. Phase 0 is reserved for applicant screening.',
     },
   },
+  phaseExecution: {
+    type: [phaseExecutionSchema],
+    default: [],
+    validate: {
+      validator: (entries) => Array.isArray(entries) && entries.every(entry => Number.isInteger(entry.phaseNumber)) && new Set(entries.map(entry => entry.phaseNumber)).size === entries.length,
+      message: 'Phase execution metadata must contain at most one entry for each Company phase number.',
+    },
+  },
   proposalStatus: { type: String, required: true, enum: Object.values(PLACEMENT_DRIVE_PROPOSAL_STATUSES), default: PLACEMENT_DRIVE_PROPOSAL_STATUSES.DRAFT, index: true },
   lifecycleStatus: { type: String, required: true, enum: Object.values(PLACEMENT_DRIVE_LIFECYCLE_STATUSES), default: PLACEMENT_DRIVE_LIFECYCLE_STATUSES.UNPUBLISHED, index: true },
+  lifecycleHistory: { type: [lifecycleHistorySchema], default: [] },
   publishedAt: { type: Date },
   applicationsManuallyClosedAt: { type: Date },
   applicationsManuallyClosedBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
@@ -73,6 +110,16 @@ const placementDriveSchema = new mongoose.Schema({
     reviewedAt: Date,
   },
 }, { timestamps: true })
+
+placementDriveSchema.pre('validate', function validatePhaseExecution() {
+  const phaseNumbers = new Set((this.phases ?? []).map(phase => phase.phaseNumber))
+  for (const execution of this.phaseExecution ?? []) {
+    if (!phaseNumbers.has(execution.phaseNumber)) {
+      this.invalidate('phaseExecution', `Phase ${execution.phaseNumber} does not exist in the Company phase blueprint.`)
+      break
+    }
+  }
+})
 
 placementDriveSchema.index({ companyId: 1, proposalStatus: 1, lifecycleStatus: 1 })
 placementDriveSchema.index({ 'driveDetails.applicationDeadline': 1 })

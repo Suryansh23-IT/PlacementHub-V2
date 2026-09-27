@@ -39,7 +39,15 @@ Routes must authenticate, authorize the role, validate input, and check resource
 
 For a published Placement Drive, Placement Admins may manage application intake with `PATCH /admin/placement-drives/:id/application-window/deadline`, `PATCH /admin/placement-drives/:id/application-window/close`, and `PATCH /admin/placement-drives/:id/application-window/reopen`. Deadline and reopen requests use `{ applicationDeadline? }`; an extension must be later than the current deadline and every supplied deadline must be in the future. These endpoints do not modify existing Applications or the Drive lifecycle status.
 
+Placement Admin lifecycle controls are `PATCH /admin/placement-drives/:id/lifecycle/postpone` and `PATCH /admin/placement-drives/:id/lifecycle/cancel`, each with `{ reason }`. Postpone accepts only a published Drive; cancel accepts a published or postponed Drive. Repeating the same action is idempotent. Active applicants receive one contextual notification, while Applications and recruitment history remain unchanged.
+
 Notification history is read-only: `GET /admin/notifications` and `GET /companies/me/notifications` return received items for the authenticated account, while `/admin/notifications/sent` and `/companies/me/notifications/sent` return one grouped item per notification send action, with recipient and read totals. Student notification routes remain received-only.
+
+M7C Company execution endpoints are nested under `/companies/me/placement-drives/:id/recruitment`: phase setup/PDF, phase recipient preview, `GET /candidates/export?phase=N` or `?selectedOnly=true`, and `POST /companies/me/notifications/phase-candidates`. The notification request includes a UUID request ID for retry-safe batching. Students can read only `/students/me/applications/:id/current-phase` and its current-phase PDF download; neither accepts a Company phase number.
+
+M7D adds `GET /students/me/applications/:id/journey`. It returns only the authenticated Student's application, safe phase-history events, the approved blueprint, and execution details for the Student's current active phase. It never exposes future-phase execution resources, raw storage paths, other candidates, or internal notes.
+
+M7E adds `POST /students/me/applications/:id/placement-report` and a PDF-only `POST /students/me/applications/:id/placement-proof`. Both require the Student's own provisionally selected Application. Placement Admins use `GET /admin/placement-outcomes`, `PATCH /:id/confirm`, and `PATCH /:id/decision` for pending, confirmed, rejected, and revoked outcome records. Proof downloads remain role/record-owner scoped.
 
 ## Authentication and RBAC
 

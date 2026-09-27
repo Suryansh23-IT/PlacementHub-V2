@@ -7,6 +7,7 @@ import { PlacementDrive } from '../placement-drives/placement-drive.model.js'
 import { StudentProfile } from '../students/student.model.js'
 import { Application } from './application.model.js'
 import { getApplicationWindowStatus } from '../placement-drives/placement-drive.application-window.js'
+import { PlacementRecord } from '../placements/placement-record.model.js'
 
 const publishedQuery = () => ({ proposalStatus: PLACEMENT_DRIVE_PROPOSAL_STATUSES.APPROVED, lifecycleStatus: PLACEMENT_DRIVE_LIFECYCLE_STATUSES.PUBLISHED })
 const notFound = () => new AppError('Published Placement Drive was not found.', { statusCode: 404, errorCode: 'NOT_FOUND' })
@@ -50,7 +51,7 @@ export async function listAdminPublishedDriveMonitoring({ placementDriveModel = 
 }
 
 async function getPublishedDrive(driveId, { placementDriveModel = PlacementDrive } = {}) {
-  const drive = await placementDriveModel.findOne({ _id: driveId, ...publishedQuery() })
+  const drive = await placementDriveModel.findOne({ _id: driveId, proposalStatus: PLACEMENT_DRIVE_PROPOSAL_STATUSES.APPROVED, lifecycleStatus: { $in: [PLACEMENT_DRIVE_LIFECYCLE_STATUSES.PUBLISHED, PLACEMENT_DRIVE_LIFECYCLE_STATUSES.POSTPONED, PLACEMENT_DRIVE_LIFECYCLE_STATUSES.CANCELLED] } })
   if (!drive) throw notFound()
   return drive
 }
@@ -71,7 +72,7 @@ function publicStudent(application, user, profile) {
 }
 
 export async function getAdminPublishedDriveMonitoring(driveId, dependencies = {}) {
-  const { applicationModel = Application, userModel = User, profileModel = StudentProfile, companyModel = Company } = dependencies
+  const { applicationModel = Application, userModel = User, profileModel = StudentProfile, companyModel = Company, placementRecordModel = null } = dependencies
   const drive = await getPublishedDrive(driveId, dependencies)
   const applications = await applicationModel.find({ placementDriveId: drive._id }).sort({ appliedAt: -1 })
   const students = await Promise.all(applications.map(async application => {
@@ -85,5 +86,7 @@ export async function getAdminPublishedDriveMonitoring(driveId, dependencies = {
   const company = await companySummary(drive.companyId, { companyModel })
   const visibleStudents = students.filter(Boolean)
   const exitedCount = applications.filter(application => plain(application).currentStatus === 'withdrawn').length
-  return { drive: publicDrive(drive, company), applicationCount: applications.length, students: visibleStudents, summary: { proposalStatus: drive.proposalStatus, lifecycleStatus: drive.lifecycleStatus, applicationDeadline: drive.driveDetails?.applicationDeadline, applicantCount: applications.length - exitedCount, exitedCount, phaseCount: (drive.phases ?? []).filter(phase => phase.phaseNumber >= 1).length, companyId: drive.companyId, roleTitle: drive.role?.title } }
+  const records = placementRecordModel ? await placementRecordModel.find({ placementDriveId: drive._id }) : []; const recordByApplication = new Map(records.map(record => [String(plain(record).applicationId), plain(record)])); const funnel = { total: applications.length, phases: [0, ...(drive.phases ?? []).map(phase => phase.phaseNumber)].map(phaseNumber => ({ phaseNumber, count: applications.filter(item => plain(item).currentPhase === phaseNumber && ['active', 'applied'].includes(plain(item).currentStatus)).length })), statuses: Object.fromEntries(['rejected', 'absent', 'withdrawn', 'closed_placed_elsewhere', 'selected_pending_confirmation', 'placement_confirmed'].map(status => [status, applications.filter(item => plain(item).currentStatus === status).length])), confirmationPending: records.filter(record => plain(record).verificationState === 'pending_admin_verification').length, confirmedPlacements: records.filter(record => plain(record).verificationState === 'confirmed').length }
+  const enriched = visibleStudents.map(student => ({ ...student, confirmationState: recordByApplication.get(String(student.applicationId))?.verificationState }))
+  return { drive: publicDrive(drive, company), applicationCount: applications.length, students: enriched, funnel, summary: { proposalStatus: drive.proposalStatus, lifecycleStatus: drive.lifecycleStatus, applicationDeadline: drive.driveDetails?.applicationDeadline, applicantCount: applications.length - exitedCount, exitedCount, phaseCount: (drive.phases ?? []).filter(phase => phase.phaseNumber >= 1).length, companyId: drive.companyId, roleTitle: drive.role?.title } }
 }
