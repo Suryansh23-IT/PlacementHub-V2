@@ -30,6 +30,8 @@ An eligible application is created once per Student and drive and starts in Phas
 
 Published Drive visibility is separate from its application window. A published Drive accepts new applications only until its stored deadline and while Placement Administration has not manually closed intake. An Admin may extend a deadline, close applications early, or reopen a manually closed window; those actions never change the published timestamp, existing Applications, or Phase 0 history. Natural deadline expiry is calculated when eligibility or application submission runs and does not require a background job.
 
+Admin discipline reviews: `No action / forgive` closes the review and moves the incident into History / Closed matters, retaining the Student name and decision. `Forget / Close Matter` archives a resolved incident after any active restriction has been explicitly removed. Archived matters are read-only: no further restriction may be imposed from that incident. History is preserved rather than deleted; unrelated pending incidents remain actionable.
+
 ## M7: Phase execution and placement outcomes
 
 M7 executes the phases designed in M5. Companies can schedule each phase, provide external links and instructions, and notify candidates in that phase. Candidate states include `pending`, `result_pending`, `qualified`, `rejected`, `absent`, `disqualified`, and `selected`. Companies can promote or demote candidates between Phase 0 and configured phases while preserving phase history.
@@ -62,3 +64,5 @@ M8 adds no core placement decision logic. It presents clean Admin, Company, and 
 ## Notifications across M5–M7
 
 Notifications support meaningful placement events only: Admin to Students, Admin to Companies, Company to Admin, and Company to Students in that Company's own drive or phase. They are used for proposal decisions, publishing, application and material phase updates, schedules, selection, rejection, postponement, cancellation, and similar actionable changes. The system must not notify users for every small status change.
+
+Later restrictions require a resolved, unarchived incident; pending and department-referred incidents must use the review workflow. Restriction review notes are limited to 500 characters to match the restriction record. Forgiving an incident does not remove an existing restriction; removal restores normal eligibility evaluation rather than guaranteeing eligibility.

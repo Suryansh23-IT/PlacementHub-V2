@@ -175,6 +175,8 @@ test('master-m6-tcs-story', async t => {
   })
   await t.test('temporary restriction counter and preserved history', async () => {
     const source = await IncidentReport.create({ studentId: students.S4._id, applicationId: (await Application.findOne({ studentId: students.S4._id }))._id, placementDriveId: drive._id, companyId: company._id, phase: 0, applicationStatus: 'applied', category: 'misconduct', description: 'Separate counter fixture.', reportedBy: companyUser._id })
+    await assertCode(applyRestrictionFromIncident(admin._id, source._id, { type: 'temporary_drive_count', driveCount: 5, reason: 'Five future drives.' }), 'CONFLICT')
+    await reviewIncidentReport(admin._id, source._id, { action: 'warning_only', reviewNote: 'Incident reviewed before the later restriction.' })
     const restriction = await applyRestrictionFromIncident(admin._id, source._id, { type: 'temporary_drive_count', driveCount: 5, reason: 'Five future drives.' })
     const oldDrive = await PlacementDrive.create({ ...driveInput, companyId: company._id, proposalStatus: 'approved', lifecycleStatus: 'published', publishedAt: new Date('2025-01-01'), documents: { companyRecruitmentInformation: doc('old-a'), placementDriveJobDescription: doc('old-b') } })
     await consumePlacementRestrictionForDrive(students.S4._id, oldDrive._id)

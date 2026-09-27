@@ -9,7 +9,7 @@ const { applyRestrictionFromIncident, archiveIncidentReport, createCompanyIncide
 const { consumePlacementRestrictionForDrive } = await import('../src/modules/applications/placement-restriction.service.js')
 const { removePlacementRestriction } = await import('../src/modules/applications/placement-restriction.service.js')
 const { evaluatePlacementDriveEligibility } = await import('../src/modules/applications/application.service.js')
-const { incidentReportCreateSchema } = await import('../src/modules/incidents/incident-report.validation.js')
+const { incidentReportCreateSchema, incidentReviewSchema } = await import('../src/modules/incidents/incident-report.validation.js')
 
 const ids = { admin: '507f1f77bcf86cd799439101', companyUser: '507f1f77bcf86cd799439102', company: '507f1f77bcf86cd799439103', otherCompany: '507f1f77bcf86cd799439104', student: '507f1f77bcf86cd799439105', application: '507f1f77bcf86cd799439106', drive: '507f1f77bcf86cd799439107', incident: '507f1f77bcf86cd799439108', restriction: '507f1f77bcf86cd799439109' }
 const drive = { _id: ids.drive, companyId: ids.company, proposalStatus: 'approved', lifecycleStatus: 'published', driveDetails: { applicationDeadline: new Date('2027-02-01') }, eligibility: { allowedBranches: ['Information Technology'], minimumCgpa: 7, maximumActiveBacklogs: 0, graduationYears: [2027] } }
@@ -17,6 +17,26 @@ const application = { _id: ids.application, studentId: ids.student, placementDri
 const profile = { userId: ids.student, verificationStatus: 'verified', branch: 'Information Technology', cgpa: 8, activeBacklogs: 0, graduationYear: 2027 }
 
 function notificationModel(created) { return { create: async notifications => { created.push(...notifications); return notifications } } }
+
+test('Restriction reviews validate the stored reason limit before changing eligibility', () => {
+  for (const action of ['temporary_restriction', 'permanent_restriction']) {
+    const input = { action, reviewNote: 'x'.repeat(501), ...(action === 'temporary_restriction' ? { driveCount: 3 } : {}) }
+    assert.equal(incidentReviewSchema.safeParse(input).success, false)
+    assert.equal(incidentReviewSchema.safeParse({ ...input, reviewNote: 'x'.repeat(500) }).success, true)
+  }
+  assert.equal(incidentReviewSchema.safeParse({ action: 'warning_only', reviewNote: 'x'.repeat(1500) }).success, true)
+})
+
+test('Pending and referred incidents cannot bypass review through the later-restriction endpoint', async () => {
+  for (const reviewStatus of ['pending_review', 'reviewed']) {
+    let imposed = false
+    await assert.rejects(applyRestrictionFromIncident(ids.admin, ids.incident, { type: 'permanent', reason: 'Bypass attempt.' }, {
+      incidentReportModel: { findOne: async () => ({ _id: ids.incident, studentId: ids.student, reviewStatus }) },
+      imposeRestrictionService: async () => { imposed = true },
+    }), { errorCode: 'CONFLICT' })
+    assert.equal(imposed, false)
+  }
+})
 
 test('all Company incident categories validate and create a pending Admin review with Drive context', async () => {
   const categories = ['withdrawal', 'absent', 'cheating', 'misconduct', 'rule_violation', 'document_or_information_issue', 'other']
@@ -134,6 +154,31 @@ test('Forget / Close Matter archives only a resolved incident and never changes 
   )
   assert.equal(activeRestriction.status, 'active')
   assert.equal(blockedReport.archivedAt, undefined)
+})
+
+test('Forgive then forget preserves closed history and blocks further restrictions from that matter', async () => {
+  const report = { _id: ids.incident, studentId: ids.student, companyId: ids.company, reviewStatus: 'pending_review', async save() { return this } }
+  const notifications = []
+  let imposed = false
+  const dependencies = {
+    incidentReportModel: { findOne: async () => report },
+    companyModel: { findOne: () => ({ select: async () => null }) },
+    placementRestrictionModel: { findOne: async () => null },
+    notificationModel: notificationModel(notifications),
+    imposeRestrictionService: async () => { imposed = true },
+  }
+  await reviewIncidentReport(ids.admin, ids.incident, { action: 'no_action', reviewNote: 'Forgiven after review.' }, dependencies)
+  assert.equal(report.reviewStatus, 'closed')
+  const archived = await archiveIncidentReport(ids.admin, ids.incident, dependencies)
+  assert.equal(archived.studentId, ids.student)
+  assert.equal(archived.decision, 'no_action')
+  assert.equal(archived.reviewNote, 'Forgiven after review.')
+  assert.ok(archived.archivedAt)
+  const repeated = await archiveIncidentReport(ids.admin, ids.incident, dependencies)
+  assert.equal(repeated.archivedAt, archived.archivedAt)
+  await assert.rejects(applyRestrictionFromIncident(ids.admin, ids.incident, { type: 'permanent', reason: 'Should be blocked.' }, dependencies), { errorCode: 'CONFLICT' })
+  assert.equal(imposed, false)
+  assert.equal(notifications.length, 0)
 })
 
 test('A Company cannot report an applicant from another Company\'s Placement Drive', async () => {

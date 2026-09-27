@@ -18,6 +18,7 @@ export const incidentReviewSchema = z.object({
   reviewNote: z.string().trim().min(2, 'Admin review note must contain at least 2 characters.').max(1500),
   driveCount: z.coerce.number().int().min(1).max(100).optional(),
 }).superRefine((value, context) => {
+  if (['temporary_restriction', 'permanent_restriction'].includes(value.action) && value.reviewNote.length > 500) context.addIssue({ code: 'custom', path: ['reviewNote'], message: 'Restriction notes must contain at most 500 characters.' })
   if (value.action === 'temporary_restriction' && !value.driveCount) context.addIssue({ code: 'custom', path: ['driveCount'], message: 'Choose the number of future Placement Drives for this restriction.' })
   if (value.action !== 'temporary_restriction' && value.driveCount != null) context.addIssue({ code: 'custom', path: ['driveCount'], message: 'Drive count is only allowed for a temporary restriction.' })
 })

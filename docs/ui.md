@@ -25,3 +25,5 @@ The placement dashboard presents total students, verified students, approved com
 ## Required states
 
 Every data screen implements loading, empty, success, error, and unauthorized states. Forms show field-level validation and understandable server errors.
+
+Admin discipline separates pending reviews, active restrictions, and collapsible history with section counts and a Student/enrollment/branch/Company/role search. History identifies resolved reviews separately from archived matters. Later restriction forms are collapsed and explain replacement of any active restriction. All mutation controls are disabled while an action is saving; form validation matches API note and drive-count limits.

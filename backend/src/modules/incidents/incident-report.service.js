@@ -205,6 +205,8 @@ export async function applyRestrictionFromIncident(adminId, incidentId, input, {
   const report = await incidentReportModel.findOne({ _id: incidentId })
   if (!report) throw notFound('Incident report was not found.')
   const value = plain(report)
+  if (value.archivedAt) throw conflict('This matter is closed and retained for history only.')
+  if (value.reviewStatus !== 'closed') throw conflict('Complete the incident review before applying a later restriction.')
   const restriction = await imposeRestrictionService(value.studentId, {
     sourceIncidentReportId: value._id,
     placementDriveId: value.placementDriveId,
