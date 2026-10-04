@@ -60,13 +60,13 @@ export function ParticipationLetter({ token, profile, busy, disabled, onBusyChan
         <div className="min-w-0">
           <div className="flex flex-wrap items-center gap-2">
             <h3 className="font-bold text-slate-900">Participation Letter PDF</h3>
-            <span className="text-xs font-bold text-violet-700">Required</span>
+            <span className="text-xs font-bold text-blue-700">Required</span>
           </div>
           <p className="mt-1 break-all text-sm text-slate-500">{file?.originalName || 'No PDF uploaded'}</p>
           <p className="mt-1 text-sm font-medium text-slate-600" role="status">{busy === 'upload' ? 'Uploading…' : file ? 'Uploaded' : 'Not uploaded'}</p>
         </div>
         <div className="flex flex-wrap items-center gap-2">
-          <label className={`inline-flex min-h-11 items-center justify-center rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm font-semibold text-slate-700 focus-within:ring-2 focus-within:ring-violet-500 ${unavailable ? 'cursor-wait opacity-70' : 'cursor-pointer hover:bg-slate-50'}`}>
+          <label className={`inline-flex min-h-11 items-center justify-center rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm font-semibold text-slate-700 focus-within:ring-2 focus-within:ring-blue-500 ${unavailable ? 'cursor-wait opacity-70' : 'cursor-pointer hover:bg-slate-50'}`}>
             <span>{busy === 'upload' ? 'Uploading…' : file ? 'Replace PDF' : 'Upload PDF'}</span>
             <input className="sr-only" type="file" accept="application/pdf,.pdf" disabled={unavailable} onChange={(event) => {
               const selectedFile = event.target.files?.[0]

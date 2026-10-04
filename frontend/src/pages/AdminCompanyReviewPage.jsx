@@ -89,7 +89,7 @@ function CompanyReviewRecord({ id, session }) {
     } catch (error) { viewer?.close(); setDocumentError(error.message) } finally { setBusyDocument('') }
   }
 
-  const back = <Link className="text-sm font-bold text-violet-700" to={`/admin/companies?status=${filter}`}>← Company list</Link>
+  const back = <Link className="text-sm font-bold text-blue-700" to={`/admin/companies?status=${filter}`}>← Company list</Link>
   if (loading) return <LoadingState message="Loading company record…" />
   if (!record) return <section className="space-y-6">{back}<ErrorState message={error || 'Company record could not be loaded.'} /></section>
   const profile = record.company || {}
@@ -123,7 +123,7 @@ function CompanyReviewRecord({ id, session }) {
     ]} />
     {error && <ErrorState message={error} />}
     {success && <p role="status" className="rounded-xl bg-emerald-50 p-4 text-sm text-emerald-800">{success}</p>}
-    {profile.approvalStatus === 'pending' && <section className="rounded-2xl border border-violet-200 bg-violet-50 p-5">
+    {profile.approvalStatus === 'pending' && <section className="rounded-2xl border border-blue-200 bg-blue-50 p-5">
       <h2 className="font-bold">Review decision</h2>
       {!canReview && <p className="mt-3 text-sm text-amber-800">The company must complete its profile and Participation Letter before it can be approved or rejected.</p>}
       <div className="mt-4"><FormField as="textarea" rows="3" label="Rejection reason (required to reject)" hint="2–500 characters. Not required for approval." maxLength={500} value={reason} error={reasonError} disabled={!canReview || Boolean(decision)} onChange={event => { setReason(event.target.value); setReasonError('') }} /></div>
@@ -136,7 +136,7 @@ function SafeLink({ url }) {
   if (!url) return 'Not provided'
   let safe = false
   try { safe = ['http:', 'https:'].includes(new URL(url).protocol) } catch { /* Display invalid URLs as text. */ }
-  return safe ? <a className="font-semibold text-violet-700 hover:underline" href={url} target="_blank" rel="noreferrer noopener">{url}</a> : <span>{url}</span>
+  return safe ? <a className="font-semibold text-blue-700 hover:underline" href={url} target="_blank" rel="noreferrer noopener">{url}</a> : <span>{url}</span>
 }
 
 function Record({ title, items }) {

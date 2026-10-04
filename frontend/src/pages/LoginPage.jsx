@@ -42,7 +42,7 @@ export function LoginPage() {
       <FormField label="Password" type="password" value={form.password} onChange={(event) => setForm({ ...form, password: event.target.value })} autoComplete="current-password" />
       <Button type="submit" className="w-full" disabled={isSubmitting}>{isSubmitting ? 'Signing in…' : 'Sign in'}</Button>
     </form>
-    <p className="mt-6 text-sm text-slate-600">New here? <Link className="font-bold text-violet-700 hover:text-violet-900" to="/register">Create an account</Link>.</p>
+    <p className="mt-6 text-sm text-slate-600">New here? <Link className="font-bold text-blue-700 hover:text-blue-900" to="/register">Create an account</Link>.</p>
   </AuthCard></div>
 }
 

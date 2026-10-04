@@ -58,7 +58,7 @@ export function AdminCandidateReviewPage() {
 
   const profile = student.profile
   return <section className="space-y-6">
-    <Link className="text-sm font-bold text-violet-700" to="/admin/students">← Student list</Link>
+    <Link className="text-sm font-bold text-blue-700" to="/admin/students">← Student list</Link>
     <PageHeader eyebrow="Candidate review" title={student.name} description={`${profile.rollNumber ?? 'Roll number not provided'} · ${profile.branch ?? 'Branch not provided'}`} action={<StatusBadge status={profile.verificationStatus} />} />
     <Record title="Placement Agreement" items={[['Status', student.placementAgreement?.status === 'accepted' ? 'Accepted' : 'Not Accepted'], ['Policy title', student.placementAgreement?.title], ['Academic year', student.placementAgreement?.academicYear], ['Policy version', student.placementAgreement?.version], ['Accepted at', student.placementAgreement?.acceptedAt ? new Date(student.placementAgreement.acceptedAt).toLocaleString() : '—']]} />
     <Record title="Basic / college details" items={[['Email', student.email], ['Phone', profile.phone], ['Roll number', profile.rollNumber], ['Graduation', profile.graduationYear]]} />
@@ -74,7 +74,7 @@ export function AdminCandidateReviewPage() {
       ['College result / grade sheet', <DocumentActions key="college-result-actions" file={profile.collegeResult} type="collegeResult" busyDocument={busyDocument} onOpen={openDocument} absentLabel="Not uploaded (required)" />],
     ]} />
     {documentError && <p className="rounded-xl border border-rose-200 bg-rose-50 px-4 py-3 text-sm font-medium text-rose-800" role="alert">{documentError}</p>}
-    {profile.verificationStatus === 'pending' && <section className="rounded-2xl border border-violet-200 bg-violet-50 p-5"><FormField as="textarea" rows="3" label="Rejection reason" value={reason} onChange={(event) => setReason(event.target.value)} /><div className="mt-4 flex flex-wrap gap-3"><Button onClick={() => decide('verified')}>Verify</Button><Button variant="danger" onClick={() => decide('rejected')} disabled={reason.trim().length < 2}>Reject</Button></div></section>}
+    {profile.verificationStatus === 'pending' && <section className="rounded-2xl border border-blue-200 bg-blue-50 p-5"><FormField as="textarea" rows="3" label="Rejection reason" value={reason} onChange={(event) => setReason(event.target.value)} /><div className="mt-4 flex flex-wrap gap-3"><Button onClick={() => decide('verified')}>Verify</Button><Button variant="danger" onClick={() => decide('rejected')} disabled={reason.trim().length < 2}>Reject</Button></div></section>}
   </section>
 }
 
@@ -83,7 +83,7 @@ function DocumentActions({ file, type, busyDocument, onOpen, absentLabel }) {
   return <div className="flex flex-wrap items-center gap-2"><span className="max-w-48 truncate text-slate-800">{file.originalName}</span><Button variant="secondary" className="min-h-9 px-3 py-1.5" disabled={Boolean(busyDocument)} onClick={() => onOpen(type, file.originalName, 'view')}>{busyDocument === `${type}-view` ? 'Opening…' : 'View'}</Button><Button variant="secondary" className="min-h-9 px-3 py-1.5" disabled={Boolean(busyDocument)} onClick={() => onOpen(type, file.originalName, 'download')}>{busyDocument === `${type}-download` ? 'Downloading…' : 'Download'}</Button></div>
 }
 
-function SafeLink({ url, label = 'Open link' }) { return url ? <a className="mt-1 inline-block font-semibold text-violet-700 hover:underline" href={url} target="_blank" rel="noreferrer noopener">{label}</a> : <span className="text-slate-500">Not provided</span> }
+function SafeLink({ url, label = 'Open link' }) { return url ? <a className="mt-1 inline-block font-semibold text-blue-700 hover:underline" href={url} target="_blank" rel="noreferrer noopener">{label}</a> : <span className="text-slate-500">Not provided</span> }
 
 function Record({ title, items }) {
   return <section className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm"><h2 className="font-bold">{title}</h2>{items.length ? <dl className="mt-3 grid gap-3 sm:grid-cols-2">{items.map(([label, value], index) => <div key={`${label}-${index}`}><dt className="text-xs font-bold text-slate-500">{label}</dt><dd className="mt-1 text-sm text-slate-800">{value ?? 'Not provided'}</dd></div>)}</dl> : <p className="mt-3 text-sm text-slate-500">Not provided.</p>}</section>

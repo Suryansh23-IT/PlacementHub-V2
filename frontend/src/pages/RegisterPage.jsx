@@ -81,9 +81,9 @@ export function RegisterPage() {
     <div className="ph-auth"><section className="ph-auth-panel mx-auto max-w-5xl">
       <aside className="ph-auth-aside">
         <BrandLogo inverse link={false} />
-        <p className="mt-9 text-sm font-semibold uppercase tracking-[0.18em] text-violet-200">Apex Institute of Technology · Placement Cell</p>
+        <p className="mt-9 text-sm font-semibold uppercase tracking-[0.18em] text-blue-200">Apex Institute of Technology · Placement Cell</p>
         <h1 className="mt-4 text-3xl font-bold tracking-tight sm:text-4xl">One account. A clearer placement journey.</h1>
-        <p className="mt-4 max-w-sm leading-7 text-violet-100">Begin with a secure identity. The right placement tools will appear as your account progresses through the platform.</p>
+        <p className="mt-4 max-w-sm leading-7 text-blue-100">Begin with a secure identity. The right placement tools will appear as your account progresses through the platform.</p>
         <ol className="mt-10 space-y-5" aria-label="Registration progress">
           <ProgressItem active={step === 1} number="1" title="Choose your account" text="Student or Company" />
           <ProgressItem active={step === 2} number="2" title="Secure your sign-in" text="Account identity and password" />
@@ -100,7 +100,7 @@ export function RegisterPage() {
 function RoleSelection({ form, error, onSelect, onContinue }) {
   return (
     <div>
-      <p className="text-sm font-semibold uppercase tracking-[0.16em] text-violet-700">Step 1 of 2</p>
+      <p className="text-sm font-semibold uppercase tracking-[0.16em] text-blue-700">Step 1 of 2</p>
       <h2 className="mt-3 text-3xl font-bold tracking-tight text-slate-950">How will you use PlacementHub?</h2>
       <p className="mt-3 text-slate-600">Choose the account type that matches your role today.</p>
       {error && <div className="mt-5"><ErrorState message={error} /></div>}
@@ -108,14 +108,14 @@ function RoleSelection({ form, error, onSelect, onContinue }) {
         <legend className="sr-only">Account type</legend>
         {ROLE_OPTIONS.map((option) => {
           const selected = form.role === option.value
-          return <button key={option.value} type="button" className={`flex w-full items-start gap-4 rounded-2xl border p-5 text-left transition focus:outline-none focus:ring-2 focus:ring-violet-500 focus:ring-offset-2 ${selected ? 'border-violet-700 bg-violet-50 shadow-sm' : 'border-slate-200 bg-white hover:border-violet-300 hover:bg-violet-50/40'}`} onClick={() => onSelect(option.value)} aria-pressed={selected}>
-            <span className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-xl text-sm font-bold ${selected ? 'bg-violet-700 text-white' : 'bg-slate-100 text-slate-700'}`} aria-hidden="true">{option.marker}</span>
+          return <button key={option.value} type="button" className={`flex w-full items-start gap-4 rounded-2xl border p-5 text-left transition focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 ${selected ? 'border-blue-700 bg-blue-50 shadow-sm' : 'border-slate-200 bg-white hover:border-blue-300 hover:bg-blue-50/40'}`} onClick={() => onSelect(option.value)} aria-pressed={selected}>
+            <span className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-xl text-sm font-bold ${selected ? 'bg-blue-700 text-white' : 'bg-slate-100 text-slate-700'}`} aria-hidden="true">{option.marker}</span>
             <span><span className="block text-lg font-semibold text-slate-950">{option.title}</span><span className="mt-1 block leading-6 text-slate-600">{option.description}</span></span>
           </button>
         })}
       </fieldset>
       <Button className="mt-7 w-full" onClick={onContinue} disabled={!form.role}>Continue</Button>
-      <p className="mt-5 text-sm text-slate-600">Already registered? <Link className="font-semibold text-violet-700" to="/login">Sign in</Link>.</p>
+      <p className="mt-5 text-sm text-slate-600">Already registered? <Link className="font-semibold text-blue-700" to="/login">Sign in</Link>.</p>
     </div>
   )
 }
@@ -123,7 +123,7 @@ function RoleSelection({ form, error, onSelect, onContinue }) {
 function AccountDetails({ form, details, error, isSubmitting, onChange, onBack, onSubmit }) {
   return (
     <div>
-      <p className="text-sm font-semibold uppercase tracking-[0.16em] text-violet-700">Step 2 of 2 · {details.eyebrow}</p>
+      <p className="text-sm font-semibold uppercase tracking-[0.16em] text-blue-700">Step 2 of 2 · {details.eyebrow}</p>
       <h2 className="mt-3 text-3xl font-bold tracking-tight text-slate-950">{details.title}</h2>
       <p className="mt-3 leading-6 text-slate-600">{details.description}</p>
       {error && <div className="mt-5"><ErrorState message={error} /></div>}
@@ -138,11 +138,11 @@ function AccountDetails({ form, details, error, isSubmitting, onChange, onBack, 
           <Button type="submit" className="flex-1" disabled={isSubmitting}>{isSubmitting ? 'Creating account…' : `Create ${details.eyebrow}`}</Button>
         </div>
       </form>
-      <p className="mt-5 text-sm text-slate-600">Already registered? <Link className="font-semibold text-violet-700" to="/login">Sign in</Link>.</p>
+      <p className="mt-5 text-sm text-slate-600">Already registered? <Link className="font-semibold text-blue-700" to="/login">Sign in</Link>.</p>
     </div>
   )
 }
 
 function ProgressItem({ active, number, title, text }) {
-  return <li className="flex items-center gap-3"><span className={`flex h-8 w-8 items-center justify-center rounded-full text-sm font-bold ${active ? 'bg-white text-violet-800' : 'bg-violet-600 text-violet-100'}`}>{number}</span><span><span className="block font-semibold">{title}</span><span className="text-sm text-violet-200">{text}</span></span></li>
+  return <li className="flex items-center gap-3"><span className={`flex h-8 w-8 items-center justify-center rounded-full text-sm font-bold ${active ? 'bg-white text-blue-800' : 'bg-blue-600 text-blue-100'}`}>{number}</span><span><span className="block font-semibold">{title}</span><span className="text-sm text-blue-200">{text}</span></span></li>
 }

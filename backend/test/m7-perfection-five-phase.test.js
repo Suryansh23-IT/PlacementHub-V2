@@ -3,6 +3,7 @@ import { mkdtemp, rm, writeFile } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import path from 'node:path'
 import bcrypt from 'bcryptjs'
+import ExcelJS from 'exceljs'
 import mongoose from 'mongoose'
 import test from 'node:test'
 
@@ -38,8 +39,11 @@ const { phaseExecutionUpdateSchema } = await import('../src/modules/recruitment/
 const DB = 'mongodb://127.0.0.1:27017/placementhub-v2-m7-perfection'
 const NOW = new Date('2035-01-10T00:00:00.000Z')
 const DEADLINE = new Date('2035-02-10T00:00:00.000Z')
-const BRANCHES = ['Information Technology', 'Computer Science and Engineering', 'Electronics and Communication Engineering', 'Mechanical Engineering']
-const allowedBranches = BRANCHES.slice(0, 3)
+const BRANCHES = ['Information Technology', 'Computer Science and Engineering', 'Electronics and Communication Engineering', 'Electrical Engineering', 'Mechanical Engineering']
+const allowedBranches = BRANCHES.slice(0, 4)
+const validationCompanyName = process.env.M7_PERFECTION_COMPANY_NAME || 'Microsoft'
+const validationRoleTitle = process.env.M7_PERFECTION_ROLE_TITLE || 'Software Engineer'
+const validationCtc = Number(process.env.M7_PERFECTION_CTC || 1800000)
 const pdf = name => ({ originalName: `${name}.pdf`, storagePath: `/private/m7-perfect/${name}.pdf`, mimeType: 'application/pdf', size: 128, uploadedAt: NOW })
 
 async function account(name, email, role) { return User.create({ name, email, role, passwordHash: await bcrypt.hash('M7-Perfect-123!', 4) }) }
@@ -55,7 +59,7 @@ async function publishedDrive(companyId, title, phases = 1) {
   })
 }
 
-test('final M7 perfection story executes one realistic five-phase Microsoft Drive end to end', async t => {
+test('final M7 perfection story executes one realistic five-phase Company Drive end to end', async t => {
   await mongoose.connect(DB)
   await mongoose.connection.db.dropDatabase()
   const temp = await mkdtemp(path.join(tmpdir(), 'm7-perfect-'))
@@ -70,7 +74,7 @@ test('final M7 perfection story executes one realistic five-phase Microsoft Driv
   const microsoftUser = await account('Microsoft Recruiter', 'microsoft@perfect.test', USER_ROLES.COMPANY)
   const tcsUser = await account('TCS Recruiter', 'tcs@perfect.test', USER_ROLES.COMPANY)
   const unapprovedUser = await account('Pending Recruiter', 'pending@perfect.test', USER_ROLES.COMPANY)
-  const microsoft = await Company.create({ userId: microsoftUser._id, companyName: 'Microsoft', industry: 'Technology', location: 'Bengaluru', officialEmail: 'campus@microsoft.test', recruiterName: 'Microsoft Campus', approvalStatus: 'approved', participationLetter: pdf('microsoft-participation') })
+  const microsoft = await Company.create({ userId: microsoftUser._id, companyName: validationCompanyName, industry: 'Technology', location: 'Bengaluru', officialEmail: 'campus@microsoft.test', recruiterName: `${validationCompanyName} Campus`, approvalStatus: 'approved', participationLetter: pdf('microsoft-participation') })
   const tcs = await Company.create({ userId: tcsUser._id, companyName: 'TCS', industry: 'Technology', location: 'Pune', officialEmail: 'campus@tcs.test', recruiterName: 'TCS Campus', approvalStatus: 'approved', participationLetter: pdf('tcs-participation') })
   await Company.create({ userId: unapprovedUser._id, companyName: 'Pending Co', approvalStatus: 'pending' })
   assert.equal((await Company.findById(microsoft._id)).participationLetter.originalName, 'microsoft-participation.pdf')
@@ -81,11 +85,11 @@ test('final M7 perfection story executes one realistic five-phase Microsoft Driv
 
   const students = {}
   const variants = {
-    S06: { cgpa: 7.1 }, S07: { activeBacklogs: 1 }, S08: { branch: BRANCHES[3] }, S09: { graduationYear: 2028 }, S10: { verificationStatus: 'pending' },
+    S06: { cgpa: 7.1 }, S07: { activeBacklogs: 1 }, S08: { branch: BRANCHES[4] }, S09: { graduationYear: 2028 }, S10: { verificationStatus: 'pending' },
   }
   for (let number = 1; number <= 20; number += 1) {
     const key = `S${String(number).padStart(2, '0')}`
-    const user = await account(`Student ${key}`, `${key.toLowerCase()}@perfect.test`, USER_ROLES.STUDENT)
+    const user = await account(key === 'S19' ? 'Suyash Ghilahare' : `Student ${key}`, `${key.toLowerCase()}@perfect.test`, USER_ROLES.STUDENT)
     students[key] = user
     const override = variants[key] ?? {}
     await StudentProfile.create({ userId: user._id, branch: override.branch ?? allowedBranches[(number - 1) % 3], graduationYear: override.graduationYear ?? 2027, cgpa: override.cgpa ?? 8.4, activeBacklogs: override.activeBacklogs ?? 0, verificationStatus: override.verificationStatus ?? 'verified', rollNumber: `M7${String(number).padStart(3, '0')}`, phone: `90000000${String(number).padStart(2, '0')}`, skills: ['JavaScript'], projects: [{ title: 'Placement project', description: 'Verified profile fixture.', technologies: ['JavaScript'] }], resume: pdf(`${key}-resume`), collegeResult: pdf(`${key}-result`) })
@@ -93,8 +97,8 @@ test('final M7 perfection story executes one realistic five-phase Microsoft Driv
   }
 
   const proposal = {
-    role: { title: 'Software Engineer', domain: 'Engineering', employmentType: 'full_time', description: 'Microsoft campus Software Engineer role.', requiredSkills: ['JavaScript', 'Data Structures'] },
-    driveDetails: { workMode: 'hybrid', workLocation: 'Bengaluru', expectedHires: 8, compensation: { amount: 1800000, currency: 'INR', period: 'per_annum' }, applicationDeadline: DEADLINE, joiningPeriod: 'July 2035' },
+    role: { title: validationRoleTitle, domain: 'Engineering', employmentType: 'full_time', description: `${validationCompanyName} campus Software Engineer role.`, requiredSkills: ['JavaScript', 'Data Structures'] },
+    driveDetails: { workMode: 'hybrid', workLocation: 'Bengaluru', expectedHires: 8, compensation: { amount: validationCtc, currency: 'INR', period: 'per_annum' }, applicationDeadline: DEADLINE, joiningPeriod: 'July 2035' },
     eligibility: { minimumCgpa: 7.5, allowedBranches, maximumActiveBacklogs: 0, graduationYears: [2027] },
     phases: [
       { phaseNumber: 1, title: 'Resume / Screening Round', type: 'other', description: 'Resume screening.' },
@@ -152,7 +156,7 @@ test('final M7 perfection story executes one realistic five-phase Microsoft Driv
     { phase: 1, value: { status: 'scheduled', instructions: 'Bring an updated resume and review the role.', mode: 'online', instructionPdf: pdf('phase-1-instructions') } },
     { phase: 2, value: { status: 'scheduled', scheduledAt: new Date('2035-01-20T09:00:00.000Z'), deadlineAt: new Date('2035-01-20T11:00:00.000Z'), mode: 'online', instructions: 'Complete both assessment steps.', resources: [{ type: 'test_link', label: 'HackerRank Test', url: 'https://www.hackerrank.com/microsoft-final' }, { type: 'form', label: 'Candidate Form', url: 'https://forms.example.com/microsoft' }], instructionPdf: pdf('phase-2-instructions') } },
     { phase: 3, value: { status: 'scheduled', scheduledAt: new Date('2035-01-24T09:00:00.000Z'), mode: 'online', instructions: 'Join five minutes early.', resources: [{ type: 'meeting_link', label: 'Teams Interview', url: 'https://teams.microsoft.com/l/meetup-join/final' }] } },
-    { phase: 4, value: { status: 'scheduled', scheduledAt: new Date('2035-01-26T09:00:00.000Z'), mode: 'offline', venue: 'Microsoft Bengaluru Campus', instructions: 'Carry college ID.', instructionPdf: pdf('phase-4-instructions') } },
+    { phase: 4, value: { status: 'scheduled', scheduledAt: new Date('2035-01-26T09:00:00.000Z'), mode: 'offline', venue: `${validationCompanyName} Bengaluru Campus`, instructions: 'Carry college ID.', instructionPdf: pdf('phase-4-instructions') } },
     { phase: 5, value: { status: 'scheduled', scheduledAt: new Date('2035-01-29T10:00:00.000Z'), mode: 'online', instructions: 'Final HR discussion and document check.', resources: [{ type: 'meeting_link', label: 'HR Teams Meeting', url: 'https://teams.microsoft.com/l/meetup-join/hr-final' }] } },
   ]
   for (const item of execution) await updateCompanyPhaseExecution(microsoftUser._id, drive._id, item.phase, item.value)
@@ -227,8 +231,8 @@ test('final M7 perfection story executes one realistic five-phase Microsoft Driv
   assert.equal(await Application.countDocuments({ studentId: students.S17._id, placementDriveId: drive._id }), 1)
   assert.ok(applications.S17.phaseHistory.some(item => item.event === 'unselected'))
 
-  let s19Record = await submitPlacementReport(students.S19._id, applications.S19._id, { outcomeType: 'full_time', package: { amount: 1800000, currency: 'INR', period: 'per_annum' }, location: 'Bengaluru', joiningPeriod: 'July 2035' })
-  s19Record = await submitPlacementReport(students.S19._id, applications.S19._id, { outcomeType: 'full_time', package: { amount: 1850000, currency: 'INR', period: 'per_annum' }, location: 'Hyderabad', joiningPeriod: 'July 2035' })
+  let s19Record = await submitPlacementReport(students.S19._id, applications.S19._id, { outcomeType: 'full_time', package: { amount: validationCtc, currency: 'INR', period: 'per_annum' }, location: 'Bengaluru', joiningPeriod: 'July 2035' })
+  s19Record = await submitPlacementReport(students.S19._id, applications.S19._id, { outcomeType: 'full_time', package: { amount: validationCtc, currency: 'INR', period: 'per_annum' }, location: 'Bengaluru', joiningPeriod: 'July 2035' })
   const validProof = path.join(temp, 'offer.pdf'); await writeFile(validProof, Buffer.from('%PDF-1.4\nM7 final proof'))
   const invalidProof = path.join(temp, 'offer.txt'); await writeFile(invalidProof, Buffer.from('not a pdf'))
   await savePlacementProof(students.S19._id, applications.S19._id, { path: validProof, originalname: 'offer.pdf', mimetype: 'application/pdf', size: 24 })
@@ -302,6 +306,9 @@ test('final M7 perfection story executes one realistic five-phase Microsoft Driv
   const selectedExport = await exportCompanyRecruitmentCandidates(microsoftUser._id, drive._id, { selectedOnly: true }, { placementRecordModel: PlacementRecord })
   assert.deepEqual([phase0Export.rowCount, phase2Export.rowCount, phase5Export.rowCount, selectedExport.rowCount], [3, 1, 7, 3])
   assert.ok(selectedExport.buffer.length > 1000)
+  const selectedWorkbook = new ExcelJS.Workbook()
+  await selectedWorkbook.xlsx.load(selectedExport.buffer)
+  assert.deepEqual(selectedWorkbook.worksheets[0].getRow(1).values.slice(1), ['Name', 'Roll Number', 'Email', 'Branch', 'CGPA', 'Current Phase', 'Current Status', 'Confirmation State', 'Outcome Type', 'Company', 'Role'])
   await expectCode(exportCompanyRecruitmentCandidates(tcsUser._id, drive._id, { selectedOnly: true }, { placementRecordModel: PlacementRecord }), 'NOT_FOUND')
 
   const lifecycleDrive = await publishedDrive(microsoft._id, 'Lifecycle Validation', 1)

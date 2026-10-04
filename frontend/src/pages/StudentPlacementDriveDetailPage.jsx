@@ -78,7 +78,7 @@ export function StudentPlacementDriveDetailPage() {
     } catch (error) { viewer?.close(); setDocumentError(error.message) } finally { setBusyDocument('') }
   }
 
-  const back = <Link className="text-sm font-bold text-violet-700" to="/student/placement?tab=open">← Open Placement Drives</Link>
+  const back = <Link className="text-sm font-bold text-blue-700" to="/student/placement?tab=open">← Open Placement Drives</Link>
   if (error) return <section className="space-y-6">{back}<ErrorState message={error} /></section>
   if (!drive) return <LoadingState message="Loading Placement Drive…" />
   const eligible = drive.eligibilityResult?.eligible

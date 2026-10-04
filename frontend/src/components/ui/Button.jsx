@@ -1,8 +1,8 @@
 const VARIANTS = {
-  primary: 'bg-gradient-to-r from-violet-700 to-indigo-600 text-white shadow-md shadow-violet-200/80 hover:from-violet-800 hover:to-indigo-700 hover:shadow-lg hover:shadow-violet-200/80 focus-visible:ring-violet-500 disabled:bg-violet-400',
-  secondary: 'border border-slate-300 bg-white/90 text-slate-700 shadow-sm hover:border-violet-300 hover:bg-violet-50/50 focus-visible:ring-violet-500',
+  primary: 'bg-gradient-to-r from-blue-700 to-blue-600 text-white shadow-md shadow-blue-200/80 hover:from-blue-800 hover:to-blue-700 hover:shadow-lg hover:shadow-blue-200/80 focus-visible:ring-blue-500 disabled:bg-blue-400',
+  secondary: 'border border-slate-300 bg-white/90 text-slate-700 shadow-sm hover:border-blue-300 hover:bg-blue-50/50 focus-visible:ring-blue-500',
   danger: 'bg-rose-700 text-white shadow-sm hover:bg-rose-800 focus-visible:ring-rose-500 disabled:bg-rose-400',
-  quiet: 'text-slate-700 hover:bg-slate-100 focus-visible:ring-violet-500',
+  quiet: 'text-slate-700 hover:bg-slate-100 focus-visible:ring-blue-500',
 }
 
 export function Button({ variant = 'primary', className = '', type = 'button', children, ...props }) {
