@@ -8,7 +8,8 @@ import { evaluatePlacementDriveEligibility } from '../applications/application.s
 import { StudentProfile } from '../students/student.model.js'
 
 const publishedQuery = { proposalStatus: PLACEMENT_DRIVE_PROPOSAL_STATUSES.APPROVED, lifecycleStatus: PLACEMENT_DRIVE_LIFECYCLE_STATUSES.PUBLISHED }
-const activeApplicationQuery = { currentStatus: { $ne: 'withdrawn' } }
+// Same definition as the recruitment workspace funnel: only candidates still in process.
+const activeApplicationQuery = { currentStatus: { $in: ['applied', 'active'] } }
 const countUnread = (recipientId, notificationModel) => notificationModel.countDocuments({ recipientId, isRead: false })
 
 export async function getStudentDashboardSummary(studentId, {
@@ -30,7 +31,7 @@ export async function getCompanyDashboardSummary(companyUserId, { companyModel =
   const driveCounts = { total: drives.length, draft: 0, submitted: 0, changesRequested: 0, approved: 0, published: 0 }
   for (const drive of drives) { if (driveCounts[drive.proposalStatus] != null) driveCounts[drive.proposalStatus] += 1; if (drive.lifecycleStatus === 'published') driveCounts.published += 1 }
   const publishedIds = drives.filter(drive => drive.lifecycleStatus === 'published').map(drive => drive._id)
-  const [activeApplicantCount, unreadNotificationCount] = await Promise.all([applicationModel.countDocuments({ placementDriveId: { $in: publishedIds }, currentPhase: 0, ...activeApplicationQuery }), countUnread(companyUserId, notificationModel)])
+  const [activeApplicantCount, unreadNotificationCount] = await Promise.all([applicationModel.countDocuments({ placementDriveId: { $in: publishedIds }, ...activeApplicationQuery }), countUnread(companyUserId, notificationModel)])
   return { driveCounts, activeApplicantCount, unreadNotificationCount }
 }
 

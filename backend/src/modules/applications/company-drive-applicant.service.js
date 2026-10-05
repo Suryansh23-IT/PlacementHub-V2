@@ -14,6 +14,11 @@ const resumeMissing = () => new AppError('This applicant has not uploaded a resu
 
 function plain(value) { return value?.toObject ? value.toObject() : value }
 
+function publicCompany(company) {
+  const value = plain(company)
+  return { companyName: value?.companyName, industry: value?.industry, location: value?.location, officialEmail: value?.officialEmail }
+}
+
 async function getOwnedPublishedDrive(companyUserId, driveId, { companyModel = Company, placementDriveModel = PlacementDrive } = {}) {
   const company = await companyModel.findOne({ userId: companyUserId, approvalStatus: 'approved' })
   if (!company) throw new AppError('Only approved companies can access Placement Drive applicants.', { statusCode: 403, errorCode: 'FORBIDDEN' })
@@ -22,7 +27,7 @@ async function getOwnedPublishedDrive(companyUserId, driveId, { companyModel = C
   if (drive.lifecycleStatus !== PLACEMENT_DRIVE_LIFECYCLE_STATUSES.PUBLISHED) {
     throw new AppError('Applicants are available after this Placement Drive is published.', { statusCode: 409, errorCode: 'CONFLICT' })
   }
-  return drive
+  return { drive, company }
 }
 
 function publicResume(resume, driveId, studentId) {
@@ -52,15 +57,18 @@ function recruitmentProfile(user, profile, driveId, studentId) {
 
 async function getApplicantRecord(companyUserId, driveId, studentId, dependencies = {}) {
   const { applicationModel = Application, userModel = User, profileModel = StudentProfile } = dependencies
-  const drive = await getOwnedPublishedDrive(companyUserId, driveId, dependencies)
-  const application = await applicationModel.findOne({ placementDriveId: drive._id, studentId, currentPhase: 0 })
+  const { drive, company } = await getOwnedPublishedDrive(companyUserId, driveId, dependencies)
+  // A recruiter may open a candidate profile from any current recruitment
+  // phase. Phase 0 is only a list/pool concern, not an authorization boundary
+  // for an application that already belongs to this Company Drive.
+  const application = await applicationModel.findOne({ placementDriveId: drive._id, studentId })
   if (!application) throw applicantNotFound()
   const [user, profile] = await Promise.all([
     userModel.findOne({ _id: studentId, role: USER_ROLES.STUDENT }),
     profileModel.findOne({ userId: studentId }),
   ])
   if (!user || !profile) throw applicantNotFound()
-  return { drive, application, user: plain(user), profile }
+  return { drive, company, application, user: plain(user), profile }
 }
 
 function publicApplication(application, student) {
@@ -76,7 +84,7 @@ function publicApplication(application, student) {
 
 export async function listCompanyDriveApplicants(companyUserId, driveId, dependencies = {}) {
   const { applicationModel = Application, userModel = User, profileModel = StudentProfile } = dependencies
-  const drive = await getOwnedPublishedDrive(companyUserId, driveId, dependencies)
+  const { drive, company } = await getOwnedPublishedDrive(companyUserId, driveId, dependencies)
   const applications = await applicationModel.find({ placementDriveId: drive._id, currentPhase: 0, currentStatus: { $ne: 'withdrawn' } }).sort({ appliedAt: -1 })
   const applicants = await Promise.all(applications.map(async application => {
     const applicationValue = plain(application)
@@ -99,7 +107,7 @@ export async function listCompanyDriveApplicants(companyUserId, driveId, depende
     return publicApplication(application, recruitmentProfile(plain(user), profile, drive._id, applicationValue.studentId))
   }))
   return {
-    drive: { _id: value._id, role: value.role, driveDetails: value.driveDetails, lifecycleStatus: value.lifecycleStatus, applicationWindow: getApplicationWindowStatus(value), applicationDeadlineExtendedAt: value.applicationDeadlineExtendedAt },
+    drive: { _id: value._id, company: publicCompany(company), role: value.role, driveDetails: value.driveDetails, proposalStatus: value.proposalStatus, lifecycleStatus: value.lifecycleStatus, applicationWindow: getApplicationWindowStatus(value), applicationDeadlineExtendedAt: value.applicationDeadlineExtendedAt },
     applicants: applicants.filter(Boolean),
     exited: exited.filter(Boolean),
     summary: { proposalStatus: value.proposalStatus, lifecycleStatus: value.lifecycleStatus, applicationDeadline: value.driveDetails?.applicationDeadline, applicantCount: applicants.filter(Boolean).length, exitedCount: exited.filter(Boolean).length, phaseCount: (value.phases ?? []).filter(phase => phase.phaseNumber >= 1).length, companyId: value.companyId, roleTitle: value.role?.title },
@@ -109,7 +117,8 @@ export async function listCompanyDriveApplicants(companyUserId, driveId, depende
 export async function getCompanyDriveApplicant(companyUserId, driveId, studentId, dependencies = {}) {
   const record = await getApplicantRecord(companyUserId, driveId, studentId, dependencies)
   const student = recruitmentProfile(record.user, record.profile, record.drive._id, studentId)
-  return { drive: { _id: record.drive._id, role: record.drive.role }, ...publicApplication(record.application, student) }
+  const value = plain(record.drive)
+  return { drive: { _id: value._id, company: publicCompany(record.company), role: value.role, driveDetails: value.driveDetails, proposalStatus: value.proposalStatus, lifecycleStatus: value.lifecycleStatus, applicationWindow: getApplicationWindowStatus(value), applicationDeadlineExtendedAt: value.applicationDeadlineExtendedAt }, ...publicApplication(record.application, student) }
 }
 
 export async function getCompanyDriveApplicantResume(companyUserId, driveId, studentId, dependencies = {}) {

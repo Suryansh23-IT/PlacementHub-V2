@@ -17,7 +17,7 @@ const ids = {
 }
 
 const application = { _id: 'application-1', studentId: ids.student, placementDriveId: ids.drive, appliedAt: new Date('2027-01-10T09:00:00.000Z'), currentPhase: 0, currentStatus: 'applied' }
-const drive = { _id: ids.drive, companyId: ids.company, lifecycleStatus: 'published', role: { title: 'Software Engineer' }, driveDetails: { workLocation: 'Raipur' } }
+const drive = { _id: ids.drive, companyId: ids.company, proposalStatus: 'approved', lifecycleStatus: 'published', role: { title: 'Software Engineer' }, driveDetails: { workLocation: 'Raipur', applicationDeadline: new Date('2027-02-01') } }
 const profile = {
   userId: ids.student,
   rollNumber: '21115001',
@@ -35,7 +35,7 @@ const profile = {
 
 function dependencies({ lifecycleStatus = 'published', applications = [application] } = {}) {
   const companies = [
-    { _id: ids.company, userId: ids.companyUser, approvalStatus: 'approved' },
+    { _id: ids.company, userId: ids.companyUser, approvalStatus: 'approved', companyName: 'Acme Technologies' },
     { _id: ids.otherCompany, userId: ids.otherCompanyUser, approvalStatus: 'approved' },
   ]
   const drives = [{ ...drive, lifecycleStatus }, { ...drive, _id: ids.otherDrive, companyId: ids.otherCompany }]
@@ -44,7 +44,7 @@ function dependencies({ lifecycleStatus = 'published', applications = [applicati
     placementDriveModel: { findOne: async query => drives.find(item => String(item._id) === String(query._id) && String(item.companyId) === String(query.companyId)) ?? null },
     applicationModel: {
       find: query => ({ sort: async () => applications.filter(item => String(item.placementDriveId) === String(query.placementDriveId) && item.currentPhase === query.currentPhase && (!query.currentStatus?.$ne || item.currentStatus !== query.currentStatus.$ne)) }),
-      findOne: async query => applications.find(item => String(item.placementDriveId) === String(query.placementDriveId) && String(item.studentId) === String(query.studentId) && item.currentPhase === query.currentPhase && (!query.currentStatus?.$ne || item.currentStatus !== query.currentStatus.$ne)) ?? null,
+      findOne: async query => applications.find(item => String(item.placementDriveId) === String(query.placementDriveId) && String(item.studentId) === String(query.studentId) && (query.currentPhase == null || item.currentPhase === query.currentPhase) && (!query.currentStatus?.$ne || item.currentStatus !== query.currentStatus.$ne)) ?? null,
     },
     userModel: { findOne: async query => query._id === ids.student && query.role === 'student' ? { _id: ids.student, name: 'Priya Student' } : null },
     profileModel: { findOne: async ({ userId }) => userId === ids.student ? profile : null },
@@ -61,6 +61,9 @@ test('Company sees only Phase 0 applicant data needed for recruitment, without s
   assert.equal(applicant.currentPhase, 0)
   assert.equal(applicant.currentStatus, 'applied')
   assert.equal(applicant.student.resume.storagePath, undefined)
+  assert.equal(result.drive.company.companyName, 'Acme Technologies')
+  assert.equal(result.drive.lifecycleStatus, 'published')
+  assert.equal(result.drive.applicationWindow.open, true)
   assert.match(applicant.student.resume.downloadUrl, /applicants\/.+\/resume\/download$/)
 })
 
@@ -70,12 +73,24 @@ test('Company can view an applicant recruitment profile and securely resolve onl
   assert.deepEqual(applicant.student.skills, ['JavaScript'])
   assert.equal(applicant.student.projects[0].title, 'PlacementHub')
   assert.equal(applicant.student.professionalLinks.github, 'https://github.com/student')
+  assert.equal(applicant.drive.company.companyName, 'Acme Technologies')
+  assert.equal(applicant.drive.driveDetails.applicationDeadline.toISOString(), '2027-02-01T00:00:00.000Z')
   assert.equal(applicant.student.resume.storagePath, undefined)
   const resume = await getCompanyDriveApplicantResume(ids.companyUser, ids.drive, ids.student, options)
   assert.equal(resume.storagePath, '/private/resumes/student.pdf')
 })
 
-test('Company applicant access is restricted to its own published Placement Drive and Phase 0 pool', async () => {
+test('Company can view a candidate profile from every current recruitment phase', async () => {
+  for (const phaseNumber of [0, 1, 2, 3, 4, 5]) {
+    const phaseApplication = { ...application, currentPhase: phaseNumber, currentStatus: 'active' }
+    const applicant = await getCompanyDriveApplicant(ids.companyUser, ids.drive, ids.student, dependencies({ applications: [phaseApplication] }))
+    assert.equal(applicant.currentPhase, phaseNumber)
+    assert.equal(applicant.currentStatus, 'active')
+    assert.equal(applicant.student.resume.storagePath, undefined)
+  }
+})
+
+test('Company applicant access is restricted to its own published Placement Drive', async () => {
   await assert.rejects(listCompanyDriveApplicants(ids.otherCompanyUser, ids.drive, dependencies()), { errorCode: 'NOT_FOUND' })
   await assert.rejects(listCompanyDriveApplicants(ids.companyUser, ids.drive, dependencies({ lifecycleStatus: 'unpublished' })), { errorCode: 'CONFLICT' })
   await assert.rejects(getCompanyDriveApplicant(ids.companyUser, ids.drive, ids.otherStudent, dependencies()), { errorCode: 'NOT_FOUND' })

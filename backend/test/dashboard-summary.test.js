@@ -16,11 +16,11 @@ test('Student dashboard summary is scoped to the logged-in Student and uses curr
   assert.deepEqual(summary, { publishedDriveCount: 2, eligibleDriveCount: 1, activeApplicationCount: 2, unreadNotificationCount: 3 })
 })
 
-test('Company dashboard counts only owned drives, active Phase 0 applicants, and own unread notifications', async () => {
+test('Company dashboard counts active candidates across its published recruitment workspace', async () => {
   const summary = await getCompanyDashboardSummary(ids.companyUser, {
     companyModel: { findOne: async query => query.userId === ids.companyUser ? { _id: ids.company } : null },
     placementDriveModel: { find: () => ({ select: async () => [{ _id: ids.drive, proposalStatus: 'draft', lifecycleStatus: 'unpublished' }, { _id: 'published-drive', proposalStatus: 'approved', lifecycleStatus: 'published' }] }) },
-    applicationModel: { countDocuments: async query => { assert.deepEqual(query.placementDriveId.$in, ['published-drive']); assert.equal(query.currentPhase, 0); return 4 } },
+    applicationModel: { countDocuments: async query => { assert.deepEqual(query.placementDriveId.$in, ['published-drive']); assert.deepEqual(query.currentStatus.$in, ['applied', 'active']); return 4 } },
     notificationModel: { countDocuments: async query => { assert.equal(query.recipientId, ids.companyUser); return 1 } },
   })
   assert.equal(summary.driveCounts.total, 2)

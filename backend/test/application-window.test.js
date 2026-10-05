@@ -37,6 +37,7 @@ function dependencies(proposal = drive(), applications = []) {
       create: async input => { const item = { _id: `application-${applications.length + 1}`, ...input }; applications.push(item); return item },
     },
     companyModel: { findOne: () => ({ select: async () => ({ companyName: 'Example Corp' }) }) },
+    placementRecordModel: { findOne: async () => null },
     notificationModel: { create: async items => { notifications.push(...items); return items } },
     now, notifications, applications,
   }

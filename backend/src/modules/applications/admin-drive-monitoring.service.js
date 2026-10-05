@@ -43,8 +43,8 @@ export async function listAdminPublishedDriveMonitoring({ placementDriveModel = 
     const [company, applicationCount, activeApplicantCount, exitedApplicantCount] = await Promise.all([
       companySummary(drive.companyId, { companyModel }),
       applicationModel.countDocuments({ placementDriveId: drive._id }),
-      applicationModel.countDocuments({ placementDriveId: drive._id, currentStatus: { $ne: 'withdrawn' } }),
-      applicationModel.countDocuments({ placementDriveId: drive._id, currentStatus: 'withdrawn' }),
+      applicationModel.countDocuments({ placementDriveId: drive._id, currentStatus: { $in: ['applied', 'active'] } }),
+      applicationModel.countDocuments({ placementDriveId: drive._id, currentStatus: { $in: ['rejected', 'absent', 'withdrawn', 'closed_placed_elsewhere'] } }),
     ])
     return { ...publicDrive(drive, company), applicationCount, activeApplicantCount, exitedApplicantCount }
   }))

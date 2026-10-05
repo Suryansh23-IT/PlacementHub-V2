@@ -184,7 +184,8 @@ export async function sendCompanyPhaseCandidatesNotification(companyUserId, inpu
 
   const applications = await applicationModel.find({ placementDriveId: drive._id, currentPhase: input.phaseNumber, currentStatus: 'active' }).select('_id studentId').lean()
   const recipients = [...new Map(applications.map(application => [String(application.studentId), application])).values()]
-  const notifications = recipients.map(application => ({ recipientId: application.studentId, senderId: companyUserId, notificationBatchId: input.requestId, idempotencyKey: input.requestId, category: 'manual_placement_message', type: 'company_to_phase_candidates', source: 'company', title: input.title, message: input.message, placementDriveId: drive._id, applicationId: application._id, companyId: company._id, phaseNumber: input.phaseNumber, context: { action: 'view_phase', audience: 'phase_candidates', roleTitle: drive.role?.title } }))
+  const phase = drive.phases.find(item => item.phaseNumber === input.phaseNumber)
+  const notifications = recipients.map(application => ({ recipientId: application.studentId, senderId: companyUserId, notificationBatchId: input.requestId, idempotencyKey: input.requestId, category: 'manual_placement_message', type: 'company_to_phase_candidates', source: 'company', title: input.title, message: input.message, placementDriveId: drive._id, applicationId: application._id, companyId: company._id, phaseNumber: input.phaseNumber, context: { action: 'view_phase', audience: 'phase_candidates', roleTitle: drive.role?.title, phaseTitle: phase?.title } }))
   if (!notifications.length) return { notificationsCreated: 0, recipientCount: 0, alreadySent: false, notificationBatchId: input.requestId }
   try {
     const created = await createNotifications(notifications, { notificationModel })

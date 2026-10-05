@@ -65,7 +65,7 @@ export function CompanyPlacementDriveApplicantPage() {
     } catch (error) { setError(error.message) } finally { setIncidentBusy(false) }
   }
 
-  const back = <Link className="text-sm font-bold text-blue-700" to={`/company/placement-drives/${id}/applicants`}>← Phase 0 applicants</Link>
+  const back = <Link className="text-sm font-bold text-blue-700" to={`/company/placement-drives/${id}/applicants`}>← Recruitment workspace</Link>
   if (error) return <section className="space-y-6">{back}<ErrorState message={error} /></section>
   if (!applicant) return <LoadingState message="Loading applicant profile…" />
   const student = applicant.student || {}

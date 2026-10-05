@@ -18,6 +18,7 @@ const notificationSchema = new mongoose.Schema({
     action: { type: String, enum: ['view_drive', 'view_application', 'view_incident', 'view_restriction', 'view_company', 'view_phase'], trim: true },
     audience: { type: String, enum: ['eligible_students', 'eligible_drive', 'drive_applicants', 'phase_candidates', 'student', 'company', 'placement_admin'], trim: true },
     roleTitle: { type: String, trim: true, maxlength: 160 },
+    phaseTitle: { type: String, trim: true, maxlength: 120 },
   },
   isRead: { type: Boolean, required: true, default: false },
   readAt: Date,

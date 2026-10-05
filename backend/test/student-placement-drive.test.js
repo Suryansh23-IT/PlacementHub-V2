@@ -46,6 +46,7 @@ function dependencies({ profile, applications = [], drives = [placementDrive(), 
     applicationModel,
     profileModel: { findOne: async ({ userId }) => students.find(student => student.userId === userId) ?? null },
     companyModel: { findOne: () => ({ select: async () => ({ companyName: 'Acme Technologies', industry: 'Software', location: 'Raipur', officialEmail: 'careers@acme.example', recruiterName: 'Asha Rao', recruiterEmail: 'asha@acme.example' }) }) },
+    placementRecordModel: { findOne: async () => null },
     studentPolicyStatusService: async studentId => ({ acceptance: studentId === ids.student ? { studentId, policyId: 'policy-1' } : null }),
     placementRestrictionService: async () => null,
     now,
@@ -72,6 +73,14 @@ test('Student list and detail include deterministic ineligibility reasons withou
   assert.equal(detail.documents.companyRecruitmentInformation.storagePath, undefined)
   assert.match(detail.documents.companyRecruitmentInformation.downloadUrl, /companyRecruitmentInformation\/download$/)
   assert.equal(detail.phases[0].phaseNumber, 1)
+})
+
+test('a confirmed placement-equivalent outcome is shown as an apply-block reason before the student opens another drive', async () => {
+  const options = dependencies()
+  options.placementRecordModel = { findOne: async () => ({ outcomeType: 'full_time', verificationState: 'confirmed' }) }
+  const [item] = await listStudentPlacementDrives(ids.student, options)
+  assert.equal(item.eligibilityResult.eligible, false)
+  assert.ok(reasonCodes(item).includes(ELIGIBILITY_REASON_CODES.PLACEMENT_CONFIRMED_ELSEWHERE))
 })
 
 test('a retained Phase 0 application remains present in the Placement Center response when intake closes', async () => {
@@ -120,6 +129,16 @@ test('My Applications returns only the logged-in Student application with Phase 
   assert.equal(list[0]._id, 'application-1')
   assert.equal(list[0].currentPhase, 0)
   assert.equal(list[0].drive.company.companyName, 'Acme Technologies')
+})
+
+test('My Applications exposes the official confirmed outcome instead of only a Phase 5 status', async () => {
+  const applications = [{ _id: 'application-confirmed', studentId: ids.student, placementDriveId: ids.drive, appliedAt: now, currentPhase: 5, currentStatus: 'placement_confirmed', phaseHistory: [] }]
+  const options = dependencies({ applications })
+  options.placementRecordModel = { findOne: async query => query.applicationId === 'application-confirmed' ? { outcomeType: 'full_time', package: { amount: 1200000, currency: 'INR', period: 'per_annum' }, location: 'Bengaluru' } : null }
+  const [result] = await listMyPlacementApplications(ids.student, options)
+  assert.equal(result.currentStatus, 'placement_confirmed')
+  assert.equal(result.confirmedOutcome.outcomeType, 'full_time')
+  assert.equal(result.confirmedOutcome.package.amount, 1200000)
 })
 
 test('Company accounts cannot access Student Placement Drive APIs', async t => {

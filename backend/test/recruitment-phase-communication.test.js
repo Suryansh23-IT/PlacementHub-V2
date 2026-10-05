@@ -3,7 +3,7 @@ import test from 'node:test'
 import { sendCompanyPhaseCandidatesNotification } from '../src/modules/notifications/notification.service.js'
 import { phaseExecutionUpdateSchema } from '../src/modules/recruitment/recruitment-workspace.validation.js'
 import { exportCompanyRecruitmentCandidates } from '../src/modules/recruitment/recruitment-export.service.js'
-import { getStudentCurrentPhaseExecution } from '../src/modules/applications/student-placement-drive.service.js'
+import { getStudentCurrentPhaseExecution, getStudentCurrentPhaseInstructionPdf } from '../src/modules/applications/student-placement-drive.service.js'
 
 const ids = { companyUser: '507f1f77bcf86cd799439101', otherCompanyUser: '507f1f77bcf86cd799439102', company: '507f1f77bcf86cd799439103', drive: '507f1f77bcf86cd799439104', application: '507f1f77bcf86cd799439105', student: '507f1f77bcf86cd799439106', otherStudent: '507f1f77bcf86cd799439107' }
 const requestId = '0e58d815-29dd-4aec-8190-fc551f3a2ea8'
@@ -25,7 +25,7 @@ test('phase messages target only candidates actively in the exact phase at send 
   const result = await sendCompanyPhaseCandidatesNotification(ids.companyUser, { placementDriveId: ids.drive, phaseNumber: 1, title: 'Assessment details', message: 'Use the HackerRank link.', requestId }, notificationDependencies(apps, created))
   assert.deepEqual([result.notificationsCreated, result.recipientCount], [1, 1])
   assert.deepEqual(created.map(item => item.recipientId), [ids.student])
-  assert.deepEqual([created[0].phaseNumber, created[0].context.audience, created[0].context.roleTitle], [1, 'phase_candidates', 'Engineer'])
+  assert.deepEqual([created[0].phaseNumber, created[0].context.audience, created[0].context.roleTitle, created[0].context.phaseTitle, created[0].context.action], [1, 'phase_candidates', 'Engineer', 'Assessment', 'view_phase'])
 })
 
 test('a current database move changes the phase recipient set and zero recipients is safe', async () => {
@@ -55,6 +55,14 @@ test('Student receives only their current phase execution and never private atta
   assert.equal(JSON.stringify(result).includes('/private/instructions.pdf'), false)
   await assert.rejects(getStudentCurrentPhaseExecution(ids.otherStudent, ids.application, { applicationModel: { findOne: async () => null } }), error => error.errorCode === 'NOT_FOUND')
   await assert.rejects(getStudentCurrentPhaseExecution(ids.student, ids.application, { applicationModel: { findOne: async () => application(ids.student, { _id: ids.application, currentStatus: 'rejected' }) } }), error => error.errorCode === 'FORBIDDEN')
+})
+
+test('phase PDF download is limited to the owner while that application is active in its current phase', async () => {
+  const dependencies = { applicationModel: { findOne: async filter => filter.studentId === ids.student ? application(ids.student, { _id: ids.application }) : null }, placementDriveModel: { findOne: async () => drive } }
+  const pdf = await getStudentCurrentPhaseInstructionPdf(ids.student, ids.application, dependencies)
+  assert.equal(pdf.originalName, 'instructions.pdf')
+  await assert.rejects(getStudentCurrentPhaseInstructionPdf(ids.otherStudent, ids.application, dependencies), error => error.errorCode === 'NOT_FOUND')
+  await assert.rejects(getStudentCurrentPhaseInstructionPdf(ids.student, ids.application, { applicationModel: { findOne: async () => application(ids.student, { _id: ids.application, currentStatus: 'rejected' }) }, placementDriveModel: { findOne: async () => drive } }), error => error.errorCode === 'FORBIDDEN')
 })
 
 test('Company export is in-memory xlsx and remains scoped to its own drive', async () => {

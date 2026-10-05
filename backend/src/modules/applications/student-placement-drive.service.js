@@ -64,8 +64,8 @@ function publicDrive(drive, company, { detail = false, eligibility, application 
 }
 
 function eligibilityDependencies(dependencies) {
-  const { profileModel = StudentProfile, placementDriveModel = PlacementDrive, studentPolicyStatusService, placementRestrictionService, policyDependencies, restrictionDependencies, now } = dependencies
-  return { profileModel, placementDriveModel, ...(studentPolicyStatusService ? { studentPolicyStatusService } : {}), ...(placementRestrictionService ? { placementRestrictionService } : {}), policyDependencies, restrictionDependencies, now }
+  const { profileModel = StudentProfile, placementDriveModel = PlacementDrive, studentPolicyStatusService, placementRestrictionService, policyDependencies, restrictionDependencies, now, placementRecordModel = PlacementRecord } = dependencies
+  return { profileModel, placementDriveModel, ...(studentPolicyStatusService ? { studentPolicyStatusService } : {}), ...(placementRestrictionService ? { placementRestrictionService } : {}), policyDependencies, restrictionDependencies, now, placementRecordModel, enforceConfirmedPlacementLock: true }
 }
 
 export async function getStudentVisiblePlacementDrive(driveId, { placementDriveModel = PlacementDrive } = {}) {
@@ -110,12 +110,15 @@ export async function getStudentPlacementDriveDocument(studentId, driveId, type,
   return document
 }
 
-export async function listMyPlacementApplications(studentId, { applicationModel = Application, placementDriveModel = PlacementDrive, companyModel = Company } = {}) {
+export async function listMyPlacementApplications(studentId, { applicationModel = Application, placementDriveModel = PlacementDrive, companyModel = Company, placementRecordModel = PlacementRecord } = {}) {
   const applications = await applicationModel.find({ studentId }).sort({ appliedAt: -1 })
   return Promise.all(applications.map(async application => {
     const value = plain(application)
     const drive = await placementDriveModel.findOne({ _id: value.placementDriveId })
-    const company = drive ? await getCompanySummary(drive.companyId, { companyModel }) : null
+    const [company, placementRecord] = await Promise.all([
+      drive ? getCompanySummary(drive.companyId, { companyModel }) : null,
+      placementRecordModel.findOne({ applicationId: value._id, studentId, verificationState: 'confirmed' }),
+    ])
     return {
       _id: value._id,
       placementDriveId: value.placementDriveId,
@@ -124,6 +127,7 @@ export async function listMyPlacementApplications(studentId, { applicationModel 
       currentStatus: value.currentStatus,
       withdrawnAt: value.withdrawnAt,
       phaseHistory: value.phaseHistory,
+      confirmedOutcome: placementRecord ? { outcomeType: placementRecord.outcomeType, package: placementRecord.package, stipend: placementRecord.stipend, location: placementRecord.location, joiningPeriod: placementRecord.joiningPeriod } : null,
       drive: drive ? { _id: drive._id, company, role: drive.role, driveDetails: drive.driveDetails } : null,
     }
   }))
