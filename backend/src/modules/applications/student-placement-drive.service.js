@@ -13,7 +13,7 @@ const notVisible = () => new AppError('Placement Drive was not found.', { status
 const documentMissing = () => new AppError('The requested Placement Drive PDF has not been uploaded.', { statusCode: 404, errorCode: 'NOT_FOUND' })
 const phaseAccessUnavailable = () => new AppError('Current phase resources are not available for this application.', { statusCode: 403, errorCode: 'FORBIDDEN' })
 const openQuery = () => ({ proposalStatus: PLACEMENT_DRIVE_PROPOSAL_STATUSES.APPROVED, lifecycleStatus: PLACEMENT_DRIVE_LIFECYCLE_STATUSES.PUBLISHED })
-const historicalJourneyQuery = () => ({ proposalStatus: PLACEMENT_DRIVE_PROPOSAL_STATUSES.APPROVED, lifecycleStatus: { $in: [PLACEMENT_DRIVE_LIFECYCLE_STATUSES.PUBLISHED, PLACEMENT_DRIVE_LIFECYCLE_STATUSES.POSTPONED, PLACEMENT_DRIVE_LIFECYCLE_STATUSES.CANCELLED] } })
+const historicalJourneyQuery = () => ({ proposalStatus: PLACEMENT_DRIVE_PROPOSAL_STATUSES.APPROVED, lifecycleStatus: { $in: [PLACEMENT_DRIVE_LIFECYCLE_STATUSES.PUBLISHED, PLACEMENT_DRIVE_LIFECYCLE_STATUSES.POSTPONED, PLACEMENT_DRIVE_LIFECYCLE_STATUSES.COMPLETED, PLACEMENT_DRIVE_LIFECYCLE_STATUSES.CANCELLED] } })
 
 function plain(value) { return value?.toObject ? value.toObject() : value }
 
@@ -128,7 +128,7 @@ export async function listMyPlacementApplications(studentId, { applicationModel 
       withdrawnAt: value.withdrawnAt,
       phaseHistory: value.phaseHistory,
       confirmedOutcome: placementRecord ? { outcomeType: placementRecord.outcomeType, package: placementRecord.package, stipend: placementRecord.stipend, location: placementRecord.location, joiningPeriod: placementRecord.joiningPeriod } : null,
-      drive: drive ? { _id: drive._id, company, role: drive.role, driveDetails: drive.driveDetails } : null,
+      drive: drive ? { _id: drive._id, company, role: drive.role, driveDetails: drive.driveDetails, lifecycleStatus: drive.lifecycleStatus } : null,
     }
   }))
 }

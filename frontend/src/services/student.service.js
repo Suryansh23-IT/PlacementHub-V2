@@ -39,6 +39,14 @@ export async function downloadAdminStudentDocument(accessToken, studentId, type)
 export function getStudentsForReview(accessToken) {
   return apiRequest('/admin/students', { headers: bearer(accessToken) })
 }
+export function exploreStudents(accessToken, filters = {}) { const query = new URLSearchParams(Object.entries(filters).filter(([, value]) => value !== '').map(([key, value]) => [key, value])); return apiRequest(`/admin/students/explorer?${query}`, { headers: bearer(accessToken) }) }
+export async function exportStudentExplorer(accessToken, body) {
+  const response = await fetch(`${API_URL}/admin/students/explorer/export`, { method: 'POST', headers: { ...bearer(accessToken), 'Content-Type': 'application/json' }, body: JSON.stringify(body) })
+  if (!response.ok) { const payload = await response.json().catch(() => null); throw new Error(payload?.message ?? 'The student export could not be generated.') }
+  return { blob: await response.blob(), filename: response.headers.get('content-disposition')?.match(/filename="?([^";]+)/i)?.[1] ?? 'placementhub-students.xlsx' }
+}
+export function previewStudentExplorerRecipients(accessToken, body) { return apiRequest('/admin/students/explorer/notification-preview', { method: 'POST', headers: bearer(accessToken), body }) }
+export function sendStudentExplorerNotification(accessToken, body) { return apiRequest('/admin/students/explorer/notifications', { method: 'POST', headers: bearer(accessToken), body }) }
 export function getStudentForReview(accessToken, studentId) { return apiRequest(`/admin/students/${studentId}`, { headers: bearer(accessToken) }) }
 
 export function reviewStudent(accessToken, studentId, input) {

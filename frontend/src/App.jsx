@@ -28,6 +28,7 @@ import { StudentPlacementDriveDetailPage } from './pages/StudentPlacementDriveDe
 import { StudentRecruitmentJourneyPage } from './pages/StudentRecruitmentJourneyPage.jsx'
 import { CompanyPlacementDriveApplicantsPage } from './pages/CompanyPlacementDriveApplicantsPage.jsx'
 import { CompanyPlacementDriveApplicantPage } from './pages/CompanyPlacementDriveApplicantPage.jsx'
+import { CompanyCandidateExplorerPage } from './pages/CompanyCandidateExplorerPage.jsx'
 import { AdminPlacementDriveMonitoringPage } from './pages/AdminPlacementDriveMonitoringPage.jsx'
 import { AdminPlacementDriveMonitoringDetailPage } from './pages/AdminPlacementDriveMonitoringDetailPage.jsx'
 import { StudentNotificationsPage } from './pages/StudentNotificationsPage.jsx'
@@ -35,6 +36,7 @@ import { CompanyNotificationsPage } from './pages/CompanyNotificationsPage.jsx'
 import { AdminNotificationsPage } from './pages/AdminNotificationsPage.jsx'
 import { AdminPlacementDisciplinePage } from './pages/AdminPlacementDisciplinePage.jsx'
 import { AdminPlacementOutcomesPage } from './pages/AdminPlacementOutcomesPage.jsx'
+import { AdminReportsPage } from './pages/AdminReportsPage.jsx'
 import { HelpSupportPage } from './pages/HelpSupportPage.jsx'
 
 export default function App() {
@@ -48,6 +50,7 @@ export default function App() {
         <Route path="login" element={<LoginPage />} />
         <Route path="register" element={<RegisterPage />} />
         <Route path="dashboard" element={<RequireAuth><DashboardPage /></RequireAuth>} />
+        <Route path="admin/dashboard" element={<RequireAuth><RequireRole roles={['placement_admin']}><DashboardPage /></RequireRole></RequireAuth>} />
         <Route path="help-support" element={<HelpSupportPage />} />
         <Route path="student/profile" element={<RequireAuth><RequireRole roles={['student']}><StudentProfilePage /></RequireRole></RequireAuth>} />
         <Route path="student/policy" element={<RequireAuth><RequireRole roles={['student']}><StudentPolicyPage /></RequireRole></RequireAuth>} />
@@ -70,12 +73,14 @@ export default function App() {
         <Route path="admin/notifications" element={<RequireAuth><RequireRole roles={['placement_admin']}><AdminNotificationsPage /></RequireRole></RequireAuth>} />
         <Route path="admin/placement-discipline" element={<RequireAuth><RequireRole roles={['placement_admin']}><AdminPlacementDisciplinePage /></RequireRole></RequireAuth>} />
         <Route path="admin/placement-outcomes" element={<RequireAuth><RequireRole roles={['placement_admin']}><AdminPlacementOutcomesPage /></RequireRole></RequireAuth>} />
+        <Route path="admin/reports" element={<RequireAuth><RequireRole roles={['placement_admin']}><AdminReportsPage /></RequireRole></RequireAuth>} />
         <Route path="company/policy" element={<RequireAuth><RequireRole roles={['company']}><RecruiterPolicyPage /></RequireRole></RequireAuth>} />
         <Route path="company/notifications" element={<RequireAuth><RequireRole roles={['company']}><CompanyNotificationsPage /></RequireRole></RequireAuth>} />
         <Route path="company/placement-drives" element={<RequireAuth><RequireRole roles={['company']}><CompanyPlacementDrivesPage /></RequireRole></RequireAuth>} />
         <Route path="company/placement-drives/new" element={<RequireAuth><RequireRole roles={['company']}><CompanyPlacementDriveFormPage /></RequireRole></RequireAuth>} />
         <Route path="company/placement-drives/:id/applicants" element={<RequireAuth><RequireRole roles={['company']}><CompanyPlacementDriveApplicantsPage /></RequireRole></RequireAuth>} />
         <Route path="company/placement-drives/:id/applicants/:studentId" element={<RequireAuth><RequireRole roles={['company']}><CompanyPlacementDriveApplicantPage /></RequireRole></RequireAuth>} />
+        <Route path="company/candidates" element={<RequireAuth><RequireRole roles={['company']}><CompanyCandidateExplorerPage /></RequireRole></RequireAuth>} />
         <Route path="company/placement-drives/:id" element={<RequireAuth><RequireRole roles={['company']}><CompanyPlacementDriveFormPage /></RequireRole></RequireAuth>} />
         <Route path="*" element={<NotFoundPage />} />
       </Route>

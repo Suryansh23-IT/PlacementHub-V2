@@ -295,11 +295,13 @@ async function ensureLifecycleNotifications(drive, adminId, status, dependencies
   const idempotencyKey = `drive-lifecycle:${status}:${drive._id}`
   const existing = await notificationModel.find({ idempotencyKey }).select('recipientId').lean()
   const existingRecipients = new Set(existing.map(item => String(item.recipientId)))
-  const type = status === PLACEMENT_DRIVE_LIFECYCLE_STATUSES.POSTPONED ? 'placement_drive_postponed' : 'placement_drive_cancelled'
-  const title = status === PLACEMENT_DRIVE_LIFECYCLE_STATUSES.POSTPONED ? 'Placement Drive postponed' : 'Placement Drive cancelled'
+  const type = status === PLACEMENT_DRIVE_LIFECYCLE_STATUSES.POSTPONED ? 'placement_drive_postponed' : status === PLACEMENT_DRIVE_LIFECYCLE_STATUSES.COMPLETED ? 'placement_drive_closed' : 'placement_drive_cancelled'
+  const title = status === PLACEMENT_DRIVE_LIFECYCLE_STATUSES.POSTPONED ? 'Placement Drive postponed' : status === PLACEMENT_DRIVE_LIFECYCLE_STATUSES.COMPLETED ? 'Placement Drive closed' : 'Placement Drive cancelled'
   const message = status === PLACEMENT_DRIVE_LIFECYCLE_STATUSES.POSTPONED
     ? `${drive.role?.title || 'This Placement Drive'} has been postponed by Placement Administration. Your application and recruitment history are preserved.`
-    : `${drive.role?.title || 'This Placement Drive'} has been cancelled by Placement Administration. Your application and recruitment history remain available.`
+    : status === PLACEMENT_DRIVE_LIFECYCLE_STATUSES.COMPLETED
+      ? `${drive.role?.title || 'This Placement Drive'} has been closed by Placement Administration. Your application and recruitment history remain available.`
+      : `${drive.role?.title || 'This Placement Drive'} has been cancelled by Placement Administration. Your application and recruitment history remain available.`
   const pending = applications.filter(item => !existingRecipients.has(String(item.studentId))).map(item => ({
     recipientId: item.studentId, senderId: adminId, idempotencyKey, notificationBatchId: idempotencyKey,
     category: 'placement_drive', type, source: 'placement_system', title, message,
@@ -319,8 +321,10 @@ async function changePlacementDriveLifecycle(driveId, adminId, status, reason, d
   }
   const allowed = status === PLACEMENT_DRIVE_LIFECYCLE_STATUSES.POSTPONED
     ? [PLACEMENT_DRIVE_LIFECYCLE_STATUSES.PUBLISHED]
-    : [PLACEMENT_DRIVE_LIFECYCLE_STATUSES.PUBLISHED, PLACEMENT_DRIVE_LIFECYCLE_STATUSES.POSTPONED]
-  if (!allowed.includes(drive.lifecycleStatus)) throw conflict(status === PLACEMENT_DRIVE_LIFECYCLE_STATUSES.POSTPONED ? 'Only a published Placement Drive can be postponed.' : 'Only a published or postponed Placement Drive can be cancelled.')
+    : status === PLACEMENT_DRIVE_LIFECYCLE_STATUSES.COMPLETED
+      ? [PLACEMENT_DRIVE_LIFECYCLE_STATUSES.PUBLISHED]
+      : [PLACEMENT_DRIVE_LIFECYCLE_STATUSES.PUBLISHED, PLACEMENT_DRIVE_LIFECYCLE_STATUSES.POSTPONED]
+  if (!allowed.includes(drive.lifecycleStatus)) throw conflict(status === PLACEMENT_DRIVE_LIFECYCLE_STATUSES.POSTPONED ? 'Only a published Placement Drive can be postponed.' : status === PLACEMENT_DRIVE_LIFECYCLE_STATUSES.COMPLETED ? 'Only a published Placement Drive can be closed.' : 'Only a published or postponed Placement Drive can be cancelled.')
   const now = new Date(dependencies.now ?? Date.now())
   assignDrive(drive, { lifecycleStatus: status, lifecycleHistory: [...(drive.lifecycleHistory ?? []), { event: status, status, reason, actorId: adminId, occurredAt: now }] })
   const saved = await drive.save()
@@ -329,6 +333,7 @@ async function changePlacementDriveLifecycle(driveId, adminId, status, reason, d
 }
 
 export const postponePlacementDrive = (driveId, adminId, reason, dependencies) => changePlacementDriveLifecycle(driveId, adminId, PLACEMENT_DRIVE_LIFECYCLE_STATUSES.POSTPONED, reason, dependencies)
+export const completePlacementDrive = (driveId, adminId, reason, dependencies) => changePlacementDriveLifecycle(driveId, adminId, PLACEMENT_DRIVE_LIFECYCLE_STATUSES.COMPLETED, reason, dependencies)
 export const cancelPlacementDrive = (driveId, adminId, reason, dependencies) => changePlacementDriveLifecycle(driveId, adminId, PLACEMENT_DRIVE_LIFECYCLE_STATUSES.CANCELLED, reason, dependencies)
 
 export async function getPlacementDriveDocumentForAdmin(driveId, type, dependencies = {}) {

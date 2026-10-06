@@ -9,6 +9,7 @@ import { StudentProfile } from '../students/student.model.js'
 import { Application } from '../applications/application.model.js'
 import { evaluatePlacementDriveEligibility } from '../applications/application.service.js'
 import { randomUUID } from 'node:crypto'
+import { previewStudentExplorerNotification, sendStudentExplorerNotification } from '../students/student.service.js'
 
 export async function createNotifications(notifications, { notificationModel = Notification } = {}) {
   if (!notifications.length) return []
@@ -41,6 +42,23 @@ export async function listNotifications(recipientId, { notificationModel = Notif
   return notifications.map(publicNotification)
 }
 
+const categoryGroup = notification => notification.category?.includes('placement') || notification.type?.includes('placement') ? 'placement' : notification.placementDriveId || notification.phaseNumber || notification.source === 'company' ? 'recruitment' : 'system'
+export async function listNotificationPage(recipientId, filters = {}, { notificationModel = Notification } = {}) {
+  const query = { recipientId, ...(filters.state === 'unread' ? { isRead: false } : filters.state === 'read' ? { isRead: true } : {}) }
+  const all = (await notificationModel.find(query).sort({ createdAt: -1 })).map(publicNotification)
+  const searched = all.filter(item => (!filters.search || [item.title, item.message, item.context?.phaseTitle, item.context?.roleTitle].filter(Boolean).join(' ').toLowerCase().includes(filters.search.toLowerCase())) && (filters.category === 'all' || categoryGroup(item) === filters.category))
+  const page = filters.page ?? 1; const limit = filters.limit ?? 25; const start = (page - 1) * limit
+  return { records: searched.slice(start, start + limit), page, limit, totalRecords: searched.length, totalPages: Math.max(1, Math.ceil(searched.length / limit)), unreadCount: all.filter(item => !item.isRead).length }
+}
+
+export async function markAllNotificationsRead(recipientId, { notificationModel = Notification, now = new Date() } = {}) {
+  const result = await notificationModel.updateMany({ recipientId, isRead: false }, { $set: { isRead: true, readAt: now } })
+  return { updated: result.modifiedCount ?? result.nModified ?? 0 }
+}
+
+export const previewAdminExplorerNotification = (input, dependencies) => previewStudentExplorerNotification(input, dependencies)
+export const sendAdminExplorerNotification = (adminId, input, dependencies) => sendStudentExplorerNotification(adminId, input, dependencies)
+
 export async function listSentNotifications(senderId, { notificationModel = Notification } = {}) {
   const notifications = await notificationModel.find({ senderId, category: 'manual_placement_message' }).sort({ createdAt: -1 })
   const batches = new Map()
@@ -64,6 +82,10 @@ export async function listSentNotifications(senderId, { notificationModel = Noti
     })
   }
   return [...batches.values()]
+}
+
+export async function listSentNotificationPage(senderId, filters = {}, { notificationModel = Notification } = {}) {
+  const sent = await listSentNotifications(senderId, { notificationModel }); const term = filters.search?.toLowerCase(); const start = filters.dateFrom ? new Date(filters.dateFrom) : null; const end = filters.dateTo ? new Date(filters.dateTo) : null; if (start) start.setHours(0, 0, 0, 0); if (end) end.setHours(23, 59, 59, 999); const rows = sent.filter(item => (filters.category === 'all' || !filters.category || item.category === filters.category) && (!filters.drive || String(item.placementDriveId) === String(filters.drive)) && (!filters.phase || Number(item.phaseNumber) === Number(filters.phase)) && (!filters.targetType || item.context?.audience === filters.targetType) && (!start || new Date(item.createdAt) >= start) && (!end || new Date(item.createdAt) <= end) && (!term || `${item.title} ${item.message}`.toLowerCase().includes(term))).sort((left, right) => new Date(right.createdAt) - new Date(left.createdAt)); const page = filters.page ?? 1; const limit = filters.limit ?? 25; return { records: rows.slice((page - 1) * limit, page * limit), page, limit, totalRecords: rows.length, totalPages: Math.max(1, Math.ceil(rows.length / limit)) }
 }
 
 export const listStudentNotifications = (studentId, dependencies) => listNotifications(studentId, dependencies)
@@ -196,3 +218,24 @@ export async function sendCompanyPhaseCandidatesNotification(companyUserId, inpu
     return { notificationsCreated: existing.length, recipientCount: existing.length, alreadySent: true, notificationBatchId: input.requestId }
   }
 }
+
+async function resolveCompanyTarget(companyUserId, input, { companyModel = Company, placementDriveModel = PlacementDrive, applicationModel = Application, userModel = User, profileModel = StudentProfile } = {}) {
+  const company = await companyModel.findOne({ userId: companyUserId, approvalStatus: 'approved' }); if (!company) throw new AppError('Only approved Companies can notify candidates.', { statusCode: 403, errorCode: 'FORBIDDEN' })
+  const drive = await placementDriveModel.findOne({ _id: input.placementDriveId, companyId: company._id }); if (!drive) throw missing('Placement Drive was not found for this Company.')
+  const query = { placementDriveId: drive._id, ...(input.target === 'active' ? { currentStatus: 'active' } : input.target === 'phase' ? { currentStatus: 'active', currentPhase: input.phaseNumber } : input.target === 'selected' ? { currentStatus: { $in: ['selected_pending_confirmation', 'placement_confirmed'] } } : input.target === 'specific' ? { _id: { $in: input.selectedApplicationIds } } : {}) }
+  const applications = await applicationModel.find(query).select('_id studentId currentPhase').lean(); if (input.target === 'specific' && applications.length !== new Set(input.selectedApplicationIds).size) throw new AppError('One or more candidates are not part of this Company drive.', { statusCode: 422, errorCode: 'VALIDATION_ERROR' })
+  const studentIds = [...new Set(applications.map(application => String(application.studentId)))]
+  const [users, profiles] = await Promise.all([
+    userModel.find({ _id: { $in: studentIds }, role: USER_ROLES.STUDENT }).select('_id name').lean(),
+    profileModel.find({ userId: { $in: studentIds } }).select('userId rollNumber branch').lean(),
+  ])
+  const usersById = new Map(users.map(user => [String(user._id), user]))
+  const profilesByUserId = new Map(profiles.map(profile => [String(profile.userId), profile]))
+  const previewRecipients = applications.map(application => {
+    const user = usersById.get(String(application.studentId)); const profile = profilesByUserId.get(String(application.studentId))
+    return { applicationId: application._id, name: user?.name ?? 'Student', rollNumber: profile?.rollNumber ?? null, branch: profile?.branch ?? null, currentPhase: application.currentPhase }
+  })
+  return { company, drive, applications, previewRecipients }
+}
+export async function previewCompanyCandidatesNotification(companyUserId, input, dependencies = {}) { const data = await resolveCompanyTarget(companyUserId, input, dependencies); return { recipientCount: data.applications.length, targetDescription: `${data.company.companyName ?? 'Company'} · ${data.drive.role?.title ?? 'Drive'} · ${input.target.replaceAll('_', ' ')}`, recipients: data.previewRecipients.slice(0, 20) } }
+export async function sendCompanyCandidatesNotification(companyUserId, input, dependencies = {}) { const data = await resolveCompanyTarget(companyUserId, input, dependencies); if (!data.applications.length) throw new AppError('No candidates match this target.', { statusCode: 422, errorCode: 'VALIDATION_ERROR' }); const notificationModel = dependencies.notificationModel ?? Notification; const prior = await notificationModel.find({ senderId: companyUserId, idempotencyKey: input.requestId }).select('recipientId').lean(); if (prior.length) return { notificationsCreated: prior.length, recipientCount: prior.length, alreadySent: true }; const created = await createNotifications(data.applications.map(application => ({ recipientId: application.studentId, senderId: companyUserId, notificationBatchId: input.requestId, idempotencyKey: input.requestId, category: 'manual_placement_message', type: 'company_to_candidates', source: 'company', title: input.title, message: input.message, placementDriveId: data.drive._id, applicationId: application._id, companyId: data.company._id, phaseNumber: input.target === 'phase' ? input.phaseNumber : undefined, context: { action: input.target === 'phase' ? 'view_phase' : 'view_drive', audience: input.target, roleTitle: data.drive.role?.title, phaseTitle: data.drive.phases?.find(item => item.phaseNumber === input.phaseNumber)?.title } })), { notificationModel }); return { notificationsCreated: created.length, recipientCount: data.applications.length, alreadySent: false } }

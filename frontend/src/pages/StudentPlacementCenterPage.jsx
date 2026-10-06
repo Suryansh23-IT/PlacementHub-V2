@@ -6,7 +6,7 @@ import { LoadingState } from '../components/feedback/LoadingState.jsx'
 import { PageHeader } from '../components/ui/PageHeader.jsx'
 import { StatusBadge } from '../components/ui/StatusBadge.jsx'
 import { useAuth } from '../features/auth/useAuth.js'
-import { listMyPlacementApplications, listStudentPlacementDrives, withdrawStudentPlacementApplication } from '../services/student-placement-drive.service.js'
+import { listMyOffCampusPlacementOutcomes, listMyPlacementApplications, listStudentPlacementDrives, withdrawStudentPlacementApplication } from '../services/student-placement-drive.service.js'
 import { Button } from '../components/ui/Button.jsx'
 
 const titleCase = value => value ? value.replaceAll('_', ' ').replace(/\b\w/g, letter => letter.toUpperCase()) : 'Not specified'
@@ -26,17 +26,19 @@ export function StudentPlacementCenterPage() {
   const [search, setSearch] = useSearchParams()
   const [drives, setDrives] = useState(null)
   const [applications, setApplications] = useState(null)
+  const [offCampusOutcomes, setOffCampusOutcomes] = useState([])
   const [error, setError] = useState('')
   const [withdrawingId, setWithdrawingId] = useState('')
   const tab = search.get('tab') === 'applications' ? 'applications' : 'open'
 
   useEffect(() => {
     let active = true
-    Promise.all([listStudentPlacementDrives(session.accessToken), listMyPlacementApplications(session.accessToken)])
-      .then(([driveResponse, applicationResponse]) => {
+    Promise.all([listStudentPlacementDrives(session.accessToken), listMyPlacementApplications(session.accessToken), listMyOffCampusPlacementOutcomes(session.accessToken)])
+      .then(([driveResponse, applicationResponse, offCampusResponse]) => {
         if (!active) return
         setDrives(driveResponse.data)
         setApplications(applicationResponse.data)
+        setOffCampusOutcomes(offCampusResponse.data)
       })
       .catch(error => { if (active) setError(error.message) })
     return () => { active = false }
@@ -57,6 +59,7 @@ export function StudentPlacementCenterPage() {
 
   return <section className="space-y-7">
     <PageHeader eyebrow="Student Placement Portal" title="Placement Center" description="Browse open opportunities, check drive-specific eligibility, and follow your applications." />
+    {offCampusOutcomes.map(outcome => <section key={outcome._id} className="rounded-2xl border border-emerald-200 bg-emerald-50 p-5"><p className="text-xs font-bold uppercase tracking-[.14em] text-emerald-700">Placement Confirmed · Off Campus</p><h2 className="mt-1 text-xl font-bold text-slate-950">{outcome.employerName}</h2><p className="mt-2 text-sm text-slate-700">{outcome.role} · {titleCase(outcome.outcomeType)}{outcome.package?.amount != null ? ` · INR ${Number(outcome.package.amount).toLocaleString()} CTC` : ''} · {dateLabel(outcome.adminVerifiedAt)}</p></section>)}
     <div className="flex w-fit rounded-xl border border-slate-200 bg-slate-50 p-1" role="tablist" aria-label="Placement Center sections">
       <Tab active={tab === 'open'} onClick={() => setSearch({ tab: 'open' })}>Placement Drives <span className="ml-1 text-xs">{drives.length}</span></Tab>
       <Tab active={tab === 'applications'} onClick={() => setSearch({ tab: 'applications' })}>My Applications <span className="ml-1 text-xs">{applications.length}</span></Tab>
@@ -90,7 +93,7 @@ function Applications({ applications, withdrawingId, onWithdraw }) {
   if (!applications.length) return <EmptyState title="No applications yet" description="When you apply to an eligible open drive, it will appear here in Phase 0." />
   return <div className="grid gap-4 lg:grid-cols-2">{applications.map(application => {
     const drive = application.drive || {}; const withdrawn = application.currentStatus === 'withdrawn'; const placementConfirmed = confirmed(application); const withdrawable = ['applied', 'screening', 'pending', 'result_pending', 'qualified', 'active'].includes(application.currentStatus)
-    return <article key={application._id} className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm"><div className="flex flex-wrap items-start justify-between gap-3"><div><p className="text-xs font-bold uppercase tracking-[0.14em] text-blue-700">{drive.company?.companyName || 'Company'}</p><h2 className="mt-2 text-lg font-bold text-slate-950">{drive.role?.title || 'Placement Drive'}</h2><p className="mt-1 text-sm text-slate-600">Applied {dateLabel(application.appliedAt)}</p></div><StatusBadge status={placementConfirmed ? 'approved' : 'neutral'}>{placementConfirmed ? 'Placement Confirmed' : `Phase ${application.currentPhase} · ${titleCase(application.currentStatus)}`}</StatusBadge></div><div className="mt-5 border-t border-slate-100 pt-4 text-sm text-slate-600"><p><strong className="font-semibold text-slate-800">Current stage:</strong> {placementConfirmed ? 'Official placement confirmed' : withdrawn ? 'Withdrawn — no longer active' : application.currentPhase === 0 ? 'Phase 0 — Applicant / screening pool' : `Phase ${application.currentPhase}`}</p><p className="mt-1">{placementConfirmed ? `${titleCase(application.confirmedOutcome?.outcomeType)}${application.confirmedOutcome?.location ? ` · ${application.confirmedOutcome.location}` : ''}` : withdrawn ? 'Withdrawal history is retained for your placement record.' : 'Open your recruitment journey for the current action, timeline, and phase resources.'}</p></div><div className="mt-5 flex flex-wrap gap-3"><Link className="inline-flex min-h-10 items-center text-sm font-bold text-blue-700 hover:underline" to={`/student/applications/${application._id}/journey`}>View journey</Link>{application.placementDriveId && <Link className="inline-flex min-h-10 items-center text-sm font-bold text-slate-600 hover:underline" to={`/student/placement/${application.placementDriveId}`}>View Drive</Link>}{withdrawable && <Button variant="danger" disabled={Boolean(withdrawingId)} onClick={() => onWithdraw(application)}>{withdrawingId === application._id ? 'Withdrawing…' : 'Withdraw application'}</Button>}</div></article>
+    return <article key={application._id} className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm"><div className="flex flex-wrap items-start justify-between gap-3"><div><p className="text-xs font-bold uppercase tracking-[0.14em] text-blue-700">{drive.company?.companyName || 'Company'}</p><h2 className="mt-2 text-lg font-bold text-slate-950">{drive.role?.title || 'Placement Drive'}</h2><p className="mt-1 text-sm text-slate-600">Applied {dateLabel(application.appliedAt)}</p></div><div className="flex flex-wrap justify-end gap-2"><StatusBadge status={placementConfirmed ? 'approved' : 'neutral'}>{placementConfirmed ? 'Placement Confirmed' : `Phase ${application.currentPhase} · ${titleCase(application.currentStatus)}`}</StatusBadge>{drive.lifecycleStatus === 'completed' && <StatusBadge status="completed">Drive Closed</StatusBadge>}</div></div><div className="mt-5 border-t border-slate-100 pt-4 text-sm text-slate-600"><p><strong className="font-semibold text-slate-800">Current stage:</strong> {placementConfirmed ? 'Official placement confirmed' : withdrawn ? 'Withdrawn — no longer active' : application.currentPhase === 0 ? 'Phase 0 — Applicant / screening pool' : `Phase ${application.currentPhase}`}</p><p className="mt-1">{placementConfirmed ? `${titleCase(application.confirmedOutcome?.outcomeType)}${application.confirmedOutcome?.location ? ` · ${application.confirmedOutcome.location}` : ''}` : withdrawn ? 'Withdrawal history is retained for your placement record.' : drive.lifecycleStatus === 'completed' ? 'This drive is closed. Your application history remains available.' : 'Open your recruitment journey for the current action, timeline, and phase resources.'}</p></div><div className="mt-5 flex flex-wrap gap-3"><Link className="inline-flex min-h-10 items-center text-sm font-bold text-blue-700 hover:underline" to={`/student/applications/${application._id}/journey`}>View journey</Link>{application.placementDriveId && <Link className="inline-flex min-h-10 items-center text-sm font-bold text-slate-600 hover:underline" to={`/student/placement/${application.placementDriveId}`}>View Drive</Link>}{withdrawable && <Button variant="danger" disabled={Boolean(withdrawingId)} onClick={() => onWithdraw(application)}>{withdrawingId === application._id ? 'Withdrawing…' : 'Withdraw application'}</Button>}</div></article>
   })}</div>
 }
 

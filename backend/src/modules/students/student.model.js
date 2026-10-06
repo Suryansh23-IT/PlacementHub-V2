@@ -57,5 +57,8 @@ const studentProfileSchema = new mongoose.Schema(
 )
 
 studentProfileSchema.index({ verificationStatus: 1 })
+// M8 cohort filters use these fields together; this avoids collection scans for
+// branch/batch/verification analytics without indexing mutable profile detail.
+studentProfileSchema.index({ graduationYear: 1, branch: 1, verificationStatus: 1, cgpa: 1 })
 
 export const StudentProfile = mongoose.models.StudentProfile ?? mongoose.model('StudentProfile', studentProfileSchema)

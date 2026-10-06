@@ -37,7 +37,7 @@ const phaseExecutionSchema = new mongoose.Schema({
 }, { _id: false })
 
 const lifecycleHistorySchema = new mongoose.Schema({
-  event: { type: String, required: true, enum: ['postponed', 'cancelled'] },
+  event: { type: String, required: true, enum: ['postponed', 'cancelled', 'completed'] },
   status: { type: String, required: true, enum: Object.values(PLACEMENT_DRIVE_LIFECYCLE_STATUSES) },
   reason: { type: String, required: true, trim: true, maxlength: 1500 },
   actorId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },

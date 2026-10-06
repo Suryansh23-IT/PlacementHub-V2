@@ -16,6 +16,7 @@ import { adminNotificationRouter, companyNotificationRouter, studentNotification
 import { adminIncidentRouter, companyIncidentRouter } from './modules/incidents/incident-report.routes.js'
 import { adminDashboardRouter, companyDashboardRouter, studentDashboardRouter } from './modules/dashboard/dashboard.routes.js'
 import { adminPlacementRecordRouter, studentPlacementRecordRouter } from './modules/placements/placement-record.routes.js'
+import { adminAnalyticsRouter } from './modules/analytics/analytics.routes.js'
 
 export const app = express()
 
@@ -45,5 +46,6 @@ app.use('/api/v1/admin/recruiter-policy', adminRecruiterPolicyRouter)
 app.use('/api/v1/companies', companyPlacementDriveRouter)
 app.use('/api/v1/admin/placement-drives', adminPlacementDriveRouter)
 app.use('/api/v1/admin/placement-outcomes', adminPlacementRecordRouter)
+app.use('/api/v1/admin/analytics', adminAnalyticsRouter)
 app.use(notFound)
 app.use(errorHandler)

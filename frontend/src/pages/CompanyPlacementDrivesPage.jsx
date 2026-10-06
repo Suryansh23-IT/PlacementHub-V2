@@ -9,7 +9,7 @@ import { useAuth } from '../features/auth/useAuth.js'
 import { listMyPlacementDrives } from '../services/placement-drive.service.js'
 
 const feedback = drive => drive.review?.requestedChanges || drive.review?.rejectionReason
-const lifecycleLabel = drive => drive.lifecycleStatus === 'published' ? 'Live to Students' : drive.proposalStatus === 'approved' ? 'Approved — not visible to Students yet' : drive.lifecycleStatus?.replaceAll('_', ' ')
+const lifecycleLabel = drive => drive.lifecycleStatus === 'published' ? 'Live to Students' : drive.lifecycleStatus === 'completed' ? 'Closed' : drive.proposalStatus === 'approved' ? 'Approved — not visible to Students yet' : drive.lifecycleStatus?.replaceAll('_', ' ')
 
 export function CompanyPlacementDrivesPage() {
   const { session } = useAuth()

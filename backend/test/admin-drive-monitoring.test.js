@@ -27,7 +27,7 @@ function dependencies() {
   }
 }
 
-test('Admin monitoring list contains only published drives with aggregate application counts', async () => {
+test('Admin monitoring list contains published drives by default and can include closed history', async () => {
   const list = await listAdminPublishedDriveMonitoring(dependencies())
   assert.equal(list.length, 1)
   assert.equal(list[0]._id, ids.drive)
@@ -36,6 +36,14 @@ test('Admin monitoring list contains only published drives with aggregate applic
   assert.equal(list[0].activeApplicantCount, 2)
   assert.equal(list[0].exitedApplicantCount, 1)
   assert.equal(list[0].lifecycleStatus, 'published')
+
+  const withClosed = await listAdminPublishedDriveMonitoring({ ...dependencies(), includeClosed: true })
+  assert.equal(withClosed.length, 1)
+
+  const closedDependencies = dependencies()
+  closedDependencies.placementDriveModel = { ...closedDependencies.placementDriveModel, find: query => ({ sort: async () => [drive, { ...drive, _id: ids.hidden, lifecycleStatus: 'completed' }].filter(item => Object.entries(query).every(([key, value]) => value?.$in ? value.$in.includes(item[key]) : String(item[key]) === String(value))) }) }
+  const history = await listAdminPublishedDriveMonitoring({ ...closedDependencies, includeClosed: true })
+  assert.deepEqual(history.map(item => item.lifecycleStatus).sort(), ['completed', 'published'])
 })
 
 test('Admin monitoring detail reuses Application records and keeps Student data lightweight', async () => {

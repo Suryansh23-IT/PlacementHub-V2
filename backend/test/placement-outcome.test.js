@@ -23,10 +23,10 @@ test('admin confirmation is idempotent, confirms the source application, and clo
   assert.deepEqual([result.alreadyConfirmed, result.closedApplications, record.verificationState], [false, 2, 'confirmed']); assert.equal(tcs.currentStatus, 'closed_placed_elsewhere'); assert.equal(infosys.currentStatus, 'closed_placed_elsewhere')
   assert.equal((await confirmPlacementRecord(ids.admin, 'record', {}, dependencies({ record })).then(value => value.alreadyConfirmed)), true)
 })
-test('internship confirmation does not close active FTE journeys, while PPO does', async () => {
+test('internship confirmation closes other active recruitment journeys just like PPO', async () => {
   const active = saveable({ _id: ids.tcs, studentId: ids.student, currentPhase: 2, currentStatus: 'active', phaseHistory: [] })
   const internship = saveable({ _id: 'record', studentId: ids.student, applicationId: ids.application, placementDriveId: ids.drive, companyId: ids.company, outcomeType: 'internship', verificationState: 'pending_admin_verification', history: [] })
-  await confirmPlacementRecord(ids.admin, 'record', {}, dependencies({ record: internship, others: [active] })); assert.equal(active.currentStatus, 'active')
+  await confirmPlacementRecord(ids.admin, 'record', {}, dependencies({ record: internship, others: [active] })); assert.equal(active.currentStatus, 'closed_placed_elsewhere')
   const ppo = saveable({ _id: 'record', studentId: ids.student, applicationId: ids.application, placementDriveId: ids.drive, companyId: ids.company, outcomeType: 'ppo', verificationState: 'pending_admin_verification', history: [] })
   await confirmPlacementRecord(ids.admin, 'record', {}, dependencies({ record: ppo, others: [active] })); assert.equal(active.currentStatus, 'closed_placed_elsewhere')
 })

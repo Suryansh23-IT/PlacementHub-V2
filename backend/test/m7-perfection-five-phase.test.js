@@ -278,7 +278,7 @@ test('final M7 perfection story executes one realistic five-phase Company Drive 
   const s20Record = await submitPlacementReport(students.S20._id, applications.S20._id, { outcomeType: 'internship', stipend: { amount: 75000, currency: 'INR', period: 'per_month' }, location: 'Bengaluru' })
   await confirmPlacementRecord(admin._id, s20Record._id, {})
   const futureFte = await createPlacementDriveApplication(students.S20._id, internshipFutureDrive._id, { now: NOW, enforceConfirmedPlacementLock: true, placementRecordModel: PlacementRecord })
-  assert.ok(futureFte.application)
+  assert.equal(futureFte.application, null)
 
   const adminMonitoring = await getAdminPublishedDriveMonitoring(drive._id, { placementRecordModel: PlacementRecord })
   const companyMonitoring = await getCompanyRecruitmentWorkspace(microsoftUser._id, drive._id, { placementRecordModel: PlacementRecord })
@@ -308,7 +308,15 @@ test('final M7 perfection story executes one realistic five-phase Company Drive 
   assert.ok(selectedExport.buffer.length > 1000)
   const selectedWorkbook = new ExcelJS.Workbook()
   await selectedWorkbook.xlsx.load(selectedExport.buffer)
-  assert.deepEqual(selectedWorkbook.worksheets[0].getRow(1).values.slice(1), ['Name', 'Roll Number', 'Email', 'Branch', 'CGPA', 'Current Phase', 'Current Status', 'Confirmation State', 'Outcome Type', 'Company', 'Role'])
+  const selectedSheet = selectedWorkbook.worksheets[0]
+  const expectedSelectedHeaders = ['Name', 'Roll Number', 'Email', 'Branch', 'CGPA', 'Current Phase', 'Current Status', 'Confirmation State', 'Outcome Type', 'Company', 'Role']
+  // Recruitment exports use the shared professional workbook layout: title,
+  // generated metadata, then the actual table header.
+  assert.equal(selectedSheet.getCell('A1').value, 'Apex Institute of Technology | Microsoft candidates')
+  assert.match(String(selectedSheet.getCell('A2').value), /^Generated /)
+  assert.deepEqual(selectedSheet.getRow(3).values.slice(1), expectedSelectedHeaders)
+  assert.equal(selectedSheet.actualRowCount, selectedExport.rowCount + 3)
+  assert.ok(selectedSheet.getRow(4).values.slice(1).some(Boolean))
   await expectCode(exportCompanyRecruitmentCandidates(tcsUser._id, drive._id, { selectedOnly: true }, { placementRecordModel: PlacementRecord }), 'NOT_FOUND')
 
   const lifecycleDrive = await publishedDrive(microsoft._id, 'Lifecycle Validation', 1)

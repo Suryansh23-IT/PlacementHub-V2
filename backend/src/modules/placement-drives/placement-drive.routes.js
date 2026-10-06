@@ -8,12 +8,14 @@ import { AppError } from '../../errors/app-error.js'
 import { validateBody, validateParams, validateQuery } from '../../middleware/validate-request.js'
 import { authenticate, authorizeRoles } from '../auth/auth.middleware.js'
 import { USER_ROLES } from '../auth/auth.constants.js'
-import { cancelAdminDrive, closeAdminDriveApplications, createMyPlacementDrive, downloadAdminDriveDocument, downloadMyDriveDocument, extendAdminDriveApplicationDeadline, getAdminDrive, getMyDrive, listAdminDrives, listMyPlacementDriveBranches, listMyDrives, postponeAdminDrive, publishAdminDrive, reopenAdminDriveApplications, resubmitMyDrive, reviewAdminDrive, submitMyDrive, updateMyDrive, uploadMyDriveDocument } from './placement-drive.controller.js'
+import { cancelAdminDrive, closeAdminDriveApplications, completeAdminDrive, createMyPlacementDrive, downloadAdminDriveDocument, downloadMyDriveDocument, extendAdminDriveApplicationDeadline, getAdminDrive, getMyDrive, listAdminDrives, listMyPlacementDriveBranches, listMyDrives, postponeAdminDrive, publishAdminDrive, reopenAdminDriveApplications, resubmitMyDrive, reviewAdminDrive, submitMyDrive, updateMyDrive, uploadMyDriveDocument } from './placement-drive.controller.js'
 import { downloadDriveApplicantResume, getDriveApplicant, listDriveApplicants } from '../applications/company-drive-applicant.controller.js'
 import { getPublishedDriveMonitoring, listPublishedDriveMonitoring } from '../applications/admin-drive-monitoring.controller.js'
 import { placementDriveApplicantParamsSchema, placementDriveApplicationWindowDeadlineSchema, placementDriveApplicationWindowReopenSchema, placementDriveCreateSchema, placementDriveDocumentParamsSchema, placementDriveIdParamsSchema, placementDriveLifecycleReasonSchema, placementDriveReviewSchema, placementDriveUpdateSchema } from './placement-drive.validation.js'
 import { bulkRecruitmentTransitionSchema, phaseExecutionUpdateSchema, recruitmentCandidateExportQuerySchema, recruitmentCandidateParamsSchema, recruitmentCandidateQuerySchema, recruitmentDriveParamsSchema, recruitmentPhaseParamsSchema, recruitmentTransitionSchema } from '../recruitment/recruitment-workspace.validation.js'
 import { bulkTransitionMyRecruitmentCandidates, downloadMyPhaseInstructionPdf, exportMyRecruitmentCandidates, getMyPhaseCandidateRecipientCount, getMyRecruitmentWorkspace, listMyRecruitmentActivity, listMyRecruitmentCandidates, transitionMyRecruitmentCandidate, updateMyPhaseExecution, uploadMyPhaseInstructionPdf } from '../recruitment/recruitment-workspace.controller.js'
+import { exportMyCompanyCandidateExplorer, getMyCompanyAnalytics, getMyCompanyCandidateExplorer } from '../analytics/company-analytics.controller.js'
+import { companyCandidateQuerySchema } from '../analytics/company-analytics.validation.js'
 
 const uploadDirectory = path.resolve(env.RESUME_UPLOAD_DIR)
 await mkdir(uploadDirectory, { recursive: true })
@@ -30,6 +32,9 @@ companyPlacementDriveRouter.use(authenticate, authorizeRoles(USER_ROLES.COMPANY)
 companyPlacementDriveRouter.post('/me/placement-drives', validateBody(placementDriveCreateSchema), createMyPlacementDrive)
 companyPlacementDriveRouter.get('/me/placement-drives/branches', listMyPlacementDriveBranches)
 companyPlacementDriveRouter.get('/me/placement-drives', listMyDrives)
+companyPlacementDriveRouter.get('/me/analytics', validateQuery(companyCandidateQuerySchema), getMyCompanyAnalytics)
+companyPlacementDriveRouter.get('/me/candidates', validateQuery(companyCandidateQuerySchema), getMyCompanyCandidateExplorer)
+companyPlacementDriveRouter.get('/me/candidates/export', validateQuery(companyCandidateQuerySchema), exportMyCompanyCandidateExplorer)
 companyPlacementDriveRouter.get('/me/placement-drives/:id/recruitment', validateParams(recruitmentDriveParamsSchema), getMyRecruitmentWorkspace)
 companyPlacementDriveRouter.get('/me/placement-drives/:id/recruitment/candidates', validateParams(recruitmentDriveParamsSchema), validateQuery(recruitmentCandidateQuerySchema), listMyRecruitmentCandidates)
 companyPlacementDriveRouter.get('/me/placement-drives/:id/recruitment/candidates/export', validateParams(recruitmentDriveParamsSchema), validateQuery(recruitmentCandidateExportQuerySchema), exportMyRecruitmentCandidates)
@@ -60,6 +65,7 @@ adminPlacementDriveRouter.get('/:id/documents/:type/download', validateParams(pl
 adminPlacementDriveRouter.patch('/:id/review', validateParams(placementDriveIdParamsSchema), validateBody(placementDriveReviewSchema), reviewAdminDrive)
 adminPlacementDriveRouter.patch('/:id/publish', validateParams(placementDriveIdParamsSchema), publishAdminDrive)
 adminPlacementDriveRouter.patch('/:id/lifecycle/postpone', validateParams(placementDriveIdParamsSchema), validateBody(placementDriveLifecycleReasonSchema), postponeAdminDrive)
+adminPlacementDriveRouter.patch('/:id/lifecycle/close', validateParams(placementDriveIdParamsSchema), validateBody(placementDriveLifecycleReasonSchema), completeAdminDrive)
 adminPlacementDriveRouter.patch('/:id/lifecycle/cancel', validateParams(placementDriveIdParamsSchema), validateBody(placementDriveLifecycleReasonSchema), cancelAdminDrive)
 adminPlacementDriveRouter.patch('/:id/application-window/deadline', validateParams(placementDriveIdParamsSchema), validateBody(placementDriveApplicationWindowDeadlineSchema), extendAdminDriveApplicationDeadline)
 adminPlacementDriveRouter.patch('/:id/application-window/close', validateParams(placementDriveIdParamsSchema), closeAdminDriveApplications)

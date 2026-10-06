@@ -1,3 +1,18 @@
 import mongoose from 'mongoose'
-const institutionSchema = new mongoose.Schema({ singletonKey: { type: String, required: true, unique: true, default: 'placementhub-v2' }, collegeName: { type: String, trim: true, maxlength: 160 }, logoUrl: { type: String, trim: true, maxlength: 500 }, location: { type: String, trim: true, maxlength: 200 }, placementEmail: { type: String, trim: true, lowercase: true, maxlength: 254 }, placementPhone: { type: String, trim: true, maxlength: 30 }, branches: [{ type: String, trim: true, maxlength: 100 }] }, { timestamps: true })
+
+const institutionSchema = new mongoose.Schema({
+  singletonKey: { type: String, required: true, unique: true, default: 'placementhub-v2' },
+  collegeName: { type: String, trim: true, maxlength: 160 },
+  logoUrl: { type: String, trim: true, maxlength: 500 },
+  location: { type: String, trim: true, maxlength: 200 },
+  placementEmail: { type: String, trim: true, lowercase: true, maxlength: 254 },
+  placementPhone: { type: String, trim: true, maxlength: 30 },
+  branches: [{ type: String, trim: true, maxlength: 100 }],
+  // M8's single, college-wide denominator. An empty graduation-year list means all batches.
+  collegeEligibility: {
+    minimumCgpa: { type: Number, min: 0, max: 10, default: 0 },
+    maximumActiveBacklogs: { type: Number, min: 0, max: 100, default: 100 },
+    graduationYears: [{ type: Number, min: 2000, max: 2100 }],
+  },
+}, { timestamps: true })
 export const InstitutionProfile = mongoose.models.InstitutionProfile ?? mongoose.model('InstitutionProfile', institutionSchema)

@@ -7,6 +7,7 @@ export const listStudentPlacementDrives = token => apiRequest('/students/me/plac
 export const getStudentPlacementDrive = (token, id) => apiRequest(drivePath(id), { headers: headers(token) })
 export const applyToStudentPlacementDrive = (token, id) => apiRequest(`${drivePath(id)}/apply`, { method: 'POST', headers: headers(token) })
 export const listMyPlacementApplications = token => apiRequest('/students/me/applications', { headers: headers(token) })
+export const listMyOffCampusPlacementOutcomes = token => apiRequest('/students/me/off-campus-placement-outcomes', { headers: headers(token) })
 export const withdrawStudentPlacementApplication = (token, id) => apiRequest(`/students/me/applications/${encodeURIComponent(id)}/withdraw`, { method: 'POST', headers: headers(token) })
 export const getStudentRecruitmentJourney = (token, id) => apiRequest(`/students/me/applications/${encodeURIComponent(id)}/journey`, { headers: headers(token) })
 export const submitStudentPlacementReport = (token, id, body) => apiRequest(`/students/me/applications/${encodeURIComponent(id)}/placement-report`, { method: 'POST', headers: headers(token), body })
@@ -14,6 +15,7 @@ export const uploadStudentPlacementProof = (token, id, file) => { const body = n
 export const listAdminPlacementOutcomes = (token, state) => apiRequest(`/admin/placement-outcomes${state ? `?state=${encodeURIComponent(state)}` : ''}`, { headers: headers(token) })
 export const confirmAdminPlacementOutcome = (token, id, body) => apiRequest(`/admin/placement-outcomes/${encodeURIComponent(id)}/confirm`, { method: 'PATCH', headers: headers(token), body })
 export const decideAdminPlacementOutcome = (token, id, body) => apiRequest(`/admin/placement-outcomes/${encodeURIComponent(id)}/decision`, { method: 'PATCH', headers: headers(token), body })
+export const createAdminOffCampusPlacement = (token, body) => apiRequest('/admin/placement-outcomes/off-campus', { method: 'POST', headers: headers(token), body })
 export async function downloadAdminPlacementProof(token, id, proofIndex = 0) { const response = await fetch(`${API_URL}/admin/placement-outcomes/${encodeURIComponent(id)}/proofs/${proofIndex}/download`, { headers: headers(token) }); if (!response.ok) throw new Error((await response.json().catch(() => null))?.message ?? 'The proof could not be downloaded.'); return response.blob() }
 
 export async function downloadStudentPlacementDriveDocument(token, id, type) {

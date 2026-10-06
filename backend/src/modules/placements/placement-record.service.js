@@ -3,10 +3,28 @@ import { Application } from '../applications/application.model.js'
 import { PlacementDrive } from '../placement-drives/placement-drive.model.js'
 import { PlacementRecord } from './placement-record.model.js'
 import { createNotifications } from '../notifications/notification.service.js'
+import { User } from '../auth/auth.model.js'
+import { USER_ROLES } from '../auth/auth.constants.js'
 import { readFile } from 'node:fs/promises'
 const fail = (message, code = 'CONFLICT') => new AppError(message, { statusCode: code === 'NOT_FOUND' ? 404 : 409, errorCode: code })
-const blocking = type => ['full_time', 'ppo', 'internship_and_ppo'].includes(type)
+const blocking = type => ['full_time', 'ppo', 'internship_and_ppo', 'internship'].includes(type)
 const assign = (doc, values) => typeof doc.set === 'function' ? doc.set(values) : Object.assign(doc, values)
+async function closeOtherApplications(studentId, adminId, outcomeType, applicationModel, notificationService, now, companyId) {
+  if (!blocking(outcomeType)) return 0
+  const others = await applicationModel.find({ studentId, currentStatus: { $in: ['applied', 'screening', 'pending', 'result_pending', 'qualified', 'active', 'selected_pending_confirmation'] } })
+  for (const other of others) { assign(other, { currentStatus: 'closed_placed_elsewhere', phaseHistory: [...(other.phaseHistory ?? []), { phase: other.currentPhase, status: 'closed_placed_elsewhere', event: 'closed_placed_elsewhere', occurredAt: now, actorId: adminId }] }); await other.save(); await notificationService([{ recipientId: studentId, senderId: adminId, category: 'placement_outcome', type: 'application_closed_placed_elsewhere', source: 'placement_system', title: 'Recruitment journey closed', message: 'This recruitment journey was closed because another placement was confirmed.', placementDriveId: other.placementDriveId, applicationId: other._id, companyId, context: { action: 'view_application', audience: 'student' } }]) }
+  return others.length
+}
+export async function createOffCampusPlacement(adminId, input, { recordModel = PlacementRecord, applicationModel = Application, userModel = User, notificationService = createNotifications, now = new Date() } = {}) {
+  const student = await userModel.findOne({ _id: input.studentId, role: USER_ROLES.STUDENT, isActive: true }).select('_id')
+  if (!student) throw fail('Active Student account was not found.', 'NOT_FOUND')
+  const duplicate = await recordModel.findOne({ studentId: input.studentId, placementSource: 'OFF_CAMPUS', employerName: input.employerName, role: input.role, outcomeType: input.outcomeType, verificationState: 'confirmed' })
+  if (duplicate) throw fail('This confirmed off-campus placement is already recorded.')
+  const record = await recordModel.create({ studentId: input.studentId, employerName: input.employerName, placementSource: 'OFF_CAMPUS', outcomeType: input.outcomeType, role: input.role, package: input.package, stipend: input.stipend, location: input.location, joiningPeriod: input.joiningPeriod, verificationState: 'confirmed', adminVerifiedAt: input.confirmationDate ?? now, history: [{ event: 'admin_recorded_off_campus', occurredAt: now, actorId: adminId, note: input.notes }] })
+  const closedApplications = await closeOtherApplications(input.studentId, adminId, record.outcomeType, applicationModel, notificationService, now, undefined)
+  await notificationService([{ recipientId: input.studentId, senderId: adminId, category: 'placement_outcome', type: 'placement_confirmed', source: 'placement_system', title: 'Off-campus placement confirmed', message: `Your off-campus placement with ${record.employerName} has been recorded.`, context: { action: 'view_application', audience: 'student' } }])
+  return { record, closedApplications }
+}
 export async function submitPlacementReport(studentId, applicationId, input, { applicationModel = Application, driveModel = PlacementDrive, recordModel = PlacementRecord, now = new Date() } = {}) {
   const application = await applicationModel.findOne({ _id: applicationId, studentId }); if (!application) throw fail('Application was not found.', 'NOT_FOUND')
   if (application.currentStatus !== 'selected_pending_confirmation') throw fail('Only a provisionally selected application can be reported.')
@@ -60,3 +78,4 @@ export async function invalidateUnselectedPlacementReport(applicationId, company
   return record.save()
 }
 export async function listPlacementRecords(state, { recordModel = PlacementRecord } = {}) { return recordModel.find(state ? { verificationState: state } : {}).sort({ updatedAt: -1 }).populate('studentId', 'name email').populate('placementDriveId', 'role company') }
+export async function listMyOffCampusPlacementRecords(studentId, { recordModel = PlacementRecord } = {}) { return recordModel.find({ studentId, placementSource: 'OFF_CAMPUS', verificationState: 'confirmed' }).sort({ adminVerifiedAt: -1 }) }

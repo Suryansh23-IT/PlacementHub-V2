@@ -9,7 +9,12 @@ import { Application } from './application.model.js'
 import { getApplicationWindowStatus } from '../placement-drives/placement-drive.application-window.js'
 import { PlacementRecord } from '../placements/placement-record.model.js'
 
-const publishedQuery = () => ({ proposalStatus: PLACEMENT_DRIVE_PROPOSAL_STATUSES.APPROVED, lifecycleStatus: PLACEMENT_DRIVE_LIFECYCLE_STATUSES.PUBLISHED })
+const publishedQuery = (includeClosed = false) => ({
+  proposalStatus: PLACEMENT_DRIVE_PROPOSAL_STATUSES.APPROVED,
+  lifecycleStatus: includeClosed
+    ? { $in: [PLACEMENT_DRIVE_LIFECYCLE_STATUSES.PUBLISHED, PLACEMENT_DRIVE_LIFECYCLE_STATUSES.COMPLETED] }
+    : PLACEMENT_DRIVE_LIFECYCLE_STATUSES.PUBLISHED,
+})
 const notFound = () => new AppError('Published Placement Drive was not found.', { statusCode: 404, errorCode: 'NOT_FOUND' })
 
 function plain(value) { return value?.toObject ? value.toObject() : value }
@@ -37,8 +42,8 @@ function publicDrive(drive, company) {
   }
 }
 
-export async function listAdminPublishedDriveMonitoring({ placementDriveModel = PlacementDrive, applicationModel = Application, companyModel = Company } = {}) {
-  const drives = await placementDriveModel.find(publishedQuery()).sort({ 'driveDetails.applicationDeadline': 1 })
+export async function listAdminPublishedDriveMonitoring({ includeClosed = false, placementDriveModel = PlacementDrive, applicationModel = Application, companyModel = Company } = {}) {
+  const drives = await placementDriveModel.find(publishedQuery(includeClosed)).sort({ lifecycleStatus: 1, 'driveDetails.applicationDeadline': 1 })
   return Promise.all(drives.map(async drive => {
     const [company, applicationCount, activeApplicantCount, exitedApplicantCount] = await Promise.all([
       companySummary(drive.companyId, { companyModel }),
@@ -51,7 +56,7 @@ export async function listAdminPublishedDriveMonitoring({ placementDriveModel = 
 }
 
 async function getPublishedDrive(driveId, { placementDriveModel = PlacementDrive } = {}) {
-  const drive = await placementDriveModel.findOne({ _id: driveId, proposalStatus: PLACEMENT_DRIVE_PROPOSAL_STATUSES.APPROVED, lifecycleStatus: { $in: [PLACEMENT_DRIVE_LIFECYCLE_STATUSES.PUBLISHED, PLACEMENT_DRIVE_LIFECYCLE_STATUSES.POSTPONED, PLACEMENT_DRIVE_LIFECYCLE_STATUSES.CANCELLED] } })
+  const drive = await placementDriveModel.findOne({ _id: driveId, proposalStatus: PLACEMENT_DRIVE_PROPOSAL_STATUSES.APPROVED, lifecycleStatus: { $in: [PLACEMENT_DRIVE_LIFECYCLE_STATUSES.PUBLISHED, PLACEMENT_DRIVE_LIFECYCLE_STATUSES.POSTPONED, PLACEMENT_DRIVE_LIFECYCLE_STATUSES.COMPLETED, PLACEMENT_DRIVE_LIFECYCLE_STATUSES.CANCELLED] } })
   if (!drive) throw notFound()
   return drive
 }

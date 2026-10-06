@@ -27,7 +27,7 @@ export function LoginPage() {
     try {
       const { data } = await loginAccount(validation.data)
       startSession(data)
-      navigate(location.state?.from ?? '/dashboard', { replace: true })
+      navigate(location.state?.from ?? (data.user.role === 'placement_admin' ? '/admin/dashboard' : '/dashboard'), { replace: true })
     } catch (requestError) {
       setError(requestError.message)
     } finally {

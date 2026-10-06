@@ -18,9 +18,11 @@ const placementHistorySchema = new mongoose.Schema({
 
 const placementRecordSchema = new mongoose.Schema({
   studentId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true, index: true },
-  applicationId: { type: mongoose.Schema.Types.ObjectId, ref: 'Application', required: true, unique: true },
-  placementDriveId: { type: mongoose.Schema.Types.ObjectId, ref: 'PlacementDrive', required: true, index: true },
-  companyId: { type: mongoose.Schema.Types.ObjectId, ref: 'Company', required: true, index: true },
+  applicationId: { type: mongoose.Schema.Types.ObjectId, ref: 'Application', unique: true, sparse: true },
+  placementDriveId: { type: mongoose.Schema.Types.ObjectId, ref: 'PlacementDrive', index: true },
+  companyId: { type: mongoose.Schema.Types.ObjectId, ref: 'Company', index: true },
+  employerName: { type: String, trim: true, maxlength: 160 },
+  placementSource: { type: String, enum: ['ON_CAMPUS', 'OFF_CAMPUS'], default: 'ON_CAMPUS', required: true, index: true },
   outcomeType: { type: String, required: true, enum: PLACEMENT_OUTCOME_TYPES },
   role: { type: String, required: true, trim: true, maxlength: 160 },
   package: {
@@ -46,5 +48,7 @@ const placementRecordSchema = new mongoose.Schema({
 
 placementRecordSchema.index({ studentId: 1, verificationState: 1 })
 placementRecordSchema.index({ placementDriveId: 1, companyId: 1 })
+placementRecordSchema.index({ verificationState: 1, outcomeType: 1, adminVerifiedAt: 1 })
+placementRecordSchema.index({ companyId: 1, verificationState: 1, adminVerifiedAt: 1 })
 
 export const PlacementRecord = mongoose.models.PlacementRecord ?? mongoose.model('PlacementRecord', placementRecordSchema)

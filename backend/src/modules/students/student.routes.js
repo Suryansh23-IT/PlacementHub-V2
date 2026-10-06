@@ -5,10 +5,11 @@ import { Router } from 'express'
 import multer from 'multer'
 import { env } from '../../config/env.js'
 import { AppError } from '../../errors/app-error.js'
-import { validateBody, validateParams } from '../../middleware/validate-request.js'
+import { validateBody, validateParams, validateQuery } from '../../middleware/validate-request.js'
 import { authenticate, authorizeRoles } from '../auth/auth.middleware.js'
 import { USER_ROLES } from '../auth/auth.constants.js'
-import { downloadMyMarksheet, downloadMyResume, downloadStudentDocumentForAdmin, getAvailableBranches, getMyIdentityContext, getMyProfile, getStudentForReview, getStudentsForReview, patchMyProfile, patchStudentVerification, resubmitMyProfileForVerification, uploadMyMarksheet, uploadMyResume } from './student.controller.js'
+import { downloadMyMarksheet, downloadMyResume, downloadStudentDocumentForAdmin, exportStudentExplorerRows, getAvailableBranches, getMyIdentityContext, getMyProfile, getStudentExplorer, getStudentForReview, getStudentsForReview, patchMyProfile, patchStudentVerification, previewStudentExplorerRecipients, resubmitMyProfileForVerification, sendStudentExplorerRecipients, uploadMyMarksheet, uploadMyResume } from './student.controller.js'
+import { studentExplorerExportSchema, studentExplorerNotificationSchema, studentExplorerQuerySchema } from './student-explorer.validation.js'
 import { adminStudentDocumentParamsSchema, documentTypeParamsSchema, studentIdParamsSchema, studentProfileSchema, verificationSchema } from './student.validation.js'
 
 const resumeDirectory = path.resolve(env.RESUME_UPLOAD_DIR)
@@ -41,6 +42,10 @@ studentRouter.post('/me/verification/resubmit', resubmitMyProfileForVerification
 
 export const adminStudentRouter = Router()
 adminStudentRouter.use(authenticate, authorizeRoles(USER_ROLES.PLACEMENT_ADMIN))
+adminStudentRouter.get('/explorer', validateQuery(studentExplorerQuerySchema), getStudentExplorer)
+adminStudentRouter.post('/explorer/export', validateBody(studentExplorerExportSchema), exportStudentExplorerRows)
+adminStudentRouter.post('/explorer/notification-preview', validateBody(studentExplorerExportSchema), previewStudentExplorerRecipients)
+adminStudentRouter.post('/explorer/notifications', validateBody(studentExplorerNotificationSchema), sendStudentExplorerRecipients)
 adminStudentRouter.get('/', getStudentsForReview)
 adminStudentRouter.get('/:id/documents/:type/download', validateParams(adminStudentDocumentParamsSchema), downloadStudentDocumentForAdmin)
 adminStudentRouter.get('/:id', validateParams(studentIdParamsSchema), getStudentForReview)

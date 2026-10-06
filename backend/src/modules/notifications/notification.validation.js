@@ -21,3 +21,20 @@ export const companyPhaseCandidatesNotificationSchema = messageFields.extend({
   phaseNumber: z.coerce.number().int().min(1).max(5),
   requestId: z.string().uuid('Request ID must be a UUID.'),
 })
+
+export const notificationListQuerySchema = z.object({
+  state: z.enum(['all', 'unread', 'read']).default('all'),
+  category: z.enum(['all', 'recruitment', 'placement', 'system']).default('all'),
+  search: z.string().trim().max(160).optional(),
+  page: z.coerce.number().int().min(1).default(1),
+  limit: z.coerce.number().int().min(1).max(100).default(25),
+  drive: z.string().optional(), phase: z.coerce.number().int().min(1).max(5).optional(), targetType: z.string().trim().max(80).optional(),
+  dateFrom: z.coerce.date().optional(), dateTo: z.coerce.date().optional(),
+})
+export const companyTargetSchema = messageFields.extend({ placementDriveId: objectId('Placement Drive ID'), target: z.enum(['all_applicants', 'active', 'phase', 'selected', 'specific']), phaseNumber: z.coerce.number().int().min(1).max(5).optional(), selectedApplicationIds: z.array(objectId('Application ID')).max(2000).optional(), requestId: z.string().uuid('Request ID must be a UUID.') }).superRefine((value, context) => { if (value.target === 'phase' && !value.phaseNumber) context.addIssue({ code: 'custom', path: ['phaseNumber'], message: 'Choose a phase.' }); if (value.target === 'specific' && !value.selectedApplicationIds?.length) context.addIssue({ code: 'custom', path: ['selectedApplicationIds'], message: 'Select at least one candidate.' }) })
+export const explorerTargetSchema = messageFields.extend({
+  mode: z.enum(['selected', 'all_matching']),
+  selectedStudentIds: z.array(objectId('Student ID')).max(2000).optional(),
+  filters: z.record(z.string(), z.unknown()).default({}),
+  requestId: z.string().uuid('Request ID must be a UUID.'),
+}).superRefine((value, context) => { if (value.mode === 'selected' && !value.selectedStudentIds?.length) context.addIssue({ code: 'custom', path: ['selectedStudentIds'], message: 'Select at least one Student.' }) })

@@ -115,5 +115,5 @@ test('M7G integrated Company → Student → Admin recruitment story', async t =
   const internshipReport = await submitPlacementReport(internshipStudent._id, internshipApplication._id, { outcomeType: 'internship', location: 'Raipur' })
   await confirmPlacementRecord(admin._id, internshipReport._id, {})
   const internshipFuture = await createPlacementDriveApplication(internshipStudent._id, futureDrive._id, { enforceConfirmedPlacementLock: true, placementRecordModel: PlacementRecord })
-  assert.ok(internshipFuture.application)
+  assert.equal(internshipFuture.application, null)
 })

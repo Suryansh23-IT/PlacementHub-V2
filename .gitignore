@@ -9,3 +9,4 @@ backend/scripts/.local/
 *.log
 .DS_Store
 Thumbs.db
+tmp/

@@ -1,7 +1,7 @@
 import { sendSuccess } from '../../utils/api-response.js'
 import { getInstitutionProfile } from '../institution/institution.service.js'
 import { getStudentPolicyAgreementSummary } from '../student-policy/student-policy.service.js'
-import { getAcademicMarksheet, getProfileCompletion, getResumeForDownload, getStudentDocumentForAdmin, getStudentIdentityContext, getStudentProfile, listStudentsForReview, resubmitStudentVerification, reviewStudentVerification, saveAcademicMarksheet, saveResume, updateStudentProfile } from './student.service.js'
+import { exploreStudents, exportStudentExplorer, getAcademicMarksheet, getProfileCompletion, getResumeForDownload, getStudentDocumentForAdmin, getStudentIdentityContext, getStudentProfile, listStudentsForReview, previewStudentExplorerNotification, resubmitStudentVerification, reviewStudentVerification, saveAcademicMarksheet, saveResume, sendStudentExplorerNotification, updateStudentProfile } from './student.service.js'
 
 export function toProfileResponse(profile, { includeResumeDownloadUrl = false, adminStudentId } = {}) {
   const value = profile.toObject ? profile.toObject() : profile
@@ -47,6 +47,10 @@ export async function getStudentsForReview(request, response) {
   const students = await listStudentsForReview()
   return sendSuccess(response, { message: 'Students retrieved successfully.', data: students.map((student) => ({ ...student, profile: toProfileResponse(student.profile) })) })
 }
+export async function getStudentExplorer(request, response) { return sendSuccess(response, { message: 'Students retrieved.', data: await exploreStudents(request.validatedQuery) }) }
+export async function exportStudentExplorerRows(request, response) { const exported = await exportStudentExplorer(request.body); response.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'); response.setHeader('Content-Disposition', `attachment; filename="${exported.filename}"`); response.setHeader('X-Export-Row-Count', String(exported.rowCount)); return response.send(exported.buffer) }
+export async function previewStudentExplorerRecipients(request, response) { return sendSuccess(response, { message: 'Recipient preview retrieved.', data: await previewStudentExplorerNotification(request.body) }) }
+export async function sendStudentExplorerRecipients(request, response) { return sendSuccess(response, { statusCode: 201, message: 'Student notification sent.', data: await sendStudentExplorerNotification(request.user._id, request.body) }) }
 export async function getStudentForReview(request, response) { const student = (await listStudentsForReview()).find((item) => item._id.toString() === request.params.id); if (!student) return response.status(404).json({ success: false, message: 'Student account was not found.', errorCode: 'NOT_FOUND' }); const placementAgreement = await getStudentPolicyAgreementSummary(student._id); return sendSuccess(response, { message: 'Student retrieved successfully.', data: { ...student, profile: toProfileResponse(student.profile, { adminStudentId: request.params.id }), placementAgreement } }) }
 
 export async function patchStudentVerification(request, response) {
