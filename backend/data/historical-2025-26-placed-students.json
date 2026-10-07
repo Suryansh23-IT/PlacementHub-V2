@@ -1,0 +1,5705 @@
+{
+  "seedKey": "NITR-PLACEMENT-2025-26",
+  "placedStudents": [
+    {
+      "studentId": "6ac53a770c34f693805545db",
+      "rollNumber": "22BM002",
+      "email": "bm002@ait.ac.in",
+      "branch": "Biomedical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805545cd",
+      "rollNumber": "22BM005",
+      "email": "bm005@ait.ac.in",
+      "branch": "Biomedical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805545df",
+      "rollNumber": "22BM006",
+      "email": "bm006@ait.ac.in",
+      "branch": "Biomedical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805545c3",
+      "rollNumber": "22BM008",
+      "email": "bm008@ait.ac.in",
+      "branch": "Biomedical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805545c9",
+      "rollNumber": "22BM024",
+      "email": "bm024@ait.ac.in",
+      "branch": "Biomedical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805545d0",
+      "rollNumber": "22BM027",
+      "email": "bm027@ait.ac.in",
+      "branch": "Biomedical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805545c0",
+      "rollNumber": "22BM030",
+      "email": "bm030@ait.ac.in",
+      "branch": "Biomedical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805545d3",
+      "rollNumber": "22BM034",
+      "email": "bm034@ait.ac.in",
+      "branch": "Biomedical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805545d1",
+      "rollNumber": "22BM039",
+      "email": "bm039@ait.ac.in",
+      "branch": "Biomedical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805545e0",
+      "rollNumber": "22BT002",
+      "email": "bt002@ait.ac.in",
+      "branch": "Biotechnology",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805545e9",
+      "rollNumber": "22BT003",
+      "email": "bt003@ait.ac.in",
+      "branch": "Biotechnology",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805545fb",
+      "rollNumber": "22BT004",
+      "email": "bt004@ait.ac.in",
+      "branch": "Biotechnology",
+      "plannedOfferCount": 2
+    },
+    {
+      "studentId": "6ac53a770c34f693805545e2",
+      "rollNumber": "22BT005",
+      "email": "bt005@ait.ac.in",
+      "branch": "Biotechnology",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554602",
+      "rollNumber": "22BT006",
+      "email": "bt006@ait.ac.in",
+      "branch": "Biotechnology",
+      "plannedOfferCount": 1,
+      "showcaseTag": "early_placed"
+    },
+    {
+      "studentId": "6ac53a770c34f693805545e8",
+      "rollNumber": "22BT014",
+      "email": "bt014@ait.ac.in",
+      "branch": "Biotechnology",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805545e5",
+      "rollNumber": "22BT016",
+      "email": "bt016@ait.ac.in",
+      "branch": "Biotechnology",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805545f0",
+      "rollNumber": "22BT017",
+      "email": "bt017@ait.ac.in",
+      "branch": "Biotechnology",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805545ff",
+      "rollNumber": "22BT018",
+      "email": "bt018@ait.ac.in",
+      "branch": "Biotechnology",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805545f8",
+      "rollNumber": "22BT019",
+      "email": "bt019@ait.ac.in",
+      "branch": "Biotechnology",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805545f7",
+      "rollNumber": "22BT022",
+      "email": "bt022@ait.ac.in",
+      "branch": "Biotechnology",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805545f1",
+      "rollNumber": "22BT024",
+      "email": "bt024@ait.ac.in",
+      "branch": "Biotechnology",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805545ea",
+      "rollNumber": "22BT025",
+      "email": "bt025@ait.ac.in",
+      "branch": "Biotechnology",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805545e6",
+      "rollNumber": "22BT026",
+      "email": "bt026@ait.ac.in",
+      "branch": "Biotechnology",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805545eb",
+      "rollNumber": "22BT027",
+      "email": "bt027@ait.ac.in",
+      "branch": "Biotechnology",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805545fe",
+      "rollNumber": "22BT031",
+      "email": "bt031@ait.ac.in",
+      "branch": "Biotechnology",
+      "plannedOfferCount": 2
+    },
+    {
+      "studentId": "6ac53a770c34f693805545e1",
+      "rollNumber": "22BT032",
+      "email": "bt032@ait.ac.in",
+      "branch": "Biotechnology",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805545f4",
+      "rollNumber": "22BT033",
+      "email": "bt033@ait.ac.in",
+      "branch": "Biotechnology",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805545ee",
+      "rollNumber": "22BT036",
+      "email": "bt036@ait.ac.in",
+      "branch": "Biotechnology",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805545fc",
+      "rollNumber": "22BT037",
+      "email": "bt037@ait.ac.in",
+      "branch": "Biotechnology",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805545f6",
+      "rollNumber": "22BT040",
+      "email": "bt040@ait.ac.in",
+      "branch": "Biotechnology",
+      "plannedOfferCount": 2
+    },
+    {
+      "studentId": "6ac53a770c34f69380554614",
+      "rollNumber": "22CH001",
+      "email": "ch001@ait.ac.in",
+      "branch": "Chemical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554617",
+      "rollNumber": "22CH003",
+      "email": "ch003@ait.ac.in",
+      "branch": "Chemical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554621",
+      "rollNumber": "22CH005",
+      "email": "ch005@ait.ac.in",
+      "branch": "Chemical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f6938055461c",
+      "rollNumber": "22CH006",
+      "email": "ch006@ait.ac.in",
+      "branch": "Chemical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554609",
+      "rollNumber": "22CH007",
+      "email": "ch007@ait.ac.in",
+      "branch": "Chemical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554635",
+      "rollNumber": "22CH008",
+      "email": "ch008@ait.ac.in",
+      "branch": "Chemical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554642",
+      "rollNumber": "22CH010",
+      "email": "ch010@ait.ac.in",
+      "branch": "Chemical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f6938055460d",
+      "rollNumber": "22CH014",
+      "email": "ch014@ait.ac.in",
+      "branch": "Chemical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554638",
+      "rollNumber": "22CH015",
+      "email": "ch015@ait.ac.in",
+      "branch": "Chemical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554622",
+      "rollNumber": "22CH016",
+      "email": "ch016@ait.ac.in",
+      "branch": "Chemical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f6938055463c",
+      "rollNumber": "22CH018",
+      "email": "ch018@ait.ac.in",
+      "branch": "Chemical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554623",
+      "rollNumber": "22CH019",
+      "email": "ch019@ait.ac.in",
+      "branch": "Chemical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554634",
+      "rollNumber": "22CH022",
+      "email": "ch022@ait.ac.in",
+      "branch": "Chemical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f6938055463a",
+      "rollNumber": "22CH023",
+      "email": "ch023@ait.ac.in",
+      "branch": "Chemical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f6938055463e",
+      "rollNumber": "22CH024",
+      "email": "ch024@ait.ac.in",
+      "branch": "Chemical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554629",
+      "rollNumber": "22CH025",
+      "email": "ch025@ait.ac.in",
+      "branch": "Chemical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f6938055461a",
+      "rollNumber": "22CH026",
+      "email": "ch026@ait.ac.in",
+      "branch": "Chemical",
+      "plannedOfferCount": 2
+    },
+    {
+      "studentId": "6ac53a770c34f6938055460f",
+      "rollNumber": "22CH027",
+      "email": "ch027@ait.ac.in",
+      "branch": "Chemical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554627",
+      "rollNumber": "22CH029",
+      "email": "ch029@ait.ac.in",
+      "branch": "Chemical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554607",
+      "rollNumber": "22CH030",
+      "email": "ch030@ait.ac.in",
+      "branch": "Chemical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554616",
+      "rollNumber": "22CH031",
+      "email": "ch031@ait.ac.in",
+      "branch": "Chemical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554636",
+      "rollNumber": "22CH033",
+      "email": "ch033@ait.ac.in",
+      "branch": "Chemical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f6938055460b",
+      "rollNumber": "22CH034",
+      "email": "ch034@ait.ac.in",
+      "branch": "Chemical",
+      "plannedOfferCount": 2
+    },
+    {
+      "studentId": "6ac53a770c34f6938055460e",
+      "rollNumber": "22CH035",
+      "email": "ch035@ait.ac.in",
+      "branch": "Chemical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554613",
+      "rollNumber": "22CH036",
+      "email": "ch036@ait.ac.in",
+      "branch": "Chemical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554612",
+      "rollNumber": "22CH037",
+      "email": "ch037@ait.ac.in",
+      "branch": "Chemical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554606",
+      "rollNumber": "22CH039",
+      "email": "ch039@ait.ac.in",
+      "branch": "Chemical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554630",
+      "rollNumber": "22CH040",
+      "email": "ch040@ait.ac.in",
+      "branch": "Chemical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554619",
+      "rollNumber": "22CH041",
+      "email": "ch041@ait.ac.in",
+      "branch": "Chemical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554628",
+      "rollNumber": "22CH042",
+      "email": "ch042@ait.ac.in",
+      "branch": "Chemical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554641",
+      "rollNumber": "22CH043",
+      "email": "ch043@ait.ac.in",
+      "branch": "Chemical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554620",
+      "rollNumber": "22CH044",
+      "email": "ch044@ait.ac.in",
+      "branch": "Chemical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f6938055462e",
+      "rollNumber": "22CH045",
+      "email": "ch045@ait.ac.in",
+      "branch": "Chemical",
+      "plannedOfferCount": 2
+    },
+    {
+      "studentId": "6ac53a770c34f6938055461e",
+      "rollNumber": "22CH046",
+      "email": "ch046@ait.ac.in",
+      "branch": "Chemical",
+      "plannedOfferCount": 2
+    },
+    {
+      "studentId": "6ac53a770c34f6938055463b",
+      "rollNumber": "22CH047",
+      "email": "ch047@ait.ac.in",
+      "branch": "Chemical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554637",
+      "rollNumber": "22CH048",
+      "email": "ch048@ait.ac.in",
+      "branch": "Chemical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554639",
+      "rollNumber": "22CH049",
+      "email": "ch049@ait.ac.in",
+      "branch": "Chemical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554618",
+      "rollNumber": "22CH050",
+      "email": "ch050@ait.ac.in",
+      "branch": "Chemical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554605",
+      "rollNumber": "22CH051",
+      "email": "ch051@ait.ac.in",
+      "branch": "Chemical",
+      "plannedOfferCount": 2
+    },
+    {
+      "studentId": "6ac53a770c34f6938055462d",
+      "rollNumber": "22CH052",
+      "email": "ch052@ait.ac.in",
+      "branch": "Chemical",
+      "plannedOfferCount": 2
+    },
+    {
+      "studentId": "6ac53a770c34f69380554640",
+      "rollNumber": "22CH053",
+      "email": "ch053@ait.ac.in",
+      "branch": "Chemical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554610",
+      "rollNumber": "22CH054",
+      "email": "ch054@ait.ac.in",
+      "branch": "Chemical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f6938055461d",
+      "rollNumber": "22CH055",
+      "email": "ch055@ait.ac.in",
+      "branch": "Chemical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f6938055461b",
+      "rollNumber": "22CH056",
+      "email": "ch056@ait.ac.in",
+      "branch": "Chemical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554631",
+      "rollNumber": "22CH057",
+      "email": "ch057@ait.ac.in",
+      "branch": "Chemical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f6938055462c",
+      "rollNumber": "22CH058",
+      "email": "ch058@ait.ac.in",
+      "branch": "Chemical",
+      "plannedOfferCount": 2
+    },
+    {
+      "studentId": "6ac53a770c34f6938055460a",
+      "rollNumber": "22CH059",
+      "email": "ch059@ait.ac.in",
+      "branch": "Chemical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f6938055461f",
+      "rollNumber": "22CH060",
+      "email": "ch060@ait.ac.in",
+      "branch": "Chemical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554633",
+      "rollNumber": "22CH061",
+      "email": "ch061@ait.ac.in",
+      "branch": "Chemical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554615",
+      "rollNumber": "22CH062",
+      "email": "ch062@ait.ac.in",
+      "branch": "Chemical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554604",
+      "rollNumber": "22CH064",
+      "email": "ch064@ait.ac.in",
+      "branch": "Chemical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554625",
+      "rollNumber": "22CH065",
+      "email": "ch065@ait.ac.in",
+      "branch": "Chemical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554626",
+      "rollNumber": "22CH066",
+      "email": "ch066@ait.ac.in",
+      "branch": "Chemical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f6938055463d",
+      "rollNumber": "22CH067",
+      "email": "ch067@ait.ac.in",
+      "branch": "Chemical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f6938055462b",
+      "rollNumber": "22CH068",
+      "email": "ch068@ait.ac.in",
+      "branch": "Chemical",
+      "plannedOfferCount": 2
+    },
+    {
+      "studentId": "6ac53a770c34f6938055466a",
+      "rollNumber": "22CE001",
+      "email": "ce001@ait.ac.in",
+      "branch": "Civil",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f6938055465c",
+      "rollNumber": "22CE003",
+      "email": "ce003@ait.ac.in",
+      "branch": "Civil",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554677",
+      "rollNumber": "22CE004",
+      "email": "ce004@ait.ac.in",
+      "branch": "Civil",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f6938055467a",
+      "rollNumber": "22CE005",
+      "email": "ce005@ait.ac.in",
+      "branch": "Civil",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554647",
+      "rollNumber": "22CE006",
+      "email": "ce006@ait.ac.in",
+      "branch": "Civil",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554678",
+      "rollNumber": "22CE007",
+      "email": "ce007@ait.ac.in",
+      "branch": "Civil",
+      "plannedOfferCount": 2
+    },
+    {
+      "studentId": "6ac53a770c34f69380554658",
+      "rollNumber": "22CE008",
+      "email": "ce008@ait.ac.in",
+      "branch": "Civil",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554661",
+      "rollNumber": "22CE009",
+      "email": "ce009@ait.ac.in",
+      "branch": "Civil",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554648",
+      "rollNumber": "22CE010",
+      "email": "ce010@ait.ac.in",
+      "branch": "Civil",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f6938055466c",
+      "rollNumber": "22CE011",
+      "email": "ce011@ait.ac.in",
+      "branch": "Civil",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554664",
+      "rollNumber": "22CE012",
+      "email": "ce012@ait.ac.in",
+      "branch": "Civil",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554657",
+      "rollNumber": "22CE013",
+      "email": "ce013@ait.ac.in",
+      "branch": "Civil",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554643",
+      "rollNumber": "22CE014",
+      "email": "ce014@ait.ac.in",
+      "branch": "Civil",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f6938055465e",
+      "rollNumber": "22CE016",
+      "email": "ce016@ait.ac.in",
+      "branch": "Civil",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554671",
+      "rollNumber": "22CE017",
+      "email": "ce017@ait.ac.in",
+      "branch": "Civil",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f6938055466d",
+      "rollNumber": "22CE018",
+      "email": "ce018@ait.ac.in",
+      "branch": "Civil",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554651",
+      "rollNumber": "22CE019",
+      "email": "ce019@ait.ac.in",
+      "branch": "Civil",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554673",
+      "rollNumber": "22CE020",
+      "email": "ce020@ait.ac.in",
+      "branch": "Civil",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554646",
+      "rollNumber": "22CE022",
+      "email": "ce022@ait.ac.in",
+      "branch": "Civil",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f6938055465b",
+      "rollNumber": "22CE023",
+      "email": "ce023@ait.ac.in",
+      "branch": "Civil",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554644",
+      "rollNumber": "22CE024",
+      "email": "ce024@ait.ac.in",
+      "branch": "Civil",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554655",
+      "rollNumber": "22CE025",
+      "email": "ce025@ait.ac.in",
+      "branch": "Civil",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554652",
+      "rollNumber": "22CE026",
+      "email": "ce026@ait.ac.in",
+      "branch": "Civil",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f6938055466b",
+      "rollNumber": "22CE027",
+      "email": "ce027@ait.ac.in",
+      "branch": "Civil",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554660",
+      "rollNumber": "22CE030",
+      "email": "ce030@ait.ac.in",
+      "branch": "Civil",
+      "plannedOfferCount": 2
+    },
+    {
+      "studentId": "6ac53a770c34f69380554665",
+      "rollNumber": "22CE031",
+      "email": "ce031@ait.ac.in",
+      "branch": "Civil",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554659",
+      "rollNumber": "22CE032",
+      "email": "ce032@ait.ac.in",
+      "branch": "Civil",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554666",
+      "rollNumber": "22CE033",
+      "email": "ce033@ait.ac.in",
+      "branch": "Civil",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554679",
+      "rollNumber": "22CE034",
+      "email": "ce034@ait.ac.in",
+      "branch": "Civil",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f6938055464c",
+      "rollNumber": "22CE035",
+      "email": "ce035@ait.ac.in",
+      "branch": "Civil",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554668",
+      "rollNumber": "22CE037",
+      "email": "ce037@ait.ac.in",
+      "branch": "Civil",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554674",
+      "rollNumber": "22CE038",
+      "email": "ce038@ait.ac.in",
+      "branch": "Civil",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f6938055465a",
+      "rollNumber": "22CE039",
+      "email": "ce039@ait.ac.in",
+      "branch": "Civil",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554675",
+      "rollNumber": "22CE040",
+      "email": "ce040@ait.ac.in",
+      "branch": "Civil",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f6938055464f",
+      "rollNumber": "22CE041",
+      "email": "ce041@ait.ac.in",
+      "branch": "Civil",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554650",
+      "rollNumber": "22CE042",
+      "email": "ce042@ait.ac.in",
+      "branch": "Civil",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f6938055464a",
+      "rollNumber": "22CE044",
+      "email": "ce044@ait.ac.in",
+      "branch": "Civil",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f6938055465f",
+      "rollNumber": "22CE045",
+      "email": "ce045@ait.ac.in",
+      "branch": "Civil",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554653",
+      "rollNumber": "22CE046",
+      "email": "ce046@ait.ac.in",
+      "branch": "Civil",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554672",
+      "rollNumber": "22CE047",
+      "email": "ce047@ait.ac.in",
+      "branch": "Civil",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f6938055466f",
+      "rollNumber": "22CE048",
+      "email": "ce048@ait.ac.in",
+      "branch": "Civil",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554649",
+      "rollNumber": "22CE049",
+      "email": "ce049@ait.ac.in",
+      "branch": "Civil",
+      "plannedOfferCount": 2
+    },
+    {
+      "studentId": "6ac53a770c34f69380554663",
+      "rollNumber": "22CE051",
+      "email": "ce051@ait.ac.in",
+      "branch": "Civil",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554669",
+      "rollNumber": "22CE052",
+      "email": "ce052@ait.ac.in",
+      "branch": "Civil",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554654",
+      "rollNumber": "22CE053",
+      "email": "ce053@ait.ac.in",
+      "branch": "Civil",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554662",
+      "rollNumber": "22CE055",
+      "email": "ce055@ait.ac.in",
+      "branch": "Civil",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f6938055467b",
+      "rollNumber": "22CE056",
+      "email": "ce056@ait.ac.in",
+      "branch": "Civil",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554645",
+      "rollNumber": "22CE057",
+      "email": "ce057@ait.ac.in",
+      "branch": "Civil",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554676",
+      "rollNumber": "22CE058",
+      "email": "ce058@ait.ac.in",
+      "branch": "Civil",
+      "plannedOfferCount": 2
+    },
+    {
+      "studentId": "6ac53a770c34f69380554667",
+      "rollNumber": "22CE060",
+      "email": "ce060@ait.ac.in",
+      "branch": "Civil",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f6938055465d",
+      "rollNumber": "22CE061",
+      "email": "ce061@ait.ac.in",
+      "branch": "Civil",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f6938055464d",
+      "rollNumber": "22CE062",
+      "email": "ce062@ait.ac.in",
+      "branch": "Civil",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f6938055466e",
+      "rollNumber": "22CE063",
+      "email": "ce063@ait.ac.in",
+      "branch": "Civil",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f6938055464e",
+      "rollNumber": "22CE064",
+      "email": "ce064@ait.ac.in",
+      "branch": "Civil",
+      "plannedOfferCount": 2
+    },
+    {
+      "studentId": "6ac53a770c34f6938055464b",
+      "rollNumber": "22CE066",
+      "email": "ce066@ait.ac.in",
+      "branch": "Civil",
+      "plannedOfferCount": 2
+    },
+    {
+      "studentId": "6ac53a770c34f69380554656",
+      "rollNumber": "22CE067",
+      "email": "ce067@ait.ac.in",
+      "branch": "Civil",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554690",
+      "rollNumber": "22CSE001",
+      "email": "cse001@ait.ac.in",
+      "branch": "CSE",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805546b6",
+      "rollNumber": "22CSE002",
+      "email": "cse002@ait.ac.in",
+      "branch": "CSE",
+      "plannedOfferCount": 2
+    },
+    {
+      "studentId": "6ac53a770c34f693805546be",
+      "rollNumber": "22CSE004",
+      "email": "cse004@ait.ac.in",
+      "branch": "CSE",
+      "plannedOfferCount": 2
+    },
+    {
+      "studentId": "6ac53a770c34f693805546b7",
+      "rollNumber": "22CSE005",
+      "email": "cse005@ait.ac.in",
+      "branch": "CSE",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554698",
+      "rollNumber": "22CSE006",
+      "email": "cse006@ait.ac.in",
+      "branch": "CSE",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554696",
+      "rollNumber": "22CSE008",
+      "email": "cse008@ait.ac.in",
+      "branch": "CSE",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554691",
+      "rollNumber": "22CSE009",
+      "email": "cse009@ait.ac.in",
+      "branch": "CSE",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805546cf",
+      "rollNumber": "22CSE010",
+      "email": "cse010@ait.ac.in",
+      "branch": "CSE",
+      "plannedOfferCount": 1,
+      "showcaseTag": "late_placed"
+    },
+    {
+      "studentId": "6ac53a770c34f693805546d2",
+      "rollNumber": "22CSE011",
+      "email": "cse011@ait.ac.in",
+      "branch": "CSE",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805546c2",
+      "rollNumber": "22CSE012",
+      "email": "cse012@ait.ac.in",
+      "branch": "CSE",
+      "plannedOfferCount": 2,
+      "showcaseTag": "two_offers"
+    },
+    {
+      "studentId": "6ac53a770c34f693805546bd",
+      "rollNumber": "22CSE015",
+      "email": "cse015@ait.ac.in",
+      "branch": "CSE",
+      "plannedOfferCount": 2
+    },
+    {
+      "studentId": "6ac53a770c34f69380554699",
+      "rollNumber": "22CSE016",
+      "email": "cse016@ait.ac.in",
+      "branch": "CSE",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805546ba",
+      "rollNumber": "22CSE017",
+      "email": "cse017@ait.ac.in",
+      "branch": "CSE",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805546a3",
+      "rollNumber": "22CSE018",
+      "email": "cse018@ait.ac.in",
+      "branch": "CSE",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554682",
+      "rollNumber": "22CSE020",
+      "email": "cse020@ait.ac.in",
+      "branch": "CSE",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805546c9",
+      "rollNumber": "22CSE021",
+      "email": "cse021@ait.ac.in",
+      "branch": "CSE",
+      "plannedOfferCount": 2
+    },
+    {
+      "studentId": "6ac53a770c34f6938055468a",
+      "rollNumber": "22CSE022",
+      "email": "cse022@ait.ac.in",
+      "branch": "CSE",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805546a7",
+      "rollNumber": "22CSE024",
+      "email": "cse024@ait.ac.in",
+      "branch": "CSE",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554688",
+      "rollNumber": "22CSE025",
+      "email": "cse025@ait.ac.in",
+      "branch": "CSE",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805546b5",
+      "rollNumber": "22CSE027",
+      "email": "cse027@ait.ac.in",
+      "branch": "CSE",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805546a9",
+      "rollNumber": "22CSE028",
+      "email": "cse028@ait.ac.in",
+      "branch": "CSE",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554683",
+      "rollNumber": "22CSE029",
+      "email": "cse029@ait.ac.in",
+      "branch": "CSE",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805546af",
+      "rollNumber": "22CSE030",
+      "email": "cse030@ait.ac.in",
+      "branch": "CSE",
+      "plannedOfferCount": 2
+    },
+    {
+      "studentId": "6ac53a770c34f6938055469c",
+      "rollNumber": "22CSE032",
+      "email": "cse032@ait.ac.in",
+      "branch": "CSE",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805546c0",
+      "rollNumber": "22CSE033",
+      "email": "cse033@ait.ac.in",
+      "branch": "CSE",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f6938055469f",
+      "rollNumber": "22CSE036",
+      "email": "cse036@ait.ac.in",
+      "branch": "CSE",
+      "plannedOfferCount": 2
+    },
+    {
+      "studentId": "6ac53a770c34f693805546bf",
+      "rollNumber": "22CSE040",
+      "email": "cse040@ait.ac.in",
+      "branch": "CSE",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554685",
+      "rollNumber": "22CSE042",
+      "email": "cse042@ait.ac.in",
+      "branch": "CSE",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805546ae",
+      "rollNumber": "22CSE045",
+      "email": "cse045@ait.ac.in",
+      "branch": "CSE",
+      "plannedOfferCount": 2
+    },
+    {
+      "studentId": "6ac53a770c34f693805546d3",
+      "rollNumber": "22CSE046",
+      "email": "cse046@ait.ac.in",
+      "branch": "CSE",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805546a8",
+      "rollNumber": "22CSE047",
+      "email": "cse047@ait.ac.in",
+      "branch": "CSE",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805546bb",
+      "rollNumber": "22CSE049",
+      "email": "cse049@ait.ac.in",
+      "branch": "CSE",
+      "plannedOfferCount": 2
+    },
+    {
+      "studentId": "6ac53a770c34f69380554692",
+      "rollNumber": "22CSE051",
+      "email": "cse051@ait.ac.in",
+      "branch": "CSE",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805546d5",
+      "rollNumber": "22CSE052",
+      "email": "cse052@ait.ac.in",
+      "branch": "CSE",
+      "plannedOfferCount": 2
+    },
+    {
+      "studentId": "6ac53a770c34f693805546ab",
+      "rollNumber": "22CSE054",
+      "email": "cse054@ait.ac.in",
+      "branch": "CSE",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554689",
+      "rollNumber": "22CSE056",
+      "email": "cse056@ait.ac.in",
+      "branch": "CSE",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805546c3",
+      "rollNumber": "22CSE059",
+      "email": "cse059@ait.ac.in",
+      "branch": "CSE",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f6938055469e",
+      "rollNumber": "22CSE061",
+      "email": "cse061@ait.ac.in",
+      "branch": "CSE",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f6938055468e",
+      "rollNumber": "22CSE064",
+      "email": "cse064@ait.ac.in",
+      "branch": "CSE",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f6938055467d",
+      "rollNumber": "22CSE066",
+      "email": "cse066@ait.ac.in",
+      "branch": "CSE",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805546a6",
+      "rollNumber": "22CSE067",
+      "email": "cse067@ait.ac.in",
+      "branch": "CSE",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554684",
+      "rollNumber": "22CSE073",
+      "email": "cse073@ait.ac.in",
+      "branch": "CSE",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805546b0",
+      "rollNumber": "22CSE075",
+      "email": "cse075@ait.ac.in",
+      "branch": "CSE",
+      "plannedOfferCount": 2
+    },
+    {
+      "studentId": "6ac53a770c34f693805546aa",
+      "rollNumber": "22CSE076",
+      "email": "cse076@ait.ac.in",
+      "branch": "CSE",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805546b8",
+      "rollNumber": "22CSE077",
+      "email": "cse077@ait.ac.in",
+      "branch": "CSE",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805546d0",
+      "rollNumber": "22CSE078",
+      "email": "cse078@ait.ac.in",
+      "branch": "CSE",
+      "plannedOfferCount": 2
+    },
+    {
+      "studentId": "6ac53a770c34f693805546cc",
+      "rollNumber": "22CSE079",
+      "email": "cse079@ait.ac.in",
+      "branch": "CSE",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805546c8",
+      "rollNumber": "22CSE080",
+      "email": "cse080@ait.ac.in",
+      "branch": "CSE",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f6938055467e",
+      "rollNumber": "22CSE085",
+      "email": "cse085@ait.ac.in",
+      "branch": "CSE",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805546ce",
+      "rollNumber": "22CSE086",
+      "email": "cse086@ait.ac.in",
+      "branch": "CSE",
+      "plannedOfferCount": 2
+    },
+    {
+      "studentId": "6ac53a770c34f693805546d7",
+      "rollNumber": "22CSE088",
+      "email": "cse088@ait.ac.in",
+      "branch": "CSE",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805546bc",
+      "rollNumber": "22CSE089",
+      "email": "cse089@ait.ac.in",
+      "branch": "CSE",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805546d4",
+      "rollNumber": "22CSE090",
+      "email": "cse090@ait.ac.in",
+      "branch": "CSE",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554695",
+      "rollNumber": "22CSE091",
+      "email": "cse091@ait.ac.in",
+      "branch": "CSE",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805546d1",
+      "rollNumber": "22CSE092",
+      "email": "cse092@ait.ac.in",
+      "branch": "CSE",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f6938055469b",
+      "rollNumber": "22CSE093",
+      "email": "cse093@ait.ac.in",
+      "branch": "CSE",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805546c1",
+      "rollNumber": "22CSE094",
+      "email": "cse094@ait.ac.in",
+      "branch": "CSE",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805546c4",
+      "rollNumber": "22CSE097",
+      "email": "cse097@ait.ac.in",
+      "branch": "CSE",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f6938055468c",
+      "rollNumber": "22CSE098",
+      "email": "cse098@ait.ac.in",
+      "branch": "CSE",
+      "plannedOfferCount": 2
+    },
+    {
+      "studentId": "6ac53a770c34f69380554697",
+      "rollNumber": "22CSE100",
+      "email": "cse100@ait.ac.in",
+      "branch": "CSE",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554680",
+      "rollNumber": "22CSE103",
+      "email": "cse103@ait.ac.in",
+      "branch": "CSE",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805546b9",
+      "rollNumber": "22CSE104",
+      "email": "cse104@ait.ac.in",
+      "branch": "CSE",
+      "plannedOfferCount": 2
+    },
+    {
+      "studentId": "6ac53a770c34f693805546b2",
+      "rollNumber": "22CSE106",
+      "email": "cse106@ait.ac.in",
+      "branch": "CSE",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f6938055469a",
+      "rollNumber": "22CSE107",
+      "email": "cse107@ait.ac.in",
+      "branch": "CSE",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805546c5",
+      "rollNumber": "22CSE108",
+      "email": "cse108@ait.ac.in",
+      "branch": "CSE",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805546a1",
+      "rollNumber": "22CSE109",
+      "email": "cse109@ait.ac.in",
+      "branch": "CSE",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f6938055468f",
+      "rollNumber": "22CSE111",
+      "email": "cse111@ait.ac.in",
+      "branch": "CSE",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805546ac",
+      "rollNumber": "22CSE112",
+      "email": "cse112@ait.ac.in",
+      "branch": "CSE",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554693",
+      "rollNumber": "22CSE113",
+      "email": "cse113@ait.ac.in",
+      "branch": "CSE",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f6938055467c",
+      "rollNumber": "22CSE115",
+      "email": "cse115@ait.ac.in",
+      "branch": "CSE",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f6938055471d",
+      "rollNumber": "22EE001",
+      "email": "ee001@ait.ac.in",
+      "branch": "Electrical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805546f9",
+      "rollNumber": "22EE002",
+      "email": "ee002@ait.ac.in",
+      "branch": "Electrical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f6938055471f",
+      "rollNumber": "22EE003",
+      "email": "ee003@ait.ac.in",
+      "branch": "Electrical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554717",
+      "rollNumber": "22EE005",
+      "email": "ee005@ait.ac.in",
+      "branch": "Electrical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554731",
+      "rollNumber": "22EE006",
+      "email": "ee006@ait.ac.in",
+      "branch": "Electrical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805546f4",
+      "rollNumber": "22EE008",
+      "email": "ee008@ait.ac.in",
+      "branch": "Electrical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554705",
+      "rollNumber": "22EE009",
+      "email": "ee009@ait.ac.in",
+      "branch": "Electrical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554703",
+      "rollNumber": "22EE010",
+      "email": "ee010@ait.ac.in",
+      "branch": "Electrical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554700",
+      "rollNumber": "22EE011",
+      "email": "ee011@ait.ac.in",
+      "branch": "Electrical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554711",
+      "rollNumber": "22EE014",
+      "email": "ee014@ait.ac.in",
+      "branch": "Electrical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805546f1",
+      "rollNumber": "22EE016",
+      "email": "ee016@ait.ac.in",
+      "branch": "Electrical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805546fb",
+      "rollNumber": "22EE017",
+      "email": "ee017@ait.ac.in",
+      "branch": "Electrical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554716",
+      "rollNumber": "22EE019",
+      "email": "ee019@ait.ac.in",
+      "branch": "Electrical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f6938055472f",
+      "rollNumber": "22EE020",
+      "email": "ee020@ait.ac.in",
+      "branch": "Electrical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805546ec",
+      "rollNumber": "22EE021",
+      "email": "ee021@ait.ac.in",
+      "branch": "Electrical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f6938055471e",
+      "rollNumber": "22EE022",
+      "email": "ee022@ait.ac.in",
+      "branch": "Electrical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f6938055472b",
+      "rollNumber": "22EE024",
+      "email": "ee024@ait.ac.in",
+      "branch": "Electrical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554725",
+      "rollNumber": "22EE025",
+      "email": "ee025@ait.ac.in",
+      "branch": "Electrical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554707",
+      "rollNumber": "22EE026",
+      "email": "ee026@ait.ac.in",
+      "branch": "Electrical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f6938055471b",
+      "rollNumber": "22EE027",
+      "email": "ee027@ait.ac.in",
+      "branch": "Electrical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554735",
+      "rollNumber": "22EE028",
+      "email": "ee028@ait.ac.in",
+      "branch": "Electrical",
+      "plannedOfferCount": 2
+    },
+    {
+      "studentId": "6ac53a770c34f69380554739",
+      "rollNumber": "22EE030",
+      "email": "ee030@ait.ac.in",
+      "branch": "Electrical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554708",
+      "rollNumber": "22EE031",
+      "email": "ee031@ait.ac.in",
+      "branch": "Electrical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805546fd",
+      "rollNumber": "22EE033",
+      "email": "ee033@ait.ac.in",
+      "branch": "Electrical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554714",
+      "rollNumber": "22EE034",
+      "email": "ee034@ait.ac.in",
+      "branch": "Electrical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805546e8",
+      "rollNumber": "22EE035",
+      "email": "ee035@ait.ac.in",
+      "branch": "Electrical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805546e7",
+      "rollNumber": "22EE036",
+      "email": "ee036@ait.ac.in",
+      "branch": "Electrical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805546f6",
+      "rollNumber": "22EE037",
+      "email": "ee037@ait.ac.in",
+      "branch": "Electrical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805546e0",
+      "rollNumber": "22EE038",
+      "email": "ee038@ait.ac.in",
+      "branch": "Electrical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554734",
+      "rollNumber": "22EE039",
+      "email": "ee039@ait.ac.in",
+      "branch": "Electrical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805546de",
+      "rollNumber": "22EE040",
+      "email": "ee040@ait.ac.in",
+      "branch": "Electrical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805546f3",
+      "rollNumber": "22EE041",
+      "email": "ee041@ait.ac.in",
+      "branch": "Electrical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805546fc",
+      "rollNumber": "22EE042",
+      "email": "ee042@ait.ac.in",
+      "branch": "Electrical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554713",
+      "rollNumber": "22EE045",
+      "email": "ee045@ait.ac.in",
+      "branch": "Electrical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805546d9",
+      "rollNumber": "22EE047",
+      "email": "ee047@ait.ac.in",
+      "branch": "Electrical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805546f0",
+      "rollNumber": "22EE048",
+      "email": "ee048@ait.ac.in",
+      "branch": "Electrical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554721",
+      "rollNumber": "22EE049",
+      "email": "ee049@ait.ac.in",
+      "branch": "Electrical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805546ef",
+      "rollNumber": "22EE050",
+      "email": "ee050@ait.ac.in",
+      "branch": "Electrical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805546dd",
+      "rollNumber": "22EE051",
+      "email": "ee051@ait.ac.in",
+      "branch": "Electrical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f6938055471a",
+      "rollNumber": "22EE052",
+      "email": "ee052@ait.ac.in",
+      "branch": "Electrical",
+      "plannedOfferCount": 2
+    },
+    {
+      "studentId": "6ac53a770c34f69380554715",
+      "rollNumber": "22EE054",
+      "email": "ee054@ait.ac.in",
+      "branch": "Electrical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554710",
+      "rollNumber": "22EE055",
+      "email": "ee055@ait.ac.in",
+      "branch": "Electrical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805546da",
+      "rollNumber": "22EE056",
+      "email": "ee056@ait.ac.in",
+      "branch": "Electrical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805546fe",
+      "rollNumber": "22EE058",
+      "email": "ee058@ait.ac.in",
+      "branch": "Electrical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805546df",
+      "rollNumber": "22EE059",
+      "email": "ee059@ait.ac.in",
+      "branch": "Electrical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554723",
+      "rollNumber": "22EE060",
+      "email": "ee060@ait.ac.in",
+      "branch": "Electrical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554709",
+      "rollNumber": "22EE061",
+      "email": "ee061@ait.ac.in",
+      "branch": "Electrical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554701",
+      "rollNumber": "22EE062",
+      "email": "ee062@ait.ac.in",
+      "branch": "Electrical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805546ea",
+      "rollNumber": "22EE063",
+      "email": "ee063@ait.ac.in",
+      "branch": "Electrical",
+      "plannedOfferCount": 2
+    },
+    {
+      "studentId": "6ac53a770c34f69380554730",
+      "rollNumber": "22EE064",
+      "email": "ee064@ait.ac.in",
+      "branch": "Electrical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554738",
+      "rollNumber": "22EE065",
+      "email": "ee065@ait.ac.in",
+      "branch": "Electrical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f6938055470c",
+      "rollNumber": "22EE066",
+      "email": "ee066@ait.ac.in",
+      "branch": "Electrical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805546e4",
+      "rollNumber": "22EE067",
+      "email": "ee067@ait.ac.in",
+      "branch": "Electrical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554704",
+      "rollNumber": "22EE068",
+      "email": "ee068@ait.ac.in",
+      "branch": "Electrical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805546e3",
+      "rollNumber": "22EE069",
+      "email": "ee069@ait.ac.in",
+      "branch": "Electrical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805546dc",
+      "rollNumber": "22EE070",
+      "email": "ee070@ait.ac.in",
+      "branch": "Electrical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554737",
+      "rollNumber": "22EE071",
+      "email": "ee071@ait.ac.in",
+      "branch": "Electrical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554727",
+      "rollNumber": "22EE072",
+      "email": "ee072@ait.ac.in",
+      "branch": "Electrical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554729",
+      "rollNumber": "22EE073",
+      "email": "ee073@ait.ac.in",
+      "branch": "Electrical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805546eb",
+      "rollNumber": "22EE074",
+      "email": "ee074@ait.ac.in",
+      "branch": "Electrical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554720",
+      "rollNumber": "22EE075",
+      "email": "ee075@ait.ac.in",
+      "branch": "Electrical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f6938055472c",
+      "rollNumber": "22EE076",
+      "email": "ee076@ait.ac.in",
+      "branch": "Electrical",
+      "plannedOfferCount": 2
+    },
+    {
+      "studentId": "6ac53a770c34f693805546e9",
+      "rollNumber": "22EE078",
+      "email": "ee078@ait.ac.in",
+      "branch": "Electrical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805546d8",
+      "rollNumber": "22EE079",
+      "email": "ee079@ait.ac.in",
+      "branch": "Electrical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554706",
+      "rollNumber": "22EE080",
+      "email": "ee080@ait.ac.in",
+      "branch": "Electrical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f6938055472e",
+      "rollNumber": "22EE081",
+      "email": "ee081@ait.ac.in",
+      "branch": "Electrical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805546e2",
+      "rollNumber": "22EE082",
+      "email": "ee082@ait.ac.in",
+      "branch": "Electrical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f6938055472d",
+      "rollNumber": "22EE083",
+      "email": "ee083@ait.ac.in",
+      "branch": "Electrical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805546f8",
+      "rollNumber": "22EE086",
+      "email": "ee086@ait.ac.in",
+      "branch": "Electrical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554732",
+      "rollNumber": "22EE087",
+      "email": "ee087@ait.ac.in",
+      "branch": "Electrical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f6938055470e",
+      "rollNumber": "22EE089",
+      "email": "ee089@ait.ac.in",
+      "branch": "Electrical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805546f7",
+      "rollNumber": "22EE091",
+      "email": "ee091@ait.ac.in",
+      "branch": "Electrical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554718",
+      "rollNumber": "22EE092",
+      "email": "ee092@ait.ac.in",
+      "branch": "Electrical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805546ed",
+      "rollNumber": "22EE094",
+      "email": "ee094@ait.ac.in",
+      "branch": "Electrical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554726",
+      "rollNumber": "22EE096",
+      "email": "ee096@ait.ac.in",
+      "branch": "Electrical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554712",
+      "rollNumber": "22EE098",
+      "email": "ee098@ait.ac.in",
+      "branch": "Electrical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805546fa",
+      "rollNumber": "22EE099",
+      "email": "ee099@ait.ac.in",
+      "branch": "Electrical",
+      "plannedOfferCount": 2
+    },
+    {
+      "studentId": "6ac53a770c34f69380554722",
+      "rollNumber": "22EE100",
+      "email": "ee100@ait.ac.in",
+      "branch": "Electrical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f6938055471c",
+      "rollNumber": "22EE101",
+      "email": "ee101@ait.ac.in",
+      "branch": "Electrical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805546ff",
+      "rollNumber": "22EE102",
+      "email": "ee102@ait.ac.in",
+      "branch": "Electrical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f6938055470f",
+      "rollNumber": "22EE103",
+      "email": "ee103@ait.ac.in",
+      "branch": "Electrical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554728",
+      "rollNumber": "22EE104",
+      "email": "ee104@ait.ac.in",
+      "branch": "Electrical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f6938055473a",
+      "rollNumber": "22EE105",
+      "email": "ee105@ait.ac.in",
+      "branch": "Electrical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f6938055472a",
+      "rollNumber": "22EE106",
+      "email": "ee106@ait.ac.in",
+      "branch": "Electrical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805546e5",
+      "rollNumber": "22EE107",
+      "email": "ee107@ait.ac.in",
+      "branch": "Electrical",
+      "plannedOfferCount": 2
+    },
+    {
+      "studentId": "6ac53a770c34f693805546e1",
+      "rollNumber": "22EE109",
+      "email": "ee109@ait.ac.in",
+      "branch": "Electrical",
+      "plannedOfferCount": 1,
+      "showcaseTag": "mid_placed"
+    },
+    {
+      "studentId": "6ac53a770c34f69380554702",
+      "rollNumber": "22EE111",
+      "email": "ee111@ait.ac.in",
+      "branch": "Electrical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805546ee",
+      "rollNumber": "22EE112",
+      "email": "ee112@ait.ac.in",
+      "branch": "Electrical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805546e6",
+      "rollNumber": "22EE113",
+      "email": "ee113@ait.ac.in",
+      "branch": "Electrical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f6938055470b",
+      "rollNumber": "22EE115",
+      "email": "ee115@ait.ac.in",
+      "branch": "Electrical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f6938055475f",
+      "rollNumber": "22ECE002",
+      "email": "ece002@ait.ac.in",
+      "branch": "ECE",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554749",
+      "rollNumber": "22ECE004",
+      "email": "ece004@ait.ac.in",
+      "branch": "ECE",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554752",
+      "rollNumber": "22ECE008",
+      "email": "ece008@ait.ac.in",
+      "branch": "ECE",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f6938055475e",
+      "rollNumber": "22ECE009",
+      "email": "ece009@ait.ac.in",
+      "branch": "ECE",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554763",
+      "rollNumber": "22ECE011",
+      "email": "ece011@ait.ac.in",
+      "branch": "ECE",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554767",
+      "rollNumber": "22ECE013",
+      "email": "ece013@ait.ac.in",
+      "branch": "ECE",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f6938055477c",
+      "rollNumber": "22ECE016",
+      "email": "ece016@ait.ac.in",
+      "branch": "ECE",
+      "plannedOfferCount": 2
+    },
+    {
+      "studentId": "6ac53a770c34f69380554792",
+      "rollNumber": "22ECE018",
+      "email": "ece018@ait.ac.in",
+      "branch": "ECE",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554798",
+      "rollNumber": "22ECE026",
+      "email": "ece026@ait.ac.in",
+      "branch": "ECE",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f6938055478c",
+      "rollNumber": "22ECE027",
+      "email": "ece027@ait.ac.in",
+      "branch": "ECE",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554777",
+      "rollNumber": "22ECE028",
+      "email": "ece028@ait.ac.in",
+      "branch": "ECE",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554754",
+      "rollNumber": "22ECE032",
+      "email": "ece032@ait.ac.in",
+      "branch": "ECE",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f6938055479b",
+      "rollNumber": "22ECE034",
+      "email": "ece034@ait.ac.in",
+      "branch": "ECE",
+      "plannedOfferCount": 2
+    },
+    {
+      "studentId": "6ac53a770c34f69380554759",
+      "rollNumber": "22ECE036",
+      "email": "ece036@ait.ac.in",
+      "branch": "ECE",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f6938055479f",
+      "rollNumber": "22ECE037",
+      "email": "ece037@ait.ac.in",
+      "branch": "ECE",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f6938055475c",
+      "rollNumber": "22ECE047",
+      "email": "ece047@ait.ac.in",
+      "branch": "ECE",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554771",
+      "rollNumber": "22ECE055",
+      "email": "ece055@ait.ac.in",
+      "branch": "ECE",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554791",
+      "rollNumber": "22ECE057",
+      "email": "ece057@ait.ac.in",
+      "branch": "ECE",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f6938055479e",
+      "rollNumber": "22ECE060",
+      "email": "ece060@ait.ac.in",
+      "branch": "ECE",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f6938055478f",
+      "rollNumber": "22ECE061",
+      "email": "ece061@ait.ac.in",
+      "branch": "ECE",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554774",
+      "rollNumber": "22ECE062",
+      "email": "ece062@ait.ac.in",
+      "branch": "ECE",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554795",
+      "rollNumber": "22ECE064",
+      "email": "ece064@ait.ac.in",
+      "branch": "ECE",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554787",
+      "rollNumber": "22ECE066",
+      "email": "ece066@ait.ac.in",
+      "branch": "ECE",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554776",
+      "rollNumber": "22ECE067",
+      "email": "ece067@ait.ac.in",
+      "branch": "ECE",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f6938055478d",
+      "rollNumber": "22ECE068",
+      "email": "ece068@ait.ac.in",
+      "branch": "ECE",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f6938055476e",
+      "rollNumber": "22ECE071",
+      "email": "ece071@ait.ac.in",
+      "branch": "ECE",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f6938055478b",
+      "rollNumber": "22ECE072",
+      "email": "ece072@ait.ac.in",
+      "branch": "ECE",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554746",
+      "rollNumber": "22ECE075",
+      "email": "ece075@ait.ac.in",
+      "branch": "ECE",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554741",
+      "rollNumber": "22ECE077",
+      "email": "ece077@ait.ac.in",
+      "branch": "ECE",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f6938055473f",
+      "rollNumber": "22ECE078",
+      "email": "ece078@ait.ac.in",
+      "branch": "ECE",
+      "plannedOfferCount": 2
+    },
+    {
+      "studentId": "6ac53a770c34f69380554790",
+      "rollNumber": "22ECE082",
+      "email": "ece082@ait.ac.in",
+      "branch": "ECE",
+      "plannedOfferCount": 2
+    },
+    {
+      "studentId": "6ac53a770c34f69380554764",
+      "rollNumber": "22ECE084",
+      "email": "ece084@ait.ac.in",
+      "branch": "ECE",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f6938055473d",
+      "rollNumber": "22ECE088",
+      "email": "ece088@ait.ac.in",
+      "branch": "ECE",
+      "plannedOfferCount": 2
+    },
+    {
+      "studentId": "6ac53a770c34f6938055474e",
+      "rollNumber": "22ECE089",
+      "email": "ece089@ait.ac.in",
+      "branch": "ECE",
+      "plannedOfferCount": 2
+    },
+    {
+      "studentId": "6ac53a770c34f6938055476b",
+      "rollNumber": "22ECE090",
+      "email": "ece090@ait.ac.in",
+      "branch": "ECE",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f6938055479d",
+      "rollNumber": "22ECE091",
+      "email": "ece091@ait.ac.in",
+      "branch": "ECE",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f6938055476a",
+      "rollNumber": "22ECE092",
+      "email": "ece092@ait.ac.in",
+      "branch": "ECE",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554778",
+      "rollNumber": "22ECE093",
+      "email": "ece093@ait.ac.in",
+      "branch": "ECE",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554770",
+      "rollNumber": "22ECE094",
+      "email": "ece094@ait.ac.in",
+      "branch": "ECE",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554744",
+      "rollNumber": "22ECE095",
+      "email": "ece095@ait.ac.in",
+      "branch": "ECE",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554756",
+      "rollNumber": "22ECE098",
+      "email": "ece098@ait.ac.in",
+      "branch": "ECE",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554789",
+      "rollNumber": "22ECE099",
+      "email": "ece099@ait.ac.in",
+      "branch": "ECE",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554755",
+      "rollNumber": "22ECE101",
+      "email": "ece101@ait.ac.in",
+      "branch": "ECE",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f6938055477e",
+      "rollNumber": "22ECE102",
+      "email": "ece102@ait.ac.in",
+      "branch": "ECE",
+      "plannedOfferCount": 2
+    },
+    {
+      "studentId": "6ac53a770c34f69380554740",
+      "rollNumber": "22ECE104",
+      "email": "ece104@ait.ac.in",
+      "branch": "ECE",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f6938055474f",
+      "rollNumber": "22ECE105",
+      "email": "ece105@ait.ac.in",
+      "branch": "ECE",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f6938055479a",
+      "rollNumber": "22ECE106",
+      "email": "ece106@ait.ac.in",
+      "branch": "ECE",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554751",
+      "rollNumber": "22ECE107",
+      "email": "ece107@ait.ac.in",
+      "branch": "ECE",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554750",
+      "rollNumber": "22ECE109",
+      "email": "ece109@ait.ac.in",
+      "branch": "ECE",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554786",
+      "rollNumber": "22ECE113",
+      "email": "ece113@ait.ac.in",
+      "branch": "ECE",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805547ba",
+      "rollNumber": "22IT001",
+      "email": "it001@ait.ac.in",
+      "branch": "IT",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805547a7",
+      "rollNumber": "22IT002",
+      "email": "it002@ait.ac.in",
+      "branch": "IT",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805547eb",
+      "rollNumber": "22IT003",
+      "email": "it003@ait.ac.in",
+      "branch": "IT",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805547ca",
+      "rollNumber": "22IT004",
+      "email": "it004@ait.ac.in",
+      "branch": "IT",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805547bd",
+      "rollNumber": "22IT006",
+      "email": "it006@ait.ac.in",
+      "branch": "IT",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805547b5",
+      "rollNumber": "22IT007",
+      "email": "it007@ait.ac.in",
+      "branch": "IT",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805547b6",
+      "rollNumber": "22IT011",
+      "email": "it011@ait.ac.in",
+      "branch": "IT",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554803",
+      "rollNumber": "22IT012",
+      "email": "it012@ait.ac.in",
+      "branch": "IT",
+      "plannedOfferCount": 2
+    },
+    {
+      "studentId": "6ac53a770c34f69380554807",
+      "rollNumber": "22IT014",
+      "email": "it014@ait.ac.in",
+      "branch": "IT",
+      "plannedOfferCount": 2
+    },
+    {
+      "studentId": "6ac53a770c34f693805547d4",
+      "rollNumber": "22IT015",
+      "email": "it015@ait.ac.in",
+      "branch": "IT",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805547c5",
+      "rollNumber": "22IT016",
+      "email": "it016@ait.ac.in",
+      "branch": "IT",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805547ab",
+      "rollNumber": "22IT017",
+      "email": "it017@ait.ac.in",
+      "branch": "IT",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805547ea",
+      "rollNumber": "22IT018",
+      "email": "it018@ait.ac.in",
+      "branch": "IT",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554808",
+      "rollNumber": "22IT021",
+      "email": "it021@ait.ac.in",
+      "branch": "IT",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805547b3",
+      "rollNumber": "22IT022",
+      "email": "it022@ait.ac.in",
+      "branch": "IT",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805547e3",
+      "rollNumber": "22IT023",
+      "email": "it023@ait.ac.in",
+      "branch": "IT",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805547f6",
+      "rollNumber": "22IT025",
+      "email": "it025@ait.ac.in",
+      "branch": "IT",
+      "plannedOfferCount": 3,
+      "showcaseTag": "three_offers_high_package"
+    },
+    {
+      "studentId": "6ac53a770c34f693805547e8",
+      "rollNumber": "22IT026",
+      "email": "it026@ait.ac.in",
+      "branch": "IT",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805547fa",
+      "rollNumber": "22IT027",
+      "email": "it027@ait.ac.in",
+      "branch": "IT",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805547ad",
+      "rollNumber": "22IT028",
+      "email": "it028@ait.ac.in",
+      "branch": "IT",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805547d3",
+      "rollNumber": "22IT031",
+      "email": "it031@ait.ac.in",
+      "branch": "IT",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805547fd",
+      "rollNumber": "22IT033",
+      "email": "it033@ait.ac.in",
+      "branch": "IT",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805547be",
+      "rollNumber": "22IT034",
+      "email": "it034@ait.ac.in",
+      "branch": "IT",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554800",
+      "rollNumber": "22IT035",
+      "email": "it035@ait.ac.in",
+      "branch": "IT",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805547f4",
+      "rollNumber": "22IT036",
+      "email": "it036@ait.ac.in",
+      "branch": "IT",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805547ae",
+      "rollNumber": "22IT037",
+      "email": "it037@ait.ac.in",
+      "branch": "IT",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805547f0",
+      "rollNumber": "22IT039",
+      "email": "it039@ait.ac.in",
+      "branch": "IT",
+      "plannedOfferCount": 2
+    },
+    {
+      "studentId": "6ac53a770c34f693805547b0",
+      "rollNumber": "22IT040",
+      "email": "it040@ait.ac.in",
+      "branch": "IT",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805547b2",
+      "rollNumber": "22IT043",
+      "email": "it043@ait.ac.in",
+      "branch": "IT",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805547c3",
+      "rollNumber": "22IT044",
+      "email": "it044@ait.ac.in",
+      "branch": "IT",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805547a8",
+      "rollNumber": "22IT047",
+      "email": "it047@ait.ac.in",
+      "branch": "IT",
+      "plannedOfferCount": 2
+    },
+    {
+      "studentId": "6ac53a770c34f693805547d1",
+      "rollNumber": "22IT049",
+      "email": "it049@ait.ac.in",
+      "branch": "IT",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805547f3",
+      "rollNumber": "22IT051",
+      "email": "it051@ait.ac.in",
+      "branch": "IT",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805547a4",
+      "rollNumber": "22IT052",
+      "email": "it052@ait.ac.in",
+      "branch": "IT",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805547e4",
+      "rollNumber": "22IT053",
+      "email": "it053@ait.ac.in",
+      "branch": "IT",
+      "plannedOfferCount": 2
+    },
+    {
+      "studentId": "6ac53a770c34f693805547af",
+      "rollNumber": "22IT054",
+      "email": "it054@ait.ac.in",
+      "branch": "IT",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805547c1",
+      "rollNumber": "22IT055",
+      "email": "it055@ait.ac.in",
+      "branch": "IT",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805547f2",
+      "rollNumber": "22IT057",
+      "email": "it057@ait.ac.in",
+      "branch": "IT",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805547dd",
+      "rollNumber": "22IT059",
+      "email": "it059@ait.ac.in",
+      "branch": "IT",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805547fe",
+      "rollNumber": "22IT060",
+      "email": "it060@ait.ac.in",
+      "branch": "IT",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805547d0",
+      "rollNumber": "22IT061",
+      "email": "it061@ait.ac.in",
+      "branch": "IT",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805547a2",
+      "rollNumber": "22IT062",
+      "email": "it062@ait.ac.in",
+      "branch": "IT",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805547b4",
+      "rollNumber": "22IT064",
+      "email": "it064@ait.ac.in",
+      "branch": "IT",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805547ec",
+      "rollNumber": "22IT065",
+      "email": "it065@ait.ac.in",
+      "branch": "IT",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805547f7",
+      "rollNumber": "22IT066",
+      "email": "it066@ait.ac.in",
+      "branch": "IT",
+      "plannedOfferCount": 2
+    },
+    {
+      "studentId": "6ac53a770c34f693805547aa",
+      "rollNumber": "22IT067",
+      "email": "it067@ait.ac.in",
+      "branch": "IT",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805547b7",
+      "rollNumber": "22IT070",
+      "email": "it070@ait.ac.in",
+      "branch": "IT",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554805",
+      "rollNumber": "22IT071",
+      "email": "it071@ait.ac.in",
+      "branch": "IT",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805547b8",
+      "rollNumber": "22IT072",
+      "email": "it072@ait.ac.in",
+      "branch": "IT",
+      "plannedOfferCount": 2
+    },
+    {
+      "studentId": "6ac53a770c34f693805547f1",
+      "rollNumber": "22IT073",
+      "email": "it073@ait.ac.in",
+      "branch": "IT",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805547a9",
+      "rollNumber": "22IT074",
+      "email": "it074@ait.ac.in",
+      "branch": "IT",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805547ee",
+      "rollNumber": "22IT075",
+      "email": "it075@ait.ac.in",
+      "branch": "IT",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805547bf",
+      "rollNumber": "22IT076",
+      "email": "it076@ait.ac.in",
+      "branch": "IT",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805547cd",
+      "rollNumber": "22IT077",
+      "email": "it077@ait.ac.in",
+      "branch": "IT",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805547dc",
+      "rollNumber": "22IT078",
+      "email": "it078@ait.ac.in",
+      "branch": "IT",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805547fc",
+      "rollNumber": "22IT079",
+      "email": "it079@ait.ac.in",
+      "branch": "IT",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805547e1",
+      "rollNumber": "22IT080",
+      "email": "it080@ait.ac.in",
+      "branch": "IT",
+      "plannedOfferCount": 2
+    },
+    {
+      "studentId": "6ac53a770c34f693805547cc",
+      "rollNumber": "22IT081",
+      "email": "it081@ait.ac.in",
+      "branch": "IT",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805547c4",
+      "rollNumber": "22IT082",
+      "email": "it082@ait.ac.in",
+      "branch": "IT",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805547e0",
+      "rollNumber": "22IT084",
+      "email": "it084@ait.ac.in",
+      "branch": "IT",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805547c6",
+      "rollNumber": "22IT085",
+      "email": "it085@ait.ac.in",
+      "branch": "IT",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805547ac",
+      "rollNumber": "22IT087",
+      "email": "it087@ait.ac.in",
+      "branch": "IT",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805547df",
+      "rollNumber": "22IT089",
+      "email": "it089@ait.ac.in",
+      "branch": "IT",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805547d5",
+      "rollNumber": "22IT093",
+      "email": "it093@ait.ac.in",
+      "branch": "IT",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805547bb",
+      "rollNumber": "22IT094",
+      "email": "it094@ait.ac.in",
+      "branch": "IT",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805547ef",
+      "rollNumber": "22IT096",
+      "email": "it096@ait.ac.in",
+      "branch": "IT",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805547a0",
+      "rollNumber": "22IT097",
+      "email": "it097@ait.ac.in",
+      "branch": "IT",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805547d2",
+      "rollNumber": "22IT098",
+      "email": "it098@ait.ac.in",
+      "branch": "IT",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805547e5",
+      "rollNumber": "22IT102",
+      "email": "it102@ait.ac.in",
+      "branch": "IT",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805547bc",
+      "rollNumber": "22IT104",
+      "email": "it104@ait.ac.in",
+      "branch": "IT",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805547e6",
+      "rollNumber": "22IT105",
+      "email": "it105@ait.ac.in",
+      "branch": "IT",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805547e9",
+      "rollNumber": "22IT106",
+      "email": "it106@ait.ac.in",
+      "branch": "IT",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805547a5",
+      "rollNumber": "22IT107",
+      "email": "it107@ait.ac.in",
+      "branch": "IT",
+      "plannedOfferCount": 2
+    },
+    {
+      "studentId": "6ac53a770c34f693805547fb",
+      "rollNumber": "22IT108",
+      "email": "it108@ait.ac.in",
+      "branch": "IT",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805547b9",
+      "rollNumber": "22IT109",
+      "email": "it109@ait.ac.in",
+      "branch": "IT",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805547c2",
+      "rollNumber": "22IT110",
+      "email": "it110@ait.ac.in",
+      "branch": "IT",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554801",
+      "rollNumber": "22IT112",
+      "email": "it112@ait.ac.in",
+      "branch": "IT",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f6938055483b",
+      "rollNumber": "22ME001",
+      "email": "me001@ait.ac.in",
+      "branch": "Mechanical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f6938055483f",
+      "rollNumber": "22ME002",
+      "email": "me002@ait.ac.in",
+      "branch": "Mechanical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f6938055481e",
+      "rollNumber": "22ME003",
+      "email": "me003@ait.ac.in",
+      "branch": "Mechanical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f6938055482c",
+      "rollNumber": "22ME005",
+      "email": "me005@ait.ac.in",
+      "branch": "Mechanical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554823",
+      "rollNumber": "22ME006",
+      "email": "me006@ait.ac.in",
+      "branch": "Mechanical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554815",
+      "rollNumber": "22ME008",
+      "email": "me008@ait.ac.in",
+      "branch": "Mechanical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554834",
+      "rollNumber": "22ME010",
+      "email": "me010@ait.ac.in",
+      "branch": "Mechanical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554837",
+      "rollNumber": "22ME011",
+      "email": "me011@ait.ac.in",
+      "branch": "Mechanical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554812",
+      "rollNumber": "22ME012",
+      "email": "me012@ait.ac.in",
+      "branch": "Mechanical",
+      "plannedOfferCount": 2
+    },
+    {
+      "studentId": "6ac53a770c34f69380554836",
+      "rollNumber": "22ME013",
+      "email": "me013@ait.ac.in",
+      "branch": "Mechanical",
+      "plannedOfferCount": 2
+    },
+    {
+      "studentId": "6ac53a770c34f6938055484f",
+      "rollNumber": "22ME015",
+      "email": "me015@ait.ac.in",
+      "branch": "Mechanical",
+      "plannedOfferCount": 2
+    },
+    {
+      "studentId": "6ac53a770c34f6938055482b",
+      "rollNumber": "22ME016",
+      "email": "me016@ait.ac.in",
+      "branch": "Mechanical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554841",
+      "rollNumber": "22ME017",
+      "email": "me017@ait.ac.in",
+      "branch": "Mechanical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f6938055483c",
+      "rollNumber": "22ME019",
+      "email": "me019@ait.ac.in",
+      "branch": "Mechanical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f6938055484d",
+      "rollNumber": "22ME020",
+      "email": "me020@ait.ac.in",
+      "branch": "Mechanical",
+      "plannedOfferCount": 2
+    },
+    {
+      "studentId": "6ac53a770c34f69380554832",
+      "rollNumber": "22ME021",
+      "email": "me021@ait.ac.in",
+      "branch": "Mechanical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f6938055484c",
+      "rollNumber": "22ME023",
+      "email": "me023@ait.ac.in",
+      "branch": "Mechanical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554817",
+      "rollNumber": "22ME025",
+      "email": "me025@ait.ac.in",
+      "branch": "Mechanical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f6938055485d",
+      "rollNumber": "22ME026",
+      "email": "me026@ait.ac.in",
+      "branch": "Mechanical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f6938055480a",
+      "rollNumber": "22ME027",
+      "email": "me027@ait.ac.in",
+      "branch": "Mechanical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554849",
+      "rollNumber": "22ME028",
+      "email": "me028@ait.ac.in",
+      "branch": "Mechanical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554858",
+      "rollNumber": "22ME029",
+      "email": "me029@ait.ac.in",
+      "branch": "Mechanical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554819",
+      "rollNumber": "22ME030",
+      "email": "me030@ait.ac.in",
+      "branch": "Mechanical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f6938055481a",
+      "rollNumber": "22ME032",
+      "email": "me032@ait.ac.in",
+      "branch": "Mechanical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f6938055482d",
+      "rollNumber": "22ME033",
+      "email": "me033@ait.ac.in",
+      "branch": "Mechanical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554854",
+      "rollNumber": "22ME034",
+      "email": "me034@ait.ac.in",
+      "branch": "Mechanical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f6938055482a",
+      "rollNumber": "22ME035",
+      "email": "me035@ait.ac.in",
+      "branch": "Mechanical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554824",
+      "rollNumber": "22ME036",
+      "email": "me036@ait.ac.in",
+      "branch": "Mechanical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554844",
+      "rollNumber": "22ME037",
+      "email": "me037@ait.ac.in",
+      "branch": "Mechanical",
+      "plannedOfferCount": 2
+    },
+    {
+      "studentId": "6ac53a770c34f69380554847",
+      "rollNumber": "22ME039",
+      "email": "me039@ait.ac.in",
+      "branch": "Mechanical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554826",
+      "rollNumber": "22ME040",
+      "email": "me040@ait.ac.in",
+      "branch": "Mechanical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554838",
+      "rollNumber": "22ME042",
+      "email": "me042@ait.ac.in",
+      "branch": "Mechanical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f6938055481b",
+      "rollNumber": "22ME043",
+      "email": "me043@ait.ac.in",
+      "branch": "Mechanical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554853",
+      "rollNumber": "22ME045",
+      "email": "me045@ait.ac.in",
+      "branch": "Mechanical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f6938055484b",
+      "rollNumber": "22ME046",
+      "email": "me046@ait.ac.in",
+      "branch": "Mechanical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554835",
+      "rollNumber": "22ME049",
+      "email": "me049@ait.ac.in",
+      "branch": "Mechanical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554855",
+      "rollNumber": "22ME050",
+      "email": "me050@ait.ac.in",
+      "branch": "Mechanical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f6938055481d",
+      "rollNumber": "22ME052",
+      "email": "me052@ait.ac.in",
+      "branch": "Mechanical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f6938055480d",
+      "rollNumber": "22ME053",
+      "email": "me053@ait.ac.in",
+      "branch": "Mechanical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554848",
+      "rollNumber": "22ME054",
+      "email": "me054@ait.ac.in",
+      "branch": "Mechanical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f6938055483d",
+      "rollNumber": "22ME055",
+      "email": "me055@ait.ac.in",
+      "branch": "Mechanical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f6938055485c",
+      "rollNumber": "22ME056",
+      "email": "me056@ait.ac.in",
+      "branch": "Mechanical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554827",
+      "rollNumber": "22ME057",
+      "email": "me057@ait.ac.in",
+      "branch": "Mechanical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f6938055485f",
+      "rollNumber": "22ME058",
+      "email": "me058@ait.ac.in",
+      "branch": "Mechanical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f6938055484a",
+      "rollNumber": "22ME059",
+      "email": "me059@ait.ac.in",
+      "branch": "Mechanical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f6938055485b",
+      "rollNumber": "22ME060",
+      "email": "me060@ait.ac.in",
+      "branch": "Mechanical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554852",
+      "rollNumber": "22ME061",
+      "email": "me061@ait.ac.in",
+      "branch": "Mechanical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554840",
+      "rollNumber": "22ME063",
+      "email": "me063@ait.ac.in",
+      "branch": "Mechanical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554859",
+      "rollNumber": "22ME064",
+      "email": "me064@ait.ac.in",
+      "branch": "Mechanical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554833",
+      "rollNumber": "22ME066",
+      "email": "me066@ait.ac.in",
+      "branch": "Mechanical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f6938055480f",
+      "rollNumber": "22ME067",
+      "email": "me067@ait.ac.in",
+      "branch": "Mechanical",
+      "plannedOfferCount": 2
+    },
+    {
+      "studentId": "6ac53a770c34f69380554816",
+      "rollNumber": "22ME070",
+      "email": "me070@ait.ac.in",
+      "branch": "Mechanical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554843",
+      "rollNumber": "22ME071",
+      "email": "me071@ait.ac.in",
+      "branch": "Mechanical",
+      "plannedOfferCount": 2
+    },
+    {
+      "studentId": "6ac53a770c34f69380554821",
+      "rollNumber": "22ME073",
+      "email": "me073@ait.ac.in",
+      "branch": "Mechanical",
+      "plannedOfferCount": 2
+    },
+    {
+      "studentId": "6ac53a770c34f69380554825",
+      "rollNumber": "22ME074",
+      "email": "me074@ait.ac.in",
+      "branch": "Mechanical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f6938055481c",
+      "rollNumber": "22ME078",
+      "email": "me078@ait.ac.in",
+      "branch": "Mechanical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f6938055483a",
+      "rollNumber": "22ME079",
+      "email": "me079@ait.ac.in",
+      "branch": "Mechanical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f6938055483e",
+      "rollNumber": "22ME080",
+      "email": "me080@ait.ac.in",
+      "branch": "Mechanical",
+      "plannedOfferCount": 2
+    },
+    {
+      "studentId": "6ac53a770c34f69380554829",
+      "rollNumber": "22ME081",
+      "email": "me081@ait.ac.in",
+      "branch": "Mechanical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554813",
+      "rollNumber": "22ME083",
+      "email": "me083@ait.ac.in",
+      "branch": "Mechanical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f6938055480b",
+      "rollNumber": "22ME084",
+      "email": "me084@ait.ac.in",
+      "branch": "Mechanical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554851",
+      "rollNumber": "22ME086",
+      "email": "me086@ait.ac.in",
+      "branch": "Mechanical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f6938055482e",
+      "rollNumber": "22ME087",
+      "email": "me087@ait.ac.in",
+      "branch": "Mechanical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554846",
+      "rollNumber": "22ME089",
+      "email": "me089@ait.ac.in",
+      "branch": "Mechanical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554850",
+      "rollNumber": "22ME092",
+      "email": "me092@ait.ac.in",
+      "branch": "Mechanical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554831",
+      "rollNumber": "22ME094",
+      "email": "me094@ait.ac.in",
+      "branch": "Mechanical",
+      "plannedOfferCount": 2
+    },
+    {
+      "studentId": "6ac53a770c34f69380554822",
+      "rollNumber": "22ME095",
+      "email": "me095@ait.ac.in",
+      "branch": "Mechanical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554842",
+      "rollNumber": "22ME096",
+      "email": "me096@ait.ac.in",
+      "branch": "Mechanical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554839",
+      "rollNumber": "22ME097",
+      "email": "me097@ait.ac.in",
+      "branch": "Mechanical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554814",
+      "rollNumber": "22ME098",
+      "email": "me098@ait.ac.in",
+      "branch": "Mechanical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f6938055480e",
+      "rollNumber": "22ME099",
+      "email": "me099@ait.ac.in",
+      "branch": "Mechanical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f6938055485e",
+      "rollNumber": "22ME103",
+      "email": "me103@ait.ac.in",
+      "branch": "Mechanical",
+      "plannedOfferCount": 2
+    },
+    {
+      "studentId": "6ac53a770c34f69380554810",
+      "rollNumber": "22ME104",
+      "email": "me104@ait.ac.in",
+      "branch": "Mechanical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f6938055485a",
+      "rollNumber": "22ME106",
+      "email": "me106@ait.ac.in",
+      "branch": "Mechanical",
+      "plannedOfferCount": 2
+    },
+    {
+      "studentId": "6ac53a770c34f69380554828",
+      "rollNumber": "22ME108",
+      "email": "me108@ait.ac.in",
+      "branch": "Mechanical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554809",
+      "rollNumber": "22ME109",
+      "email": "me109@ait.ac.in",
+      "branch": "Mechanical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f6938055489c",
+      "rollNumber": "22MME002",
+      "email": "mme002@ait.ac.in",
+      "branch": "Metallurgical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805548ad",
+      "rollNumber": "22MME003",
+      "email": "mme003@ait.ac.in",
+      "branch": "Metallurgical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554898",
+      "rollNumber": "22MME005",
+      "email": "mme005@ait.ac.in",
+      "branch": "Metallurgical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554879",
+      "rollNumber": "22MME006",
+      "email": "mme006@ait.ac.in",
+      "branch": "Metallurgical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554875",
+      "rollNumber": "22MME007",
+      "email": "mme007@ait.ac.in",
+      "branch": "Metallurgical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805548a1",
+      "rollNumber": "22MME009",
+      "email": "mme009@ait.ac.in",
+      "branch": "Metallurgical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805548a4",
+      "rollNumber": "22MME012",
+      "email": "mme012@ait.ac.in",
+      "branch": "Metallurgical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805548b3",
+      "rollNumber": "22MME013",
+      "email": "mme013@ait.ac.in",
+      "branch": "Metallurgical",
+      "plannedOfferCount": 2
+    },
+    {
+      "studentId": "6ac53a770c34f6938055487c",
+      "rollNumber": "22MME016",
+      "email": "mme016@ait.ac.in",
+      "branch": "Metallurgical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554860",
+      "rollNumber": "22MME020",
+      "email": "mme020@ait.ac.in",
+      "branch": "Metallurgical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554871",
+      "rollNumber": "22MME025",
+      "email": "mme025@ait.ac.in",
+      "branch": "Metallurgical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554878",
+      "rollNumber": "22MME028",
+      "email": "mme028@ait.ac.in",
+      "branch": "Metallurgical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554895",
+      "rollNumber": "22MME029",
+      "email": "mme029@ait.ac.in",
+      "branch": "Metallurgical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554862",
+      "rollNumber": "22MME030",
+      "email": "mme030@ait.ac.in",
+      "branch": "Metallurgical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805548a5",
+      "rollNumber": "22MME032",
+      "email": "mme032@ait.ac.in",
+      "branch": "Metallurgical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805548aa",
+      "rollNumber": "22MME035",
+      "email": "mme035@ait.ac.in",
+      "branch": "Metallurgical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805548a8",
+      "rollNumber": "22MME037",
+      "email": "mme037@ait.ac.in",
+      "branch": "Metallurgical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f6938055488c",
+      "rollNumber": "22MME039",
+      "email": "mme039@ait.ac.in",
+      "branch": "Metallurgical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554894",
+      "rollNumber": "22MME040",
+      "email": "mme040@ait.ac.in",
+      "branch": "Metallurgical",
+      "plannedOfferCount": 2
+    },
+    {
+      "studentId": "6ac53a770c34f69380554869",
+      "rollNumber": "22MME041",
+      "email": "mme041@ait.ac.in",
+      "branch": "Metallurgical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f6938055488f",
+      "rollNumber": "22MME042",
+      "email": "mme042@ait.ac.in",
+      "branch": "Metallurgical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805548a2",
+      "rollNumber": "22MME044",
+      "email": "mme044@ait.ac.in",
+      "branch": "Metallurgical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554873",
+      "rollNumber": "22MME045",
+      "email": "mme045@ait.ac.in",
+      "branch": "Metallurgical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805548b9",
+      "rollNumber": "22MME046",
+      "email": "mme046@ait.ac.in",
+      "branch": "Metallurgical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f6938055488e",
+      "rollNumber": "22MME047",
+      "email": "mme047@ait.ac.in",
+      "branch": "Metallurgical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554865",
+      "rollNumber": "22MME049",
+      "email": "mme049@ait.ac.in",
+      "branch": "Metallurgical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554889",
+      "rollNumber": "22MME051",
+      "email": "mme051@ait.ac.in",
+      "branch": "Metallurgical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554886",
+      "rollNumber": "22MME052",
+      "email": "mme052@ait.ac.in",
+      "branch": "Metallurgical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f6938055487b",
+      "rollNumber": "22MME054",
+      "email": "mme054@ait.ac.in",
+      "branch": "Metallurgical",
+      "plannedOfferCount": 2
+    },
+    {
+      "studentId": "6ac53a770c34f69380554866",
+      "rollNumber": "22MME055",
+      "email": "mme055@ait.ac.in",
+      "branch": "Metallurgical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f6938055489b",
+      "rollNumber": "22MME056",
+      "email": "mme056@ait.ac.in",
+      "branch": "Metallurgical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805548af",
+      "rollNumber": "22MME057",
+      "email": "mme057@ait.ac.in",
+      "branch": "Metallurgical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805548b7",
+      "rollNumber": "22MME058",
+      "email": "mme058@ait.ac.in",
+      "branch": "Metallurgical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554864",
+      "rollNumber": "22MME060",
+      "email": "mme060@ait.ac.in",
+      "branch": "Metallurgical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805548a9",
+      "rollNumber": "22MME062",
+      "email": "mme062@ait.ac.in",
+      "branch": "Metallurgical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554892",
+      "rollNumber": "22MME063",
+      "email": "mme063@ait.ac.in",
+      "branch": "Metallurgical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805548a3",
+      "rollNumber": "22MME064",
+      "email": "mme064@ait.ac.in",
+      "branch": "Metallurgical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554884",
+      "rollNumber": "22MME065",
+      "email": "mme065@ait.ac.in",
+      "branch": "Metallurgical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554890",
+      "rollNumber": "22MME066",
+      "email": "mme066@ait.ac.in",
+      "branch": "Metallurgical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f6938055487d",
+      "rollNumber": "22MME067",
+      "email": "mme067@ait.ac.in",
+      "branch": "Metallurgical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805548b4",
+      "rollNumber": "22MME068",
+      "email": "mme068@ait.ac.in",
+      "branch": "Metallurgical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554885",
+      "rollNumber": "22MME070",
+      "email": "mme070@ait.ac.in",
+      "branch": "Metallurgical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554891",
+      "rollNumber": "22MME071",
+      "email": "mme071@ait.ac.in",
+      "branch": "Metallurgical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554872",
+      "rollNumber": "22MME072",
+      "email": "mme072@ait.ac.in",
+      "branch": "Metallurgical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f6938055487e",
+      "rollNumber": "22MME073",
+      "email": "mme073@ait.ac.in",
+      "branch": "Metallurgical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554883",
+      "rollNumber": "22MME074",
+      "email": "mme074@ait.ac.in",
+      "branch": "Metallurgical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f6938055489a",
+      "rollNumber": "22MME076",
+      "email": "mme076@ait.ac.in",
+      "branch": "Metallurgical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805548b2",
+      "rollNumber": "22MME078",
+      "email": "mme078@ait.ac.in",
+      "branch": "Metallurgical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554880",
+      "rollNumber": "22MME079",
+      "email": "mme079@ait.ac.in",
+      "branch": "Metallurgical",
+      "plannedOfferCount": 2
+    },
+    {
+      "studentId": "6ac53a770c34f693805548ae",
+      "rollNumber": "22MME080",
+      "email": "mme080@ait.ac.in",
+      "branch": "Metallurgical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f6938055487f",
+      "rollNumber": "22MME081",
+      "email": "mme081@ait.ac.in",
+      "branch": "Metallurgical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f6938055488b",
+      "rollNumber": "22MME083",
+      "email": "mme083@ait.ac.in",
+      "branch": "Metallurgical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805548b8",
+      "rollNumber": "22MME084",
+      "email": "mme084@ait.ac.in",
+      "branch": "Metallurgical",
+      "plannedOfferCount": 2
+    },
+    {
+      "studentId": "6ac53a770c34f69380554882",
+      "rollNumber": "22MME086",
+      "email": "mme086@ait.ac.in",
+      "branch": "Metallurgical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554868",
+      "rollNumber": "22MME087",
+      "email": "mme087@ait.ac.in",
+      "branch": "Metallurgical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f6938055486e",
+      "rollNumber": "22MME088",
+      "email": "mme088@ait.ac.in",
+      "branch": "Metallurgical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805548a6",
+      "rollNumber": "22MME090",
+      "email": "mme090@ait.ac.in",
+      "branch": "Metallurgical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805548b5",
+      "rollNumber": "22MME091",
+      "email": "mme091@ait.ac.in",
+      "branch": "Metallurgical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f6938055486b",
+      "rollNumber": "22MME092",
+      "email": "mme092@ait.ac.in",
+      "branch": "Metallurgical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554887",
+      "rollNumber": "22MME093",
+      "email": "mme093@ait.ac.in",
+      "branch": "Metallurgical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554897",
+      "rollNumber": "22MME096",
+      "email": "mme096@ait.ac.in",
+      "branch": "Metallurgical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554870",
+      "rollNumber": "22MME098",
+      "email": "mme098@ait.ac.in",
+      "branch": "Metallurgical",
+      "plannedOfferCount": 2
+    },
+    {
+      "studentId": "6ac53a770c34f69380554893",
+      "rollNumber": "22MME100",
+      "email": "mme100@ait.ac.in",
+      "branch": "Metallurgical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f6938055486a",
+      "rollNumber": "22MME101",
+      "email": "mme101@ait.ac.in",
+      "branch": "Metallurgical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f6938055489f",
+      "rollNumber": "22MME102",
+      "email": "mme102@ait.ac.in",
+      "branch": "Metallurgical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805548a0",
+      "rollNumber": "22MME103",
+      "email": "mme103@ait.ac.in",
+      "branch": "Metallurgical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554876",
+      "rollNumber": "22MME107",
+      "email": "mme107@ait.ac.in",
+      "branch": "Metallurgical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554888",
+      "rollNumber": "22MME108",
+      "email": "mme108@ait.ac.in",
+      "branch": "Metallurgical",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f6938055490a",
+      "rollNumber": "22MI002",
+      "email": "mi002@ait.ac.in",
+      "branch": "Mining",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805548bc",
+      "rollNumber": "22MI003",
+      "email": "mi003@ait.ac.in",
+      "branch": "Mining",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554904",
+      "rollNumber": "22MI004",
+      "email": "mi004@ait.ac.in",
+      "branch": "Mining",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554900",
+      "rollNumber": "22MI005",
+      "email": "mi005@ait.ac.in",
+      "branch": "Mining",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805548f3",
+      "rollNumber": "22MI009",
+      "email": "mi009@ait.ac.in",
+      "branch": "Mining",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805548fc",
+      "rollNumber": "22MI011",
+      "email": "mi011@ait.ac.in",
+      "branch": "Mining",
+      "plannedOfferCount": 2
+    },
+    {
+      "studentId": "6ac53a770c34f693805548da",
+      "rollNumber": "22MI012",
+      "email": "mi012@ait.ac.in",
+      "branch": "Mining",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805548c3",
+      "rollNumber": "22MI014",
+      "email": "mi014@ait.ac.in",
+      "branch": "Mining",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554907",
+      "rollNumber": "22MI015",
+      "email": "mi015@ait.ac.in",
+      "branch": "Mining",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805548df",
+      "rollNumber": "22MI018",
+      "email": "mi018@ait.ac.in",
+      "branch": "Mining",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554909",
+      "rollNumber": "22MI021",
+      "email": "mi021@ait.ac.in",
+      "branch": "Mining",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805548c4",
+      "rollNumber": "22MI024",
+      "email": "mi024@ait.ac.in",
+      "branch": "Mining",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554906",
+      "rollNumber": "22MI025",
+      "email": "mi025@ait.ac.in",
+      "branch": "Mining",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805548e3",
+      "rollNumber": "22MI027",
+      "email": "mi027@ait.ac.in",
+      "branch": "Mining",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805548d6",
+      "rollNumber": "22MI028",
+      "email": "mi028@ait.ac.in",
+      "branch": "Mining",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805548ee",
+      "rollNumber": "22MI030",
+      "email": "mi030@ait.ac.in",
+      "branch": "Mining",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805548dc",
+      "rollNumber": "22MI032",
+      "email": "mi032@ait.ac.in",
+      "branch": "Mining",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805548ea",
+      "rollNumber": "22MI034",
+      "email": "mi034@ait.ac.in",
+      "branch": "Mining",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805548c0",
+      "rollNumber": "22MI035",
+      "email": "mi035@ait.ac.in",
+      "branch": "Mining",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805548c2",
+      "rollNumber": "22MI036",
+      "email": "mi036@ait.ac.in",
+      "branch": "Mining",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805548fa",
+      "rollNumber": "22MI038",
+      "email": "mi038@ait.ac.in",
+      "branch": "Mining",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805548d7",
+      "rollNumber": "22MI039",
+      "email": "mi039@ait.ac.in",
+      "branch": "Mining",
+      "plannedOfferCount": 2
+    },
+    {
+      "studentId": "6ac53a770c34f69380554908",
+      "rollNumber": "22MI040",
+      "email": "mi040@ait.ac.in",
+      "branch": "Mining",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805548d5",
+      "rollNumber": "22MI041",
+      "email": "mi041@ait.ac.in",
+      "branch": "Mining",
+      "plannedOfferCount": 2
+    },
+    {
+      "studentId": "6ac53a770c34f693805548bb",
+      "rollNumber": "22MI043",
+      "email": "mi043@ait.ac.in",
+      "branch": "Mining",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554903",
+      "rollNumber": "22MI047",
+      "email": "mi047@ait.ac.in",
+      "branch": "Mining",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805548e0",
+      "rollNumber": "22MI048",
+      "email": "mi048@ait.ac.in",
+      "branch": "Mining",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805548f4",
+      "rollNumber": "22MI050",
+      "email": "mi050@ait.ac.in",
+      "branch": "Mining",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f6938055490b",
+      "rollNumber": "22MI051",
+      "email": "mi051@ait.ac.in",
+      "branch": "Mining",
+      "plannedOfferCount": 1,
+      "showcaseTag": "off_campus_placed"
+    },
+    {
+      "studentId": "6ac53a770c34f693805548fd",
+      "rollNumber": "22MI053",
+      "email": "mi053@ait.ac.in",
+      "branch": "Mining",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805548e6",
+      "rollNumber": "22MI054",
+      "email": "mi054@ait.ac.in",
+      "branch": "Mining",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805548be",
+      "rollNumber": "22MI055",
+      "email": "mi055@ait.ac.in",
+      "branch": "Mining",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805548bd",
+      "rollNumber": "22MI056",
+      "email": "mi056@ait.ac.in",
+      "branch": "Mining",
+      "plannedOfferCount": 1,
+      "showcaseTag": "core_branch_placed"
+    },
+    {
+      "studentId": "6ac53a770c34f693805548de",
+      "rollNumber": "22MI058",
+      "email": "mi058@ait.ac.in",
+      "branch": "Mining",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805548c7",
+      "rollNumber": "22MI059",
+      "email": "mi059@ait.ac.in",
+      "branch": "Mining",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805548e2",
+      "rollNumber": "22MI061",
+      "email": "mi061@ait.ac.in",
+      "branch": "Mining",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805548d9",
+      "rollNumber": "22MI062",
+      "email": "mi062@ait.ac.in",
+      "branch": "Mining",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805548e9",
+      "rollNumber": "22MI063",
+      "email": "mi063@ait.ac.in",
+      "branch": "Mining",
+      "plannedOfferCount": 2
+    },
+    {
+      "studentId": "6ac53a770c34f693805548f7",
+      "rollNumber": "22MI065",
+      "email": "mi065@ait.ac.in",
+      "branch": "Mining",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805548d2",
+      "rollNumber": "22MI068",
+      "email": "mi068@ait.ac.in",
+      "branch": "Mining",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805548db",
+      "rollNumber": "22MI069",
+      "email": "mi069@ait.ac.in",
+      "branch": "Mining",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805548f9",
+      "rollNumber": "22MI071",
+      "email": "mi071@ait.ac.in",
+      "branch": "Mining",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805548cd",
+      "rollNumber": "22MI072",
+      "email": "mi072@ait.ac.in",
+      "branch": "Mining",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805548f8",
+      "rollNumber": "22MI074",
+      "email": "mi074@ait.ac.in",
+      "branch": "Mining",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805548d8",
+      "rollNumber": "22MI075",
+      "email": "mi075@ait.ac.in",
+      "branch": "Mining",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805548ff",
+      "rollNumber": "22MI080",
+      "email": "mi080@ait.ac.in",
+      "branch": "Mining",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805548c9",
+      "rollNumber": "22MI081",
+      "email": "mi081@ait.ac.in",
+      "branch": "Mining",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554901",
+      "rollNumber": "22MI082",
+      "email": "mi082@ait.ac.in",
+      "branch": "Mining",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805548ec",
+      "rollNumber": "22MI084",
+      "email": "mi084@ait.ac.in",
+      "branch": "Mining",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805548e8",
+      "rollNumber": "22MI088",
+      "email": "mi088@ait.ac.in",
+      "branch": "Mining",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805548cb",
+      "rollNumber": "22MI089",
+      "email": "mi089@ait.ac.in",
+      "branch": "Mining",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805548eb",
+      "rollNumber": "22MI090",
+      "email": "mi090@ait.ac.in",
+      "branch": "Mining",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805548c6",
+      "rollNumber": "22MI092",
+      "email": "mi092@ait.ac.in",
+      "branch": "Mining",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f693805548c1",
+      "rollNumber": "22MI093",
+      "email": "mi093@ait.ac.in",
+      "branch": "Mining",
+      "plannedOfferCount": 1
+    },
+    {
+      "studentId": "6ac53a770c34f69380554902",
+      "rollNumber": "22MI095",
+      "email": "mi095@ait.ac.in",
+      "branch": "Mining",
+      "plannedOfferCount": 1
+    }
+  ],
+  "unplacedStudents": [
+    {
+      "studentId": "6ac53a770c34f693805545d9",
+      "rollNumber": "22BM001",
+      "email": "bm001@ait.ac.in",
+      "branch": "Biomedical"
+    },
+    {
+      "studentId": "6ac53a770c34f693805545dc",
+      "rollNumber": "22BM004",
+      "email": "bm004@ait.ac.in",
+      "branch": "Biomedical"
+    },
+    {
+      "studentId": "6ac53a770c34f693805545c4",
+      "rollNumber": "22BM007",
+      "email": "bm007@ait.ac.in",
+      "branch": "Biomedical"
+    },
+    {
+      "studentId": "6ac53a770c34f693805545cc",
+      "rollNumber": "22BM010",
+      "email": "bm010@ait.ac.in",
+      "branch": "Biomedical"
+    },
+    {
+      "studentId": "6ac53a770c34f693805545cb",
+      "rollNumber": "22BM011",
+      "email": "bm011@ait.ac.in",
+      "branch": "Biomedical"
+    },
+    {
+      "studentId": "6ac53a770c34f693805545c7",
+      "rollNumber": "22BM012",
+      "email": "bm012@ait.ac.in",
+      "branch": "Biomedical"
+    },
+    {
+      "studentId": "6ac53a770c34f693805545c2",
+      "rollNumber": "22BM013",
+      "email": "bm013@ait.ac.in",
+      "branch": "Biomedical"
+    },
+    {
+      "studentId": "6ac53a770c34f693805545d8",
+      "rollNumber": "22BM014",
+      "email": "bm014@ait.ac.in",
+      "branch": "Biomedical"
+    },
+    {
+      "studentId": "6ac53a770c34f693805545d5",
+      "rollNumber": "22BM015",
+      "email": "bm015@ait.ac.in",
+      "branch": "Biomedical"
+    },
+    {
+      "studentId": "6ac53a770c34f693805545c6",
+      "rollNumber": "22BM016",
+      "email": "bm016@ait.ac.in",
+      "branch": "Biomedical"
+    },
+    {
+      "studentId": "6ac53a770c34f693805545d2",
+      "rollNumber": "22BM017",
+      "email": "bm017@ait.ac.in",
+      "branch": "Biomedical"
+    },
+    {
+      "studentId": "6ac53a770c34f693805545c8",
+      "rollNumber": "22BM018",
+      "email": "bm018@ait.ac.in",
+      "branch": "Biomedical"
+    },
+    {
+      "studentId": "6ac53a770c34f693805545dd",
+      "rollNumber": "22BM019",
+      "email": "bm019@ait.ac.in",
+      "branch": "Biomedical"
+    },
+    {
+      "studentId": "6ac53a770c34f693805545ca",
+      "rollNumber": "22BM020",
+      "email": "bm020@ait.ac.in",
+      "branch": "Biomedical"
+    },
+    {
+      "studentId": "6ac53a770c34f693805545ce",
+      "rollNumber": "22BM021",
+      "email": "bm021@ait.ac.in",
+      "branch": "Biomedical"
+    },
+    {
+      "studentId": "6ac53a770c34f693805545de",
+      "rollNumber": "22BM022",
+      "email": "bm022@ait.ac.in",
+      "branch": "Biomedical"
+    },
+    {
+      "studentId": "6ac53a770c34f693805545d4",
+      "rollNumber": "22BM023",
+      "email": "bm023@ait.ac.in",
+      "branch": "Biomedical"
+    },
+    {
+      "studentId": "6ac53a770c34f693805545c5",
+      "rollNumber": "22BM025",
+      "email": "bm025@ait.ac.in",
+      "branch": "Biomedical"
+    },
+    {
+      "studentId": "6ac53a770c34f693805545cf",
+      "rollNumber": "22BM028",
+      "email": "bm028@ait.ac.in",
+      "branch": "Biomedical"
+    },
+    {
+      "studentId": "6ac53a770c34f693805545d7",
+      "rollNumber": "22BM032",
+      "email": "bm032@ait.ac.in",
+      "branch": "Biomedical"
+    },
+    {
+      "studentId": "6ac53a770c34f693805545da",
+      "rollNumber": "22BM033",
+      "email": "bm033@ait.ac.in",
+      "branch": "Biomedical"
+    },
+    {
+      "studentId": "6ac53a770c34f693805545c1",
+      "rollNumber": "22BM035",
+      "email": "bm035@ait.ac.in",
+      "branch": "Biomedical"
+    },
+    {
+      "studentId": "6ac53a770c34f693805545d6",
+      "rollNumber": "22BM037",
+      "email": "bm037@ait.ac.in",
+      "branch": "Biomedical"
+    },
+    {
+      "studentId": "6ac53a770c34f69380554603",
+      "rollNumber": "22BT001",
+      "email": "bt001@ait.ac.in",
+      "branch": "Biotechnology"
+    },
+    {
+      "studentId": "6ac53a770c34f693805545f9",
+      "rollNumber": "22BT009",
+      "email": "bt009@ait.ac.in",
+      "branch": "Biotechnology"
+    },
+    {
+      "studentId": "6ac53a770c34f69380554600",
+      "rollNumber": "22BT010",
+      "email": "bt010@ait.ac.in",
+      "branch": "Biotechnology"
+    },
+    {
+      "studentId": "6ac53a770c34f693805545e4",
+      "rollNumber": "22BT012",
+      "email": "bt012@ait.ac.in",
+      "branch": "Biotechnology"
+    },
+    {
+      "studentId": "6ac53a770c34f69380554601",
+      "rollNumber": "22BT013",
+      "email": "bt013@ait.ac.in",
+      "branch": "Biotechnology"
+    },
+    {
+      "studentId": "6ac53a770c34f693805545ed",
+      "rollNumber": "22BT015",
+      "email": "bt015@ait.ac.in",
+      "branch": "Biotechnology"
+    },
+    {
+      "studentId": "6ac53a770c34f693805545ec",
+      "rollNumber": "22BT020",
+      "email": "bt020@ait.ac.in",
+      "branch": "Biotechnology"
+    },
+    {
+      "studentId": "6ac53a770c34f693805545f5",
+      "rollNumber": "22BT023",
+      "email": "bt023@ait.ac.in",
+      "branch": "Biotechnology"
+    },
+    {
+      "studentId": "6ac53a770c34f693805545ef",
+      "rollNumber": "22BT028",
+      "email": "bt028@ait.ac.in",
+      "branch": "Biotechnology"
+    },
+    {
+      "studentId": "6ac53a770c34f693805545f2",
+      "rollNumber": "22BT029",
+      "email": "bt029@ait.ac.in",
+      "branch": "Biotechnology"
+    },
+    {
+      "studentId": "6ac53a770c34f693805545fd",
+      "rollNumber": "22BT030",
+      "email": "bt030@ait.ac.in",
+      "branch": "Biotechnology"
+    },
+    {
+      "studentId": "6ac53a770c34f693805545f3",
+      "rollNumber": "22BT034",
+      "email": "bt034@ait.ac.in",
+      "branch": "Biotechnology"
+    },
+    {
+      "studentId": "6ac53a770c34f693805545e3",
+      "rollNumber": "22BT035",
+      "email": "bt035@ait.ac.in",
+      "branch": "Biotechnology"
+    },
+    {
+      "studentId": "6ac53a770c34f693805545fa",
+      "rollNumber": "22BT038",
+      "email": "bt038@ait.ac.in",
+      "branch": "Biotechnology"
+    },
+    {
+      "studentId": "6ac53a770c34f693805545e7",
+      "rollNumber": "22BT039",
+      "email": "bt039@ait.ac.in",
+      "branch": "Biotechnology"
+    },
+    {
+      "studentId": "6ac53a770c34f69380554670",
+      "rollNumber": "22CE015",
+      "email": "ce015@ait.ac.in",
+      "branch": "Civil"
+    },
+    {
+      "studentId": "6ac53a770c34f6938055463f",
+      "rollNumber": "22CH002",
+      "email": "ch002@ait.ac.in",
+      "branch": "Chemical"
+    },
+    {
+      "studentId": "6ac53a770c34f69380554611",
+      "rollNumber": "22CH004",
+      "email": "ch004@ait.ac.in",
+      "branch": "Chemical"
+    },
+    {
+      "studentId": "6ac53a770c34f69380554608",
+      "rollNumber": "22CH009",
+      "email": "ch009@ait.ac.in",
+      "branch": "Chemical"
+    },
+    {
+      "studentId": "6ac53a770c34f6938055462a",
+      "rollNumber": "22CH012",
+      "email": "ch012@ait.ac.in",
+      "branch": "Chemical"
+    },
+    {
+      "studentId": "6ac53a770c34f6938055462f",
+      "rollNumber": "22CH013",
+      "email": "ch013@ait.ac.in",
+      "branch": "Chemical"
+    },
+    {
+      "studentId": "6ac53a770c34f6938055460c",
+      "rollNumber": "22CH020",
+      "email": "ch020@ait.ac.in",
+      "branch": "Chemical"
+    },
+    {
+      "studentId": "6ac53a770c34f69380554632",
+      "rollNumber": "22CH032",
+      "email": "ch032@ait.ac.in",
+      "branch": "Chemical"
+    },
+    {
+      "studentId": "6ac53a770c34f69380554624",
+      "rollNumber": "22CH038",
+      "email": "ch038@ait.ac.in",
+      "branch": "Chemical"
+    },
+    {
+      "studentId": "6ac53a770c34f693805546ca",
+      "rollNumber": "22CSE019",
+      "email": "cse019@ait.ac.in",
+      "branch": "CSE"
+    },
+    {
+      "studentId": "6ac53a770c34f69380554687",
+      "rollNumber": "22CSE034",
+      "email": "cse034@ait.ac.in",
+      "branch": "CSE"
+    },
+    {
+      "studentId": "6ac53a770c34f6938055469d",
+      "rollNumber": "22CSE035",
+      "email": "cse035@ait.ac.in",
+      "branch": "CSE"
+    },
+    {
+      "studentId": "6ac53a770c34f693805546a5",
+      "rollNumber": "22CSE038",
+      "email": "cse038@ait.ac.in",
+      "branch": "CSE"
+    },
+    {
+      "studentId": "6ac53a770c34f693805546ad",
+      "rollNumber": "22CSE041",
+      "email": "cse041@ait.ac.in",
+      "branch": "CSE"
+    },
+    {
+      "studentId": "6ac53a770c34f6938055468d",
+      "rollNumber": "22CSE043",
+      "email": "cse043@ait.ac.in",
+      "branch": "CSE"
+    },
+    {
+      "studentId": "6ac53a770c34f69380554681",
+      "rollNumber": "22CSE050",
+      "email": "cse050@ait.ac.in",
+      "branch": "CSE"
+    },
+    {
+      "studentId": "6ac53a770c34f693805546b4",
+      "rollNumber": "22CSE053",
+      "email": "cse053@ait.ac.in",
+      "branch": "CSE"
+    },
+    {
+      "studentId": "6ac53a770c34f693805546c6",
+      "rollNumber": "22CSE057",
+      "email": "cse057@ait.ac.in",
+      "branch": "CSE"
+    },
+    {
+      "studentId": "6ac53a770c34f693805546d6",
+      "rollNumber": "22CSE062",
+      "email": "cse062@ait.ac.in",
+      "branch": "CSE"
+    },
+    {
+      "studentId": "6ac53a770c34f6938055468b",
+      "rollNumber": "22CSE070",
+      "email": "cse070@ait.ac.in",
+      "branch": "CSE"
+    },
+    {
+      "studentId": "6ac53a770c34f693805546b3",
+      "rollNumber": "22CSE072",
+      "email": "cse072@ait.ac.in",
+      "branch": "CSE"
+    },
+    {
+      "studentId": "6ac53a770c34f693805546cd",
+      "rollNumber": "22CSE074",
+      "email": "cse074@ait.ac.in",
+      "branch": "CSE"
+    },
+    {
+      "studentId": "6ac53a770c34f693805546cb",
+      "rollNumber": "22CSE084",
+      "email": "cse084@ait.ac.in",
+      "branch": "CSE"
+    },
+    {
+      "studentId": "6ac53a770c34f693805546a2",
+      "rollNumber": "22CSE087",
+      "email": "cse087@ait.ac.in",
+      "branch": "CSE"
+    },
+    {
+      "studentId": "6ac53a770c34f693805546a0",
+      "rollNumber": "22CSE095",
+      "email": "cse095@ait.ac.in",
+      "branch": "CSE"
+    },
+    {
+      "studentId": "6ac53a770c34f693805546b1",
+      "rollNumber": "22CSE096",
+      "email": "cse096@ait.ac.in",
+      "branch": "CSE"
+    },
+    {
+      "studentId": "6ac53a770c34f69380554694",
+      "rollNumber": "22CSE099",
+      "email": "cse099@ait.ac.in",
+      "branch": "CSE"
+    },
+    {
+      "studentId": "6ac53a770c34f693805546c7",
+      "rollNumber": "22CSE101",
+      "email": "cse101@ait.ac.in",
+      "branch": "CSE"
+    },
+    {
+      "studentId": "6ac53a770c34f6938055467f",
+      "rollNumber": "22CSE102",
+      "email": "cse102@ait.ac.in",
+      "branch": "CSE"
+    },
+    {
+      "studentId": "6ac53a770c34f69380554686",
+      "rollNumber": "22CSE110",
+      "email": "cse110@ait.ac.in",
+      "branch": "CSE"
+    },
+    {
+      "studentId": "6ac53a770c34f693805546a4",
+      "rollNumber": "22CSE114",
+      "email": "cse114@ait.ac.in",
+      "branch": "CSE"
+    },
+    {
+      "studentId": "6ac53a770c34f6938055474d",
+      "rollNumber": "22ECE001",
+      "email": "ece001@ait.ac.in",
+      "branch": "ECE"
+    },
+    {
+      "studentId": "6ac53a770c34f69380554760",
+      "rollNumber": "22ECE003",
+      "email": "ece003@ait.ac.in",
+      "branch": "ECE"
+    },
+    {
+      "studentId": "6ac53a770c34f69380554747",
+      "rollNumber": "22ECE005",
+      "email": "ece005@ait.ac.in",
+      "branch": "ECE"
+    },
+    {
+      "studentId": "6ac53a770c34f69380554799",
+      "rollNumber": "22ECE006",
+      "email": "ece006@ait.ac.in",
+      "branch": "ECE"
+    },
+    {
+      "studentId": "6ac53a770c34f69380554772",
+      "rollNumber": "22ECE007",
+      "email": "ece007@ait.ac.in",
+      "branch": "ECE"
+    },
+    {
+      "studentId": "6ac53a770c34f69380554781",
+      "rollNumber": "22ECE010",
+      "email": "ece010@ait.ac.in",
+      "branch": "ECE"
+    },
+    {
+      "studentId": "6ac53a770c34f6938055474c",
+      "rollNumber": "22ECE014",
+      "email": "ece014@ait.ac.in",
+      "branch": "ECE"
+    },
+    {
+      "studentId": "6ac53a770c34f69380554753",
+      "rollNumber": "22ECE015",
+      "email": "ece015@ait.ac.in",
+      "branch": "ECE"
+    },
+    {
+      "studentId": "6ac53a770c34f69380554794",
+      "rollNumber": "22ECE017",
+      "email": "ece017@ait.ac.in",
+      "branch": "ECE"
+    },
+    {
+      "studentId": "6ac53a770c34f69380554762",
+      "rollNumber": "22ECE020",
+      "email": "ece020@ait.ac.in",
+      "branch": "ECE"
+    },
+    {
+      "studentId": "6ac53a770c34f69380554761",
+      "rollNumber": "22ECE022",
+      "email": "ece022@ait.ac.in",
+      "branch": "ECE"
+    },
+    {
+      "studentId": "6ac53a770c34f69380554742",
+      "rollNumber": "22ECE023",
+      "email": "ece023@ait.ac.in",
+      "branch": "ECE"
+    },
+    {
+      "studentId": "6ac53a770c34f6938055476d",
+      "rollNumber": "22ECE024",
+      "email": "ece024@ait.ac.in",
+      "branch": "ECE"
+    },
+    {
+      "studentId": "6ac53a770c34f69380554765",
+      "rollNumber": "22ECE029",
+      "email": "ece029@ait.ac.in",
+      "branch": "ECE"
+    },
+    {
+      "studentId": "6ac53a770c34f6938055477d",
+      "rollNumber": "22ECE030",
+      "email": "ece030@ait.ac.in",
+      "branch": "ECE"
+    },
+    {
+      "studentId": "6ac53a770c34f69380554797",
+      "rollNumber": "22ECE031",
+      "email": "ece031@ait.ac.in",
+      "branch": "ECE"
+    },
+    {
+      "studentId": "6ac53a770c34f69380554757",
+      "rollNumber": "22ECE035",
+      "email": "ece035@ait.ac.in",
+      "branch": "ECE"
+    },
+    {
+      "studentId": "6ac53a770c34f69380554796",
+      "rollNumber": "22ECE039",
+      "email": "ece039@ait.ac.in",
+      "branch": "ECE"
+    },
+    {
+      "studentId": "6ac53a770c34f69380554788",
+      "rollNumber": "22ECE040",
+      "email": "ece040@ait.ac.in",
+      "branch": "ECE"
+    },
+    {
+      "studentId": "6ac53a770c34f6938055473e",
+      "rollNumber": "22ECE041",
+      "email": "ece041@ait.ac.in",
+      "branch": "ECE"
+    },
+    {
+      "studentId": "6ac53a770c34f69380554779",
+      "rollNumber": "22ECE042",
+      "email": "ece042@ait.ac.in",
+      "branch": "ECE"
+    },
+    {
+      "studentId": "6ac53a770c34f69380554780",
+      "rollNumber": "22ECE043",
+      "email": "ece043@ait.ac.in",
+      "branch": "ECE"
+    },
+    {
+      "studentId": "6ac53a770c34f6938055475b",
+      "rollNumber": "22ECE044",
+      "email": "ece044@ait.ac.in",
+      "branch": "ECE"
+    },
+    {
+      "studentId": "6ac53a770c34f6938055477f",
+      "rollNumber": "22ECE045",
+      "email": "ece045@ait.ac.in",
+      "branch": "ECE"
+    },
+    {
+      "studentId": "6ac53a770c34f69380554766",
+      "rollNumber": "22ECE046",
+      "email": "ece046@ait.ac.in",
+      "branch": "ECE"
+    },
+    {
+      "studentId": "6ac53a770c34f69380554743",
+      "rollNumber": "22ECE049",
+      "email": "ece049@ait.ac.in",
+      "branch": "ECE"
+    },
+    {
+      "studentId": "6ac53a770c34f69380554784",
+      "rollNumber": "22ECE050",
+      "email": "ece050@ait.ac.in",
+      "branch": "ECE"
+    },
+    {
+      "studentId": "6ac53a770c34f6938055477a",
+      "rollNumber": "22ECE051",
+      "email": "ece051@ait.ac.in",
+      "branch": "ECE"
+    },
+    {
+      "studentId": "6ac53a770c34f6938055478e",
+      "rollNumber": "22ECE052",
+      "email": "ece052@ait.ac.in",
+      "branch": "ECE"
+    },
+    {
+      "studentId": "6ac53a770c34f69380554768",
+      "rollNumber": "22ECE053",
+      "email": "ece053@ait.ac.in",
+      "branch": "ECE"
+    },
+    {
+      "studentId": "6ac53a770c34f6938055478a",
+      "rollNumber": "22ECE056",
+      "email": "ece056@ait.ac.in",
+      "branch": "ECE"
+    },
+    {
+      "studentId": "6ac53a770c34f6938055474b",
+      "rollNumber": "22ECE058",
+      "email": "ece058@ait.ac.in",
+      "branch": "ECE"
+    },
+    {
+      "studentId": "6ac53a770c34f69380554783",
+      "rollNumber": "22ECE059",
+      "email": "ece059@ait.ac.in",
+      "branch": "ECE"
+    },
+    {
+      "studentId": "6ac53a770c34f6938055477b",
+      "rollNumber": "22ECE063",
+      "email": "ece063@ait.ac.in",
+      "branch": "ECE"
+    },
+    {
+      "studentId": "6ac53a770c34f69380554785",
+      "rollNumber": "22ECE065",
+      "email": "ece065@ait.ac.in",
+      "branch": "ECE"
+    },
+    {
+      "studentId": "6ac53a770c34f69380554758",
+      "rollNumber": "22ECE070",
+      "email": "ece070@ait.ac.in",
+      "branch": "ECE"
+    },
+    {
+      "studentId": "6ac53a770c34f6938055474a",
+      "rollNumber": "22ECE073",
+      "email": "ece073@ait.ac.in",
+      "branch": "ECE"
+    },
+    {
+      "studentId": "6ac53a770c34f69380554793",
+      "rollNumber": "22ECE076",
+      "email": "ece076@ait.ac.in",
+      "branch": "ECE"
+    },
+    {
+      "studentId": "6ac53a770c34f6938055476c",
+      "rollNumber": "22ECE079",
+      "email": "ece079@ait.ac.in",
+      "branch": "ECE"
+    },
+    {
+      "studentId": "6ac53a770c34f69380554748",
+      "rollNumber": "22ECE080",
+      "email": "ece080@ait.ac.in",
+      "branch": "ECE"
+    },
+    {
+      "studentId": "6ac53a770c34f69380554782",
+      "rollNumber": "22ECE081",
+      "email": "ece081@ait.ac.in",
+      "branch": "ECE"
+    },
+    {
+      "studentId": "6ac53a770c34f69380554769",
+      "rollNumber": "22ECE083",
+      "email": "ece083@ait.ac.in",
+      "branch": "ECE"
+    },
+    {
+      "studentId": "6ac53a770c34f6938055475a",
+      "rollNumber": "22ECE086",
+      "email": "ece086@ait.ac.in",
+      "branch": "ECE"
+    },
+    {
+      "studentId": "6ac53a770c34f69380554775",
+      "rollNumber": "22ECE096",
+      "email": "ece096@ait.ac.in",
+      "branch": "ECE"
+    },
+    {
+      "studentId": "6ac53a770c34f6938055475d",
+      "rollNumber": "22ECE097",
+      "email": "ece097@ait.ac.in",
+      "branch": "ECE"
+    },
+    {
+      "studentId": "6ac53a770c34f6938055476f",
+      "rollNumber": "22ECE100",
+      "email": "ece100@ait.ac.in",
+      "branch": "ECE"
+    },
+    {
+      "studentId": "6ac53a770c34f69380554773",
+      "rollNumber": "22ECE108",
+      "email": "ece108@ait.ac.in",
+      "branch": "ECE"
+    },
+    {
+      "studentId": "6ac53a770c34f6938055479c",
+      "rollNumber": "22ECE110",
+      "email": "ece110@ait.ac.in",
+      "branch": "ECE"
+    },
+    {
+      "studentId": "6ac53a770c34f69380554745",
+      "rollNumber": "22ECE112",
+      "email": "ece112@ait.ac.in",
+      "branch": "ECE"
+    },
+    {
+      "studentId": "6ac53a770c34f6938055473c",
+      "rollNumber": "22ECE114",
+      "email": "ece114@ait.ac.in",
+      "branch": "ECE"
+    },
+    {
+      "studentId": "6ac53a770c34f693805546db",
+      "rollNumber": "22EE004",
+      "email": "ee004@ait.ac.in",
+      "branch": "Electrical"
+    },
+    {
+      "studentId": "6ac53a770c34f69380554724",
+      "rollNumber": "22EE018",
+      "email": "ee018@ait.ac.in",
+      "branch": "Electrical"
+    },
+    {
+      "studentId": "6ac53a770c34f6938055470d",
+      "rollNumber": "22EE032",
+      "email": "ee032@ait.ac.in",
+      "branch": "Electrical"
+    },
+    {
+      "studentId": "6ac53a770c34f69380554736",
+      "rollNumber": "22EE046",
+      "email": "ee046@ait.ac.in",
+      "branch": "Electrical"
+    },
+    {
+      "studentId": "6ac53a770c34f693805546f5",
+      "rollNumber": "22EE053",
+      "email": "ee053@ait.ac.in",
+      "branch": "Electrical"
+    },
+    {
+      "studentId": "6ac53a770c34f69380554719",
+      "rollNumber": "22EE084",
+      "email": "ee084@ait.ac.in",
+      "branch": "Electrical"
+    },
+    {
+      "studentId": "6ac53a770c34f69380554733",
+      "rollNumber": "22EE090",
+      "email": "ee090@ait.ac.in",
+      "branch": "Electrical"
+    },
+    {
+      "studentId": "6ac53a770c34f6938055470a",
+      "rollNumber": "22EE093",
+      "email": "ee093@ait.ac.in",
+      "branch": "Electrical"
+    },
+    {
+      "studentId": "6ac53a770c34f693805546f2",
+      "rollNumber": "22EE110",
+      "email": "ee110@ait.ac.in",
+      "branch": "Electrical"
+    },
+    {
+      "studentId": "6ac53a770c34f6938055473b",
+      "rollNumber": "22EE114",
+      "email": "ee114@ait.ac.in",
+      "branch": "Electrical"
+    },
+    {
+      "studentId": "6ac53a770c34f693805547ed",
+      "rollNumber": "22IT005",
+      "email": "it005@ait.ac.in",
+      "branch": "IT"
+    },
+    {
+      "studentId": "6ac53a770c34f69380554804",
+      "rollNumber": "22IT008",
+      "email": "it008@ait.ac.in",
+      "branch": "IT"
+    },
+    {
+      "studentId": "6ac53a770c34f693805547e2",
+      "rollNumber": "22IT009",
+      "email": "it009@ait.ac.in",
+      "branch": "IT"
+    },
+    {
+      "studentId": "6ac53a770c34f693805547ce",
+      "rollNumber": "22IT010",
+      "email": "it010@ait.ac.in",
+      "branch": "IT"
+    },
+    {
+      "studentId": "6ac53a770c34f69380554806",
+      "rollNumber": "22IT013",
+      "email": "it013@ait.ac.in",
+      "branch": "IT"
+    },
+    {
+      "studentId": "6ac53a770c34f693805547de",
+      "rollNumber": "22IT019",
+      "email": "it019@ait.ac.in",
+      "branch": "IT"
+    },
+    {
+      "studentId": "6ac53a770c34f69380554802",
+      "rollNumber": "22IT020",
+      "email": "it020@ait.ac.in",
+      "branch": "IT"
+    },
+    {
+      "studentId": "6ac53a770c34f693805547a3",
+      "rollNumber": "22IT032",
+      "email": "it032@ait.ac.in",
+      "branch": "IT"
+    },
+    {
+      "studentId": "6ac53a770c34f693805547d8",
+      "rollNumber": "22IT038",
+      "email": "it038@ait.ac.in",
+      "branch": "IT"
+    },
+    {
+      "studentId": "6ac53a770c34f693805547d7",
+      "rollNumber": "22IT041",
+      "email": "it041@ait.ac.in",
+      "branch": "IT"
+    },
+    {
+      "studentId": "6ac53a770c34f693805547db",
+      "rollNumber": "22IT042",
+      "email": "it042@ait.ac.in",
+      "branch": "IT"
+    },
+    {
+      "studentId": "6ac53a770c34f693805547f9",
+      "rollNumber": "22IT045",
+      "email": "it045@ait.ac.in",
+      "branch": "IT"
+    },
+    {
+      "studentId": "6ac53a770c34f693805547cf",
+      "rollNumber": "22IT046",
+      "email": "it046@ait.ac.in",
+      "branch": "IT"
+    },
+    {
+      "studentId": "6ac53a770c34f693805547ff",
+      "rollNumber": "22IT048",
+      "email": "it048@ait.ac.in",
+      "branch": "IT"
+    },
+    {
+      "studentId": "6ac53a770c34f693805547a1",
+      "rollNumber": "22IT050",
+      "email": "it050@ait.ac.in",
+      "branch": "IT"
+    },
+    {
+      "studentId": "6ac53a770c34f693805547c7",
+      "rollNumber": "22IT058",
+      "email": "it058@ait.ac.in",
+      "branch": "IT"
+    },
+    {
+      "studentId": "6ac53a770c34f693805547c8",
+      "rollNumber": "22IT063",
+      "email": "it063@ait.ac.in",
+      "branch": "IT"
+    },
+    {
+      "studentId": "6ac53a770c34f693805547c9",
+      "rollNumber": "22IT068",
+      "email": "it068@ait.ac.in",
+      "branch": "IT"
+    },
+    {
+      "studentId": "6ac53a770c34f693805547cb",
+      "rollNumber": "22IT069",
+      "email": "it069@ait.ac.in",
+      "branch": "IT"
+    },
+    {
+      "studentId": "6ac53a770c34f693805547b1",
+      "rollNumber": "22IT083",
+      "email": "it083@ait.ac.in",
+      "branch": "IT"
+    },
+    {
+      "studentId": "6ac53a770c34f693805547c0",
+      "rollNumber": "22IT088",
+      "email": "it088@ait.ac.in",
+      "branch": "IT"
+    },
+    {
+      "studentId": "6ac53a770c34f693805547f5",
+      "rollNumber": "22IT091",
+      "email": "it091@ait.ac.in",
+      "branch": "IT"
+    },
+    {
+      "studentId": "6ac53a770c34f693805547d9",
+      "rollNumber": "22IT092",
+      "email": "it092@ait.ac.in",
+      "branch": "IT"
+    },
+    {
+      "studentId": "6ac53a770c34f693805547a6",
+      "rollNumber": "22IT095",
+      "email": "it095@ait.ac.in",
+      "branch": "IT"
+    },
+    {
+      "studentId": "6ac53a770c34f693805547f8",
+      "rollNumber": "22IT100",
+      "email": "it100@ait.ac.in",
+      "branch": "IT"
+    },
+    {
+      "studentId": "6ac53a770c34f693805547d6",
+      "rollNumber": "22IT101",
+      "email": "it101@ait.ac.in",
+      "branch": "IT"
+    },
+    {
+      "studentId": "6ac53a770c34f693805547da",
+      "rollNumber": "22IT111",
+      "email": "it111@ait.ac.in",
+      "branch": "IT"
+    },
+    {
+      "studentId": "6ac53a770c34f693805547e7",
+      "rollNumber": "22IT114",
+      "email": "it114@ait.ac.in",
+      "branch": "IT"
+    },
+    {
+      "studentId": "6ac53a770c34f6938055481f",
+      "rollNumber": "22ME007",
+      "email": "me007@ait.ac.in",
+      "branch": "Mechanical"
+    },
+    {
+      "studentId": "6ac53a770c34f6938055484e",
+      "rollNumber": "22ME018",
+      "email": "me018@ait.ac.in",
+      "branch": "Mechanical"
+    },
+    {
+      "studentId": "6ac53a770c34f69380554818",
+      "rollNumber": "22ME022",
+      "email": "me022@ait.ac.in",
+      "branch": "Mechanical"
+    },
+    {
+      "studentId": "6ac53a770c34f69380554856",
+      "rollNumber": "22ME024",
+      "email": "me024@ait.ac.in",
+      "branch": "Mechanical"
+    },
+    {
+      "studentId": "6ac53a770c34f69380554820",
+      "rollNumber": "22ME038",
+      "email": "me038@ait.ac.in",
+      "branch": "Mechanical"
+    },
+    {
+      "studentId": "6ac53a770c34f69380554811",
+      "rollNumber": "22ME048",
+      "email": "me048@ait.ac.in",
+      "branch": "Mechanical"
+    },
+    {
+      "studentId": "6ac53a770c34f69380554857",
+      "rollNumber": "22ME062",
+      "email": "me062@ait.ac.in",
+      "branch": "Mechanical"
+    },
+    {
+      "studentId": "6ac53a770c34f6938055482f",
+      "rollNumber": "22ME076",
+      "email": "me076@ait.ac.in",
+      "branch": "Mechanical"
+    },
+    {
+      "studentId": "6ac53a770c34f6938055480c",
+      "rollNumber": "22ME085",
+      "email": "me085@ait.ac.in",
+      "branch": "Mechanical"
+    },
+    {
+      "studentId": "6ac53a770c34f69380554830",
+      "rollNumber": "22ME093",
+      "email": "me093@ait.ac.in",
+      "branch": "Mechanical"
+    },
+    {
+      "studentId": "6ac53a770c34f69380554845",
+      "rollNumber": "22ME100",
+      "email": "me100@ait.ac.in",
+      "branch": "Mechanical"
+    },
+    {
+      "studentId": "6ac53a770c34f693805548e5",
+      "rollNumber": "22MI001",
+      "email": "mi001@ait.ac.in",
+      "branch": "Mining"
+    },
+    {
+      "studentId": "6ac53a770c34f693805548f5",
+      "rollNumber": "22MI008",
+      "email": "mi008@ait.ac.in",
+      "branch": "Mining"
+    },
+    {
+      "studentId": "6ac53a770c34f693805548cc",
+      "rollNumber": "22MI013",
+      "email": "mi013@ait.ac.in",
+      "branch": "Mining"
+    },
+    {
+      "studentId": "6ac53a770c34f693805548d3",
+      "rollNumber": "22MI016",
+      "email": "mi016@ait.ac.in",
+      "branch": "Mining"
+    },
+    {
+      "studentId": "6ac53a770c34f693805548c5",
+      "rollNumber": "22MI017",
+      "email": "mi017@ait.ac.in",
+      "branch": "Mining"
+    },
+    {
+      "studentId": "6ac53a770c34f693805548f2",
+      "rollNumber": "22MI019",
+      "email": "mi019@ait.ac.in",
+      "branch": "Mining"
+    },
+    {
+      "studentId": "6ac53a770c34f693805548e1",
+      "rollNumber": "22MI022",
+      "email": "mi022@ait.ac.in",
+      "branch": "Mining"
+    },
+    {
+      "studentId": "6ac53a770c34f693805548e4",
+      "rollNumber": "22MI023",
+      "email": "mi023@ait.ac.in",
+      "branch": "Mining"
+    },
+    {
+      "studentId": "6ac53a770c34f693805548ed",
+      "rollNumber": "22MI031",
+      "email": "mi031@ait.ac.in",
+      "branch": "Mining"
+    },
+    {
+      "studentId": "6ac53a770c34f693805548dd",
+      "rollNumber": "22MI033",
+      "email": "mi033@ait.ac.in",
+      "branch": "Mining"
+    },
+    {
+      "studentId": "6ac53a770c34f693805548f1",
+      "rollNumber": "22MI042",
+      "email": "mi042@ait.ac.in",
+      "branch": "Mining"
+    },
+    {
+      "studentId": "6ac53a770c34f693805548e7",
+      "rollNumber": "22MI044",
+      "email": "mi044@ait.ac.in",
+      "branch": "Mining"
+    },
+    {
+      "studentId": "6ac53a770c34f69380554905",
+      "rollNumber": "22MI045",
+      "email": "mi045@ait.ac.in",
+      "branch": "Mining"
+    },
+    {
+      "studentId": "6ac53a770c34f693805548f0",
+      "rollNumber": "22MI046",
+      "email": "mi046@ait.ac.in",
+      "branch": "Mining"
+    },
+    {
+      "studentId": "6ac53a770c34f693805548fe",
+      "rollNumber": "22MI049",
+      "email": "mi049@ait.ac.in",
+      "branch": "Mining"
+    },
+    {
+      "studentId": "6ac53a770c34f693805548d1",
+      "rollNumber": "22MI060",
+      "email": "mi060@ait.ac.in",
+      "branch": "Mining"
+    },
+    {
+      "studentId": "6ac53a770c34f693805548d4",
+      "rollNumber": "22MI066",
+      "email": "mi066@ait.ac.in",
+      "branch": "Mining"
+    },
+    {
+      "studentId": "6ac53a770c34f693805548ce",
+      "rollNumber": "22MI067",
+      "email": "mi067@ait.ac.in",
+      "branch": "Mining"
+    },
+    {
+      "studentId": "6ac53a770c34f693805548ca",
+      "rollNumber": "22MI070",
+      "email": "mi070@ait.ac.in",
+      "branch": "Mining"
+    },
+    {
+      "studentId": "6ac53a770c34f693805548f6",
+      "rollNumber": "22MI077",
+      "email": "mi077@ait.ac.in",
+      "branch": "Mining"
+    },
+    {
+      "studentId": "6ac53a770c34f693805548c8",
+      "rollNumber": "22MI078",
+      "email": "mi078@ait.ac.in",
+      "branch": "Mining"
+    },
+    {
+      "studentId": "6ac53a770c34f693805548fb",
+      "rollNumber": "22MI079",
+      "email": "mi079@ait.ac.in",
+      "branch": "Mining"
+    },
+    {
+      "studentId": "6ac53a770c34f693805548bf",
+      "rollNumber": "22MI083",
+      "email": "mi083@ait.ac.in",
+      "branch": "Mining"
+    },
+    {
+      "studentId": "6ac53a770c34f693805548ba",
+      "rollNumber": "22MI085",
+      "email": "mi085@ait.ac.in",
+      "branch": "Mining"
+    },
+    {
+      "studentId": "6ac53a770c34f693805548ef",
+      "rollNumber": "22MI087",
+      "email": "mi087@ait.ac.in",
+      "branch": "Mining"
+    },
+    {
+      "studentId": "6ac53a770c34f693805548d0",
+      "rollNumber": "22MI091",
+      "email": "mi091@ait.ac.in",
+      "branch": "Mining"
+    },
+    {
+      "studentId": "6ac53a770c34f693805548cf",
+      "rollNumber": "22MI094",
+      "email": "mi094@ait.ac.in",
+      "branch": "Mining"
+    },
+    {
+      "studentId": "6ac53a770c34f69380554896",
+      "rollNumber": "22MME004",
+      "email": "mme004@ait.ac.in",
+      "branch": "Metallurgical"
+    },
+    {
+      "studentId": "6ac53a770c34f6938055486f",
+      "rollNumber": "22MME008",
+      "email": "mme008@ait.ac.in",
+      "branch": "Metallurgical"
+    },
+    {
+      "studentId": "6ac53a770c34f69380554877",
+      "rollNumber": "22MME011",
+      "email": "mme011@ait.ac.in",
+      "branch": "Metallurgical"
+    },
+    {
+      "studentId": "6ac53a770c34f69380554874",
+      "rollNumber": "22MME014",
+      "email": "mme014@ait.ac.in",
+      "branch": "Metallurgical"
+    },
+    {
+      "studentId": "6ac53a770c34f6938055489d",
+      "rollNumber": "22MME017",
+      "email": "mme017@ait.ac.in",
+      "branch": "Metallurgical"
+    },
+    {
+      "studentId": "6ac53a770c34f69380554881",
+      "rollNumber": "22MME018",
+      "email": "mme018@ait.ac.in",
+      "branch": "Metallurgical"
+    },
+    {
+      "studentId": "6ac53a770c34f693805548b6",
+      "rollNumber": "22MME019",
+      "email": "mme019@ait.ac.in",
+      "branch": "Metallurgical"
+    },
+    {
+      "studentId": "6ac53a770c34f69380554899",
+      "rollNumber": "22MME021",
+      "email": "mme021@ait.ac.in",
+      "branch": "Metallurgical"
+    },
+    {
+      "studentId": "6ac53a770c34f6938055486c",
+      "rollNumber": "22MME022",
+      "email": "mme022@ait.ac.in",
+      "branch": "Metallurgical"
+    },
+    {
+      "studentId": "6ac53a770c34f6938055486d",
+      "rollNumber": "22MME033",
+      "email": "mme033@ait.ac.in",
+      "branch": "Metallurgical"
+    },
+    {
+      "studentId": "6ac53a770c34f693805548a7",
+      "rollNumber": "22MME043",
+      "email": "mme043@ait.ac.in",
+      "branch": "Metallurgical"
+    },
+    {
+      "studentId": "6ac53a770c34f693805548b1",
+      "rollNumber": "22MME048",
+      "email": "mme048@ait.ac.in",
+      "branch": "Metallurgical"
+    },
+    {
+      "studentId": "6ac53a770c34f69380554863",
+      "rollNumber": "22MME050",
+      "email": "mme050@ait.ac.in",
+      "branch": "Metallurgical"
+    },
+    {
+      "studentId": "6ac53a770c34f6938055489e",
+      "rollNumber": "22MME059",
+      "email": "mme059@ait.ac.in",
+      "branch": "Metallurgical"
+    },
+    {
+      "studentId": "6ac53a770c34f6938055488a",
+      "rollNumber": "22MME061",
+      "email": "mme061@ait.ac.in",
+      "branch": "Metallurgical"
+    },
+    {
+      "studentId": "6ac53a770c34f693805548ab",
+      "rollNumber": "22MME077",
+      "email": "mme077@ait.ac.in",
+      "branch": "Metallurgical"
+    },
+    {
+      "studentId": "6ac53a770c34f693805548ac",
+      "rollNumber": "22MME085",
+      "email": "mme085@ait.ac.in",
+      "branch": "Metallurgical"
+    },
+    {
+      "studentId": "6ac53a770c34f69380554867",
+      "rollNumber": "22MME089",
+      "email": "mme089@ait.ac.in",
+      "branch": "Metallurgical"
+    },
+    {
+      "studentId": "6ac53a770c34f6938055488d",
+      "rollNumber": "22MME095",
+      "email": "mme095@ait.ac.in",
+      "branch": "Metallurgical"
+    },
+    {
+      "studentId": "6ac53a770c34f693805548b0",
+      "rollNumber": "22MME097",
+      "email": "mme097@ait.ac.in",
+      "branch": "Metallurgical"
+    },
+    {
+      "studentId": "6ac53a770c34f69380554861",
+      "rollNumber": "22MME099",
+      "email": "mme099@ait.ac.in",
+      "branch": "Metallurgical"
+    },
+    {
+      "studentId": "6ac53a770c34f6938055487a",
+      "rollNumber": "22MME105",
+      "email": "mme105@ait.ac.in",
+      "branch": "Metallurgical"
+    }
+  ]
+}

@@ -1,0 +1,4498 @@
+{
+  "seedKey": "NITR-PLACEMENT-2025-26",
+  "status": "plan_only",
+  "students": {
+    "total": 844,
+    "placed": [
+      "bm030@ait.ac.in",
+      "bm035@ait.ac.in",
+      "bm013@ait.ac.in",
+      "bm008@ait.ac.in",
+      "bm007@ait.ac.in",
+      "bm025@ait.ac.in",
+      "bm016@ait.ac.in",
+      "bm012@ait.ac.in",
+      "bm018@ait.ac.in",
+      "bt002@ait.ac.in",
+      "bt032@ait.ac.in",
+      "bt005@ait.ac.in",
+      "bt035@ait.ac.in",
+      "bt012@ait.ac.in",
+      "bt016@ait.ac.in",
+      "bt026@ait.ac.in",
+      "bt039@ait.ac.in",
+      "bt014@ait.ac.in",
+      "bt003@ait.ac.in",
+      "bt025@ait.ac.in",
+      "bt027@ait.ac.in",
+      "bt020@ait.ac.in",
+      "bt015@ait.ac.in",
+      "bt036@ait.ac.in",
+      "bt028@ait.ac.in",
+      "bt017@ait.ac.in",
+      "bt024@ait.ac.in",
+      "bt029@ait.ac.in",
+      "bt034@ait.ac.in",
+      "bt033@ait.ac.in",
+      "ch064@ait.ac.in",
+      "ch051@ait.ac.in",
+      "ch039@ait.ac.in",
+      "ch030@ait.ac.in",
+      "ch009@ait.ac.in",
+      "ch007@ait.ac.in",
+      "ch059@ait.ac.in",
+      "ch034@ait.ac.in",
+      "ch020@ait.ac.in",
+      "ch014@ait.ac.in",
+      "ch035@ait.ac.in",
+      "ch027@ait.ac.in",
+      "ch054@ait.ac.in",
+      "ch004@ait.ac.in",
+      "ch037@ait.ac.in",
+      "ch036@ait.ac.in",
+      "ch001@ait.ac.in",
+      "ch062@ait.ac.in",
+      "ch031@ait.ac.in",
+      "ch003@ait.ac.in",
+      "ch050@ait.ac.in",
+      "ch041@ait.ac.in",
+      "ch026@ait.ac.in",
+      "ch056@ait.ac.in",
+      "ch006@ait.ac.in",
+      "ch055@ait.ac.in",
+      "ch046@ait.ac.in",
+      "ch060@ait.ac.in",
+      "ch044@ait.ac.in",
+      "ch005@ait.ac.in",
+      "ch016@ait.ac.in",
+      "ch019@ait.ac.in",
+      "ch038@ait.ac.in",
+      "ch065@ait.ac.in",
+      "ch066@ait.ac.in",
+      "ch029@ait.ac.in",
+      "ch042@ait.ac.in",
+      "ch025@ait.ac.in",
+      "ch012@ait.ac.in",
+      "ch068@ait.ac.in",
+      "ch058@ait.ac.in",
+      "ch052@ait.ac.in",
+      "ch045@ait.ac.in",
+      "ch013@ait.ac.in",
+      "ch040@ait.ac.in",
+      "ch057@ait.ac.in",
+      "ch032@ait.ac.in",
+      "ch061@ait.ac.in",
+      "ch022@ait.ac.in",
+      "ch008@ait.ac.in",
+      "ch033@ait.ac.in",
+      "ch048@ait.ac.in",
+      "ch015@ait.ac.in",
+      "ch049@ait.ac.in",
+      "ch023@ait.ac.in",
+      "ce014@ait.ac.in",
+      "ce024@ait.ac.in",
+      "ce057@ait.ac.in",
+      "ce022@ait.ac.in",
+      "ce006@ait.ac.in",
+      "ce010@ait.ac.in",
+      "ce049@ait.ac.in",
+      "ce044@ait.ac.in",
+      "ce066@ait.ac.in",
+      "ce035@ait.ac.in",
+      "ce062@ait.ac.in",
+      "ce064@ait.ac.in",
+      "ce041@ait.ac.in",
+      "ce042@ait.ac.in",
+      "ce019@ait.ac.in",
+      "ce026@ait.ac.in",
+      "ce046@ait.ac.in",
+      "ce053@ait.ac.in",
+      "ce025@ait.ac.in",
+      "ce067@ait.ac.in",
+      "ce013@ait.ac.in",
+      "ce008@ait.ac.in",
+      "ce032@ait.ac.in",
+      "ce039@ait.ac.in",
+      "ce023@ait.ac.in",
+      "ce003@ait.ac.in",
+      "ce061@ait.ac.in",
+      "ce016@ait.ac.in",
+      "ce045@ait.ac.in",
+      "ce030@ait.ac.in",
+      "ce009@ait.ac.in",
+      "ce055@ait.ac.in",
+      "ce051@ait.ac.in",
+      "ce012@ait.ac.in",
+      "ce031@ait.ac.in",
+      "ce033@ait.ac.in",
+      "ce060@ait.ac.in",
+      "ce037@ait.ac.in",
+      "ce052@ait.ac.in",
+      "ce001@ait.ac.in",
+      "ce027@ait.ac.in",
+      "ce011@ait.ac.in",
+      "ce018@ait.ac.in",
+      "ce063@ait.ac.in",
+      "ce048@ait.ac.in",
+      "ce015@ait.ac.in",
+      "ce017@ait.ac.in",
+      "ce047@ait.ac.in",
+      "ce020@ait.ac.in",
+      "ce038@ait.ac.in",
+      "ce040@ait.ac.in",
+      "ce058@ait.ac.in",
+      "ce004@ait.ac.in",
+      "ce007@ait.ac.in",
+      "ce034@ait.ac.in",
+      "ce005@ait.ac.in",
+      "cse115@ait.ac.in",
+      "cse066@ait.ac.in",
+      "cse085@ait.ac.in",
+      "cse102@ait.ac.in",
+      "cse103@ait.ac.in",
+      "cse050@ait.ac.in",
+      "cse020@ait.ac.in",
+      "cse029@ait.ac.in",
+      "cse073@ait.ac.in",
+      "cse042@ait.ac.in",
+      "cse110@ait.ac.in",
+      "cse034@ait.ac.in",
+      "cse025@ait.ac.in",
+      "cse056@ait.ac.in",
+      "cse022@ait.ac.in",
+      "cse070@ait.ac.in",
+      "cse098@ait.ac.in",
+      "cse043@ait.ac.in",
+      "cse064@ait.ac.in",
+      "cse111@ait.ac.in",
+      "cse001@ait.ac.in",
+      "cse009@ait.ac.in",
+      "cse051@ait.ac.in",
+      "cse113@ait.ac.in",
+      "cse099@ait.ac.in",
+      "cse091@ait.ac.in",
+      "cse008@ait.ac.in",
+      "cse100@ait.ac.in",
+      "cse006@ait.ac.in",
+      "cse016@ait.ac.in",
+      "cse107@ait.ac.in",
+      "cse093@ait.ac.in",
+      "cse032@ait.ac.in",
+      "cse035@ait.ac.in",
+      "cse061@ait.ac.in",
+      "cse036@ait.ac.in",
+      "cse095@ait.ac.in",
+      "cse109@ait.ac.in",
+      "cse087@ait.ac.in",
+      "cse018@ait.ac.in",
+      "cse114@ait.ac.in",
+      "cse038@ait.ac.in",
+      "cse067@ait.ac.in",
+      "cse024@ait.ac.in",
+      "cse047@ait.ac.in",
+      "cse028@ait.ac.in",
+      "cse076@ait.ac.in",
+      "cse054@ait.ac.in",
+      "cse112@ait.ac.in",
+      "cse041@ait.ac.in",
+      "cse045@ait.ac.in",
+      "cse030@ait.ac.in",
+      "cse075@ait.ac.in",
+      "cse096@ait.ac.in",
+      "cse106@ait.ac.in",
+      "cse072@ait.ac.in",
+      "cse053@ait.ac.in",
+      "cse027@ait.ac.in",
+      "cse002@ait.ac.in",
+      "cse005@ait.ac.in",
+      "cse077@ait.ac.in",
+      "cse104@ait.ac.in",
+      "cse017@ait.ac.in",
+      "cse049@ait.ac.in",
+      "cse089@ait.ac.in",
+      "cse015@ait.ac.in",
+      "cse004@ait.ac.in",
+      "cse040@ait.ac.in",
+      "cse033@ait.ac.in",
+      "cse094@ait.ac.in",
+      "ee079@ait.ac.in",
+      "ee047@ait.ac.in",
+      "ee056@ait.ac.in",
+      "ee004@ait.ac.in",
+      "ee070@ait.ac.in",
+      "ee051@ait.ac.in",
+      "ee040@ait.ac.in",
+      "ee059@ait.ac.in",
+      "ee038@ait.ac.in",
+      "ee109@ait.ac.in",
+      "ee082@ait.ac.in",
+      "ee069@ait.ac.in",
+      "ee067@ait.ac.in",
+      "ee107@ait.ac.in",
+      "ee113@ait.ac.in",
+      "ee036@ait.ac.in",
+      "ee035@ait.ac.in",
+      "ee078@ait.ac.in",
+      "ee063@ait.ac.in",
+      "ee074@ait.ac.in",
+      "ee021@ait.ac.in",
+      "ee094@ait.ac.in",
+      "ee112@ait.ac.in",
+      "ee050@ait.ac.in",
+      "ee048@ait.ac.in",
+      "ee016@ait.ac.in",
+      "ee110@ait.ac.in",
+      "ee041@ait.ac.in",
+      "ee008@ait.ac.in",
+      "ee053@ait.ac.in",
+      "ee037@ait.ac.in",
+      "ee091@ait.ac.in",
+      "ee086@ait.ac.in",
+      "ee002@ait.ac.in",
+      "ee099@ait.ac.in",
+      "ee017@ait.ac.in",
+      "ee042@ait.ac.in",
+      "ee033@ait.ac.in",
+      "ee058@ait.ac.in",
+      "ee102@ait.ac.in",
+      "ee011@ait.ac.in",
+      "ee062@ait.ac.in",
+      "ee111@ait.ac.in",
+      "ee010@ait.ac.in",
+      "ee068@ait.ac.in",
+      "ee009@ait.ac.in",
+      "ee080@ait.ac.in",
+      "ee026@ait.ac.in",
+      "ee031@ait.ac.in",
+      "ee061@ait.ac.in",
+      "ee093@ait.ac.in",
+      "ee115@ait.ac.in",
+      "ee066@ait.ac.in",
+      "ee032@ait.ac.in",
+      "ee089@ait.ac.in",
+      "ee103@ait.ac.in",
+      "ee055@ait.ac.in",
+      "ee014@ait.ac.in",
+      "ee098@ait.ac.in",
+      "ee045@ait.ac.in",
+      "ee034@ait.ac.in",
+      "ee054@ait.ac.in",
+      "ee019@ait.ac.in",
+      "ee005@ait.ac.in",
+      "ee092@ait.ac.in",
+      "ee084@ait.ac.in",
+      "ee052@ait.ac.in",
+      "ee027@ait.ac.in",
+      "ee101@ait.ac.in",
+      "ee001@ait.ac.in",
+      "ee022@ait.ac.in",
+      "ee003@ait.ac.in",
+      "ee075@ait.ac.in",
+      "ee049@ait.ac.in",
+      "ee100@ait.ac.in",
+      "ee060@ait.ac.in",
+      "ee018@ait.ac.in",
+      "ee025@ait.ac.in",
+      "ee096@ait.ac.in",
+      "ee072@ait.ac.in",
+      "ee104@ait.ac.in",
+      "ee073@ait.ac.in",
+      "ee106@ait.ac.in",
+      "ee024@ait.ac.in",
+      "ee076@ait.ac.in",
+      "ee083@ait.ac.in",
+      "ee081@ait.ac.in",
+      "ee020@ait.ac.in",
+      "ee064@ait.ac.in",
+      "ee006@ait.ac.in",
+      "ece114@ait.ac.in",
+      "ece088@ait.ac.in",
+      "ece041@ait.ac.in",
+      "ece078@ait.ac.in",
+      "ece104@ait.ac.in",
+      "ece077@ait.ac.in",
+      "ece023@ait.ac.in",
+      "ece049@ait.ac.in",
+      "ece095@ait.ac.in",
+      "ece112@ait.ac.in",
+      "ece075@ait.ac.in",
+      "ece005@ait.ac.in",
+      "ece080@ait.ac.in",
+      "ece004@ait.ac.in",
+      "ece073@ait.ac.in",
+      "ece058@ait.ac.in",
+      "ece014@ait.ac.in",
+      "ece001@ait.ac.in",
+      "ece089@ait.ac.in",
+      "ece105@ait.ac.in",
+      "ece109@ait.ac.in",
+      "ece107@ait.ac.in",
+      "ece008@ait.ac.in",
+      "ece015@ait.ac.in",
+      "ece032@ait.ac.in",
+      "ece101@ait.ac.in",
+      "ece098@ait.ac.in",
+      "ece035@ait.ac.in",
+      "ece070@ait.ac.in",
+      "ece036@ait.ac.in",
+      "ece086@ait.ac.in",
+      "ece044@ait.ac.in",
+      "ece047@ait.ac.in",
+      "ece097@ait.ac.in",
+      "ece009@ait.ac.in",
+      "ece002@ait.ac.in",
+      "ece003@ait.ac.in",
+      "ece022@ait.ac.in",
+      "ece020@ait.ac.in",
+      "ece011@ait.ac.in",
+      "ece084@ait.ac.in",
+      "ece029@ait.ac.in",
+      "ece046@ait.ac.in",
+      "ece013@ait.ac.in",
+      "ece053@ait.ac.in",
+      "ece083@ait.ac.in",
+      "ece092@ait.ac.in",
+      "ece090@ait.ac.in",
+      "ece079@ait.ac.in",
+      "ece024@ait.ac.in",
+      "it097@ait.ac.in",
+      "it050@ait.ac.in",
+      "it062@ait.ac.in",
+      "it032@ait.ac.in",
+      "it052@ait.ac.in",
+      "it107@ait.ac.in",
+      "it095@ait.ac.in",
+      "it002@ait.ac.in",
+      "it047@ait.ac.in",
+      "it074@ait.ac.in",
+      "it067@ait.ac.in",
+      "it017@ait.ac.in",
+      "it087@ait.ac.in",
+      "it028@ait.ac.in",
+      "it037@ait.ac.in",
+      "it054@ait.ac.in",
+      "it040@ait.ac.in",
+      "it083@ait.ac.in",
+      "it043@ait.ac.in",
+      "it022@ait.ac.in",
+      "it064@ait.ac.in",
+      "it007@ait.ac.in",
+      "it011@ait.ac.in",
+      "it070@ait.ac.in",
+      "it072@ait.ac.in",
+      "it109@ait.ac.in",
+      "it001@ait.ac.in",
+      "it094@ait.ac.in",
+      "it104@ait.ac.in",
+      "it006@ait.ac.in",
+      "it034@ait.ac.in",
+      "it076@ait.ac.in",
+      "it088@ait.ac.in",
+      "it055@ait.ac.in",
+      "it110@ait.ac.in",
+      "it044@ait.ac.in",
+      "it082@ait.ac.in",
+      "it016@ait.ac.in",
+      "it085@ait.ac.in",
+      "it058@ait.ac.in",
+      "it063@ait.ac.in",
+      "it068@ait.ac.in",
+      "it004@ait.ac.in",
+      "it069@ait.ac.in",
+      "it081@ait.ac.in",
+      "it077@ait.ac.in",
+      "it010@ait.ac.in",
+      "it046@ait.ac.in",
+      "it061@ait.ac.in",
+      "it049@ait.ac.in",
+      "it098@ait.ac.in",
+      "it031@ait.ac.in",
+      "it015@ait.ac.in",
+      "it093@ait.ac.in",
+      "it101@ait.ac.in",
+      "it041@ait.ac.in",
+      "it038@ait.ac.in",
+      "it092@ait.ac.in",
+      "it111@ait.ac.in",
+      "it042@ait.ac.in",
+      "it078@ait.ac.in",
+      "it059@ait.ac.in",
+      "it019@ait.ac.in",
+      "it089@ait.ac.in",
+      "it084@ait.ac.in",
+      "it080@ait.ac.in",
+      "it009@ait.ac.in",
+      "it023@ait.ac.in",
+      "it053@ait.ac.in",
+      "it102@ait.ac.in",
+      "it105@ait.ac.in",
+      "it114@ait.ac.in",
+      "it026@ait.ac.in",
+      "it106@ait.ac.in",
+      "it018@ait.ac.in",
+      "it003@ait.ac.in",
+      "it065@ait.ac.in",
+      "me109@ait.ac.in",
+      "me027@ait.ac.in",
+      "me084@ait.ac.in",
+      "me085@ait.ac.in",
+      "me053@ait.ac.in",
+      "me099@ait.ac.in",
+      "me067@ait.ac.in",
+      "me104@ait.ac.in",
+      "me048@ait.ac.in",
+      "me012@ait.ac.in",
+      "me083@ait.ac.in",
+      "me098@ait.ac.in",
+      "me008@ait.ac.in",
+      "me070@ait.ac.in",
+      "me025@ait.ac.in",
+      "me022@ait.ac.in",
+      "me030@ait.ac.in",
+      "me032@ait.ac.in",
+      "me043@ait.ac.in",
+      "me078@ait.ac.in",
+      "me052@ait.ac.in",
+      "me003@ait.ac.in",
+      "me007@ait.ac.in",
+      "me038@ait.ac.in",
+      "me073@ait.ac.in",
+      "me095@ait.ac.in",
+      "me006@ait.ac.in",
+      "me036@ait.ac.in",
+      "me074@ait.ac.in",
+      "me040@ait.ac.in",
+      "me057@ait.ac.in",
+      "me108@ait.ac.in",
+      "me081@ait.ac.in",
+      "me035@ait.ac.in",
+      "me016@ait.ac.in",
+      "me005@ait.ac.in",
+      "me033@ait.ac.in",
+      "me087@ait.ac.in",
+      "me076@ait.ac.in",
+      "me093@ait.ac.in",
+      "me094@ait.ac.in",
+      "me021@ait.ac.in",
+      "me066@ait.ac.in",
+      "me010@ait.ac.in",
+      "me049@ait.ac.in",
+      "me013@ait.ac.in",
+      "me011@ait.ac.in",
+      "me042@ait.ac.in",
+      "me097@ait.ac.in",
+      "me079@ait.ac.in",
+      "me001@ait.ac.in",
+      "me019@ait.ac.in",
+      "me055@ait.ac.in",
+      "me080@ait.ac.in",
+      "me002@ait.ac.in",
+      "me063@ait.ac.in",
+      "me017@ait.ac.in",
+      "me096@ait.ac.in",
+      "me071@ait.ac.in",
+      "me037@ait.ac.in",
+      "me100@ait.ac.in",
+      "me089@ait.ac.in",
+      "me039@ait.ac.in",
+      "me054@ait.ac.in",
+      "me028@ait.ac.in",
+      "me059@ait.ac.in",
+      "me046@ait.ac.in",
+      "me023@ait.ac.in",
+      "me020@ait.ac.in",
+      "me018@ait.ac.in",
+      "me015@ait.ac.in",
+      "me092@ait.ac.in",
+      "me086@ait.ac.in",
+      "me061@ait.ac.in",
+      "me045@ait.ac.in",
+      "me034@ait.ac.in",
+      "mme020@ait.ac.in",
+      "mme099@ait.ac.in",
+      "mme030@ait.ac.in",
+      "mme050@ait.ac.in",
+      "mme060@ait.ac.in",
+      "mme049@ait.ac.in",
+      "mme055@ait.ac.in",
+      "mme089@ait.ac.in",
+      "mme087@ait.ac.in",
+      "mme041@ait.ac.in",
+      "mme101@ait.ac.in",
+      "mme092@ait.ac.in",
+      "mme022@ait.ac.in",
+      "mme033@ait.ac.in",
+      "mme088@ait.ac.in",
+      "mme008@ait.ac.in",
+      "mme098@ait.ac.in",
+      "mme025@ait.ac.in",
+      "mme072@ait.ac.in",
+      "mme045@ait.ac.in",
+      "mme014@ait.ac.in",
+      "mme007@ait.ac.in",
+      "mme107@ait.ac.in",
+      "mme011@ait.ac.in",
+      "mme028@ait.ac.in",
+      "mme006@ait.ac.in",
+      "mme105@ait.ac.in",
+      "mme054@ait.ac.in",
+      "mme016@ait.ac.in",
+      "mme067@ait.ac.in",
+      "mme073@ait.ac.in",
+      "mme081@ait.ac.in",
+      "mme079@ait.ac.in",
+      "mme018@ait.ac.in",
+      "mme086@ait.ac.in",
+      "mme074@ait.ac.in",
+      "mme065@ait.ac.in",
+      "mme070@ait.ac.in",
+      "mme052@ait.ac.in",
+      "mme093@ait.ac.in",
+      "mme108@ait.ac.in",
+      "mme051@ait.ac.in",
+      "mme061@ait.ac.in",
+      "mme083@ait.ac.in",
+      "mme039@ait.ac.in",
+      "mme095@ait.ac.in",
+      "mme047@ait.ac.in",
+      "mme042@ait.ac.in",
+      "mme066@ait.ac.in",
+      "mme071@ait.ac.in",
+      "mme063@ait.ac.in",
+      "mme100@ait.ac.in",
+      "mme040@ait.ac.in",
+      "mme029@ait.ac.in",
+      "mme004@ait.ac.in",
+      "mme096@ait.ac.in",
+      "mme005@ait.ac.in",
+      "mme021@ait.ac.in",
+      "mme076@ait.ac.in",
+      "mme056@ait.ac.in",
+      "mme002@ait.ac.in",
+      "mme017@ait.ac.in",
+      "mme059@ait.ac.in",
+      "mme102@ait.ac.in",
+      "mme103@ait.ac.in",
+      "mme009@ait.ac.in",
+      "mme044@ait.ac.in",
+      "mme064@ait.ac.in",
+      "mi085@ait.ac.in",
+      "mi043@ait.ac.in",
+      "mi003@ait.ac.in",
+      "mi056@ait.ac.in",
+      "mi055@ait.ac.in",
+      "mi083@ait.ac.in",
+      "mi035@ait.ac.in",
+      "mi093@ait.ac.in",
+      "mi036@ait.ac.in",
+      "mi014@ait.ac.in",
+      "mi024@ait.ac.in",
+      "mi017@ait.ac.in",
+      "mi092@ait.ac.in",
+      "mi059@ait.ac.in",
+      "mi078@ait.ac.in",
+      "mi081@ait.ac.in",
+      "mi070@ait.ac.in",
+      "mi089@ait.ac.in",
+      "mi013@ait.ac.in",
+      "mi072@ait.ac.in",
+      "mi067@ait.ac.in",
+      "mi094@ait.ac.in",
+      "mi091@ait.ac.in",
+      "mi060@ait.ac.in",
+      "mi068@ait.ac.in",
+      "mi016@ait.ac.in",
+      "mi066@ait.ac.in",
+      "mi041@ait.ac.in",
+      "mi028@ait.ac.in",
+      "mi039@ait.ac.in",
+      "mi075@ait.ac.in",
+      "mi062@ait.ac.in",
+      "mi012@ait.ac.in",
+      "mi069@ait.ac.in",
+      "mi032@ait.ac.in",
+      "mi033@ait.ac.in",
+      "mi058@ait.ac.in",
+      "mi018@ait.ac.in",
+      "mi048@ait.ac.in",
+      "mi022@ait.ac.in",
+      "mi061@ait.ac.in",
+      "mi027@ait.ac.in",
+      "mi023@ait.ac.in",
+      "mi001@ait.ac.in",
+      "mi054@ait.ac.in",
+      "mi044@ait.ac.in",
+      "mi088@ait.ac.in",
+      "mi063@ait.ac.in",
+      "mi034@ait.ac.in",
+      "mi090@ait.ac.in",
+      "mi084@ait.ac.in",
+      "mi031@ait.ac.in",
+      "mi030@ait.ac.in",
+      "mi087@ait.ac.in",
+      "mi046@ait.ac.in"
+    ],
+    "unplaced": [
+      "bm024@ait.ac.in",
+      "bm020@ait.ac.in",
+      "bm011@ait.ac.in",
+      "bm010@ait.ac.in",
+      "bm005@ait.ac.in",
+      "bm021@ait.ac.in",
+      "bm028@ait.ac.in",
+      "bm027@ait.ac.in",
+      "bm039@ait.ac.in",
+      "bm017@ait.ac.in",
+      "bm034@ait.ac.in",
+      "bm023@ait.ac.in",
+      "bm015@ait.ac.in",
+      "bm037@ait.ac.in",
+      "bm032@ait.ac.in",
+      "bm014@ait.ac.in",
+      "bm001@ait.ac.in",
+      "bm033@ait.ac.in",
+      "bm002@ait.ac.in",
+      "bm004@ait.ac.in",
+      "bm019@ait.ac.in",
+      "bm022@ait.ac.in",
+      "bm006@ait.ac.in",
+      "bt023@ait.ac.in",
+      "bt040@ait.ac.in",
+      "bt022@ait.ac.in",
+      "bt019@ait.ac.in",
+      "bt009@ait.ac.in",
+      "bt038@ait.ac.in",
+      "bt004@ait.ac.in",
+      "bt037@ait.ac.in",
+      "bt030@ait.ac.in",
+      "bt031@ait.ac.in",
+      "bt018@ait.ac.in",
+      "bt010@ait.ac.in",
+      "bt013@ait.ac.in",
+      "bt006@ait.ac.in",
+      "bt001@ait.ac.in",
+      "ch047@ait.ac.in",
+      "ch018@ait.ac.in",
+      "ch067@ait.ac.in",
+      "ch024@ait.ac.in",
+      "ch002@ait.ac.in",
+      "ch053@ait.ac.in",
+      "ch043@ait.ac.in",
+      "ch010@ait.ac.in",
+      "ce056@ait.ac.in",
+      "cse012@ait.ac.in",
+      "cse059@ait.ac.in",
+      "cse097@ait.ac.in",
+      "cse108@ait.ac.in",
+      "cse057@ait.ac.in",
+      "cse101@ait.ac.in",
+      "cse080@ait.ac.in",
+      "cse021@ait.ac.in",
+      "cse019@ait.ac.in",
+      "cse084@ait.ac.in",
+      "cse079@ait.ac.in",
+      "cse074@ait.ac.in",
+      "cse086@ait.ac.in",
+      "cse010@ait.ac.in",
+      "cse078@ait.ac.in",
+      "cse092@ait.ac.in",
+      "cse011@ait.ac.in",
+      "cse046@ait.ac.in",
+      "cse090@ait.ac.in",
+      "cse052@ait.ac.in",
+      "cse062@ait.ac.in",
+      "cse088@ait.ac.in",
+      "ee087@ait.ac.in",
+      "ee090@ait.ac.in",
+      "ee039@ait.ac.in",
+      "ee028@ait.ac.in",
+      "ee046@ait.ac.in",
+      "ee071@ait.ac.in",
+      "ee065@ait.ac.in",
+      "ee030@ait.ac.in",
+      "ee105@ait.ac.in",
+      "ee114@ait.ac.in",
+      "ece071@ait.ac.in",
+      "ece100@ait.ac.in",
+      "ece094@ait.ac.in",
+      "ece055@ait.ac.in",
+      "ece007@ait.ac.in",
+      "ece108@ait.ac.in",
+      "ece062@ait.ac.in",
+      "ece096@ait.ac.in",
+      "ece067@ait.ac.in",
+      "ece028@ait.ac.in",
+      "ece093@ait.ac.in",
+      "ece042@ait.ac.in",
+      "ece051@ait.ac.in",
+      "ece063@ait.ac.in",
+      "ece016@ait.ac.in",
+      "ece030@ait.ac.in",
+      "ece102@ait.ac.in",
+      "ece045@ait.ac.in",
+      "ece043@ait.ac.in",
+      "ece010@ait.ac.in",
+      "ece081@ait.ac.in",
+      "ece059@ait.ac.in",
+      "ece050@ait.ac.in",
+      "ece065@ait.ac.in",
+      "ece113@ait.ac.in",
+      "ece066@ait.ac.in",
+      "ece040@ait.ac.in",
+      "ece099@ait.ac.in",
+      "ece056@ait.ac.in",
+      "ece072@ait.ac.in",
+      "ece027@ait.ac.in",
+      "ece068@ait.ac.in",
+      "ece052@ait.ac.in",
+      "ece061@ait.ac.in",
+      "ece082@ait.ac.in",
+      "ece057@ait.ac.in",
+      "ece018@ait.ac.in",
+      "ece076@ait.ac.in",
+      "ece017@ait.ac.in",
+      "ece064@ait.ac.in",
+      "ece039@ait.ac.in",
+      "ece031@ait.ac.in",
+      "ece026@ait.ac.in",
+      "ece006@ait.ac.in",
+      "ece106@ait.ac.in",
+      "ece034@ait.ac.in",
+      "ece110@ait.ac.in",
+      "ece091@ait.ac.in",
+      "ece060@ait.ac.in",
+      "ece037@ait.ac.in",
+      "it005@ait.ac.in",
+      "it075@ait.ac.in",
+      "it096@ait.ac.in",
+      "it039@ait.ac.in",
+      "it073@ait.ac.in",
+      "it057@ait.ac.in",
+      "it051@ait.ac.in",
+      "it036@ait.ac.in",
+      "it091@ait.ac.in",
+      "it025@ait.ac.in",
+      "it066@ait.ac.in",
+      "it100@ait.ac.in",
+      "it045@ait.ac.in",
+      "it027@ait.ac.in",
+      "it108@ait.ac.in",
+      "it079@ait.ac.in",
+      "it033@ait.ac.in",
+      "it060@ait.ac.in",
+      "it048@ait.ac.in",
+      "it035@ait.ac.in",
+      "it112@ait.ac.in",
+      "it020@ait.ac.in",
+      "it012@ait.ac.in",
+      "it008@ait.ac.in",
+      "it071@ait.ac.in",
+      "it013@ait.ac.in",
+      "it014@ait.ac.in",
+      "it021@ait.ac.in",
+      "me050@ait.ac.in",
+      "me024@ait.ac.in",
+      "me062@ait.ac.in",
+      "me029@ait.ac.in",
+      "me064@ait.ac.in",
+      "me106@ait.ac.in",
+      "me060@ait.ac.in",
+      "me056@ait.ac.in",
+      "me026@ait.ac.in",
+      "me103@ait.ac.in",
+      "me058@ait.ac.in",
+      "mme012@ait.ac.in",
+      "mme032@ait.ac.in",
+      "mme090@ait.ac.in",
+      "mme043@ait.ac.in",
+      "mme037@ait.ac.in",
+      "mme062@ait.ac.in",
+      "mme035@ait.ac.in",
+      "mme077@ait.ac.in",
+      "mme085@ait.ac.in",
+      "mme003@ait.ac.in",
+      "mme080@ait.ac.in",
+      "mme057@ait.ac.in",
+      "mme097@ait.ac.in",
+      "mme048@ait.ac.in",
+      "mme078@ait.ac.in",
+      "mme013@ait.ac.in",
+      "mme068@ait.ac.in",
+      "mme091@ait.ac.in",
+      "mme019@ait.ac.in",
+      "mme058@ait.ac.in",
+      "mme084@ait.ac.in",
+      "mme046@ait.ac.in",
+      "mi042@ait.ac.in",
+      "mi019@ait.ac.in",
+      "mi009@ait.ac.in",
+      "mi050@ait.ac.in",
+      "mi008@ait.ac.in",
+      "mi077@ait.ac.in",
+      "mi065@ait.ac.in",
+      "mi074@ait.ac.in",
+      "mi071@ait.ac.in",
+      "mi038@ait.ac.in",
+      "mi079@ait.ac.in",
+      "mi011@ait.ac.in",
+      "mi053@ait.ac.in",
+      "mi049@ait.ac.in",
+      "mi080@ait.ac.in",
+      "mi005@ait.ac.in",
+      "mi082@ait.ac.in",
+      "mi095@ait.ac.in",
+      "mi047@ait.ac.in",
+      "mi004@ait.ac.in",
+      "mi045@ait.ac.in",
+      "mi025@ait.ac.in",
+      "mi015@ait.ac.in",
+      "mi040@ait.ac.in",
+      "mi021@ait.ac.in",
+      "mi002@ait.ac.in",
+      "mi051@ait.ac.in"
+    ]
+  },
+  "offers": [
+    {
+      "studentEmail": "bm030@ait.ac.in",
+      "branch": "Biomedical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "bm035@ait.ac.in",
+      "branch": "Biomedical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "bm013@ait.ac.in",
+      "branch": "Biomedical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "bm008@ait.ac.in",
+      "branch": "Biomedical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "bm007@ait.ac.in",
+      "branch": "Biomedical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "bm025@ait.ac.in",
+      "branch": "Biomedical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "bm016@ait.ac.in",
+      "branch": "Biomedical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "bm012@ait.ac.in",
+      "branch": "Biomedical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "bm018@ait.ac.in",
+      "branch": "Biomedical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "bt002@ait.ac.in",
+      "branch": "Biotechnology",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "bt032@ait.ac.in",
+      "branch": "Biotechnology",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "bt005@ait.ac.in",
+      "branch": "Biotechnology",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "bt035@ait.ac.in",
+      "branch": "Biotechnology",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "bt012@ait.ac.in",
+      "branch": "Biotechnology",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "bt016@ait.ac.in",
+      "branch": "Biotechnology",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "bt026@ait.ac.in",
+      "branch": "Biotechnology",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "bt039@ait.ac.in",
+      "branch": "Biotechnology",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "bt014@ait.ac.in",
+      "branch": "Biotechnology",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "bt003@ait.ac.in",
+      "branch": "Biotechnology",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "bt025@ait.ac.in",
+      "branch": "Biotechnology",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "bt027@ait.ac.in",
+      "branch": "Biotechnology",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "bt020@ait.ac.in",
+      "branch": "Biotechnology",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "bt015@ait.ac.in",
+      "branch": "Biotechnology",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "bt036@ait.ac.in",
+      "branch": "Biotechnology",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "bt028@ait.ac.in",
+      "branch": "Biotechnology",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "bt017@ait.ac.in",
+      "branch": "Biotechnology",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "bt024@ait.ac.in",
+      "branch": "Biotechnology",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "bt029@ait.ac.in",
+      "branch": "Biotechnology",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "bt034@ait.ac.in",
+      "branch": "Biotechnology",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "bt033@ait.ac.in",
+      "branch": "Biotechnology",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "bt002@ait.ac.in",
+      "branch": "Biotechnology",
+      "offerOrdinal": 2
+    },
+    {
+      "studentEmail": "bt032@ait.ac.in",
+      "branch": "Biotechnology",
+      "offerOrdinal": 2
+    },
+    {
+      "studentEmail": "bt005@ait.ac.in",
+      "branch": "Biotechnology",
+      "offerOrdinal": 2
+    },
+    {
+      "studentEmail": "ch064@ait.ac.in",
+      "branch": "Chemical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ch051@ait.ac.in",
+      "branch": "Chemical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ch039@ait.ac.in",
+      "branch": "Chemical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ch030@ait.ac.in",
+      "branch": "Chemical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ch009@ait.ac.in",
+      "branch": "Chemical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ch007@ait.ac.in",
+      "branch": "Chemical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ch059@ait.ac.in",
+      "branch": "Chemical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ch034@ait.ac.in",
+      "branch": "Chemical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ch020@ait.ac.in",
+      "branch": "Chemical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ch014@ait.ac.in",
+      "branch": "Chemical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ch035@ait.ac.in",
+      "branch": "Chemical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ch027@ait.ac.in",
+      "branch": "Chemical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ch054@ait.ac.in",
+      "branch": "Chemical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ch004@ait.ac.in",
+      "branch": "Chemical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ch037@ait.ac.in",
+      "branch": "Chemical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ch036@ait.ac.in",
+      "branch": "Chemical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ch001@ait.ac.in",
+      "branch": "Chemical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ch062@ait.ac.in",
+      "branch": "Chemical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ch031@ait.ac.in",
+      "branch": "Chemical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ch003@ait.ac.in",
+      "branch": "Chemical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ch050@ait.ac.in",
+      "branch": "Chemical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ch041@ait.ac.in",
+      "branch": "Chemical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ch026@ait.ac.in",
+      "branch": "Chemical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ch056@ait.ac.in",
+      "branch": "Chemical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ch006@ait.ac.in",
+      "branch": "Chemical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ch055@ait.ac.in",
+      "branch": "Chemical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ch046@ait.ac.in",
+      "branch": "Chemical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ch060@ait.ac.in",
+      "branch": "Chemical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ch044@ait.ac.in",
+      "branch": "Chemical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ch005@ait.ac.in",
+      "branch": "Chemical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ch016@ait.ac.in",
+      "branch": "Chemical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ch019@ait.ac.in",
+      "branch": "Chemical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ch038@ait.ac.in",
+      "branch": "Chemical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ch065@ait.ac.in",
+      "branch": "Chemical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ch066@ait.ac.in",
+      "branch": "Chemical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ch029@ait.ac.in",
+      "branch": "Chemical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ch042@ait.ac.in",
+      "branch": "Chemical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ch025@ait.ac.in",
+      "branch": "Chemical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ch012@ait.ac.in",
+      "branch": "Chemical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ch068@ait.ac.in",
+      "branch": "Chemical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ch058@ait.ac.in",
+      "branch": "Chemical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ch052@ait.ac.in",
+      "branch": "Chemical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ch045@ait.ac.in",
+      "branch": "Chemical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ch013@ait.ac.in",
+      "branch": "Chemical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ch040@ait.ac.in",
+      "branch": "Chemical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ch057@ait.ac.in",
+      "branch": "Chemical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ch032@ait.ac.in",
+      "branch": "Chemical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ch061@ait.ac.in",
+      "branch": "Chemical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ch022@ait.ac.in",
+      "branch": "Chemical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ch008@ait.ac.in",
+      "branch": "Chemical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ch033@ait.ac.in",
+      "branch": "Chemical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ch048@ait.ac.in",
+      "branch": "Chemical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ch015@ait.ac.in",
+      "branch": "Chemical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ch049@ait.ac.in",
+      "branch": "Chemical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ch023@ait.ac.in",
+      "branch": "Chemical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ch064@ait.ac.in",
+      "branch": "Chemical",
+      "offerOrdinal": 2
+    },
+    {
+      "studentEmail": "ch051@ait.ac.in",
+      "branch": "Chemical",
+      "offerOrdinal": 2
+    },
+    {
+      "studentEmail": "ch039@ait.ac.in",
+      "branch": "Chemical",
+      "offerOrdinal": 2
+    },
+    {
+      "studentEmail": "ch030@ait.ac.in",
+      "branch": "Chemical",
+      "offerOrdinal": 2
+    },
+    {
+      "studentEmail": "ch009@ait.ac.in",
+      "branch": "Chemical",
+      "offerOrdinal": 2
+    },
+    {
+      "studentEmail": "ch007@ait.ac.in",
+      "branch": "Chemical",
+      "offerOrdinal": 2
+    },
+    {
+      "studentEmail": "ch059@ait.ac.in",
+      "branch": "Chemical",
+      "offerOrdinal": 2
+    },
+    {
+      "studentEmail": "ch034@ait.ac.in",
+      "branch": "Chemical",
+      "offerOrdinal": 2
+    },
+    {
+      "studentEmail": "ce014@ait.ac.in",
+      "branch": "Civil",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ce024@ait.ac.in",
+      "branch": "Civil",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ce057@ait.ac.in",
+      "branch": "Civil",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ce022@ait.ac.in",
+      "branch": "Civil",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ce006@ait.ac.in",
+      "branch": "Civil",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ce010@ait.ac.in",
+      "branch": "Civil",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ce049@ait.ac.in",
+      "branch": "Civil",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ce044@ait.ac.in",
+      "branch": "Civil",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ce066@ait.ac.in",
+      "branch": "Civil",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ce035@ait.ac.in",
+      "branch": "Civil",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ce062@ait.ac.in",
+      "branch": "Civil",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ce064@ait.ac.in",
+      "branch": "Civil",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ce041@ait.ac.in",
+      "branch": "Civil",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ce042@ait.ac.in",
+      "branch": "Civil",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ce019@ait.ac.in",
+      "branch": "Civil",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ce026@ait.ac.in",
+      "branch": "Civil",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ce046@ait.ac.in",
+      "branch": "Civil",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ce053@ait.ac.in",
+      "branch": "Civil",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ce025@ait.ac.in",
+      "branch": "Civil",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ce067@ait.ac.in",
+      "branch": "Civil",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ce013@ait.ac.in",
+      "branch": "Civil",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ce008@ait.ac.in",
+      "branch": "Civil",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ce032@ait.ac.in",
+      "branch": "Civil",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ce039@ait.ac.in",
+      "branch": "Civil",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ce023@ait.ac.in",
+      "branch": "Civil",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ce003@ait.ac.in",
+      "branch": "Civil",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ce061@ait.ac.in",
+      "branch": "Civil",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ce016@ait.ac.in",
+      "branch": "Civil",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ce045@ait.ac.in",
+      "branch": "Civil",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ce030@ait.ac.in",
+      "branch": "Civil",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ce009@ait.ac.in",
+      "branch": "Civil",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ce055@ait.ac.in",
+      "branch": "Civil",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ce051@ait.ac.in",
+      "branch": "Civil",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ce012@ait.ac.in",
+      "branch": "Civil",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ce031@ait.ac.in",
+      "branch": "Civil",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ce033@ait.ac.in",
+      "branch": "Civil",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ce060@ait.ac.in",
+      "branch": "Civil",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ce037@ait.ac.in",
+      "branch": "Civil",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ce052@ait.ac.in",
+      "branch": "Civil",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ce001@ait.ac.in",
+      "branch": "Civil",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ce027@ait.ac.in",
+      "branch": "Civil",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ce011@ait.ac.in",
+      "branch": "Civil",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ce018@ait.ac.in",
+      "branch": "Civil",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ce063@ait.ac.in",
+      "branch": "Civil",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ce048@ait.ac.in",
+      "branch": "Civil",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ce015@ait.ac.in",
+      "branch": "Civil",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ce017@ait.ac.in",
+      "branch": "Civil",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ce047@ait.ac.in",
+      "branch": "Civil",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ce020@ait.ac.in",
+      "branch": "Civil",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ce038@ait.ac.in",
+      "branch": "Civil",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ce040@ait.ac.in",
+      "branch": "Civil",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ce058@ait.ac.in",
+      "branch": "Civil",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ce004@ait.ac.in",
+      "branch": "Civil",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ce007@ait.ac.in",
+      "branch": "Civil",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ce034@ait.ac.in",
+      "branch": "Civil",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ce005@ait.ac.in",
+      "branch": "Civil",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ce014@ait.ac.in",
+      "branch": "Civil",
+      "offerOrdinal": 2
+    },
+    {
+      "studentEmail": "ce024@ait.ac.in",
+      "branch": "Civil",
+      "offerOrdinal": 2
+    },
+    {
+      "studentEmail": "ce057@ait.ac.in",
+      "branch": "Civil",
+      "offerOrdinal": 2
+    },
+    {
+      "studentEmail": "ce022@ait.ac.in",
+      "branch": "Civil",
+      "offerOrdinal": 2
+    },
+    {
+      "studentEmail": "ce006@ait.ac.in",
+      "branch": "Civil",
+      "offerOrdinal": 2
+    },
+    {
+      "studentEmail": "ce010@ait.ac.in",
+      "branch": "Civil",
+      "offerOrdinal": 2
+    },
+    {
+      "studentEmail": "cse115@ait.ac.in",
+      "branch": "CSE",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "cse066@ait.ac.in",
+      "branch": "CSE",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "cse085@ait.ac.in",
+      "branch": "CSE",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "cse102@ait.ac.in",
+      "branch": "CSE",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "cse103@ait.ac.in",
+      "branch": "CSE",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "cse050@ait.ac.in",
+      "branch": "CSE",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "cse020@ait.ac.in",
+      "branch": "CSE",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "cse029@ait.ac.in",
+      "branch": "CSE",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "cse073@ait.ac.in",
+      "branch": "CSE",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "cse042@ait.ac.in",
+      "branch": "CSE",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "cse110@ait.ac.in",
+      "branch": "CSE",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "cse034@ait.ac.in",
+      "branch": "CSE",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "cse025@ait.ac.in",
+      "branch": "CSE",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "cse056@ait.ac.in",
+      "branch": "CSE",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "cse022@ait.ac.in",
+      "branch": "CSE",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "cse070@ait.ac.in",
+      "branch": "CSE",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "cse098@ait.ac.in",
+      "branch": "CSE",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "cse043@ait.ac.in",
+      "branch": "CSE",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "cse064@ait.ac.in",
+      "branch": "CSE",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "cse111@ait.ac.in",
+      "branch": "CSE",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "cse001@ait.ac.in",
+      "branch": "CSE",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "cse009@ait.ac.in",
+      "branch": "CSE",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "cse051@ait.ac.in",
+      "branch": "CSE",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "cse113@ait.ac.in",
+      "branch": "CSE",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "cse099@ait.ac.in",
+      "branch": "CSE",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "cse091@ait.ac.in",
+      "branch": "CSE",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "cse008@ait.ac.in",
+      "branch": "CSE",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "cse100@ait.ac.in",
+      "branch": "CSE",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "cse006@ait.ac.in",
+      "branch": "CSE",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "cse016@ait.ac.in",
+      "branch": "CSE",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "cse107@ait.ac.in",
+      "branch": "CSE",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "cse093@ait.ac.in",
+      "branch": "CSE",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "cse032@ait.ac.in",
+      "branch": "CSE",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "cse035@ait.ac.in",
+      "branch": "CSE",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "cse061@ait.ac.in",
+      "branch": "CSE",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "cse036@ait.ac.in",
+      "branch": "CSE",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "cse095@ait.ac.in",
+      "branch": "CSE",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "cse109@ait.ac.in",
+      "branch": "CSE",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "cse087@ait.ac.in",
+      "branch": "CSE",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "cse018@ait.ac.in",
+      "branch": "CSE",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "cse114@ait.ac.in",
+      "branch": "CSE",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "cse038@ait.ac.in",
+      "branch": "CSE",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "cse067@ait.ac.in",
+      "branch": "CSE",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "cse024@ait.ac.in",
+      "branch": "CSE",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "cse047@ait.ac.in",
+      "branch": "CSE",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "cse028@ait.ac.in",
+      "branch": "CSE",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "cse076@ait.ac.in",
+      "branch": "CSE",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "cse054@ait.ac.in",
+      "branch": "CSE",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "cse112@ait.ac.in",
+      "branch": "CSE",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "cse041@ait.ac.in",
+      "branch": "CSE",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "cse045@ait.ac.in",
+      "branch": "CSE",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "cse030@ait.ac.in",
+      "branch": "CSE",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "cse075@ait.ac.in",
+      "branch": "CSE",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "cse096@ait.ac.in",
+      "branch": "CSE",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "cse106@ait.ac.in",
+      "branch": "CSE",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "cse072@ait.ac.in",
+      "branch": "CSE",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "cse053@ait.ac.in",
+      "branch": "CSE",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "cse027@ait.ac.in",
+      "branch": "CSE",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "cse002@ait.ac.in",
+      "branch": "CSE",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "cse005@ait.ac.in",
+      "branch": "CSE",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "cse077@ait.ac.in",
+      "branch": "CSE",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "cse104@ait.ac.in",
+      "branch": "CSE",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "cse017@ait.ac.in",
+      "branch": "CSE",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "cse049@ait.ac.in",
+      "branch": "CSE",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "cse089@ait.ac.in",
+      "branch": "CSE",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "cse015@ait.ac.in",
+      "branch": "CSE",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "cse004@ait.ac.in",
+      "branch": "CSE",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "cse040@ait.ac.in",
+      "branch": "CSE",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "cse033@ait.ac.in",
+      "branch": "CSE",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "cse094@ait.ac.in",
+      "branch": "CSE",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "cse115@ait.ac.in",
+      "branch": "CSE",
+      "offerOrdinal": 2
+    },
+    {
+      "studentEmail": "cse066@ait.ac.in",
+      "branch": "CSE",
+      "offerOrdinal": 2
+    },
+    {
+      "studentEmail": "cse085@ait.ac.in",
+      "branch": "CSE",
+      "offerOrdinal": 2
+    },
+    {
+      "studentEmail": "cse102@ait.ac.in",
+      "branch": "CSE",
+      "offerOrdinal": 2
+    },
+    {
+      "studentEmail": "cse103@ait.ac.in",
+      "branch": "CSE",
+      "offerOrdinal": 2
+    },
+    {
+      "studentEmail": "cse050@ait.ac.in",
+      "branch": "CSE",
+      "offerOrdinal": 2
+    },
+    {
+      "studentEmail": "cse020@ait.ac.in",
+      "branch": "CSE",
+      "offerOrdinal": 2
+    },
+    {
+      "studentEmail": "cse029@ait.ac.in",
+      "branch": "CSE",
+      "offerOrdinal": 2
+    },
+    {
+      "studentEmail": "cse073@ait.ac.in",
+      "branch": "CSE",
+      "offerOrdinal": 2
+    },
+    {
+      "studentEmail": "cse042@ait.ac.in",
+      "branch": "CSE",
+      "offerOrdinal": 2
+    },
+    {
+      "studentEmail": "cse110@ait.ac.in",
+      "branch": "CSE",
+      "offerOrdinal": 2
+    },
+    {
+      "studentEmail": "cse034@ait.ac.in",
+      "branch": "CSE",
+      "offerOrdinal": 2
+    },
+    {
+      "studentEmail": "cse025@ait.ac.in",
+      "branch": "CSE",
+      "offerOrdinal": 2
+    },
+    {
+      "studentEmail": "cse056@ait.ac.in",
+      "branch": "CSE",
+      "offerOrdinal": 2
+    },
+    {
+      "studentEmail": "cse022@ait.ac.in",
+      "branch": "CSE",
+      "offerOrdinal": 2
+    },
+    {
+      "studentEmail": "ee079@ait.ac.in",
+      "branch": "Electrical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ee047@ait.ac.in",
+      "branch": "Electrical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ee056@ait.ac.in",
+      "branch": "Electrical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ee004@ait.ac.in",
+      "branch": "Electrical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ee070@ait.ac.in",
+      "branch": "Electrical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ee051@ait.ac.in",
+      "branch": "Electrical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ee040@ait.ac.in",
+      "branch": "Electrical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ee059@ait.ac.in",
+      "branch": "Electrical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ee038@ait.ac.in",
+      "branch": "Electrical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ee109@ait.ac.in",
+      "branch": "Electrical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ee082@ait.ac.in",
+      "branch": "Electrical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ee069@ait.ac.in",
+      "branch": "Electrical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ee067@ait.ac.in",
+      "branch": "Electrical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ee107@ait.ac.in",
+      "branch": "Electrical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ee113@ait.ac.in",
+      "branch": "Electrical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ee036@ait.ac.in",
+      "branch": "Electrical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ee035@ait.ac.in",
+      "branch": "Electrical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ee078@ait.ac.in",
+      "branch": "Electrical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ee063@ait.ac.in",
+      "branch": "Electrical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ee074@ait.ac.in",
+      "branch": "Electrical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ee021@ait.ac.in",
+      "branch": "Electrical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ee094@ait.ac.in",
+      "branch": "Electrical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ee112@ait.ac.in",
+      "branch": "Electrical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ee050@ait.ac.in",
+      "branch": "Electrical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ee048@ait.ac.in",
+      "branch": "Electrical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ee016@ait.ac.in",
+      "branch": "Electrical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ee110@ait.ac.in",
+      "branch": "Electrical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ee041@ait.ac.in",
+      "branch": "Electrical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ee008@ait.ac.in",
+      "branch": "Electrical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ee053@ait.ac.in",
+      "branch": "Electrical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ee037@ait.ac.in",
+      "branch": "Electrical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ee091@ait.ac.in",
+      "branch": "Electrical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ee086@ait.ac.in",
+      "branch": "Electrical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ee002@ait.ac.in",
+      "branch": "Electrical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ee099@ait.ac.in",
+      "branch": "Electrical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ee017@ait.ac.in",
+      "branch": "Electrical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ee042@ait.ac.in",
+      "branch": "Electrical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ee033@ait.ac.in",
+      "branch": "Electrical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ee058@ait.ac.in",
+      "branch": "Electrical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ee102@ait.ac.in",
+      "branch": "Electrical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ee011@ait.ac.in",
+      "branch": "Electrical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ee062@ait.ac.in",
+      "branch": "Electrical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ee111@ait.ac.in",
+      "branch": "Electrical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ee010@ait.ac.in",
+      "branch": "Electrical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ee068@ait.ac.in",
+      "branch": "Electrical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ee009@ait.ac.in",
+      "branch": "Electrical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ee080@ait.ac.in",
+      "branch": "Electrical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ee026@ait.ac.in",
+      "branch": "Electrical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ee031@ait.ac.in",
+      "branch": "Electrical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ee061@ait.ac.in",
+      "branch": "Electrical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ee093@ait.ac.in",
+      "branch": "Electrical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ee115@ait.ac.in",
+      "branch": "Electrical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ee066@ait.ac.in",
+      "branch": "Electrical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ee032@ait.ac.in",
+      "branch": "Electrical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ee089@ait.ac.in",
+      "branch": "Electrical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ee103@ait.ac.in",
+      "branch": "Electrical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ee055@ait.ac.in",
+      "branch": "Electrical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ee014@ait.ac.in",
+      "branch": "Electrical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ee098@ait.ac.in",
+      "branch": "Electrical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ee045@ait.ac.in",
+      "branch": "Electrical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ee034@ait.ac.in",
+      "branch": "Electrical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ee054@ait.ac.in",
+      "branch": "Electrical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ee019@ait.ac.in",
+      "branch": "Electrical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ee005@ait.ac.in",
+      "branch": "Electrical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ee092@ait.ac.in",
+      "branch": "Electrical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ee084@ait.ac.in",
+      "branch": "Electrical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ee052@ait.ac.in",
+      "branch": "Electrical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ee027@ait.ac.in",
+      "branch": "Electrical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ee101@ait.ac.in",
+      "branch": "Electrical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ee001@ait.ac.in",
+      "branch": "Electrical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ee022@ait.ac.in",
+      "branch": "Electrical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ee003@ait.ac.in",
+      "branch": "Electrical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ee075@ait.ac.in",
+      "branch": "Electrical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ee049@ait.ac.in",
+      "branch": "Electrical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ee100@ait.ac.in",
+      "branch": "Electrical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ee060@ait.ac.in",
+      "branch": "Electrical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ee018@ait.ac.in",
+      "branch": "Electrical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ee025@ait.ac.in",
+      "branch": "Electrical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ee096@ait.ac.in",
+      "branch": "Electrical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ee072@ait.ac.in",
+      "branch": "Electrical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ee104@ait.ac.in",
+      "branch": "Electrical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ee073@ait.ac.in",
+      "branch": "Electrical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ee106@ait.ac.in",
+      "branch": "Electrical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ee024@ait.ac.in",
+      "branch": "Electrical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ee076@ait.ac.in",
+      "branch": "Electrical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ee083@ait.ac.in",
+      "branch": "Electrical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ee081@ait.ac.in",
+      "branch": "Electrical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ee020@ait.ac.in",
+      "branch": "Electrical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ee064@ait.ac.in",
+      "branch": "Electrical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ee006@ait.ac.in",
+      "branch": "Electrical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ee079@ait.ac.in",
+      "branch": "Electrical",
+      "offerOrdinal": 2
+    },
+    {
+      "studentEmail": "ee047@ait.ac.in",
+      "branch": "Electrical",
+      "offerOrdinal": 2
+    },
+    {
+      "studentEmail": "ee056@ait.ac.in",
+      "branch": "Electrical",
+      "offerOrdinal": 2
+    },
+    {
+      "studentEmail": "ee004@ait.ac.in",
+      "branch": "Electrical",
+      "offerOrdinal": 2
+    },
+    {
+      "studentEmail": "ee070@ait.ac.in",
+      "branch": "Electrical",
+      "offerOrdinal": 2
+    },
+    {
+      "studentEmail": "ee051@ait.ac.in",
+      "branch": "Electrical",
+      "offerOrdinal": 2
+    },
+    {
+      "studentEmail": "ece114@ait.ac.in",
+      "branch": "ECE",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ece088@ait.ac.in",
+      "branch": "ECE",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ece041@ait.ac.in",
+      "branch": "ECE",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ece078@ait.ac.in",
+      "branch": "ECE",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ece104@ait.ac.in",
+      "branch": "ECE",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ece077@ait.ac.in",
+      "branch": "ECE",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ece023@ait.ac.in",
+      "branch": "ECE",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ece049@ait.ac.in",
+      "branch": "ECE",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ece095@ait.ac.in",
+      "branch": "ECE",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ece112@ait.ac.in",
+      "branch": "ECE",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ece075@ait.ac.in",
+      "branch": "ECE",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ece005@ait.ac.in",
+      "branch": "ECE",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ece080@ait.ac.in",
+      "branch": "ECE",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ece004@ait.ac.in",
+      "branch": "ECE",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ece073@ait.ac.in",
+      "branch": "ECE",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ece058@ait.ac.in",
+      "branch": "ECE",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ece014@ait.ac.in",
+      "branch": "ECE",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ece001@ait.ac.in",
+      "branch": "ECE",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ece089@ait.ac.in",
+      "branch": "ECE",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ece105@ait.ac.in",
+      "branch": "ECE",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ece109@ait.ac.in",
+      "branch": "ECE",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ece107@ait.ac.in",
+      "branch": "ECE",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ece008@ait.ac.in",
+      "branch": "ECE",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ece015@ait.ac.in",
+      "branch": "ECE",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ece032@ait.ac.in",
+      "branch": "ECE",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ece101@ait.ac.in",
+      "branch": "ECE",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ece098@ait.ac.in",
+      "branch": "ECE",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ece035@ait.ac.in",
+      "branch": "ECE",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ece070@ait.ac.in",
+      "branch": "ECE",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ece036@ait.ac.in",
+      "branch": "ECE",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ece086@ait.ac.in",
+      "branch": "ECE",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ece044@ait.ac.in",
+      "branch": "ECE",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ece047@ait.ac.in",
+      "branch": "ECE",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ece097@ait.ac.in",
+      "branch": "ECE",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ece009@ait.ac.in",
+      "branch": "ECE",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ece002@ait.ac.in",
+      "branch": "ECE",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ece003@ait.ac.in",
+      "branch": "ECE",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ece022@ait.ac.in",
+      "branch": "ECE",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ece020@ait.ac.in",
+      "branch": "ECE",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ece011@ait.ac.in",
+      "branch": "ECE",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ece084@ait.ac.in",
+      "branch": "ECE",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ece029@ait.ac.in",
+      "branch": "ECE",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ece046@ait.ac.in",
+      "branch": "ECE",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ece013@ait.ac.in",
+      "branch": "ECE",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ece053@ait.ac.in",
+      "branch": "ECE",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ece083@ait.ac.in",
+      "branch": "ECE",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ece092@ait.ac.in",
+      "branch": "ECE",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ece090@ait.ac.in",
+      "branch": "ECE",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ece079@ait.ac.in",
+      "branch": "ECE",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ece024@ait.ac.in",
+      "branch": "ECE",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "ece114@ait.ac.in",
+      "branch": "ECE",
+      "offerOrdinal": 2
+    },
+    {
+      "studentEmail": "ece088@ait.ac.in",
+      "branch": "ECE",
+      "offerOrdinal": 2
+    },
+    {
+      "studentEmail": "ece041@ait.ac.in",
+      "branch": "ECE",
+      "offerOrdinal": 2
+    },
+    {
+      "studentEmail": "ece078@ait.ac.in",
+      "branch": "ECE",
+      "offerOrdinal": 2
+    },
+    {
+      "studentEmail": "ece104@ait.ac.in",
+      "branch": "ECE",
+      "offerOrdinal": 2
+    },
+    {
+      "studentEmail": "ece077@ait.ac.in",
+      "branch": "ECE",
+      "offerOrdinal": 2
+    },
+    {
+      "studentEmail": "ece023@ait.ac.in",
+      "branch": "ECE",
+      "offerOrdinal": 2
+    },
+    {
+      "studentEmail": "it097@ait.ac.in",
+      "branch": "IT",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "it050@ait.ac.in",
+      "branch": "IT",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "it062@ait.ac.in",
+      "branch": "IT",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "it032@ait.ac.in",
+      "branch": "IT",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "it052@ait.ac.in",
+      "branch": "IT",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "it107@ait.ac.in",
+      "branch": "IT",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "it095@ait.ac.in",
+      "branch": "IT",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "it002@ait.ac.in",
+      "branch": "IT",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "it047@ait.ac.in",
+      "branch": "IT",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "it074@ait.ac.in",
+      "branch": "IT",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "it067@ait.ac.in",
+      "branch": "IT",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "it017@ait.ac.in",
+      "branch": "IT",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "it087@ait.ac.in",
+      "branch": "IT",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "it028@ait.ac.in",
+      "branch": "IT",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "it037@ait.ac.in",
+      "branch": "IT",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "it054@ait.ac.in",
+      "branch": "IT",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "it040@ait.ac.in",
+      "branch": "IT",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "it083@ait.ac.in",
+      "branch": "IT",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "it043@ait.ac.in",
+      "branch": "IT",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "it022@ait.ac.in",
+      "branch": "IT",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "it064@ait.ac.in",
+      "branch": "IT",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "it007@ait.ac.in",
+      "branch": "IT",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "it011@ait.ac.in",
+      "branch": "IT",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "it070@ait.ac.in",
+      "branch": "IT",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "it072@ait.ac.in",
+      "branch": "IT",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "it109@ait.ac.in",
+      "branch": "IT",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "it001@ait.ac.in",
+      "branch": "IT",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "it094@ait.ac.in",
+      "branch": "IT",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "it104@ait.ac.in",
+      "branch": "IT",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "it006@ait.ac.in",
+      "branch": "IT",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "it034@ait.ac.in",
+      "branch": "IT",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "it076@ait.ac.in",
+      "branch": "IT",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "it088@ait.ac.in",
+      "branch": "IT",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "it055@ait.ac.in",
+      "branch": "IT",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "it110@ait.ac.in",
+      "branch": "IT",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "it044@ait.ac.in",
+      "branch": "IT",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "it082@ait.ac.in",
+      "branch": "IT",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "it016@ait.ac.in",
+      "branch": "IT",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "it085@ait.ac.in",
+      "branch": "IT",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "it058@ait.ac.in",
+      "branch": "IT",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "it063@ait.ac.in",
+      "branch": "IT",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "it068@ait.ac.in",
+      "branch": "IT",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "it004@ait.ac.in",
+      "branch": "IT",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "it069@ait.ac.in",
+      "branch": "IT",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "it081@ait.ac.in",
+      "branch": "IT",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "it077@ait.ac.in",
+      "branch": "IT",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "it010@ait.ac.in",
+      "branch": "IT",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "it046@ait.ac.in",
+      "branch": "IT",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "it061@ait.ac.in",
+      "branch": "IT",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "it049@ait.ac.in",
+      "branch": "IT",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "it098@ait.ac.in",
+      "branch": "IT",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "it031@ait.ac.in",
+      "branch": "IT",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "it015@ait.ac.in",
+      "branch": "IT",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "it093@ait.ac.in",
+      "branch": "IT",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "it101@ait.ac.in",
+      "branch": "IT",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "it041@ait.ac.in",
+      "branch": "IT",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "it038@ait.ac.in",
+      "branch": "IT",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "it092@ait.ac.in",
+      "branch": "IT",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "it111@ait.ac.in",
+      "branch": "IT",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "it042@ait.ac.in",
+      "branch": "IT",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "it078@ait.ac.in",
+      "branch": "IT",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "it059@ait.ac.in",
+      "branch": "IT",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "it019@ait.ac.in",
+      "branch": "IT",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "it089@ait.ac.in",
+      "branch": "IT",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "it084@ait.ac.in",
+      "branch": "IT",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "it080@ait.ac.in",
+      "branch": "IT",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "it009@ait.ac.in",
+      "branch": "IT",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "it023@ait.ac.in",
+      "branch": "IT",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "it053@ait.ac.in",
+      "branch": "IT",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "it102@ait.ac.in",
+      "branch": "IT",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "it105@ait.ac.in",
+      "branch": "IT",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "it114@ait.ac.in",
+      "branch": "IT",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "it026@ait.ac.in",
+      "branch": "IT",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "it106@ait.ac.in",
+      "branch": "IT",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "it018@ait.ac.in",
+      "branch": "IT",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "it003@ait.ac.in",
+      "branch": "IT",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "it065@ait.ac.in",
+      "branch": "IT",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "it097@ait.ac.in",
+      "branch": "IT",
+      "offerOrdinal": 2
+    },
+    {
+      "studentEmail": "it050@ait.ac.in",
+      "branch": "IT",
+      "offerOrdinal": 2
+    },
+    {
+      "studentEmail": "it062@ait.ac.in",
+      "branch": "IT",
+      "offerOrdinal": 2
+    },
+    {
+      "studentEmail": "it032@ait.ac.in",
+      "branch": "IT",
+      "offerOrdinal": 2
+    },
+    {
+      "studentEmail": "it052@ait.ac.in",
+      "branch": "IT",
+      "offerOrdinal": 2
+    },
+    {
+      "studentEmail": "it107@ait.ac.in",
+      "branch": "IT",
+      "offerOrdinal": 2
+    },
+    {
+      "studentEmail": "it095@ait.ac.in",
+      "branch": "IT",
+      "offerOrdinal": 2
+    },
+    {
+      "studentEmail": "it002@ait.ac.in",
+      "branch": "IT",
+      "offerOrdinal": 2
+    },
+    {
+      "studentEmail": "it047@ait.ac.in",
+      "branch": "IT",
+      "offerOrdinal": 2
+    },
+    {
+      "studentEmail": "it074@ait.ac.in",
+      "branch": "IT",
+      "offerOrdinal": 2
+    },
+    {
+      "studentEmail": "it067@ait.ac.in",
+      "branch": "IT",
+      "offerOrdinal": 2
+    },
+    {
+      "studentEmail": "me109@ait.ac.in",
+      "branch": "Mechanical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "me027@ait.ac.in",
+      "branch": "Mechanical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "me084@ait.ac.in",
+      "branch": "Mechanical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "me085@ait.ac.in",
+      "branch": "Mechanical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "me053@ait.ac.in",
+      "branch": "Mechanical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "me099@ait.ac.in",
+      "branch": "Mechanical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "me067@ait.ac.in",
+      "branch": "Mechanical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "me104@ait.ac.in",
+      "branch": "Mechanical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "me048@ait.ac.in",
+      "branch": "Mechanical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "me012@ait.ac.in",
+      "branch": "Mechanical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "me083@ait.ac.in",
+      "branch": "Mechanical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "me098@ait.ac.in",
+      "branch": "Mechanical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "me008@ait.ac.in",
+      "branch": "Mechanical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "me070@ait.ac.in",
+      "branch": "Mechanical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "me025@ait.ac.in",
+      "branch": "Mechanical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "me022@ait.ac.in",
+      "branch": "Mechanical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "me030@ait.ac.in",
+      "branch": "Mechanical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "me032@ait.ac.in",
+      "branch": "Mechanical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "me043@ait.ac.in",
+      "branch": "Mechanical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "me078@ait.ac.in",
+      "branch": "Mechanical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "me052@ait.ac.in",
+      "branch": "Mechanical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "me003@ait.ac.in",
+      "branch": "Mechanical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "me007@ait.ac.in",
+      "branch": "Mechanical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "me038@ait.ac.in",
+      "branch": "Mechanical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "me073@ait.ac.in",
+      "branch": "Mechanical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "me095@ait.ac.in",
+      "branch": "Mechanical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "me006@ait.ac.in",
+      "branch": "Mechanical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "me036@ait.ac.in",
+      "branch": "Mechanical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "me074@ait.ac.in",
+      "branch": "Mechanical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "me040@ait.ac.in",
+      "branch": "Mechanical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "me057@ait.ac.in",
+      "branch": "Mechanical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "me108@ait.ac.in",
+      "branch": "Mechanical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "me081@ait.ac.in",
+      "branch": "Mechanical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "me035@ait.ac.in",
+      "branch": "Mechanical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "me016@ait.ac.in",
+      "branch": "Mechanical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "me005@ait.ac.in",
+      "branch": "Mechanical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "me033@ait.ac.in",
+      "branch": "Mechanical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "me087@ait.ac.in",
+      "branch": "Mechanical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "me076@ait.ac.in",
+      "branch": "Mechanical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "me093@ait.ac.in",
+      "branch": "Mechanical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "me094@ait.ac.in",
+      "branch": "Mechanical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "me021@ait.ac.in",
+      "branch": "Mechanical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "me066@ait.ac.in",
+      "branch": "Mechanical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "me010@ait.ac.in",
+      "branch": "Mechanical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "me049@ait.ac.in",
+      "branch": "Mechanical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "me013@ait.ac.in",
+      "branch": "Mechanical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "me011@ait.ac.in",
+      "branch": "Mechanical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "me042@ait.ac.in",
+      "branch": "Mechanical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "me097@ait.ac.in",
+      "branch": "Mechanical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "me079@ait.ac.in",
+      "branch": "Mechanical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "me001@ait.ac.in",
+      "branch": "Mechanical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "me019@ait.ac.in",
+      "branch": "Mechanical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "me055@ait.ac.in",
+      "branch": "Mechanical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "me080@ait.ac.in",
+      "branch": "Mechanical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "me002@ait.ac.in",
+      "branch": "Mechanical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "me063@ait.ac.in",
+      "branch": "Mechanical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "me017@ait.ac.in",
+      "branch": "Mechanical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "me096@ait.ac.in",
+      "branch": "Mechanical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "me071@ait.ac.in",
+      "branch": "Mechanical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "me037@ait.ac.in",
+      "branch": "Mechanical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "me100@ait.ac.in",
+      "branch": "Mechanical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "me089@ait.ac.in",
+      "branch": "Mechanical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "me039@ait.ac.in",
+      "branch": "Mechanical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "me054@ait.ac.in",
+      "branch": "Mechanical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "me028@ait.ac.in",
+      "branch": "Mechanical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "me059@ait.ac.in",
+      "branch": "Mechanical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "me046@ait.ac.in",
+      "branch": "Mechanical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "me023@ait.ac.in",
+      "branch": "Mechanical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "me020@ait.ac.in",
+      "branch": "Mechanical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "me018@ait.ac.in",
+      "branch": "Mechanical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "me015@ait.ac.in",
+      "branch": "Mechanical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "me092@ait.ac.in",
+      "branch": "Mechanical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "me086@ait.ac.in",
+      "branch": "Mechanical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "me061@ait.ac.in",
+      "branch": "Mechanical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "me045@ait.ac.in",
+      "branch": "Mechanical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "me034@ait.ac.in",
+      "branch": "Mechanical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "me109@ait.ac.in",
+      "branch": "Mechanical",
+      "offerOrdinal": 2
+    },
+    {
+      "studentEmail": "me027@ait.ac.in",
+      "branch": "Mechanical",
+      "offerOrdinal": 2
+    },
+    {
+      "studentEmail": "me084@ait.ac.in",
+      "branch": "Mechanical",
+      "offerOrdinal": 2
+    },
+    {
+      "studentEmail": "me085@ait.ac.in",
+      "branch": "Mechanical",
+      "offerOrdinal": 2
+    },
+    {
+      "studentEmail": "me053@ait.ac.in",
+      "branch": "Mechanical",
+      "offerOrdinal": 2
+    },
+    {
+      "studentEmail": "me099@ait.ac.in",
+      "branch": "Mechanical",
+      "offerOrdinal": 2
+    },
+    {
+      "studentEmail": "me067@ait.ac.in",
+      "branch": "Mechanical",
+      "offerOrdinal": 2
+    },
+    {
+      "studentEmail": "me104@ait.ac.in",
+      "branch": "Mechanical",
+      "offerOrdinal": 2
+    },
+    {
+      "studentEmail": "me048@ait.ac.in",
+      "branch": "Mechanical",
+      "offerOrdinal": 2
+    },
+    {
+      "studentEmail": "me012@ait.ac.in",
+      "branch": "Mechanical",
+      "offerOrdinal": 2
+    },
+    {
+      "studentEmail": "me083@ait.ac.in",
+      "branch": "Mechanical",
+      "offerOrdinal": 2
+    },
+    {
+      "studentEmail": "me098@ait.ac.in",
+      "branch": "Mechanical",
+      "offerOrdinal": 2
+    },
+    {
+      "studentEmail": "mme020@ait.ac.in",
+      "branch": "Metallurgical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "mme099@ait.ac.in",
+      "branch": "Metallurgical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "mme030@ait.ac.in",
+      "branch": "Metallurgical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "mme050@ait.ac.in",
+      "branch": "Metallurgical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "mme060@ait.ac.in",
+      "branch": "Metallurgical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "mme049@ait.ac.in",
+      "branch": "Metallurgical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "mme055@ait.ac.in",
+      "branch": "Metallurgical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "mme089@ait.ac.in",
+      "branch": "Metallurgical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "mme087@ait.ac.in",
+      "branch": "Metallurgical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "mme041@ait.ac.in",
+      "branch": "Metallurgical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "mme101@ait.ac.in",
+      "branch": "Metallurgical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "mme092@ait.ac.in",
+      "branch": "Metallurgical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "mme022@ait.ac.in",
+      "branch": "Metallurgical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "mme033@ait.ac.in",
+      "branch": "Metallurgical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "mme088@ait.ac.in",
+      "branch": "Metallurgical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "mme008@ait.ac.in",
+      "branch": "Metallurgical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "mme098@ait.ac.in",
+      "branch": "Metallurgical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "mme025@ait.ac.in",
+      "branch": "Metallurgical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "mme072@ait.ac.in",
+      "branch": "Metallurgical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "mme045@ait.ac.in",
+      "branch": "Metallurgical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "mme014@ait.ac.in",
+      "branch": "Metallurgical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "mme007@ait.ac.in",
+      "branch": "Metallurgical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "mme107@ait.ac.in",
+      "branch": "Metallurgical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "mme011@ait.ac.in",
+      "branch": "Metallurgical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "mme028@ait.ac.in",
+      "branch": "Metallurgical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "mme006@ait.ac.in",
+      "branch": "Metallurgical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "mme105@ait.ac.in",
+      "branch": "Metallurgical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "mme054@ait.ac.in",
+      "branch": "Metallurgical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "mme016@ait.ac.in",
+      "branch": "Metallurgical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "mme067@ait.ac.in",
+      "branch": "Metallurgical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "mme073@ait.ac.in",
+      "branch": "Metallurgical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "mme081@ait.ac.in",
+      "branch": "Metallurgical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "mme079@ait.ac.in",
+      "branch": "Metallurgical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "mme018@ait.ac.in",
+      "branch": "Metallurgical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "mme086@ait.ac.in",
+      "branch": "Metallurgical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "mme074@ait.ac.in",
+      "branch": "Metallurgical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "mme065@ait.ac.in",
+      "branch": "Metallurgical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "mme070@ait.ac.in",
+      "branch": "Metallurgical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "mme052@ait.ac.in",
+      "branch": "Metallurgical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "mme093@ait.ac.in",
+      "branch": "Metallurgical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "mme108@ait.ac.in",
+      "branch": "Metallurgical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "mme051@ait.ac.in",
+      "branch": "Metallurgical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "mme061@ait.ac.in",
+      "branch": "Metallurgical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "mme083@ait.ac.in",
+      "branch": "Metallurgical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "mme039@ait.ac.in",
+      "branch": "Metallurgical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "mme095@ait.ac.in",
+      "branch": "Metallurgical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "mme047@ait.ac.in",
+      "branch": "Metallurgical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "mme042@ait.ac.in",
+      "branch": "Metallurgical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "mme066@ait.ac.in",
+      "branch": "Metallurgical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "mme071@ait.ac.in",
+      "branch": "Metallurgical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "mme063@ait.ac.in",
+      "branch": "Metallurgical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "mme100@ait.ac.in",
+      "branch": "Metallurgical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "mme040@ait.ac.in",
+      "branch": "Metallurgical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "mme029@ait.ac.in",
+      "branch": "Metallurgical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "mme004@ait.ac.in",
+      "branch": "Metallurgical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "mme096@ait.ac.in",
+      "branch": "Metallurgical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "mme005@ait.ac.in",
+      "branch": "Metallurgical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "mme021@ait.ac.in",
+      "branch": "Metallurgical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "mme076@ait.ac.in",
+      "branch": "Metallurgical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "mme056@ait.ac.in",
+      "branch": "Metallurgical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "mme002@ait.ac.in",
+      "branch": "Metallurgical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "mme017@ait.ac.in",
+      "branch": "Metallurgical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "mme059@ait.ac.in",
+      "branch": "Metallurgical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "mme102@ait.ac.in",
+      "branch": "Metallurgical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "mme103@ait.ac.in",
+      "branch": "Metallurgical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "mme009@ait.ac.in",
+      "branch": "Metallurgical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "mme044@ait.ac.in",
+      "branch": "Metallurgical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "mme064@ait.ac.in",
+      "branch": "Metallurgical",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "mme020@ait.ac.in",
+      "branch": "Metallurgical",
+      "offerOrdinal": 2
+    },
+    {
+      "studentEmail": "mme099@ait.ac.in",
+      "branch": "Metallurgical",
+      "offerOrdinal": 2
+    },
+    {
+      "studentEmail": "mme030@ait.ac.in",
+      "branch": "Metallurgical",
+      "offerOrdinal": 2
+    },
+    {
+      "studentEmail": "mme050@ait.ac.in",
+      "branch": "Metallurgical",
+      "offerOrdinal": 2
+    },
+    {
+      "studentEmail": "mme060@ait.ac.in",
+      "branch": "Metallurgical",
+      "offerOrdinal": 2
+    },
+    {
+      "studentEmail": "mme049@ait.ac.in",
+      "branch": "Metallurgical",
+      "offerOrdinal": 2
+    },
+    {
+      "studentEmail": "mi085@ait.ac.in",
+      "branch": "Mining",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "mi043@ait.ac.in",
+      "branch": "Mining",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "mi003@ait.ac.in",
+      "branch": "Mining",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "mi056@ait.ac.in",
+      "branch": "Mining",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "mi055@ait.ac.in",
+      "branch": "Mining",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "mi083@ait.ac.in",
+      "branch": "Mining",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "mi035@ait.ac.in",
+      "branch": "Mining",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "mi093@ait.ac.in",
+      "branch": "Mining",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "mi036@ait.ac.in",
+      "branch": "Mining",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "mi014@ait.ac.in",
+      "branch": "Mining",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "mi024@ait.ac.in",
+      "branch": "Mining",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "mi017@ait.ac.in",
+      "branch": "Mining",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "mi092@ait.ac.in",
+      "branch": "Mining",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "mi059@ait.ac.in",
+      "branch": "Mining",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "mi078@ait.ac.in",
+      "branch": "Mining",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "mi081@ait.ac.in",
+      "branch": "Mining",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "mi070@ait.ac.in",
+      "branch": "Mining",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "mi089@ait.ac.in",
+      "branch": "Mining",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "mi013@ait.ac.in",
+      "branch": "Mining",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "mi072@ait.ac.in",
+      "branch": "Mining",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "mi067@ait.ac.in",
+      "branch": "Mining",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "mi094@ait.ac.in",
+      "branch": "Mining",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "mi091@ait.ac.in",
+      "branch": "Mining",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "mi060@ait.ac.in",
+      "branch": "Mining",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "mi068@ait.ac.in",
+      "branch": "Mining",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "mi016@ait.ac.in",
+      "branch": "Mining",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "mi066@ait.ac.in",
+      "branch": "Mining",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "mi041@ait.ac.in",
+      "branch": "Mining",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "mi028@ait.ac.in",
+      "branch": "Mining",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "mi039@ait.ac.in",
+      "branch": "Mining",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "mi075@ait.ac.in",
+      "branch": "Mining",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "mi062@ait.ac.in",
+      "branch": "Mining",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "mi012@ait.ac.in",
+      "branch": "Mining",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "mi069@ait.ac.in",
+      "branch": "Mining",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "mi032@ait.ac.in",
+      "branch": "Mining",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "mi033@ait.ac.in",
+      "branch": "Mining",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "mi058@ait.ac.in",
+      "branch": "Mining",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "mi018@ait.ac.in",
+      "branch": "Mining",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "mi048@ait.ac.in",
+      "branch": "Mining",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "mi022@ait.ac.in",
+      "branch": "Mining",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "mi061@ait.ac.in",
+      "branch": "Mining",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "mi027@ait.ac.in",
+      "branch": "Mining",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "mi023@ait.ac.in",
+      "branch": "Mining",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "mi001@ait.ac.in",
+      "branch": "Mining",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "mi054@ait.ac.in",
+      "branch": "Mining",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "mi044@ait.ac.in",
+      "branch": "Mining",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "mi088@ait.ac.in",
+      "branch": "Mining",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "mi063@ait.ac.in",
+      "branch": "Mining",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "mi034@ait.ac.in",
+      "branch": "Mining",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "mi090@ait.ac.in",
+      "branch": "Mining",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "mi084@ait.ac.in",
+      "branch": "Mining",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "mi031@ait.ac.in",
+      "branch": "Mining",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "mi030@ait.ac.in",
+      "branch": "Mining",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "mi087@ait.ac.in",
+      "branch": "Mining",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "mi046@ait.ac.in",
+      "branch": "Mining",
+      "offerOrdinal": 1
+    },
+    {
+      "studentEmail": "mi085@ait.ac.in",
+      "branch": "Mining",
+      "offerOrdinal": 2
+    },
+    {
+      "studentEmail": "mi043@ait.ac.in",
+      "branch": "Mining",
+      "offerOrdinal": 2
+    },
+    {
+      "studentEmail": "mi003@ait.ac.in",
+      "branch": "Mining",
+      "offerOrdinal": 2
+    },
+    {
+      "studentEmail": "mi056@ait.ac.in",
+      "branch": "Mining",
+      "offerOrdinal": 2
+    }
+  ],
+  "offCampusSourceRows": [
+    208,
+    209,
+    210,
+    211,
+    212,
+    213,
+    214,
+    215,
+    216,
+    217
+  ],
+  "reconciliation": {
+    "rawBranchOffers": {
+      "Biomedical": 11,
+      "Biotechnology": 24,
+      "Chemical": 63,
+      "Civil": 62,
+      "CSE": 85,
+      "Electrical": 96,
+      "ECE": 57,
+      "IT": 86,
+      "Mechanical": 88,
+      "Metallurgical": 74,
+      "Mining": 59
+    },
+    "canonicalBranchOffers": {
+      "Biomedical": 9,
+      "Biotechnology": 24,
+      "Chemical": 63,
+      "Civil": 62,
+      "CSE": 85,
+      "Electrical": 96,
+      "ECE": 57,
+      "IT": 88,
+      "Mechanical": 88,
+      "Metallurgical": 74,
+      "Mining": 59
+    },
+    "deltaCanonicalMinusRaw": {
+      "Biomedical": -2,
+      "Biotechnology": 0,
+      "Chemical": 0,
+      "Civil": 0,
+      "CSE": 0,
+      "Electrical": 0,
+      "ECE": 0,
+      "IT": 2,
+      "Mechanical": 0,
+      "Metallurgical": 0,
+      "Mining": 0
+    },
+    "note": "Raw source rows are preserved. The source does not identify which two offers require the approved Biomedical-to-IT reconstruction adjustment."
+  },
+  "showcases": [
+    {
+      "email": "bt039@ait.ac.in",
+      "scenario": "withdrawn_history"
+    },
+    {
+      "email": "bt006@ait.ac.in",
+      "scenario": "early_placed"
+    },
+    {
+      "email": "ch014@ait.ac.in",
+      "scenario": "policy_ready_showcase"
+    },
+    {
+      "email": "cse096@ait.ac.in",
+      "scenario": "absent_history"
+    },
+    {
+      "email": "cse012@ait.ac.in",
+      "scenario": "two_offers"
+    },
+    {
+      "email": "cse108@ait.ac.in",
+      "scenario": "technical_showcase"
+    },
+    {
+      "email": "cse010@ait.ac.in",
+      "scenario": "late_placed"
+    },
+    {
+      "email": "ee109@ait.ac.in",
+      "scenario": "mid_placed"
+    },
+    {
+      "email": "ee112@ait.ac.in",
+      "scenario": "company_funnel_showcase"
+    },
+    {
+      "email": "ee102@ait.ac.in",
+      "scenario": "analytics_showcase"
+    },
+    {
+      "email": "it025@ait.ac.in",
+      "scenario": "three_offers_high_package"
+    },
+    {
+      "email": "me085@ait.ac.in",
+      "scenario": "unplaced_many_attempts"
+    },
+    {
+      "email": "mi056@ait.ac.in",
+      "scenario": "core_branch_placed"
+    },
+    {
+      "email": "mi033@ait.ac.in",
+      "scenario": "many_rejections"
+    },
+    {
+      "email": "mi051@ait.ac.in",
+      "scenario": "off_campus_placed"
+    }
+  ]
+}

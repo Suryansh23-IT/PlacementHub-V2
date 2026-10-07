@@ -28,6 +28,13 @@ test('Complete drive report creates dynamic safe phase sheets and excludes revok
   assert.match(exported.filename, /DRV_TCS_1_complete_drive/)
 })
 
+test('Drive previews show the report-specific matching candidate count', async () => {
+  const selectedPreview = await getAdminReportPreview({ type: 'selected_candidates', drive: 'd1' }, deps)
+  const confirmedPreview = await getAdminReportPreview({ type: 'final_confirmed', drive: 'd1' }, deps)
+  assert.equal(selectedPreview.matchingRecords, 2)
+  assert.equal(confirmedPreview.matchingRecords, 1)
+})
+
 test('Monthly report uses confirmation dates, preserves offers, and reports unique placement-equivalent students', async () => {
   const preview = await getAdminReportPreview({ type: 'monthly_placement', month: 9, year: 2026 }, deps)
   assert.equal(preview.matchingRecords, 1); assert.equal(preview.summary.uniquePlaced, 1)
@@ -48,6 +55,19 @@ test('Monthly report counts a confirmed internship as placed while retaining uni
   assert.equal(preview.summary.uniquePlaced, 1)
 })
 
+test('Monthly report includes confirmed off-campus placements without an application or drive', async () => {
+  const offCampusRecord = { studentId: 's2', placementSource: 'OFF_CAMPUS', employerName: 'Independent Labs', verificationState: 'confirmed', outcomeType: 'full_time', role: 'Analyst', package: { amount: 900000, currency: 'INR', period: 'per_annum' }, adminVerifiedAt: new Date('2026-09-14') }
+  const offCampusDeps = { ...deps, placementRecordModel: { find: () => lean([...records, offCampusRecord]) } }
+  const preview = await getAdminReportPreview({ type: 'monthly_placement', month: 9, year: 2026 }, offCampusDeps)
+  assert.equal(preview.summary.confirmedOffers, 2)
+  assert.equal(preview.summary.uniquePlaced, 2)
+  assert.equal(preview.summary.companies, 2)
+  const exported = await exportAdminReport({ type: 'monthly_placement', month: 9, year: 2026 }, offCampusDeps)
+  const workbook = new ExcelJS.Workbook(); await workbook.xlsx.load(exported.buffer)
+  assert.equal(exported.rowCount, 2)
+  assert.equal(workbook.getWorksheet('Students Placed').getRow(5).getCell(5).value, 'Independent Labs')
+})
+
 test('Company reports use the shared scope and selection semantics', async () => {
   const preview = await getAdminReportPreview({ type: 'company_selections', company: 'c1' }, deps)
   assert.deepEqual(preview.summary, { selected: 2, confirmed: 1 })
@@ -55,4 +75,11 @@ test('Company reports use the shared scope and selection semantics', async () =>
   const workbook = new ExcelJS.Workbook(); await workbook.xlsx.load(exported.buffer)
   assert.equal(workbook.getWorksheet('Company Summary').getRow(4).getCell(1).value, 'TCS')
   await assert.rejects(exportAdminReport({ type: 'complete_drive', drive: 'd1', company: 'another-company' }, deps), /does not belong/)
+})
+
+test('Company report previews apply the visible Student cohort filters', async () => {
+  const summary = await getAdminReportPreview({ type: 'company_summary', branch: 'IT' }, deps)
+  const selections = await getAdminReportPreview({ type: 'company_selections', minCpi: 9 }, deps)
+  assert.deepEqual(summary.summary, { companies: 1, drives: 1, applicants: 1, confirmed: 1 })
+  assert.deepEqual(selections.summary, { selected: 1, confirmed: 1 })
 })

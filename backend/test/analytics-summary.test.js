@@ -67,7 +67,7 @@ test('college eligibility remains independent from Drive eligibility and honours
 
 test('M8B dashboard keeps branch, company, outcome, timeline, and dynamic Drive funnel analytics in one scoped query contract', async () => {
   const company = { _id: 'company-1', companyName: 'TCS', approvalStatus: 'approved' }
-  const drive = { _id: 'drive-1', companyId: 'company-1', lifecycleStatus: 'published', role: { title: 'Engineer' }, phases: [{ phaseNumber: 1 }, { phaseNumber: 2 }] }
+  const drive = { _id: 'drive-1', companyId: 'company-1', lifecycleStatus: 'completed', role: { title: 'Engineer' }, phases: [{ phaseNumber: 1 }, { phaseNumber: 2 }] }
   const applications = [
     { _id: 'a1', studentId: 's1', placementDriveId: 'drive-1', currentPhase: 2, currentStatus: 'active', appliedAt: new Date('2027-09-01'), updatedAt: new Date('2027-09-02') },
     { _id: 'a2', studentId: 's2', placementDriveId: 'drive-1', currentPhase: 2, currentStatus: 'selected_pending_confirmation', appliedAt: new Date('2027-09-03') },
@@ -89,6 +89,7 @@ test('M8B dashboard keeps branch, company, outcome, timeline, and dynamic Drive 
   assert.deepEqual(dashboard.outcomes, [{ outcomeType: 'full_time', count: 1 }, { outcomeType: 'ppo', count: 0 }, { outcomeType: 'internship', count: 1 }, { outcomeType: 'internship_and_ppo', count: 0 }])
   assert.equal(dashboard.branchPerformance.find(item => item.branch === 'CSE').placedStudents, 1)
   assert.equal(dashboard.timeline[0].confirmations, 2)
+  assert.deepEqual(dashboard.recruitment, { companyCount: 1, activeDriveCount: 0, completedDriveCount: 1 })
 })
 
 test('offer, confirmation, and unique-placement metrics do not double count multiple offers', async () => {

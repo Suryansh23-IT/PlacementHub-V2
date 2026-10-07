@@ -12,8 +12,7 @@ export const PLACEMENT_EQUIVALENT_OUTCOMES = Object.freeze(['full_time', 'ppo', 
 
 const plain = value => value?.toObject ? value.toObject() : value
 const values = async result => {
-  const resolved = await result
-  return resolved?.lean ? resolved.lean() : resolved
+  return result?.lean ? result.lean() : await result
 }
 const id = value => String(value?._id ?? value)
 
@@ -63,7 +62,6 @@ function recordQuery(filters) {
 function endOfDay(date) { const result = new Date(date); result.setHours(23, 59, 59, 999); return result }
 
 function dateQuery(field, filters) { return filters.dateFrom || filters.dateTo ? { [field]: { ...(filters.dateFrom ? { $gte: filters.dateFrom } : {}), ...(filters.dateTo ? { $lte: endOfDay(filters.dateTo) } : {}) } } : {} }
-function inScope(value, values) { return values.some(item => id(item) === id(value)) }
 function monthKey(value) { return value ? new Date(value).toISOString().slice(0, 7) : null }
 function statusCount(items, status) { return items.filter(item => item.currentStatus === status).length }
 const objectId = value => mongoose.isValidObjectId(value) ? new mongoose.Types.ObjectId(value) : value
@@ -83,8 +81,9 @@ export async function getAdminAnalyticsSummary(filters = {}, {
     values(placementRecordModel.find({ ...recordQuery(filters), verificationState: 'pending_admin_verification', outcomeType: filters.outcomeType ?? { $in: ['full_time', 'internship', 'ppo', 'internship_and_ppo'] } })),
   ])
   const profiles = (rawProfiles ?? []).map(plain)
-  const records = (rawRecords ?? []).map(plain)
-  const pendingRecords = (rawPendingRecords ?? []).map(plain)
+  const profileIds = new Set(profiles.map(profile => id(profile.userId)))
+  const records = (rawRecords ?? []).map(plain).filter(record => profileIds.has(id(record.studentId)))
+  const pendingRecords = (rawPendingRecords ?? []).map(plain).filter(record => profileIds.has(id(record.studentId)))
   const eligibleProfiles = profiles.filter(profile => isCollegePlacementEligible(profile, institution?.collegeEligibility))
   const eligibleIds = new Set(eligibleProfiles.map(profile => id(profile.userId)))
   const placedIds = new Set(records.filter(record => PLACEMENT_EQUIVALENT_OUTCOMES.includes(record.outcomeType)).map(record => id(record.studentId)).filter(studentId => eligibleIds.has(studentId)))
@@ -141,19 +140,44 @@ export async function getAdminAnalyticsDashboard(filters = {}, dependencies = {}
   const applicationQuery = { ...(filters.company || filters.drive ? { placementDriveId: { $in: driveIds } } : {}), ...dateQuery('appliedAt', filters) }
   const allRecordQuery = { verificationState: 'confirmed', ...(filters.company ? { companyId: filters.company } : {}), ...(filters.drive ? { placementDriveId: filters.drive } : {}), ...(filters.outcomeType ? { outcomeType: filters.outcomeType } : {}), ...(filters.placementSource ? { placementSource: filters.placementSource } : {}), ...dateQuery('adminVerifiedAt', filters) }
   const [rawApplications, rawRecords] = await Promise.all([values(applicationModel.find(applicationQuery)), values(placementRecordModel.find(allRecordQuery))])
-  const applications = (rawApplications ?? []).map(plain); const confirmedRecords = (rawRecords ?? []).map(plain)
+  const profileIds = new Set(profiles.map(profile => id(profile.userId)));
+  const applications = (rawApplications ?? []).map(plain).filter(application => profileIds.has(id(application.studentId))); const confirmedRecords = (rawRecords ?? []).map(plain).filter(record => profileIds.has(id(record.studentId)))
   const qualifyingRecords = confirmedRecords.filter(record => PLACEMENT_EQUIVALENT_OUTCOMES.includes(record.outcomeType))
   const eligibleProfiles = profiles.filter(profile => isCollegePlacementEligible(profile, institution?.collegeEligibility))
   const eligibleIds = new Set(eligibleProfiles.map(profile => id(profile.userId)))
   const qualifiedPlacedIds = new Set(qualifyingRecords.map(record => id(record.studentId)).filter(studentId => eligibleIds.has(studentId)))
   const activeDrives = driveScope.filter(drive => drive.lifecycleStatus === 'published')
-  const completedDrives = driveScope.filter(drive => ['postponed', 'cancelled'].includes(drive.lifecycleStatus))
+  const completedDrives = driveScope.filter(drive => drive.lifecycleStatus === 'completed')
+  const drivesByCompany = new Map()
+  const companyByDrive = new Map()
+  const applicationsByCompany = new Map()
+  const recordsByCompany = new Map()
+  for (const drive of allDrives) {
+    const companyId = id(drive.companyId)
+    companyByDrive.set(id(drive), companyId)
+    const companyDrives = drivesByCompany.get(companyId) ?? []
+    companyDrives.push(drive)
+    drivesByCompany.set(companyId, companyDrives)
+  }
+  for (const application of applications) {
+    const companyId = companyByDrive.get(id(application.placementDriveId))
+    if (!companyId) continue
+    const companyApplications = applicationsByCompany.get(companyId) ?? []
+    companyApplications.push(application)
+    applicationsByCompany.set(companyId, companyApplications)
+  }
+  for (const record of confirmedRecords) {
+    const companyId = id(record.companyId)
+    const companyRecords = recordsByCompany.get(companyId) ?? []
+    companyRecords.push(record)
+    recordsByCompany.set(companyId, companyRecords)
+  }
   const branchPerformance = [...new Set(profiles.map(profile => profile.branch).filter(Boolean))].sort().map(branch => {
     const rows = profiles.filter(profile => profile.branch === branch); const eligible = rows.filter(profile => eligibleIds.has(id(profile.userId))); const placed = eligible.filter(profile => qualifiedPlacedIds.has(id(profile.userId)))
     return { branch, totalStudents: rows.length, eligibleStudents: eligible.length, placedStudents: placed.length, unplacedEligibleStudents: eligible.length - placed.length, eligiblePlacementRate: eligible.length ? (placed.length / eligible.length) * 100 : 0 }
   })
   const companyPerformance = companies.map(company => {
-    const companyDrives = allDrives.filter(drive => id(drive.companyId) === id(company)); const companyDriveIds = companyDrives.map(drive => drive._id); const companyApps = applications.filter(application => inScope(application.placementDriveId, companyDriveIds)); const companyRecords = confirmedRecords.filter(record => id(record.companyId) === id(company)); const packageValues = packageStatistics(companyRecords.filter(record => PLACEMENT_EQUIVALENT_OUTCOMES.includes(record.outcomeType)))
+    const companyId = id(company); const companyDrives = drivesByCompany.get(companyId) ?? []; const companyApps = applicationsByCompany.get(companyId) ?? []; const companyRecords = recordsByCompany.get(companyId) ?? []; const packageValues = packageStatistics(companyRecords.filter(record => PLACEMENT_EQUIVALENT_OUTCOMES.includes(record.outcomeType)))
     const activity = [...companyApps.map(item => item.updatedAt ?? item.appliedAt), ...companyRecords.map(item => item.adminVerifiedAt ?? item.updatedAt)].filter(Boolean).sort().at(-1)
     return { companyId: company._id, companyName: company.companyName ?? 'Company', driveCount: companyDrives.length, activeDriveCount: companyDrives.filter(drive => drive.lifecycleStatus === 'published').length, applicants: companyApps.length, provisionalSelected: statusCount(companyApps, 'selected_pending_confirmation'), confirmedPlacements: companyRecords.filter(record => PLACEMENT_EQUIVALENT_OUTCOMES.includes(record.outcomeType)).length, highestPackage: packageValues.highest, latestActivityAt: activity ?? null }
   }).filter(item => item.driveCount || !filters.company)
@@ -163,7 +187,9 @@ export async function getAdminAnalyticsDashboard(filters = {}, dependencies = {}
   for (const record of confirmedRecords) { const key = monthKey(record.adminVerifiedAt); if (key) timelineMap.set(key, { month: key, applications: timelineMap.get(key)?.applications ?? 0, confirmations: (timelineMap.get(key)?.confirmations ?? 0) + 1 }) }
   const phases = filters.drive ? [0, ...(driveScope[0]?.phases ?? []).map(phase => phase.phaseNumber)] : [...new Set(applications.map(application => application.currentPhase))].sort((left, right) => left - right)
   const funnel = { applicants: applications.length, phases: phases.map(phaseNumber => ({ phaseNumber, count: applications.filter(application => application.currentPhase === phaseNumber && ['applied', 'active'].includes(application.currentStatus)).length })), provisionalSelected: statusCount(applications, 'selected_pending_confirmation'), confirmedPlacements: applications.filter(application => application.currentStatus === 'placement_confirmed').length, exited: { rejected: statusCount(applications, 'rejected'), absent: statusCount(applications, 'absent'), withdrawn: statusCount(applications, 'withdrawn'), closedPlacedElsewhere: statusCount(applications, 'closed_placed_elsewhere') } }
-  return { summary: await getAdminAnalyticsSummary(filters, { studentProfileModel, placementRecordModel, institutionService }), recruitment: { companyCount: companies.filter(company => company.approvalStatus === 'approved').length, activeDriveCount: activeDrives.length, completedDriveCount: completedDrives.length }, branchPerformance, companyPerformance, outcomes, timeline: [...timelineMap.values()].sort((left, right) => left.month.localeCompare(right.month)), funnel, options: { branches: [...(institution?.branches ?? [])].sort(), companies: companies.filter(company => company.approvalStatus === 'approved').map(company => ({ id: String(company._id), name: company.companyName })), drives: allDrives.map(drive => ({ id: String(drive._id), label: `${drive.role?.title ?? 'Drive'} · ${drive.companyId}` })) } }
+  const companyById = new Map(companies.map(company => [id(company), company]))
+  const studentScoped = Boolean(filters.branch || filters.graduationYear || filters.batch || filters.minCpi != null || filters.maxCpi != null || filters.verificationStatus)
+  return { summary: await getAdminAnalyticsSummary(filters, { studentProfileModel, placementRecordModel, institutionService }), recruitment: { companyCount: companies.filter(company => company.approvalStatus === 'approved').length, activeDriveCount: activeDrives.length, completedDriveCount: completedDrives.length }, branchPerformance, companyPerformance: companyPerformance.filter(item => filters.company ? item.companyId === filters.company : !studentScoped || item.applicants || item.confirmedPlacements), outcomes, timeline: [...timelineMap.values()].sort((left, right) => left.month.localeCompare(right.month)), funnel, options: { branches: [...(institution?.branches ?? [])].sort(), companies: companies.filter(company => company.approvalStatus === 'approved').map(company => ({ id: String(company._id), name: company.companyName })), drives: allDrives.map(drive => ({ id: String(drive._id), companyId: String(drive.companyId), label: `${drive.role?.title ?? 'Drive'} · ${companyById.get(id(drive.companyId))?.companyName ?? 'Company'}` })) } }
 }
 
 async function getAdminAnalyticsDashboardAggregated(filters, { studentProfileModel, placementRecordModel, applicationModel, companyModel, placementDriveModel, institutionService }) {

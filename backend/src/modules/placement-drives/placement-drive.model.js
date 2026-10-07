@@ -109,6 +109,17 @@ const placementDriveSchema = new mongoose.Schema({
     reviewedBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
     reviewedAt: Date,
   },
+  historicalSource: {
+    seedKey: { type: String, trim: true, index: true },
+    sourceRow: { type: Number, min: 1, index: true },
+    rawOfferType: { type: String, trim: true },
+    originalSector: { type: String, trim: true },
+    placementSource: { type: String, enum: ['ON_CAMPUS', 'OFF_CAMPUS'] },
+    sourceProcessDate: { type: String, trim: true },
+    startDate: Date,
+    endDate: Date,
+    rawBranchOffers: { type: Map, of: Number, default: undefined },
+  },
 }, { timestamps: true })
 
 placementDriveSchema.pre('validate', function validatePhaseExecution() {
@@ -123,5 +134,6 @@ placementDriveSchema.pre('validate', function validatePhaseExecution() {
 
 placementDriveSchema.index({ companyId: 1, proposalStatus: 1, lifecycleStatus: 1 })
 placementDriveSchema.index({ 'driveDetails.applicationDeadline': 1 })
+placementDriveSchema.index({ 'historicalSource.seedKey': 1, 'historicalSource.sourceRow': 1 }, { unique: true, partialFilterExpression: { 'historicalSource.seedKey': { $type: 'string' } } })
 
 export const PlacementDrive = mongoose.models.PlacementDrive ?? mongoose.model('PlacementDrive', placementDriveSchema)
