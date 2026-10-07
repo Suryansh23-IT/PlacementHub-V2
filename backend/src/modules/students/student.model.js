@@ -24,6 +24,10 @@ const academicDocumentSchema = new mongoose.Schema({ board: { type: String, trim
 const skillGroupSchema = new mongoose.Schema({ name: { type: String, trim: true, maxlength: 80 }, skills: [{ type: String, trim: true, maxlength: 60 }] }, { _id: true })
 const semesterSpiSchema = new mongoose.Schema({ semester: { type: Number, min: 1, max: 8 }, spi: { type: Number, min: 0, max: 10 } }, { _id: false })
 const codingProfileSchema = new mongoose.Schema({ platform: { type: String, trim: true, maxlength: 80 }, url: { type: String, trim: true, maxlength: 500 } }, { _id: true })
+const internshipSchema = new mongoose.Schema({ organization: { type: String, trim: true, maxlength: 160 }, role: { type: String, trim: true, maxlength: 120 }, employmentType: { type: String, enum: ['internship', 'part_time', 'full_time', 'research', 'freelance'] }, startDate: Date, endDate: Date, description: { type: String, trim: true, maxlength: 1500 }, skills: [{ type: String, trim: true, maxlength: 60 }], url: { type: String, trim: true, maxlength: 500 } }, { _id: true })
+const certificationSchema = new mongoose.Schema({ title: { type: String, trim: true, maxlength: 160 }, issuer: { type: String, trim: true, maxlength: 160 }, issuedOn: Date, credentialUrl: { type: String, trim: true, maxlength: 500 } }, { _id: true })
+const achievementSchema = new mongoose.Schema({ title: { type: String, trim: true, maxlength: 160 }, issuer: { type: String, trim: true, maxlength: 160 }, awardedOn: Date, description: { type: String, trim: true, maxlength: 1000 } }, { _id: true })
+const activitySchema = new mongoose.Schema({ title: { type: String, trim: true, maxlength: 160 }, organization: { type: String, trim: true, maxlength: 160 }, role: { type: String, trim: true, maxlength: 120 }, description: { type: String, trim: true, maxlength: 1000 } }, { _id: true })
 
 const studentProfileSchema = new mongoose.Schema(
   {
@@ -46,6 +50,14 @@ const studentProfileSchema = new mongoose.Schema(
       portfolio: { type: String, trim: true, maxlength: 500 },
     },
     codingProfiles: [codingProfileSchema],
+    // M9A placement evidence. M9B owns social-profile opt-in and presentation.
+    targetRole: { type: String, trim: true, maxlength: 120 },
+    careerInterests: [{ type: String, trim: true, maxlength: 100 }],
+    internships: [internshipSchema],
+    certifications: [certificationSchema],
+    achievements: [achievementSchema],
+    extracurriculars: [activitySchema],
+    leadership: [activitySchema],
     resume: resumeSchema,
     collegeResult: resumeSchema,
     verificationStatus: { type: String, enum: ['pending', 'verified', 'rejected'], default: 'pending', required: true },

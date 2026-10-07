@@ -53,6 +53,7 @@ const placementDriveSchema = new mongoose.Schema({
     employmentType: { type: String, required: true, enum: ['full_time', 'internship', 'internship_to_full_time'] },
     description: { type: String, required: true, trim: true, maxlength: 5000 },
     requiredSkills: [{ type: String, trim: true, maxlength: 80 }],
+    preferredSkills: [{ type: String, trim: true, maxlength: 80 }],
   },
   driveDetails: {
     workMode: { type: String, required: true, enum: ['online', 'offline', 'hybrid'] },
@@ -77,6 +78,7 @@ const placementDriveSchema = new mongoose.Schema({
   documents: {
     companyRecruitmentInformation: pdfMetadataSchema,
     placementDriveJobDescription: pdfMetadataSchema,
+    recruitmentProcessInstructions: pdfMetadataSchema,
   },
   // Phase 0 is system-owned by M6 and is deliberately absent from this array.
   phases: {

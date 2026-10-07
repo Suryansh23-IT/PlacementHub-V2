@@ -9,6 +9,8 @@ const environmentSchema = z.object({
   JWT_EXPIRES_IN: z.string().min(1).default('1d'),
   BCRYPT_SALT_ROUNDS: z.coerce.number().int().min(10).max(14).default(12),
   ADMIN_BOOTSTRAP_SECRET: z.string().min(32, 'ADMIN_BOOTSTRAP_SECRET must contain at least 32 characters.').optional(),
+  DEMO_2027_STUDENT_PASSWORD: z.string().min(8).optional(),
+  DEMO_2027_COMPANY_PASSWORD: z.string().min(8).optional(),
   AUTH_RATE_LIMIT_WINDOW_MS: z.coerce.number().int().min(60_000).default(900_000),
   AUTH_RATE_LIMIT_MAX: z.coerce.number().int().min(3).max(100).default(10),
   RESUME_UPLOAD_DIR: z.string().trim().min(1).default('uploads/resumes'),

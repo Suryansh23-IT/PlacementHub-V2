@@ -24,6 +24,7 @@ const companyEditablePlacementDriveSchema = z.object({
     employmentType: z.enum(['full_time', 'internship', 'internship_to_full_time']),
     description: text('Role description', 5000),
     requiredSkills: z.array(text('Required skill', 80)).max(30).default([]),
+    preferredSkills: z.array(text('Preferred skill', 80)).max(30).default([]),
   }),
   driveDetails: z.object({
     workMode: z.enum(['online', 'offline', 'hybrid']),
@@ -58,6 +59,7 @@ const basePlacementDriveSchema = withPhaseRules(companyEditablePlacementDriveSch
   documents: z.object({
     companyRecruitmentInformation: pdfMetadataSchema.optional(),
     placementDriveJobDescription: pdfMetadataSchema.optional(),
+    recruitmentProcessInstructions: pdfMetadataSchema.optional(),
   }).default({}),
 }))
 
@@ -74,7 +76,7 @@ export const placementDriveIdParamsSchema = z.object({ id: z.string().regex(/^[a
 export const placementDriveApplicationWindowDeadlineSchema = z.object({ applicationDeadline: z.coerce.date() })
 export const placementDriveApplicationWindowReopenSchema = z.object({ applicationDeadline: z.coerce.date().optional() })
 export const placementDriveApplicantParamsSchema = placementDriveIdParamsSchema.extend({ studentId: z.string().regex(/^[a-f\d]{24}$/i, 'Student ID must be valid.') })
-export const placementDriveDocumentParamsSchema = placementDriveIdParamsSchema.extend({ type: z.enum(['companyRecruitmentInformation', 'placementDriveJobDescription']) })
+export const placementDriveDocumentParamsSchema = placementDriveIdParamsSchema.extend({ type: z.enum(['companyRecruitmentInformation', 'placementDriveJobDescription', 'recruitmentProcessInstructions']) })
 export const placementDriveReviewSchema = z.object({
   decision: z.enum(['approved', 'rejected', 'changes_requested']),
   reason: z.string().trim().min(2, 'Provide a reason for rejection or requested changes.').max(1500).optional(),

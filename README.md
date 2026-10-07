@@ -60,3 +60,11 @@ The controlled TCS browser-smoke fixture is optional and is kept separate from n
 - `npm run fixture:tcs-smoke:clean --prefix backend` prints the tracked-record audit, then removes only that fixture’s notifications, workflow records, fixture accounts/profiles, policy acceptances, store entry, and generated local manifest.
 
 The cleanup never selects records by Company name and does not remove manual or demo-seeded data.
+
+## Isolated 2027 demo foundation
+
+M9A uses a separate MongoDB database named `placementhub-v2-demo-2027`. The 2027 commands refuse every other database name, including the historical M8.5 database. Configure `MONGO_URI` for that exact database and provide the required local demo password environment variables before record seeding.
+
+- `npm run seed:demo:2027:validate --prefix backend` validates the guarded environment and canonical source without connecting to MongoDB.
+- `npm run seed:demo:2027 --prefix backend` currently prints only the deterministic foundation plan; it creates no records or PDFs.
+- `npm run seed:demo:2027:reset --prefix backend -- --confirm` is confirmation-gated and can remove only IDs and upload paths recorded in the dedicated 2027 manifest.

@@ -82,6 +82,24 @@ test('optional professional and coding links persist without affecting completio
   assert.equal(studentProfileSchema.safeParse({ ...input, codingProfiles: Array.from({ length: 6 }, (_, index) => ({ platform: `Platform ${index}`, url: 'https://example.test' })) }).success, false)
 })
 
+test('M9A placement-profile evidence validates without enabling a social profile or changing placement completion', () => {
+  const input = {
+    ...completeProfileInput,
+    targetRole: 'Software Development Engineer',
+    careerInterests: ['Backend engineering', 'Cloud platforms'],
+    internships: [{ organization: 'Northstar Labs', role: 'Backend Intern', employmentType: 'internship', startDate: '2026-05-01', endDate: '2026-07-31', description: 'Built API validation and test tooling.', skills: ['Node.js', 'MongoDB'], url: 'https://example.test/northstar' }],
+    certifications: [{ title: 'AWS Cloud Practitioner', issuer: 'Amazon Web Services', issuedOn: '2026-04-01' }],
+    achievements: [{ title: 'Department coding finalist', issuer: 'Institute Coding Club', awardedOn: '2026-02-01' }],
+    extracurriculars: [{ title: 'Technical quiz team', organization: 'Student Technical Council', role: 'Member' }],
+    leadership: [{ title: 'Project lead', organization: 'Campus Developer Club', role: 'Lead' }],
+  }
+  const parsed = studentProfileSchema.parse(input)
+  assert.equal(parsed.internships.length, 1)
+  assert.equal(parsed.leadership[0].role, 'Lead')
+  assert.equal(getProfileCompletion(completeProfile(parsed)).complete, true)
+  assert.equal(studentProfileSchema.safeParse({ ...input, internships: [{ ...input.internships[0], endDate: '2026-04-30' }] }).success, false)
+})
+
 test('completion requires a college result but does not require optional Class 10 or Class 12 marksheets', () => {
   const completion = getProfileCompletion(completeProfile())
   assert.equal(completion.complete, true)

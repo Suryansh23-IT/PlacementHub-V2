@@ -13,6 +13,11 @@ const skillGroupSchema = z.object({ name: trimmedText(2, 80, 'Skill group name')
 const semesterSpiSchema = z.object({ semester: z.coerce.number().int().min(1).max(8), spi: z.coerce.number().min(0).max(10) })
 const optionalUrl = z.string().trim().url('Enter a valid URL.').max(500).or(z.literal('')).optional().transform((value) => value || undefined)
 const codingProfileSchema = z.object({ platform: trimmedText(2, 80, 'Platform name'), url: z.string().trim().url('Coding profile URL must be a valid URL.').max(500) })
+const optionalText = (max) => z.string().trim().max(max).optional().transform((value) => value || undefined)
+const internshipSchema = z.object({ organization: trimmedText(2, 160, 'Organization'), role: trimmedText(2, 120, 'Role'), employmentType: z.enum(['internship', 'part_time', 'full_time', 'research', 'freelance']), startDate: z.coerce.date(), endDate: z.coerce.date().optional(), description: trimmedText(2, 1500, 'Experience description'), skills: z.array(trimmedText(1, 60, 'Skill')).max(20).default([]), url: optionalUrl }).refine((value) => !value.endDate || value.endDate >= value.startDate, { message: 'Experience end date cannot be before its start date.', path: ['endDate'] })
+const certificationSchema = z.object({ title: trimmedText(2, 160, 'Certification title'), issuer: trimmedText(2, 160, 'Certification issuer'), issuedOn: z.coerce.date().optional(), credentialUrl: optionalUrl })
+const achievementSchema = z.object({ title: trimmedText(2, 160, 'Achievement title'), issuer: trimmedText(2, 160, 'Achievement issuer'), awardedOn: z.coerce.date().optional(), description: optionalText(1000) })
+const activitySchema = z.object({ title: trimmedText(2, 160, 'Activity title'), organization: trimmedText(2, 160, 'Organization'), role: optionalText(120), description: optionalText(1000) })
 
 export const studentProfileSchema = z.object({
   branch: trimmedText(2, 100, 'Branch'),
@@ -27,6 +32,13 @@ export const studentProfileSchema = z.object({
   projects: z.array(projectSchema).min(1).max(3),
   professionalLinks: z.object({ linkedin: optionalUrl, github: optionalUrl, portfolio: optionalUrl }).default({}),
   codingProfiles: z.array(codingProfileSchema).max(5).default([]),
+  targetRole: optionalText(120),
+  careerInterests: z.array(trimmedText(1, 100, 'Career interest')).max(10).default([]),
+  internships: z.array(internshipSchema).max(5).default([]),
+  certifications: z.array(certificationSchema).max(10).default([]),
+  achievements: z.array(achievementSchema).max(10).default([]),
+  extracurriculars: z.array(activitySchema).max(10).default([]),
+  leadership: z.array(activitySchema).max(10).default([]),
 })
 export const studentIdParamsSchema = z.object({ id: z.string().regex(/^[a-f\d]{24}$/i, 'Student ID must be valid.') })
 export const documentTypeParamsSchema = z.object({ type: z.enum(['class10', 'class12', 'collegeResult']) })
