@@ -8,6 +8,7 @@ import { FormField } from '../components/ui/FormField.jsx'
 import { useAuth } from '../features/auth/useAuth.js'
 import { loginFormSchema } from '../features/auth/auth.schemas.js'
 import { loginAccount } from '../services/auth.service.js'
+import { loginDestinationForRole } from '../features/auth/role-navigation.js'
 import { PlacementCycleSelector } from '../components/placement-cycle/PlacementCycleSelector.jsx'
 import { usePlacementCycle } from '../features/placement-cycle/usePlacementCycle.js'
 
@@ -30,7 +31,7 @@ export function LoginPage() {
     try {
       const { data } = await loginAccount(validation.data)
       startSession(data)
-      navigate(location.state?.from ?? (data.user.role === 'placement_admin' ? '/admin/dashboard' : '/dashboard'), { replace: true })
+      navigate(loginDestinationForRole(data.user.role, location.state?.from), { replace: true })
     } catch (requestError) {
       setError(requestError.message)
     } finally {

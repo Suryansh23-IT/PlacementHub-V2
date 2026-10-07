@@ -22,6 +22,7 @@ const empty = {
   class12: { board: '', schoolName: '', passingYear: '', score: '' },
   semesterSpis: [], skillGroups: [], projects: [], skills: [],
   professionalLinks: { linkedin: '', github: '', portfolio: '' }, codingProfiles: [],
+  targetRole: '', careerInterests: [], internships: [], certifications: [], achievements: [], extracurriculars: [], leadership: [],
 }
 
 const completionLabels = {
@@ -35,6 +36,8 @@ const formFrom = (profile) => ({
   class12: { ...empty.class12, ...profile.class12 },
   semesterSpis: profile.semesterSpis ?? [], skillGroups: profile.skillGroups ?? [], projects: profile.projects ?? [],
   professionalLinks: { ...empty.professionalLinks, ...profile.professionalLinks }, codingProfiles: profile.codingProfiles ?? [],
+  careerInterests: profile.careerInterests ?? [], internships: profile.internships ?? [], certifications: profile.certifications ?? [],
+  achievements: profile.achievements ?? [], extracurriculars: profile.extracurriculars ?? [], leadership: profile.leadership ?? [],
 })
 
 export function StudentProfilePage() {
@@ -71,6 +74,10 @@ export function StudentProfilePage() {
         semesterSpis: form.semesterSpis.map((item) => ({ semester: Number(item.semester), spi: Number(item.spi) })),
         skillGroups: form.skillGroups.map((item) => ({ ...item, skills: String(item.skills).split(',').map((skill) => skill.trim()).filter(Boolean) })),
         projects: form.projects.map((item) => ({ ...item, technologies: String(item.technologies).split(',').map((skill) => skill.trim()).filter(Boolean) })),
+        careerInterests: String(form.careerInterests).split(',').map((interest) => interest.trim()).filter(Boolean),
+        internships: form.internships.map((item) => ({ ...item, startDate: new Date(item.startDate), endDate: item.endDate ? new Date(item.endDate) : undefined, skills: String(item.skills).split(',').map((skill) => skill.trim()).filter(Boolean) })),
+        certifications: form.certifications.map((item) => ({ ...item, issuedOn: item.issuedOn ? new Date(item.issuedOn) : undefined })),
+        achievements: form.achievements.map((item) => ({ ...item, awardedOn: item.awardedOn ? new Date(item.awardedOn) : undefined })),
         professionalLinks: form.professionalLinks,
         codingProfiles: form.codingProfiles,
       }
@@ -179,6 +186,17 @@ export function StudentProfilePage() {
         <RepeatableSection title="Projects" description="Add up to three projects, including the tools or technologies used." items={form.projects} fields={['title', 'description', 'technologies', 'url']} maxItems={3} add={() => change('projects', [...form.projects, { title: '', description: '', technologies: '', url: '' }])} onChange={(items) => change('projects', items)} />
       </ProfileSection>
 
+      <ProfileSection title="Career focus & placement evidence" description="Keep the information used for placement matching and resume preparation accurate. This is part of your placement record, not a public social profile.">
+        <div className="grid gap-4 md:grid-cols-2"><FormField label="Target role" placeholder="e.g. Backend Engineer" value={form.targetRole} onChange={(event) => change('targetRole', event.target.value)} /><FormField label="Career interests (comma-separated)" placeholder="e.g. Distributed systems, cloud engineering" value={form.careerInterests.join(', ')} onChange={(event) => change('careerInterests', event.target.value)} /></div>
+        <div className="mt-6 space-y-8 border-t border-slate-100 pt-6">
+          <EvidenceSection title="Internship / experience" description="Add relevant internship, research, part-time, full-time, or freelance work." items={form.internships} maxItems={5} emptyItem={{ organization: '', role: '', employmentType: 'internship', startDate: '', endDate: '', description: '', skills: '', url: '' }} fields={[['organization', 'Organization'], ['role', 'Role'], ['employmentType', 'Type', 'select'], ['startDate', 'Start date', 'date'], ['endDate', 'End date', 'date'], ['description', 'Description', 'textarea'], ['skills', 'Skills (comma-separated)'], ['url', 'Experience URL', 'url']]} onChange={(items) => change('internships', items)} />
+          <EvidenceSection title="Certifications" description="Add certifications that support your target role." items={form.certifications} maxItems={10} emptyItem={{ title: '', issuer: '', issuedOn: '', credentialUrl: '' }} fields={[['title', 'Certification title'], ['issuer', 'Issuer'], ['issuedOn', 'Issued on', 'date'], ['credentialUrl', 'Credential URL', 'url']]} onChange={(items) => change('certifications', items)} />
+          <EvidenceSection title="Achievements" description="Capture competitions, recognitions, and other measurable accomplishments." items={form.achievements} maxItems={10} emptyItem={{ title: '', issuer: '', awardedOn: '', description: '' }} fields={[['title', 'Achievement title'], ['issuer', 'Issuer'], ['awardedOn', 'Awarded on', 'date'], ['description', 'Description', 'textarea']]} onChange={(items) => change('achievements', items)} />
+          <EvidenceSection title="Extracurricular activities" description="Include meaningful campus, cultural, sports, or volunteer activity." items={form.extracurriculars} maxItems={10} emptyItem={{ title: '', organization: '', role: '', description: '' }} fields={[['title', 'Activity title'], ['organization', 'Organization'], ['role', 'Role'], ['description', 'Description', 'textarea']]} onChange={(items) => change('extracurriculars', items)} />
+          <EvidenceSection title="Leadership" description="Add leadership responsibilities that demonstrate communication and ownership." items={form.leadership} maxItems={10} emptyItem={{ title: '', organization: '', role: '', description: '' }} fields={[['title', 'Leadership activity'], ['organization', 'Organization'], ['role', 'Role'], ['description', 'Description', 'textarea']]} onChange={(items) => change('leadership', items)} />
+        </div>
+      </ProfileSection>
+
       <ProfileSection title="Professional presence" description="Optional links help reviewers understand your public work. They do not affect verification.">
         <div className="grid gap-4 md:grid-cols-3"><FormField label="LinkedIn URL" type="url" value={form.professionalLinks.linkedin} onChange={(event) => setForm((current) => ({ ...current, professionalLinks: { ...current.professionalLinks, linkedin: event.target.value } }))} /><FormField label="GitHub URL" type="url" value={form.professionalLinks.github} onChange={(event) => setForm((current) => ({ ...current, professionalLinks: { ...current.professionalLinks, github: event.target.value } }))} /><FormField label="Portfolio website" type="url" value={form.professionalLinks.portfolio} onChange={(event) => setForm((current) => ({ ...current, professionalLinks: { ...current.professionalLinks, portfolio: event.target.value } }))} /></div>
         <div className="mt-6 border-t border-slate-100 pt-6"><CodingProfiles items={form.codingProfiles} onChange={(codingProfiles) => change('codingProfiles', codingProfiles)} /></div>
@@ -225,3 +243,10 @@ function DocumentRow({ label, required, file, busy, onUpload, onView, onDownload
 function CodingProfiles({ items, onChange }) {
   return <section><div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between"><div><h3 className="font-bold text-slate-900">Coding profiles</h3><p className="mt-1 text-sm text-slate-500">Add up to five optional competitive-programming or coding-platform profiles.</p></div><Button variant="secondary" disabled={items.length >= 5} onClick={() => onChange([...items, { platform: '', url: '' }])}>Add profile</Button></div>{items.length === 0 ? <p className="mt-4 rounded-xl border border-dashed border-slate-300 bg-slate-50 px-4 py-5 text-sm text-slate-500">No coding profiles added.</p> : <div className="mt-4 space-y-3">{items.map((item, index) => <article className="rounded-xl border border-slate-200 bg-slate-50/70 p-4" key={index}><div className="mb-4 flex items-center justify-between gap-3"><p className="text-sm font-bold text-slate-700">Coding profile {index + 1}</p><Button variant="quiet" className="min-h-0 px-2 py-1 text-rose-700 hover:bg-rose-50" onClick={() => onChange(items.filter((_, itemIndex) => itemIndex !== index))}>Remove</Button></div><div className="grid gap-4 sm:grid-cols-2"><FormField label="Platform name" placeholder="e.g. LeetCode" value={item.platform} onChange={(event) => onChange(items.map((current, itemIndex) => itemIndex === index ? { ...current, platform: event.target.value } : current))} /><FormField label="Profile URL" type="url" placeholder="https://…" value={item.url} onChange={(event) => onChange(items.map((current, itemIndex) => itemIndex === index ? { ...current, url: event.target.value } : current))} /></div></article>)}</div>}</section>
 }
+
+function EvidenceSection({ title, description, items, maxItems, emptyItem, fields, onChange }) {
+  const singular = title.replace(/ies$/, 'y').replace(/s$/, '')
+  return <section><div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between"><div><h3 className="font-bold text-slate-900">{title}</h3><p className="mt-1 text-sm text-slate-500">{description}</p></div><Button variant="secondary" disabled={items.length >= maxItems} onClick={() => onChange([...items, emptyItem])}>Add {singular}</Button></div>{items.length === 0 ? <p className="mt-4 rounded-xl border border-dashed border-slate-300 bg-slate-50 px-4 py-5 text-sm text-slate-500">No {title.toLowerCase()} added yet.</p> : <div className="mt-4 space-y-3">{items.map((item, index) => <article className="rounded-xl border border-slate-200 bg-slate-50/70 p-4" key={index}><div className="mb-4 flex items-center justify-between gap-3"><p className="text-sm font-bold text-slate-700">{singular} {index + 1}</p><Button variant="quiet" className="min-h-0 px-2 py-1 text-rose-700 hover:bg-rose-50" onClick={() => onChange(items.filter((_, itemIndex) => itemIndex !== index))}>Remove</Button></div><div className="grid gap-4 sm:grid-cols-2">{fields.map(([key, label, type = 'text']) => type === 'select' ? <FormField key={key} as="select" label={label} value={item[key] ?? 'internship'} onChange={(event) => onChange(items.map((current, itemIndex) => itemIndex === index ? { ...current, [key]: event.target.value } : current))}><option value="internship">Internship</option><option value="research">Research</option><option value="part_time">Part-time</option><option value="full_time">Full-time</option><option value="freelance">Freelance</option></FormField> : <FormField key={key} label={label} type={type === 'textarea' ? undefined : type} as={type === 'textarea' ? 'textarea' : 'input'} className={type === 'textarea' ? 'sm:col-span-2 min-h-28' : ''} value={dateValue(item[key], type)} onChange={(event) => onChange(items.map((current, itemIndex) => itemIndex === index ? { ...current, [key]: event.target.value } : current))} />)}</div></article>)}</div>}</section>
+}
+
+function dateValue(value, type) { return type === 'date' && value ? String(value).slice(0, 10) : value ?? '' }
