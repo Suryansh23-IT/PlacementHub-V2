@@ -1,25 +1,35 @@
 import { useEffect, useState } from 'react'
 import { getCurrentUser } from '../../services/auth.service.js'
 import { AuthContext } from './auth.context.js'
+import { sessionStorageKeyForCycle } from '../placement-cycle/placement-cycle.js'
+import { usePlacementCycle } from '../placement-cycle/usePlacementCycle.js'
 
-const SESSION_STORAGE_KEY = 'placementhub.session'
-function readStoredSession() {
+function readStoredSession(cycle) {
   try {
-    const value = localStorage.getItem(SESSION_STORAGE_KEY)
+    const value = localStorage.getItem(sessionStorageKeyForCycle(cycle))
     return value ? JSON.parse(value) : null
   } catch {
-    localStorage.removeItem(SESSION_STORAGE_KEY)
+    localStorage.removeItem(sessionStorageKeyForCycle(cycle))
     return null
   }
 }
 
 export function AuthProvider({ children }) {
-  const [session, setSession] = useState(readStoredSession)
-  const [isRestoring, setIsRestoring] = useState(() => Boolean(readStoredSession()?.accessToken))
+  const { activeCycle } = usePlacementCycle()
+  const [session, setSession] = useState(() => readStoredSession(activeCycle))
+  const [sessionCycle, setSessionCycle] = useState(activeCycle)
+  const [isRestoring, setIsRestoring] = useState(() => Boolean(readStoredSession(activeCycle)?.accessToken))
   const accessToken = session?.accessToken
 
   useEffect(() => {
-    if (!accessToken) return undefined
+    const restored = readStoredSession(activeCycle)
+    setSessionCycle(activeCycle)
+    setSession(restored)
+    setIsRestoring(Boolean(restored?.accessToken))
+  }, [activeCycle])
+
+  useEffect(() => {
+    if (!accessToken || sessionCycle !== activeCycle) return undefined
 
     let active = true
     getCurrentUser(accessToken)
@@ -30,24 +40,25 @@ export function AuthProvider({ children }) {
       })
       .catch(() => {
         if (active) {
-          localStorage.removeItem(SESSION_STORAGE_KEY)
+          localStorage.removeItem(sessionStorageKeyForCycle(activeCycle))
           setSession(null)
         }
       })
       .finally(() => active && setIsRestoring(false))
 
     return () => { active = false }
-  }, [accessToken])
+  }, [accessToken, activeCycle, sessionCycle])
 
   function startSession(data) {
-    localStorage.setItem(SESSION_STORAGE_KEY, JSON.stringify(data))
+    localStorage.setItem(sessionStorageKeyForCycle(activeCycle), JSON.stringify(data))
+    setSessionCycle(activeCycle)
     setSession(data)
   }
 
   function endSession() {
-    localStorage.removeItem(SESSION_STORAGE_KEY)
+    localStorage.removeItem(sessionStorageKeyForCycle(activeCycle))
     setSession(null)
   }
 
-  return <AuthContext.Provider value={{ session, isRestoring, startSession, endSession }}>{children}</AuthContext.Provider>
+  return <AuthContext.Provider value={{ session: sessionCycle === activeCycle ? session : null, isRestoring: isRestoring || sessionCycle !== activeCycle, startSession, endSession }}>{children}</AuthContext.Provider>
 }

@@ -8,6 +8,8 @@ import { FormField } from '../components/ui/FormField.jsx'
 import { useAuth } from '../features/auth/useAuth.js'
 import { registerFormSchema } from '../features/auth/auth.schemas.js'
 import { registerAccount } from '../services/auth.service.js'
+import { PlacementCycleSelector } from '../components/placement-cycle/PlacementCycleSelector.jsx'
+import { usePlacementCycle } from '../features/placement-cycle/usePlacementCycle.js'
 
 const ROLE_DETAILS = {
   student: {
@@ -36,6 +38,7 @@ const ROLE_OPTIONS = [
 export function RegisterPage() {
   const navigate = useNavigate()
   const { startSession } = useAuth()
+  const { cycle } = usePlacementCycle()
   const [step, setStep] = useState(1)
   const [form, setForm] = useState({ name: '', email: '', password: '', confirmPassword: '', role: '' })
   const [error, setError] = useState('')
@@ -91,11 +94,14 @@ export function RegisterPage() {
       </aside>
 
       <div className="ph-auth-form">
-        {step === 1 ? <RoleSelection form={form} error={error} onSelect={selectRole} onContinue={continueToDetails} /> : <AccountDetails form={form} details={roleDetails} error={error} isSubmitting={isSubmitting} onChange={(field, value) => setForm({ ...form, [field]: value })} onBack={() => { setError(''); setStep(1) }} onSubmit={handleSubmit} />}
+        <PlacementCycleSelector />
+        {cycle.id === '2026' ? <ArchivedCycle /> : step === 1 ? <RoleSelection form={form} error={error} onSelect={selectRole} onContinue={continueToDetails} /> : <AccountDetails form={form} details={roleDetails} error={error} isSubmitting={isSubmitting} onChange={(field, value) => setForm({ ...form, [field]: value })} onBack={() => { setError(''); setStep(1) }} onSubmit={handleSubmit} />}
       </div>
     </section></div>
   )
 }
+
+function ArchivedCycle() { return <div className="mt-8"><p className="text-sm font-semibold uppercase tracking-[.16em] text-blue-700">Placement Cycle 2026 · Archived</p><h2 className="mt-3 text-3xl font-bold tracking-tight text-slate-950">Registration is closed.</h2><p className="mt-3 leading-6 text-slate-600">Placement Cycle 2026 is archived. New registrations are closed for this cycle. Existing users can sign in to view historical placement information.</p><Link className="mt-7 inline-flex rounded-xl bg-blue-800 px-4 py-2.5 font-bold text-white hover:bg-blue-900" to="/login">Go to Login</Link></div> }
 
 function RoleSelection({ form, error, onSelect, onContinue }) {
   return (

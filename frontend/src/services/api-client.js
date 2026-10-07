@@ -1,4 +1,8 @@
-export const API_URL = import.meta.env.VITE_API_URL ?? 'http://localhost:5000/api/v1'
+import { activePlacementCycle, apiUrlForPlacementCycle } from '../features/placement-cycle/placement-cycle.js'
+
+// Existing download helpers interpolate this value into URLs. Its string value
+// resolves at request time, so those helpers follow the active cycle too.
+export const API_URL = Object.freeze({ toString: () => apiUrlForPlacementCycle(activePlacementCycle()) })
 
 export async function apiRequest(path, options = {}) {
   const headers = { Accept: 'application/json', ...options.headers }
@@ -9,7 +13,7 @@ export async function apiRequest(path, options = {}) {
     headers['Content-Type'] = 'application/json'
   }
 
-  const response = await fetch(`${API_URL}${path}`, {
+  const response = await fetch(`${apiUrlForPlacementCycle(activePlacementCycle())}${path}`, {
     ...options,
     headers,
     body: jsonBody ? JSON.stringify(options.body) : options.body,

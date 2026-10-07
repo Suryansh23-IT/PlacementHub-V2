@@ -8,11 +8,14 @@ import { FormField } from '../components/ui/FormField.jsx'
 import { useAuth } from '../features/auth/useAuth.js'
 import { loginFormSchema } from '../features/auth/auth.schemas.js'
 import { loginAccount } from '../services/auth.service.js'
+import { PlacementCycleSelector } from '../components/placement-cycle/PlacementCycleSelector.jsx'
+import { usePlacementCycle } from '../features/placement-cycle/usePlacementCycle.js'
 
 export function LoginPage() {
   const navigate = useNavigate()
   const location = useLocation()
   const { startSession } = useAuth()
+  const { cycle } = usePlacementCycle()
   const [form, setForm] = useState({ email: '', password: '' })
   const [error, setError] = useState('')
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -36,13 +39,15 @@ export function LoginPage() {
   }
 
   return <div className="ph-auth"><AuthCard title="Welcome back" description="Sign in to continue your placement journey.">
+    <PlacementCycleSelector />
+    <p className="mt-3 text-sm text-slate-600">{cycle.label} · {cycle.status}</p>
     {error && <ErrorState message={error} />}
     <form className="mt-7 space-y-4" onSubmit={handleSubmit}>
       <FormField label="Email" type="email" value={form.email} onChange={(event) => setForm({ ...form, email: event.target.value })} autoComplete="email" placeholder="you@example.com" />
       <FormField label="Password" type="password" value={form.password} onChange={(event) => setForm({ ...form, password: event.target.value })} autoComplete="current-password" />
       <Button type="submit" className="w-full" disabled={isSubmitting}>{isSubmitting ? 'Signing in…' : 'Sign in'}</Button>
     </form>
-    <p className="mt-6 text-sm text-slate-600">New here? <Link className="font-bold text-blue-700 hover:text-blue-900" to="/register">Create an account</Link>.</p>
+    <p className="mt-6 text-sm text-slate-600">{cycle.id === '2026' ? 'This archived cycle is available to existing users.' : <>New here? <Link className="font-bold text-blue-700 hover:text-blue-900" to="/register">Create an account</Link>.</>}</p>
   </AuthCard></div>
 }
 

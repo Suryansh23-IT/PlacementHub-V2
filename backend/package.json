@@ -5,6 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "node --watch src/server.js",
+    "dev:cycle:2026": "node --watch scripts/start-placement-cycle.js 2026",
+    "dev:cycle:2027": "node --watch scripts/start-placement-cycle.js 2027",
     "start": "node src/server.js",
     "seed:demo": "node scripts/seed-demo.js",
     "seed:demo:clean": "node scripts/clean-demo-seed.js",
