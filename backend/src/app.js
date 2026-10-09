@@ -17,6 +17,7 @@ import { adminIncidentRouter, companyIncidentRouter } from './modules/incidents/
 import { adminDashboardRouter, companyDashboardRouter, studentDashboardRouter } from './modules/dashboard/dashboard.routes.js'
 import { adminPlacementRecordRouter, studentPlacementRecordRouter } from './modules/placements/placement-record.routes.js'
 import { adminAnalyticsRouter } from './modules/analytics/analytics.routes.js'
+import { socialRouter } from './modules/social/social.routes.js'
 
 export const app = express()
 
@@ -47,5 +48,6 @@ app.use('/api/v1/companies', companyPlacementDriveRouter)
 app.use('/api/v1/admin/placement-drives', adminPlacementDriveRouter)
 app.use('/api/v1/admin/placement-outcomes', adminPlacementRecordRouter)
 app.use('/api/v1/admin/analytics', adminAnalyticsRouter)
+app.use('/api/v1/social', socialRouter)
 app.use(notFound)
 app.use(errorHandler)

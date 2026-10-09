@@ -1,6 +1,7 @@
 import mongoose from 'mongoose'
 
 const notificationSchema = new mongoose.Schema({
+  domain: { type: String, enum: ['placement', 'community'], index: true },
   recipientId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true, index: true },
   senderId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
   notificationBatchId: { type: String, trim: true, maxlength: 64, index: true },
@@ -13,9 +14,10 @@ const notificationSchema = new mongoose.Schema({
   placementDriveId: { type: mongoose.Schema.Types.ObjectId, ref: 'PlacementDrive', index: true },
   applicationId: { type: mongoose.Schema.Types.ObjectId, ref: 'Application' },
   companyId: { type: mongoose.Schema.Types.ObjectId, ref: 'Company', index: true },
+  postId: { type: mongoose.Schema.Types.ObjectId, ref: 'SocialPost', index: true },
   phaseNumber: { type: Number, min: 1, max: 5, index: true },
   context: {
-    action: { type: String, enum: ['view_drive', 'view_application', 'view_incident', 'view_restriction', 'view_company', 'view_phase'], trim: true },
+    action: { type: String, enum: ['view_drive', 'view_application', 'view_incident', 'view_restriction', 'view_company', 'view_phase', 'view_community_post'], trim: true },
     audience: { type: String, enum: ['eligible_students', 'eligible_drive', 'drive_applicants', 'phase_candidates', 'student', 'company', 'placement_admin'], trim: true },
     roleTitle: { type: String, trim: true, maxlength: 160 },
     phaseTitle: { type: String, trim: true, maxlength: 120 },

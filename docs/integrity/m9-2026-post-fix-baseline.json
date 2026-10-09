@@ -1,0 +1,102 @@
+{
+  "schemaVersion": 1,
+  "capturedAt": "2026-10-09T12:03:21.960Z",
+  "cycle": "2026",
+  "database": "placementhub-v2",
+  "purpose": "Verified post-fix M9 closure baseline; contains hashes/counts only, no profile records.",
+  "supersedes": {
+    "source": "Preserved local artifacts/m9b/c-archived-baseline.json",
+    "collections": [
+      "institutionprofiles"
+    ],
+    "previousInstitutionHash": "b71d636cf8e30199e664cca053946138bc6961748f3c9b1a9c930d7a43405d9d",
+    "reason": "User-approved historical metadata-only deviation caused by legacy timestamped Institution GET upsert. Controlled reproduction changed only updatedAt; pure-read fix verified against running API.",
+    "originalUpdatedAtRecoverable": false,
+    "archivedDataModifiedForBaseline": false,
+    "otherCollectionHashesUnchanged": true
+  },
+  "institutionSemanticHashExcludingUpdatedAt": "b70af648c579851437b6b57c9e3b7ef34eebf6576fd4f3f34b6c028fc357acf8",
+  "hashAlgorithm": "SHA-256 of JSON.stringify(raw MongoDB documents sorted by _id ascending)",
+  "collections": {
+    "recruiterpolicyacceptances": {
+      "count": 203,
+      "hash": "13ef119c012995ef7ad602bd690741cb235981353842cc8133d2deef3fadfd3c"
+    },
+    "placementrestrictions": {
+      "count": 0,
+      "hash": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "institutionprofiles": {
+      "count": 1,
+      "hash": "d050ac6a8e3967aa66d00832d6c72f2f1d3ba3aa5f09eeb02b06a166cb2b4c16"
+    },
+    "studentplacementpolicies": {
+      "count": 2,
+      "hash": "58855b41a1a9d103cd2410796731d6b0a22653bf553487f5cd848aecc32b6f2b"
+    },
+    "applications": {
+      "count": 11348,
+      "hash": "125e0bc30ad20fff96544dabf5654264362792ed4e5f4cded809fb84516adf5c"
+    },
+    "incidentreports": {
+      "count": 0,
+      "hash": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "recruiterplacementpolicies": {
+      "count": 1,
+      "hash": "1968c6da1810a80211a100bff690e7269513f8f4e41bfcb6df17059dc64b6e60"
+    },
+    "demoseedstores": {
+      "count": 0,
+      "hash": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "companies": {
+      "count": 203,
+      "hash": "e2f817d13ba76a0b7a638e39e5315bf17b22ea0d66d203024a75362516825a88"
+    },
+    "socialposts": {
+      "count": 0,
+      "hash": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "notifications": {
+      "count": 3169,
+      "hash": "7d2c3d39da18ff6e405d53710f6feb1520cb0815fc9e2106fc6edd17f017d072"
+    },
+    "historicalseedmanifests": {
+      "count": 1,
+      "hash": "a0d095d5538fd19ecede71a1a159ab24af34de9546650b0c8cf82a2984a4f6c0"
+    },
+    "socialcomments": {
+      "count": 0,
+      "hash": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "placementdrives": {
+      "count": 207,
+      "hash": "58e189fd79d27d59b21d3e169388db6fc8b35e8433e38bb837e929e895f8d858"
+    },
+    "users": {
+      "count": 1048,
+      "hash": "b80299356d9794c71b056a4eb4bec3a8581f001265f0d8f82bfb1f18cf523501"
+    },
+    "socialprofiles": {
+      "count": 0,
+      "hash": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "placementrecords": {
+      "count": 705,
+      "hash": "d127fd0a93d7ff89d9dfca14344a1e9bbc5079e8c1ef13e0d77998fd61dfedcf"
+    },
+    "studentprofiles": {
+      "count": 844,
+      "hash": "d06a13c55a809791add3c9e3c783383c20850fe93c3fda50a60a1024b84d8023"
+    },
+    "sociallikes": {
+      "count": 0,
+      "hash": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "studentpolicyacceptances": {
+      "count": 844,
+      "hash": "fc6a93b731df24c2ef41122557ba52f2cc32fb7ad3a060276b6d80737f22842c"
+    }
+  }
+}

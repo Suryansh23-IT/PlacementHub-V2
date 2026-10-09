@@ -20,6 +20,7 @@ test('invalid report payload and stale application ids are rejected safely', asy
 
 test('Student proof upload uses the real PDF route and proof reads remain owner/Admin scoped', async t => {
   const url = await serverFor(t, 'student'); const { PlacementRecord } = await import('../src/modules/placements/placement-record.model.js'); const record = { _id: ids.record, applicationId: ids.application, studentId: ids.student, verificationState: 'pending_admin_verification', proof: [], history: [], save: async function () { return this } }; t.mock.method(PlacementRecord, 'findOne', async query => query.studentId && query.studentId !== ids.student ? null : record)
+  t.after(async () => { for (const proof of record.proof) await rm(proof.storagePath, { force: true }) })
   const form = new FormData(); form.append('document', new Blob(['%PDF-1.4\nproof'], { type: 'application/pdf' }), 'offer.pdf'); let response = await fetch(`${url}/students/me/applications/${ids.application}/placement-proof`, { method: 'POST', headers: { Authorization: token(ids.student) }, body: form }); assert.equal(response.status, 201); assert.equal(record.proof.length, 1); assert.equal(JSON.stringify(await response.json()).includes('storagePath'), false)
   response = await fetch(`${url}/students/me/placement-outcomes/${ids.record}/proofs/0/download`, { headers: { Authorization: token(ids.other) } }); assert.equal(response.status, 404)
 })

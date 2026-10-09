@@ -14,6 +14,8 @@ const environmentSchema = z.object({
   AUTH_RATE_LIMIT_WINDOW_MS: z.coerce.number().int().min(60_000).default(900_000),
   AUTH_RATE_LIMIT_MAX: z.coerce.number().int().min(3).max(100).default(10),
   RESUME_UPLOAD_DIR: z.string().trim().min(1).default('uploads/resumes'),
+  SOCIAL_UPLOAD_DIR: z.string().trim().min(1).default('uploads/community-2027'),
+  SOCIAL_IMAGE_MAX_BYTES: z.coerce.number().int().min(1).max(10 * 1024 * 1024).default(5 * 1024 * 1024),
   RESUME_MAX_FILE_SIZE_BYTES: z.coerce.number().int().min(1).max(10 * 1024 * 1024).default(5 * 1024 * 1024),
   PLACEMENT_WITHDRAWAL_RESTRICTION_DRIVES: z.coerce.number().int().min(1).max(50).default(5),
 })

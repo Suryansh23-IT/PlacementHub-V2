@@ -1,3 +1,4 @@
+import { notificationScope } from './notification-domain.js'
 import { Notification } from './notification.model.js'
 import { AppError } from '../../errors/app-error.js'
 import { USER_ROLES } from '../auth/auth.constants.js'
@@ -21,6 +22,7 @@ function publicNotification(notification) {
   return {
     _id: value._id,
     notificationBatchId: value.notificationBatchId,
+    domain: value.domain,
     category: value.category,
     type: value.type,
     source: value.source,
@@ -29,6 +31,7 @@ function publicNotification(notification) {
     placementDriveId: value.placementDriveId,
     applicationId: value.applicationId,
     companyId: value.companyId,
+    postId: value.postId,
     phaseNumber: value.phaseNumber,
     context: value.context,
     isRead: value.isRead,
@@ -37,22 +40,22 @@ function publicNotification(notification) {
   }
 }
 
-export async function listNotifications(recipientId, { notificationModel = Notification } = {}) {
-  const notifications = await notificationModel.find({ recipientId }).sort({ createdAt: -1 })
+export async function listNotifications(recipientId, { notificationModel = Notification, domain = 'placement' } = {}) {
+  const notifications = await notificationModel.find({ recipientId, ...notificationScope(domain) }).sort({ createdAt: -1 })
   return notifications.map(publicNotification)
 }
 
 const categoryGroup = notification => notification.category?.includes('placement') || notification.type?.includes('placement') ? 'placement' : notification.placementDriveId || notification.phaseNumber || notification.source === 'company' ? 'recruitment' : 'system'
-export async function listNotificationPage(recipientId, filters = {}, { notificationModel = Notification } = {}) {
-  const query = { recipientId, ...(filters.state === 'unread' ? { isRead: false } : filters.state === 'read' ? { isRead: true } : {}) }
+export async function listNotificationPage(recipientId, filters = {}, { notificationModel = Notification, domain = 'placement' } = {}) {
+  const query = { recipientId, ...notificationScope(domain), ...(filters.state === 'unread' ? { isRead: false } : filters.state === 'read' ? { isRead: true } : {}) }
   const all = (await notificationModel.find(query).sort({ createdAt: -1 })).map(publicNotification)
-  const searched = all.filter(item => (!filters.search || [item.title, item.message, item.context?.phaseTitle, item.context?.roleTitle].filter(Boolean).join(' ').toLowerCase().includes(filters.search.toLowerCase())) && (filters.category === 'all' || categoryGroup(item) === filters.category))
+  const searched = all.filter(item => (!filters.search || [item.title, item.message, item.context?.phaseTitle, item.context?.roleTitle].filter(Boolean).join(' ').toLowerCase().includes(filters.search.toLowerCase())) && (!filters.category || filters.category === 'all' || categoryGroup(item) === filters.category))
   const page = filters.page ?? 1; const limit = filters.limit ?? 25; const start = (page - 1) * limit
-  return { records: searched.slice(start, start + limit), page, limit, totalRecords: searched.length, totalPages: Math.max(1, Math.ceil(searched.length / limit)), unreadCount: all.filter(item => !item.isRead).length }
+  return { records: searched.slice(start, start + limit), page, limit, totalRecords: searched.length, totalPages: Math.max(1, Math.ceil(searched.length / limit)), unreadCount: (await notificationModel.find({ recipientId, isRead: false, ...notificationScope(domain) }).sort({ createdAt: -1 })).length }
 }
 
-export async function markAllNotificationsRead(recipientId, { notificationModel = Notification, now = new Date() } = {}) {
-  const result = await notificationModel.updateMany({ recipientId, isRead: false }, { $set: { isRead: true, readAt: now } })
+export async function markAllNotificationsRead(recipientId, { notificationModel = Notification, now = new Date(), domain = 'placement' } = {}) {
+  const result = await notificationModel.updateMany({ recipientId, isRead: false, ...notificationScope(domain) }, { $set: { isRead: true, readAt: now } })
   return { updated: result.modifiedCount ?? result.nModified ?? 0 }
 }
 
@@ -90,8 +93,8 @@ export async function listSentNotificationPage(senderId, filters = {}, { notific
 
 export const listStudentNotifications = (studentId, dependencies) => listNotifications(studentId, dependencies)
 
-export async function markStudentNotificationRead(studentId, notificationId, { notificationModel = Notification, now = new Date() } = {}) {
-  const notification = await notificationModel.findOne({ _id: notificationId, recipientId: studentId })
+export async function markStudentNotificationRead(studentId, notificationId, { notificationModel = Notification, now = new Date(), domain = 'placement' } = {}) {
+  const notification = await notificationModel.findOne({ _id: notificationId, recipientId: studentId, ...notificationScope(domain) })
   if (!notification) throw new AppError('Notification was not found.', { statusCode: 404, errorCode: 'NOT_FOUND' })
   if (!notification.isRead) {
     if (typeof notification.set === 'function') notification.set({ isRead: true, readAt: now })

@@ -1,3 +1,4 @@
+import { notificationScope } from '../src/modules/notifications/notification-domain.js'
 import assert from 'node:assert/strict'
 import test from 'node:test'
 
@@ -31,7 +32,7 @@ function explorerDependencies() {
 
 test('M8F student inbox applies ownership, state/category/search, paging and read updates without leaking recipient metadata', async () => {
   const own = [notification({ _id: 'n1', category: 'phase_update', placementDriveId: ids.drive, title: 'Drive opened', createdAt: new Date('2026-10-05T10:00:00Z') }), notification({ _id: 'n2', category: 'placement_confirmed', isRead: true, title: 'Placement confirmed', createdAt: new Date('2026-10-06T10:00:00Z') }), notification({ _id: 'n3', category: 'system_profile', title: 'Profile reminder', createdAt: new Date('2026-10-04T10:00:00Z') })]
-  const model = { find: query => sorted((query.recipientId === ids.s1 ? own : []).filter(item => query.isRead == null || item.isRead === query.isRead)), updateMany: async query => { assert.deepEqual(query, { recipientId: ids.s1, isRead: false }); return { modifiedCount: 2 } } }
+  const model = { find: query => sorted((query.recipientId === ids.s1 ? own : []).filter(item => query.isRead == null || item.isRead === query.isRead)), updateMany: async query => { assert.deepEqual(query, { recipientId: ids.s1, isRead: false, ...notificationScope('placement') }); return { modifiedCount: 2 } } }
   const unread = await listNotificationPage(ids.s1, { state: 'unread', category: 'all', page: 1, limit: 25 }, { notificationModel: model })
   const recruitment = await listNotificationPage(ids.s1, { state: 'all', category: 'recruitment', search: 'DRIVE', page: 1, limit: 1 }, { notificationModel: model })
   const placement = await listNotificationPage(ids.s1, { state: 'read', category: 'placement', page: 1, limit: 25 }, { notificationModel: model })

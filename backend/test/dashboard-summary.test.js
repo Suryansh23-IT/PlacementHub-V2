@@ -1,3 +1,4 @@
+import { notificationScope } from '../src/modules/notifications/notification-domain.js'
 import assert from 'node:assert/strict'
 import test from 'node:test'
 
@@ -11,7 +12,7 @@ test('Student dashboard summary is scoped to the logged-in Student and uses curr
     placementDriveModel: { find: () => ({ select: async () => [{ _id: ids.drive }, { _id: 'drive-two' }] }) },
     eligibilityService: async (_studentId, driveId) => ({ eligible: driveId === ids.drive }),
     applicationModel: { countDocuments: async query => { assert.equal(query.studentId, ids.student); return 2 } },
-    notificationModel: { countDocuments: async query => { assert.deepEqual(query, { recipientId: ids.student, isRead: false }); return 3 } },
+    notificationModel: { countDocuments: async query => { assert.deepEqual(query, { recipientId: ids.student, isRead: false, ...notificationScope('placement') }); return 3 } },
   })
   assert.deepEqual(summary, { publishedDriveCount: 2, eligibleDriveCount: 1, activeApplicationCount: 2, unreadNotificationCount: 3 })
 })

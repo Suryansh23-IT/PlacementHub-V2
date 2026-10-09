@@ -51,6 +51,9 @@ const studentProfileSchema = new mongoose.Schema(
     },
     codingProfiles: [codingProfileSchema],
     // M9A placement evidence. M9B owns social-profile opt-in and presentation.
+    professionalHeadline: { type: String, trim: true, maxlength: 160 },
+    about: { type: String, trim: true, maxlength: 2000 },
+    softSkills: { type: [{ type: String, trim: true, maxlength: 60 }], default: undefined },
     targetRole: { type: String, trim: true, maxlength: 120 },
     careerInterests: [{ type: String, trim: true, maxlength: 100 }],
     internships: [internshipSchema],

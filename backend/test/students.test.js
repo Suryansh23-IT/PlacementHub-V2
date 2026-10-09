@@ -287,3 +287,14 @@ test('invalid resume content is removed before it can be saved as metadata', asy
 test('student verification rejects missing student accounts', async () => {
   await assert.rejects(reviewStudentVerification('unknown', 'admin-1', { status: 'verified' }, { userModel: createStudentUserModel(), profileModel: createProfileModel() }), { errorCode: 'NOT_FOUND' })
 })
+
+
+test('optional professional presentation fields save and clear without changing verification or existing evidence', async () => {
+  const profileModel = createProfileModel()
+  profileModel.profiles.push({ ...completeProfile(), userId: 'student-1', verificationStatus: 'verified', professionalHeadline: 'Old headline', about: 'Old about', softSkills: ['Teamwork'] })
+  const input = studentProfileSchema.parse({ ...completeProfileInput, professionalHeadline: 'New headline', about: 'Professional introduction', softSkills: ['Communication'] })
+  const saved = await updateStudentProfile('student-1', input, { profileModel, institutionService })
+  assert.equal(saved.verificationStatus, 'verified'); assert.equal(saved.professionalHeadline, 'New headline'); assert.deepEqual(saved.softSkills, ['Communication']); assert.equal(saved.resume.originalName, 'resume.pdf')
+  const cleared = await updateStudentProfile('student-1', { ...input, professionalHeadline: '', about: '', softSkills: [] }, { profileModel, institutionService })
+  assert.equal(cleared.about, ''); assert.equal(cleared.professionalHeadline, ''); assert.deepEqual(cleared.softSkills, []); assert.equal(cleared.verificationStatus, 'verified')
+})

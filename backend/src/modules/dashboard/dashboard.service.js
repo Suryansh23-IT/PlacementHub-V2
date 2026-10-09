@@ -1,3 +1,4 @@
+import { notificationScope } from '../notifications/notification-domain.js'
 import { Application } from '../applications/application.model.js'
 import { Company } from '../companies/company.model.js'
 import { IncidentReport } from '../incidents/incident-report.model.js'
@@ -10,7 +11,7 @@ import { StudentProfile } from '../students/student.model.js'
 const publishedQuery = { proposalStatus: PLACEMENT_DRIVE_PROPOSAL_STATUSES.APPROVED, lifecycleStatus: PLACEMENT_DRIVE_LIFECYCLE_STATUSES.PUBLISHED }
 // Same definition as the recruitment workspace funnel: only candidates still in process.
 const activeApplicationQuery = { currentStatus: { $in: ['applied', 'active'] } }
-const countUnread = (recipientId, notificationModel) => notificationModel.countDocuments({ recipientId, isRead: false })
+const countUnread = (recipientId, notificationModel) => notificationModel.countDocuments({ recipientId, isRead: false, ...notificationScope('placement') })
 
 export async function getStudentDashboardSummary(studentId, {
   placementDriveModel = PlacementDrive, applicationModel = Application, notificationModel = Notification, eligibilityService = evaluatePlacementDriveEligibility, ...dependencies

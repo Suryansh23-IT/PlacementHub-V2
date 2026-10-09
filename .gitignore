@@ -10,3 +10,8 @@ backend/scripts/.local/
 .DS_Store
 Thumbs.db
 tmp/
+
+# Local M9B QA evidence and temporary live-database runners.
+artifacts/
+backend/scripts/audit-m9b*.js
+backend/scripts/verify-m9b*.js

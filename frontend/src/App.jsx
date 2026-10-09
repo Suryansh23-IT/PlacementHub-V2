@@ -1,3 +1,4 @@
+import { CommunityNotificationsPage } from './pages/CommunityNotificationsPage.jsx'
 import { Route, Routes } from 'react-router-dom'
 import { AppLayout } from './layouts/AppLayout.jsx'
 import { RequireAuth } from './features/auth/RequireAuth.jsx'
@@ -38,6 +39,8 @@ import { AdminPlacementDisciplinePage } from './pages/AdminPlacementDisciplinePa
 import { AdminPlacementOutcomesPage } from './pages/AdminPlacementOutcomesPage.jsx'
 import { AdminReportsPage } from './pages/AdminReportsPage.jsx'
 import { HelpSupportPage } from './pages/HelpSupportPage.jsx'
+import { SocialProfilePage } from './pages/SocialProfilePage.jsx'
+import { CommunityPage } from './pages/CommunityPage.jsx'
 
 export default function App() {
   return (
@@ -52,6 +55,11 @@ export default function App() {
         <Route path="dashboard" element={<RequireAuth><DashboardPage /></RequireAuth>} />
         <Route path="admin/dashboard" element={<RequireAuth><RequireRole roles={['placement_admin']}><DashboardPage /></RequireRole></RequireAuth>} />
         <Route path="help-support" element={<HelpSupportPage />} />
+        <Route path="community/profiles/:userId" element={<RequireAuth><SocialProfilePage /></RequireAuth>} />
+        <Route path="community/profiles/:userId/main-profile" element={<RequireAuth><SocialProfilePage main /></RequireAuth>} />
+        <Route path="community/notifications" element={<RequireAuth><CommunityNotificationsPage /></RequireAuth>} />
+        <Route path="community" element={<RequireAuth><CommunityPage /></RequireAuth>} />
+        <Route path="community/posts/:postId" element={<RequireAuth><CommunityPage /></RequireAuth>} />
         <Route path="student/profile" element={<RequireAuth><RequireRole roles={['student']}><StudentProfilePage /></RequireRole></RequireAuth>} />
         <Route path="student/policy" element={<RequireAuth><RequireRole roles={['student']}><StudentPolicyPage /></RequireRole></RequireAuth>} />
         <Route path="student/placement" element={<RequireAuth><RequireRole roles={['student']}><StudentPlacementCenterPage /></RequireRole></RequireAuth>} />

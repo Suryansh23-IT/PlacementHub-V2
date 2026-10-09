@@ -74,3 +74,59 @@ Only a Placement Admin may read or update the singleton institution profile, lis
 Student profile responses expose the student's own verification status. Placement eligibility and application services must reject non-verified students with a consistent `403` response and a clear verification-status message. Browsing jobs, editing a profile, and managing resume metadata remain available to pending/rejected students.
 
 `GET /admin/dashboard` returns deterministic aggregates: total students, verified students, approved companies, published jobs/drives, total applications, distinct placed students, placement rate, package statistics when placement records contain package values, and a date-descending recent placement/recruitment activity list. Placement rate is `distinct placed students / verified students * 100`; it is `0` when there are no verified students. Package statistics use PlacementRecord package values only. No AI output is used.
+
+## M9B Community API (2027 only)
+
+All `/social` endpoints require authentication and the current 2027 database. Archived routes return 404 before processing uploads. Under `/api/v1`:
+
+| Method/path | Access / behavior |
+| --- | --- |
+| GET `/social/posts` | All roles. `contentType=feed|article`, `search` (up to 200 chars), `sort=newest|oldest`, `page` >=1, `limit` 1–25. Defaults feed/newest/page1/limit10. Returns records/page/limit/totalRecords/totalPages. |
+| POST `/social/posts` | Admin/Company, 201. JSON or multipart. |
+| GET `/social/posts/:postId` | All roles; detail, counts, likedByMe and capabilities. |
+| PATCH `/social/posts/:postId` | Admin content or own Company content; full content body, preserving immutable type. |
+| DELETE `/social/posts/:postId` | Admin moderation or own Company content; children, notifications, and image cleanup. |
+| GET `/social/posts/:postId/image` | All roles, protected image bytes; no public storage URL. |
+| POST / DELETE `/social/posts/:postId/like` | All roles; idempotent like/unlike. |
+| GET / POST `/social/posts/:postId/comments` | All roles; ascending comments / create with content 1–1,200. |
+| DELETE `/social/comments/:commentId` | Comment owner or Admin. |
+
+Feed body: `{ contentType: "feed", content }`, with exactly one mandatory multipart `image` on CREATE. PATCH keeps the existing image or supplies one replacement; removing it without replacement returns 422. Article: `{ contentType: "article", title, content }`, no image. Upload one JPEG/PNG/WebP, default maximum 5 MB. A replacement can accompany an explicit removal intent, but Feed always retains exactly one image. Unknown author/role fields cannot override server identity. Student content mutations and foreign Company mutations return 403; invalid input/images return 422. Search is escaped literal case-insensitive text; Article searches title and body. Ordering uses createdAt plus ID as a stable tie breaker.
+
+## M9B-A: Social and Student professional profiles
+
+The profile block adds pure-read endpoints under the existing 2027-only social router:
+- `GET /social/profiles/:userId`: all authenticated roles may view safe role-specific identity.
+- `GET /social/profiles/:userId/main-profile`: Company/Placement Admin only; target must be a Student. Students receive 403, including direct URL/API attempts. Existing own-profile editing remains unchanged.
+
+GET requests do not create records; explicit social edits use the separate SocialProfile collection. Read queries use `findOne().select().lean()` without ensure/upsert helpers. Responses explicitly allowlist nested professional evidence and safe HTTP(S) links; no contact, resume/documents, academics, verification, applications, outcomes, auth data, or administrative metadata is returned. Missing source identity detail uses transient display fallbacks, not writes. Missing Main Profile data returns 404.
+
+StudentProfile adds optional `professionalHeadline` (160 characters), `about` (2,000), and `softSkills` (20 entries of 60). They are edited through small additions to the existing editor, do not change verification-critical fields, and require no data migration/population. Skills remain as stored; no inferred soft-skill classification is performed.
+
+Community authors/comments expose safe `userId` alongside existing identity, linking to `/community/profiles/:userId`. The professional showcase is `/community/profiles/:userId/main-profile`. Distinct local SVG Student/Company fallbacks and existing AIT ApexMark avoid external image services. Optional protected avatars use the same shared avatar component. Social summaries remain small; full evidence appears only on the authorized showcase.
+
+Company publishing and separate Community notifications/broadcasts are enabled as documented below. New profile endpoints are unavailable against archived databases, before querying profile data.
+
+
+## M9B-B Company publishing
+
+Existing `/social/posts` create routes permit Placement Admin and Company. Company PATCH/DELETE requires both Company authorRole and its own authorUserId. Admin PATCH is limited to Admin-authored content; Admin DELETE moderates Admin/Company content. Unauthorized mutations return 403, including image changes. Feed image removal without replacement returns 422. Ownership is checked before multipart parsing. Identity fields in request bodies never replace the authenticated author. Lists/details/images/engagement accept Admin and Company content, keeping existing type/search/sort/pagination behavior. Responses include independent `canEdit`, `canDelete`, and `canModerate` capabilities, plus the existing safe author Social Profile identifier. Student writes remain forbidden and archived-cycle routes remain unavailable.
+
+
+## M9B-A2 Social Profile editing
+
+`GET /social/profiles/:userId` overlays saved social presentation on safe source defaults, with canEdit/hasAvatar/avatarVersion capabilities. `PATCH /social/profiles/:userId` saves only SocialProfile: authenticated owner or Placement Admin, role-specific strict Zod fields, JSON or single-image multipart. Authorization runs before image parsing and again in the service. Invalid/spoof/private/wrong-role fields return 422; foreign owners return 403. `GET /social/profiles/:userId/avatar` is an authenticated 2027-only protected image response with nosniff and no stored path exposure. Student/Company may replace/remove their social image; Official identity keeps the existing AIT mark. Main Profile APIs remain unchanged.
+
+Student fields: headline, bio, hobbies, interests, softSkills, personalityType, achievementHighlights, clubs, extracurriculars, volunteering, languages, currentlyLearning, lookingToExplore, and links (linkedin/github/portfolio/codingProfile). Company fields: headline/bio, companyName/industry/location/website, hiringDomains, representativeName/designation/publicEmail/publicPhone/representativeNote. Official profile: headline/bio and explicit public representative contact only. No login email/phone is automatically copied into public contact. Limits include 160-character headline, 1200-character bio, 12 tags of 100 characters, six 240-character highlights, explicit MBTI enum or empty, and safe HTTP(S) URLs.
+
+## M9B-C Community notifications
+
+`GET /social/notifications` uses existing notification paging/state/search conventions. `PATCH /social/notifications/:id/read` and `PATCH /social/notifications/read-all` are recipient- and Community-scoped. All require authentication and the exact 2027 database. Existing Placement list/read/count endpoints exclude Community records; Community endpoints exclude Placement. Legacy community_comment type/category is recognized without migrating existing data.
+
+On CREATE only, Feed/Article input may include `notifyCommunity: true` and `audience: students|companies|everyone`; OFF by default. Admin accepts all audiences; Company accepts Students only. Authenticated identity supplies sender. Only active accounts receive broadcasts, excluding sender. Edits reject an enabled broadcast and never resend. Another user's comment notifies the content author; self-comments and likes do not. Community payloads use `domain: community`, `postId` and existing `view_community_post` context. Post deletion also cleans its broadcasts.
+
+Old text-only Feed QA records remain readable without migration; saving one requires adding an image. Article forms/API remain text-only. Social Profile avatar removal remains independently supported.
+
+## Institution read safety
+
+GET /admin/institution and shared Institution reads use findOne only. Missing configuration uses schema defaults in memory without a persisted ID/timestamps. Explicit PATCH creates or updates the singleton with validation; branches, Student identity/explorer, and analytics/report reads share the pure helper in both cycles.

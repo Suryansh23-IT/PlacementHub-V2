@@ -22,6 +22,7 @@ const empty = {
   class12: { board: '', schoolName: '', passingYear: '', score: '' },
   semesterSpis: [], skillGroups: [], projects: [], skills: [],
   professionalLinks: { linkedin: '', github: '', portfolio: '' }, codingProfiles: [],
+  professionalHeadline: '', about: '', softSkills: [],
   targetRole: '', careerInterests: [], internships: [], certifications: [], achievements: [], extracurriculars: [], leadership: [],
 }
 
@@ -36,6 +37,7 @@ const formFrom = (profile) => ({
   class12: { ...empty.class12, ...profile.class12 },
   semesterSpis: profile.semesterSpis ?? [], skillGroups: profile.skillGroups ?? [], projects: profile.projects ?? [],
   professionalLinks: { ...empty.professionalLinks, ...profile.professionalLinks }, codingProfiles: profile.codingProfiles ?? [],
+  softSkills: profile.softSkills ?? [],
   careerInterests: profile.careerInterests ?? [], internships: profile.internships ?? [], certifications: profile.certifications ?? [],
   achievements: profile.achievements ?? [], extracurriculars: profile.extracurriculars ?? [], leadership: profile.leadership ?? [],
 })
@@ -74,6 +76,7 @@ export function StudentProfilePage() {
         semesterSpis: form.semesterSpis.map((item) => ({ semester: Number(item.semester), spi: Number(item.spi) })),
         skillGroups: form.skillGroups.map((item) => ({ ...item, skills: String(item.skills).split(',').map((skill) => skill.trim()).filter(Boolean) })),
         projects: form.projects.map((item) => ({ ...item, technologies: String(item.technologies).split(',').map((skill) => skill.trim()).filter(Boolean) })),
+        softSkills: String(form.softSkills).split(',').map(skill => skill.trim()).filter(Boolean),
         careerInterests: String(form.careerInterests).split(',').map((interest) => interest.trim()).filter(Boolean),
         internships: form.internships.map((item) => ({ ...item, startDate: new Date(item.startDate), endDate: item.endDate ? new Date(item.endDate) : undefined, skills: String(item.skills).split(',').map((skill) => skill.trim()).filter(Boolean) })),
         certifications: form.certifications.map((item) => ({ ...item, issuedOn: item.issuedOn ? new Date(item.issuedOn) : undefined })),
@@ -173,6 +176,9 @@ export function StudentProfilePage() {
         </div>
       </ProfileSection>
 
+      <ProfileSection title="Professional introduction" description="Optional presentation for your Social Profile and professional showcase.">
+        <div className="space-y-4"><FormField label="Professional headline" maxLength={160} value={form.professionalHeadline} onChange={event => change('professionalHeadline', event.target.value)} /><FormField as="textarea" label="About" maxLength={2000} value={form.about} onChange={event => change('about', event.target.value)} /><FormField label="Soft skills (comma-separated)" value={String(form.softSkills)} onChange={event => change('softSkills', event.target.value)} /></div>
+      </ProfileSection>
       <ProfileSection title="Academic records" description="Enter the academic information shown in your official records.">
         <div className="grid gap-5 xl:grid-cols-2"><AcademicRecord title="Class 10" value={form.class10} onChange={(key, value) => nested('class10', key, value)} /><AcademicRecord title="Class 12" value={form.class12} onChange={(key, value) => nested('class12', key, value)} /></div>
         <div className="mt-6 border-t border-slate-100 pt-6"><RepeatableSection title="Semester SPI" description="Add only semesters you have completed." items={form.semesterSpis} fields={['semester', 'spi']} maxItems={8} add={() => change('semesterSpis', [...form.semesterSpis, { semester: form.semesterSpis.length + 1, spi: '' }])} onChange={(items) => change('semesterSpis', items)} /></div>

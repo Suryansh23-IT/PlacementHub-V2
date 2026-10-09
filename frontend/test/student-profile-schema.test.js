@@ -28,3 +28,13 @@ test('student placement evidence rejects an invalid experience date range', () =
   })
   assert.equal(result.success, false)
 })
+
+test('optional headline, About and soft skills support empty values and enforce presentation limits', () => {
+  for (const field of ['professionalHeadline', 'about', 'softSkills']) assert.equal(studentProfileFormSchema.shape[field].safeParse(undefined).success, true)
+  assert.equal(studentProfileFormSchema.shape.professionalHeadline.parse('  Engineer  '), 'Engineer')
+  assert.equal(studentProfileFormSchema.shape.about.parse(''), '')
+  assert.equal(studentProfileFormSchema.shape.professionalHeadline.safeParse('x'.repeat(161)).success, false)
+  assert.equal(studentProfileFormSchema.shape.about.safeParse('x'.repeat(2001)).success, false)
+  assert.equal(studentProfileFormSchema.shape.softSkills.safeParse(['Communication']).success, true)
+  assert.equal(studentProfileFormSchema.shape.softSkills.safeParse(Array(21).fill('Teamwork')).success, false)
+})

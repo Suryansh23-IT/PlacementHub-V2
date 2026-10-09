@@ -44,6 +44,7 @@ function createCompanyUserModel(companyId = 'company-1') {
 function createInstitutionModel() {
   let profile
   return {
+    async findOne() { return profile ?? null },
     async findOneAndUpdate(_query, update) {
       profile ??= { ...(update.$setOnInsert ?? {}) }
       if (update.$set) Object.assign(profile, update.$set)
@@ -103,7 +104,9 @@ test('institution validation and service retain one shared singleton profile', a
   const institutionModel = createInstitutionModel()
   const initial = await getInstitutionProfile({ institutionModel })
   const updated = await updateInstitutionProfile({ collegeName: 'Example Institute', branches: ['Computer Science'] }, { institutionModel })
-  assert.equal(initial, updated)
+  assert.equal(initial.singletonKey, 'placementhub-v2')
+  assert.equal(initial.collegeName, undefined)
+  assert.equal(await getInstitutionProfile({ institutionModel }), updated)
   assert.equal(updated.singletonKey, 'placementhub-v2')
   assert.equal(updated.collegeName, 'Example Institute')
 })

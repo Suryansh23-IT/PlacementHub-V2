@@ -13,7 +13,7 @@ Only one milestone is active at a time. Each milestone requires implementation c
 | M6 | Published drives, basic notifications, deterministic eligibility at application time, Phase 0 applicant screening, and role-specific application views. |
 | M7 | Execution of Company-defined phases, candidate movement/outcomes, placement records, drive postponement/cancellation, and targeted recruitment notifications. |
 | M8 | Read-only placement dashboards, drive monitoring, filters, notification-center polish, analytics, Excel exports, and the Student Placement Center. |
-| M9 | Posts, likes, and comments. |
+| M9 | 2027 Community, social profiles, professional showcases, engagement and separate notifications. |
 | M10 | Resume feedback and job-preparation AI. |
 | M11 | Full QA, responsive polish, demo data, deployment, and viva material. |
 
@@ -25,3 +25,9 @@ Only one milestone is active at a time. Each milestone requires implementation c
 4. Run focused checks and test the user flow.
 5. Report results, limitations, and manual test steps.
 6. Wait for user approval, then create a Git checkpoint.
+
+## M9B final scope and closure
+
+M9B-A/A2/B/C implementation is complete: Admin/Company Feed with exactly one required image, text-only Articles, ownership/moderation RBAC, shared likes/comments, Social Profiles, safe Company/Admin-only Student Main Profiles, and separate Community notifications with optional create-only broadcasts. Feed | Articles | Profile | Notifications navigation and 2027 isolation are preserved.
+
+M9B-D automated regression and current-2027 browser checks passed. The legacy archived institutionprofiles.updatedAt-only baseline deviation is documented and accepted by the user; its pure-read helper fix and explicit post-fix baseline complete the integrity closure. The final M9 checkpoint is authorized on demo-2027-m9. See testing.md and docs/integrity/m9-2026-post-fix-baseline.json for evidence and warnings. M10/M11 have not started.
