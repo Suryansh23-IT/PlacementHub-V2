@@ -1,5 +1,9 @@
 # API Conventions
 
+## M10-A AI foundation
+
+Only exact database placementhub-v2-demo-2027 registers GET /api/v1/ai/status. Active authenticated Student/Company/Placement Admin required; authenticated-user AI limit returns standard 429 RATE_LIMITED. Success data: { enabled, configured, provider, model, status }, where status is disabled/configured/unavailable. Configured reports selected-provider settings, not live connectivity. No key, endpoint, prompt or cache details are exposed. Ollama is the only provider; no API key or external fallback. Offline Ollama does not prevent backend startup. Archived/unknown runtimes return 404 because no AI routes are mounted. Student endpoints are documented below; Company/Admin features await approval. See ai.md.
+
 ## Base URL
 
 All endpoints use `/api/v1`.
@@ -130,3 +134,23 @@ Old text-only Feed QA records remain readable without migration; saving one requ
 ## Institution read safety
 
 GET /admin/institution and shared Institution reads use findOne only. Missing configuration uses schema defaults in memory without a persisted ID/timestamps. Explicit PATCH creates or updates the singleton with validation; branches, Student identity/explorer, and analytics/report reads share the pure helper in both cycles.
+
+## M10-B Student Intelligence (2027 only)
+
+All paths have /api/v1 prefix; active Student authentication, AI rate limiting and exact 2027 runtime apply. Other roles receive 403; archived/unknown runtimes have no AI routes.
+
+| Method | Path | Behavior |
+| --- | --- | --- |
+| GET | /ai/students/me/career | Own saved professional readiness calculation; no inference call. |
+| POST | /ai/students/me/career/explanation | Empty JSON body; bounded, validated optional career advice. |
+| GET | /ai/students/me/drives/:driveId/match | Professional match for an approved/published drive; no inference call. |
+| POST | /ai/students/me/drives/:driveId/match/explanation | Empty JSON body; bounded, validated optional match explanation. |
+
+Responses follow the existing envelope with data: { deterministic, ai, basis }. Career deterministic includes score, breakdown, strengths, improvementAreas, suitableRoles, nextLearningSteps, profileSuggestions and scoringVersion. Match includes nullable score, label, skill coverage/evidence and scoringVersion; insufficient requirements includes reason. ai.status is not_requested, available (analysis/cached) or unavailable (sanitized reason/message). No eligibility or application fields are changed. Invalid IDs/input return 422, inaccessible/unpublished drives 404, user limit 429. Provider failures return deterministic evidence with unavailable AI. No client-supplied profile, identity, score or context is accepted; these endpoints perform no database writes.
+
+Contextual Ask: POST /ai/students/me/career/ask and POST /ai/students/me/drives/:driveId/match/ask accept only { question: string } (trimmed, 1–500 characters, no control characters). Response data: { ai }; available analysis: { answer: string (1–2400), evidenceIds: known IDs (max 10) }. Fresh trusted context and current scores are loaded per request; client history/context is rejected. Same authentication, own-profile/drive visibility, rate limiting, isolation and unavailable contract apply. No question echo or conversation record is returned/stored; UI owns a single latest slot independently of permanent analysis.
+
+Career deterministic.breakdown includes eight rows with key, label, maximum, raw points, earnedPoints and advice. earnedPoints is backend-rounded for display, with sum equal to deterministic.score; raw points/weights and existing overall rounding remain unchanged. All zero/partial dimensions are returned and displayed. No frontend scoring calculation is required.
+# M10-B independent AI assessment
+
+2027-only authenticated Student POST /api/v1/ai/students/me/career/assessment and /api/v1/ai/students/me/drives/:driveId/match/assessment accept strict empty JSON. Explicitly generate/refresh independent Ollama rubric scores. Response data: unchanged deterministic, ai status/reason, assessment (nullable score/sections/summary/analyzedAt/stale/resumeStatus), resumeStatus and basis. No combined scoring object or decision mutation. Sections contain bounded ratings, validated evidence references and backend earnedPoints/maximum. Failure retains the previous successful assessment. GET returns objective facts/latest assessment without PDF parsing or inference. Ask remains strict { question }, latest-only; current safe extracted resume and richer role/company facts are read independently. No arbitrary document/context/actor/score input.

@@ -1,10 +1,18 @@
 # Security Plan
 
+## M10-A AI isolation
+
+Archived/unknown runtimes import no AI router/service/provider/cache through startup and expose no AI routes. Exact 2027 guards also protect factories/access. Nested allowlists exclude identity/private/social/academic/decision fields; bounded professional prose is untrusted, with basic contact/link redaction. Provider has no DB/files/tools; Ollama remains behind the backend; redirects/retries/raw error logs are prohibited. Zod/evidence checks, per-user rate limits, timeout/byte/token/concurrency bounds, coalescing and cooldown isolate failures. Cache stores hashes/validated output/expiry only. Student controllers recheck active ownership/drive visibility on cache hits using read-only projections, never legacy upsert GET helpers. No AI database writes/indexes/migrations/seeds.
+
+M10-B permits only Student own-profile professional advice and approved/published drive matches. No supplied actor/profile/query/score is accepted. Domain schemas reject unknown evidence, extra score/eligibility fields and unsupported role suggestions. Deterministic weights never use academics, gender, avatar, social/personality, private contact or Community activity; official eligibility still uses its existing rules outside AI. Resume availability feeds only the objective score. Worker-bounded PDF parsing forwards sanitized allowlisted professional text to local Ollama; contact headers/personal sections/URLs/paths/names are excluded. See ai.md for extraction limits and prose-redaction limitations. Arbitrary prose claims remain a limitation of language generation and do not confer eligibility or alter placement decisions.
+
+Contextual Ask accepts only a trimmed 1–500-character question (no history/control characters/extra fields). Basic contact/link redaction and untrusted DATA_JSON treatment apply; prompts instruct refusal of unrelated/private/social requests, and provider remains tool/DB-free. One bounded structured plain-text answer uses known evidence IDs; frontend escapes text, aborts superseded work and hides results on cycle change. Fresh authorization/context is required even for question cache hits. Questions and conversation histories have no database storage. Semantic prompt-injection resistance and factual prose are not guaranteed by schema validation; advice cannot change score, eligibility or recruitment state.
+
 - Hash passwords with bcrypt; never store plaintext passwords.
 - Issue short-lived JWT access tokens after registration/login, verify them on every protected request, and load the current active user before authorization. Do not trust a role embedded in an old token without checking the database.
 - Allow ordinary registration only for student and company roles. Bootstrap one Placement Admin through the configured `ADMIN_BOOTSTRAP_SECRET`; never commit, return, or store that secret.
 - Rate-limit registration and login using configured request-window and maximum-attempt values; return a standard `429 RATE_LIMITED` response when the limit is reached.
-- Keep JWT secrets, MongoDB URLs, storage credentials, and OpenAI keys in backend environment variables.
+- Keep JWT secrets, MongoDB URLs, storage credentials, and Gemini keys in backend environment variables.
 - Authenticate protected routes, authorize roles, and verify ownership of jobs, profiles, applications, posts, and recruitment records.
 - Permit only Placement Admins to maintain the institution profile, review student verification, approve companies/jobs, and read placement dashboard aggregates. Enforce verified-student checks in eligibility and application services.
 - Validate requests with Zod and enforce model-level constraints with Mongoose.

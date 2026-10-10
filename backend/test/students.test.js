@@ -191,18 +191,81 @@ test('a verified placement-critical edit can be reviewed and verified again, whi
   assert.equal(contactOnly.verificationStatus, 'verified')
 })
 
-test('replacing a verified student resume returns the profile to pending', async () => {
-  const directory = await mkdtemp(path.join(tmpdir(), 'placementhub-resume-reverify-'))
+test('replacing a verified student resume preserves verification/review metadata and safely replaces the file', async () => {
+  const directory = await mkdtemp(path.join(tmpdir(), 'placementhub-resume-replace-'))
   const filePath = path.join(directory, 'replacement.pdf')
+  const oldPath = path.join(directory, 'old.pdf')
   await writeFile(filePath, '%PDF-1.7\nreplacement')
+  await writeFile(oldPath, '%PDF-1.7\nold')
   try {
     const profileModel = createProfileModel()
     const profile = await ensureStudentProfile('student-1', { profileModel })
-    Object.assign(profile, completeProfile({ verificationStatus: 'verified', reviewedBy: 'admin-1', reviewedAt: new Date() }))
-    const pending = await saveResume('student-1', { originalname: 'replacement.pdf', path: filePath, mimetype: 'application/pdf', size: 22 }, { profileModel })
-    assert.equal(pending.verificationStatus, 'pending')
-    assert.equal(pending.reviewedBy, undefined)
-    assert.equal(pending.reviewedAt, undefined)
+    const reviewedAt = new Date('2026-01-01')
+    Object.assign(profile, completeProfile({ verificationStatus: 'verified', reviewedBy: 'admin-1', reviewedAt, resume: { originalName: 'old.pdf', storagePath: oldPath, uploadedAt: new Date(0) } }))
+    const saved = await saveResume('student-1', { originalname: 'replacement.pdf', path: filePath, mimetype: 'application/pdf', size: 22 }, { profileModel })
+    assert.equal(saved.verificationStatus, 'verified')
+    assert.equal(saved.reviewedBy, 'admin-1')
+    assert.deepEqual(saved.reviewedAt, reviewedAt)
+    assert.equal(saved.resume.storagePath, filePath)
+    assert.equal(saved.resume.originalName, 'replacement.pdf')
+    assert.equal(saved.resume.mimeType, 'application/pdf')
+    assert.equal(saved.resume.size, 22)
+    assert(saved.resume.uploadedAt > new Date(0))
+    assert.equal(await readFile(filePath, 'utf8'), '%PDF-1.7\nreplacement')
+    await assert.rejects(readFile(oldPath), { code: 'ENOENT' })
+  } finally { await rm(directory, { recursive: true, force: true }) }
+})
+
+test('resume replacement preserves pending/rejected status and rejection review metadata', async () => {
+  const directory = await mkdtemp(path.join(tmpdir(), 'placementhub-resume-status-'))
+  try {
+    for (const verificationStatus of ['pending', 'rejected']) {
+      const profileModel = createProfileModel()
+      const profile = await ensureStudentProfile('student-1', { profileModel })
+      const review = { verificationStatus, reviewedBy: 'admin-1', reviewedAt: new Date('2026-01-01'), rejectionReason: 'Academic correction needed' }
+      Object.assign(profile, completeProfile(review))
+      const filePath = path.join(directory, `${verificationStatus}.pdf`)
+      await writeFile(filePath, '%PDF-1.7\nreplacement')
+      const saved = await saveResume('student-1', { originalname: 'new.pdf', path: filePath, mimetype: 'application/pdf', size: 22 }, { profileModel })
+      for (const key of Object.keys(review)) assert.deepEqual(saved[key], review[key])
+    }
+  } finally { await rm(directory, { recursive: true, force: true }) }
+})
+
+test('failed resume save retains old file/metadata and verification, removing only the new file', async () => {
+  const directory = await mkdtemp(path.join(tmpdir(), 'placementhub-resume-failure-'))
+  try {
+    const oldPath = path.join(directory, 'old.pdf'); const newPath = path.join(directory, 'new.pdf')
+    await writeFile(oldPath, '%PDF-1.7\nold'); await writeFile(newPath, '%PDF-1.7\nnew')
+    const profileModel = createProfileModel(); const profile = await ensureStudentProfile('student-1', { profileModel })
+    const oldResume = { originalName: 'old.pdf', storagePath: oldPath, uploadedAt: new Date(0) }
+    Object.assign(profile, completeProfile({ verificationStatus: 'verified', reviewedBy: 'admin-1', reviewedAt: new Date(0), resume: oldResume }))
+    profile.save = async () => { throw new Error('Synthetic save failure') }
+    await assert.rejects(saveResume('student-1', { originalname: 'new.pdf', path: newPath, mimetype: 'application/pdf', size: 12 }, { profileModel }), /Synthetic save failure/)
+    assert.deepEqual(profile.resume, oldResume); assert.equal(profile.verificationStatus, 'verified'); assert.equal(profile.reviewedBy, 'admin-1'); assert.deepEqual(profile.reviewedAt, new Date(0))
+    assert.equal(await readFile(oldPath, 'utf8'), '%PDF-1.7\nold')
+    await assert.rejects(readFile(newPath), { code: 'ENOENT' })
+  } finally { await rm(directory, { recursive: true, force: true }) }
+})
+
+test('successful resume replacement refreshes only resume-dependent AI cache using the newest file', async () => {
+  const { createAiService } = await import('../src/modules/ai/ai.service.js')
+  const directory = await mkdtemp(path.join(tmpdir(), 'placementhub-resume-cache-'))
+  try {
+    const profileModel = createProfileModel(); const profile = await ensureStudentProfile('student-1', { profileModel })
+    const oldPath = path.join(directory, 'old.pdf'); const newPath = path.join(directory, 'new.pdf')
+    await writeFile(oldPath, '%PDF-1.7\nold'); await writeFile(newPath, '%PDF-1.7\nnew')
+    Object.assign(profile, completeProfile({ verificationStatus: 'verified', resume: { storagePath: oldPath, uploadedAt: new Date(0), size: 12 } }))
+    let calls = 0
+    const service = createAiService({ MONGO_URI: 'mongodb://localhost/placementhub-v2-demo-2027', AI_ENABLED: true, AI_PROVIDER: 'ollama', OLLAMA_BASE_URL: 'http://127.0.0.1:11434', OLLAMA_MODEL: 'mock-model', AI_MAX_CONTEXT_BYTES: 16384, AI_TIMEOUT_MS: 1000, AI_CACHE_MAX_ENTRIES: 4, AI_CACHE_TTL_MS: 60000, AI_MAX_CONCURRENT: 1 }, { providerFactory: () => ({ generate: async () => ({ summary: `Synthetic analysis ${++calls}`, strengths: [], gaps: [], recommendations: [] }) }) })
+    const input = resumeDependent => ({ actor: { _id: 'student-1', role: 'student' }, scope: resumeDependent ? 'resume' : 'profile', authorize: async () => true, loadContext: async () => ({ profile }), resumeDependent })
+    const oldProfileAnalysis = await service.analyze(input(false)); const oldResumeAnalysis = await service.analyze(input(true))
+    await saveResume('student-1', { originalname: 'new.pdf', path: newPath, mimetype: 'application/pdf', size: 12 }, { profileModel })
+    const currentProfileAnalysis = await service.analyze(input(false)); const currentResumeAnalysis = await service.analyze(input(true))
+    assert.equal(currentProfileAnalysis.cached, true); assert.deepEqual(currentProfileAnalysis.analysis, oldProfileAnalysis.analysis)
+    assert.equal(currentResumeAnalysis.cached, false); assert.notDeepEqual(currentResumeAnalysis.analysis, oldResumeAnalysis.analysis)
+    assert.equal((await service.analyze(input(true))).cached, true); assert.equal(calls, 3)
+    assert.equal(profile.resume.storagePath, newPath); assert.equal(profile.verificationStatus, 'verified')
   } finally { await rm(directory, { recursive: true, force: true }) }
 })
 

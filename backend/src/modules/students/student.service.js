@@ -93,7 +93,8 @@ export async function saveResume(userId, file, { profileModel = StudentProfile }
   }
 
   const profile = await ensureStudentProfile(userId, { profileModel })
-  const previousPath = profile.resume?.storagePath
+  const previousResume = profile.resume
+  const previousPath = previousResume?.storagePath
   profile.resume = {
     originalName: file.originalname,
     storagePath: file.path,
@@ -101,10 +102,11 @@ export async function saveResume(userId, file, { profileModel = StudentProfile }
     size: file.size,
     uploadedAt: new Date(),
   }
-  revokeVerificationForMaterialChange(profile)
+  // Resume improvements do not change the academic verification decision.
   try {
     await profile.save()
   } catch (error) {
+    profile.resume = previousResume
     await unlink(file.path).catch(() => undefined)
     throw error
   }

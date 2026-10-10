@@ -1,5 +1,7 @@
 # Database Design
 
+M10 adds no schemas, collections or indexes. Safe context is projected in memory; caches contain hashes, validated output and bounded sanitized professional resume excerpts. Actual PDF text is extracted on demand in a worker, never stored on StudentProfile. Latest successful independent assessments are scoped runtime memory with timestamps/stale fingerprints and 24-hour expiry. Resume metadata revisions invalidate resume-dependent context without exposing paths; profile-only foundation cache is unchanged. Replacement preserves verification/review metadata and retains the old resume if saving fails (see ai.md).
+
 MongoDB stores one document collection per primary domain. Mongoose validates schemas, applies indexes, and records timestamps.
 
 ## Core entities
@@ -19,7 +21,7 @@ MongoDB stores one document collection per primary domain. Mongoose validates sc
 | Notification | Belongs to a User; stores event type, concise text, relevant drive/application/phase references, read status, and actor/recipient context for authorized delivery. |
 | PlacementRestriction | Optional future Student-level restriction record for policy or placement-rule enforcement, with reason, scope, effective dates, and audit metadata. |
 | Post / SocialLike / Comment | Basic social feed. |
-| AIAnalysis | Stores optional AI output separately from core data. |
+| AIAnalysis (future only) | M10-A has no AI model/collection; bounded runtime memory stores optional validated outputs. Any future persistent cache must be separate and 2027-only. |
 
 ## Key indexes and constraints
 

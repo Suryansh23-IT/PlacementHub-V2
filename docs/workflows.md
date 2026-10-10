@@ -63,6 +63,8 @@ Student completes profile
 
 Only the Placement Admin can make the review decision. Admin review transitions are `pending -> verified` and `pending -> rejected`. A rejected Student may explicitly resubmit only after completing the required academic details and resume; the resubmission transition is `rejected -> pending` and clears the previous review metadata. Verified is final for this workflow. Profile/resume editing remains available to the student; placement eligibility and application submission require `verified`.
 
+Resume replacement alone preserves current verification and review metadata; it never triggers re-verification. Save the new resume metadata before removing the old file. Failed saves retain the old resume and clean up the new upload. Future resume-dependent AI/ATS uses the newest revision; unchanged professional-profile analyses retain their cache. Academic/college-result verification rules are separate and unchanged.
+
 ## Recruiter Placement Agreement
 
 The Admin inserts the approved Recruiter policy text, academic year and version, then activates it. No default Recruiter policy text is seeded: the repository currently contains no supplied Recruiter policy artifact. Inactive versions remain available in Admin management. Activating a version deactivates the previous one; saved text cannot be edited in place, so revisions require a new academic-year/version pair.

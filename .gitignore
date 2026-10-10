@@ -4,6 +4,7 @@ coverage/
 .env
 .env.*
 !.env.example
+!backend/.env.cycle-2027.example
 uploads/
 backend/scripts/.local/
 *.log

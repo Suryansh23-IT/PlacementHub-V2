@@ -4,6 +4,8 @@ PlacementHub V2 is a MERN platform for one college placement cell. Students mana
 
 ## Current status
 
+M0–M9 are committed on demo-2027-m9. M10-A foundation, resume replacement fix and M10-B Student Career Assistant/Drive Match are implemented for approval; no M10 checkpoint yet. Company/Admin AI await approval. From backend: npm run test:ai, npm run check:ai, npm run check. Optional npm run ai:connectivity sends at most one synthetic request to the explicitly selected enabled provider; never runs in automated tests. See docs/ai.md. No SDK/package install is needed.
+
 **Roadmap status:** M0 documentation complete; M1 foundation complete; M2 authentication and authorization complete; M3 student profiles, resumes, and verification complete; M4 company profiles, institution settings, and company approval complete.
 
 ## Planned stack
@@ -14,7 +16,7 @@ PlacementHub V2 is a MERN platform for one college placement cell. Students mana
 - Authentication: JWT and bcrypt
 - Uploads: Multer with a storage provider selected later
 - Reporting: xlsx
-- AI: OpenAI API through the backend only
+- AI: optional local Ollama qwen3.5:4b through the backend; Ollama-only provider, current 2027 runtime only (foundation and Student Intelligence; Company/Admin pending)
 
 ## Documentation
 

@@ -18,6 +18,7 @@ import { adminDashboardRouter, companyDashboardRouter, studentDashboardRouter } 
 import { adminPlacementRecordRouter, studentPlacementRecordRouter } from './modules/placements/placement-record.routes.js'
 import { adminAnalyticsRouter } from './modules/analytics/analytics.routes.js'
 import { socialRouter } from './modules/social/social.routes.js'
+import { isAiRuntime } from './modules/ai/ai.guard.js'
 
 export const app = express()
 
@@ -49,5 +50,10 @@ app.use('/api/v1/admin/placement-drives', adminPlacementDriveRouter)
 app.use('/api/v1/admin/placement-outcomes', adminPlacementRecordRouter)
 app.use('/api/v1/admin/analytics', adminAnalyticsRouter)
 app.use('/api/v1/social', socialRouter)
+// Do not even import the router/provider/cache modules in archived runtimes.
+if (isAiRuntime(env)) {
+  const { createAiRouter } = await import('./modules/ai/ai.routes.js')
+  app.use('/api/v1/ai', createAiRouter(env))
+}
 app.use(notFound)
 app.use(errorHandler)

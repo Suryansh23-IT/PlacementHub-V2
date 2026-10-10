@@ -4,6 +4,7 @@ import { FormField } from '../components/ui/FormField.jsx'
 import { PageHeader } from '../components/ui/PageHeader.jsx'
 import { StatusBadge } from '../components/ui/StatusBadge.jsx'
 import { useAuth } from '../features/auth/useAuth.js'
+import { StudentIntelligence } from '../features/ai/StudentIntelligence.jsx'
 import { displayInstitutionName } from '../utils/institution-branding.js'
 import {
   downloadMyDocument,
@@ -100,7 +101,7 @@ export function StudentProfilePage() {
       // Uploads return the persisted profile but must not erase unrelated edits
       // the student has not saved yet.
       setProfile(data)
-      setMessage({ type: 'success', text: needsFreshReview ? 'Resume replaced. Your profile now requires fresh verification.' : 'Document uploaded.' })
+      setMessage({ type: 'success', text: type === 'resume' ? 'Resume updated. Your verification status is unchanged.' : needsFreshReview ? 'Academic document replaced. Your profile now requires fresh verification.' : 'Document uploaded.' })
     } catch (error) { setMessage({ type: 'error', text: error.message }) } finally { setBusyDocument('') }
   }
 
@@ -149,6 +150,7 @@ export function StudentProfilePage() {
 
   return <section className="space-y-8">
     <PageHeader eyebrow="Student record" title="Placement profile" description="Keep your placement information accurate and ready for review." action={<StatusBadge status={profile.verificationStatus} />} />
+    <StudentIntelligence token={session.accessToken} revision={profile.updatedAt ?? profile.resume?.uploadedAt} />
     {message && <Feedback type={message.type}>{message.text}</Feedback>}
 
     <StudentIdentityHeader identity={identity} profile={profile} fallbackName={session.user.name} />
@@ -157,7 +159,7 @@ export function StudentProfilePage() {
       <div className="rounded-2xl border border-blue-100 bg-blue-50/60 p-5 sm:p-6">
         <p className="text-xs font-bold uppercase tracking-[0.16em] text-blue-700">Profile review</p>
         <div className="mt-3 flex flex-wrap items-center gap-3"><h2 className="text-xl font-bold tracking-tight text-slate-950">Verification status</h2><StatusBadge status={profile.verificationStatus} /></div>
-        <p className="mt-2 max-w-2xl text-sm leading-6 text-slate-600">{isRejected ? 'Review the feedback, correct the relevant information, then explicitly resubmit your profile.' : isPending ? 'Your profile is pending Placement Admin review. Changes to placement-critical information require a fresh review.' : 'Your profile has been verified by the Placement Cell. Material academic changes or a new resume will require fresh verification.'}</p>
+        <p className="mt-2 max-w-2xl text-sm leading-6 text-slate-600">{isRejected ? 'Review the feedback, correct the relevant information, then explicitly resubmit your profile.' : isPending ? 'Your profile is pending Placement Admin review. Changes to placement-critical information require a fresh review.' : 'Your profile has been verified by the Placement Cell. Material academic changes require fresh verification. Replacing your resume preserves verification.'}</p>
         {isRejected && profile.rejectionReason && <p className="mt-4 rounded-xl border border-rose-200 bg-white px-4 py-3 text-sm leading-6 text-rose-800"><span className="font-bold">Admin feedback:</span> {profile.rejectionReason}</p>}
         {isRejected && <Button className="mt-4" onClick={resubmit} disabled={isResubmitting}>{isResubmitting ? 'Resubmitting…' : 'Resubmit for verification'}</Button>}
       </div>

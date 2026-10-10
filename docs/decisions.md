@@ -24,6 +24,10 @@
 
 **Reason:** Core placement behavior remains reliable if the AI provider is unavailable.
 
+**M10 foundation (final M10-B decision):** Ollama qwen3.5:4b is the only implemented backend provider. Current cache is bounded memory, not an AIAnalysis model. Only the exact 2027 database enables infrastructure. Objective scores/trusted facts stay backend-owned; independent AI rubric scores remain advisory. Student features are M10-B; Company/Admin await separate approval. No general chatbot or external API dependency.
+
+**Approved resume rule:** Replacement preserves verification/review metadata, safely replaces the old file and invalidates resume-dependent analyses using a hashed current-file revision. The prerequisite correction removes legacy saveResume verification revocation, with focused preservation/file-failure/cache tests. No Student AI product feature is included.
+
 ## ADR-005: M9A canonical demo data and minimal placement-profile evidence
 
 **Decision:** The 2027 demo environment uses a separate configured MongoDB database and a single structured dataset as the source for StudentProfile records and generated resumes. StudentProfile may store structured career interests, experience, credentials, achievements, extracurricular activity, and leadership evidence. These are optional placement-profile facts and do not enable a social profile.
@@ -41,3 +45,13 @@ Every authenticated 2027 role can view safe lightweight Social Profiles. Explici
 Community reuses Notification infrastructure with a separate domain, inbox, unread count and read actions. Another user's comment notifies the author; self-comments and likes do not. Optional broadcasts are OFF by default and CREATE-only: Admin targets Students/Companies/Everyone, Company targets Students only. Detail links use existing notification context. Placement notifications stay separate.
 
 Authentication and the exact 2027 database guard precede reads, writes and uploads. Dedicated protected social storage enforces signature/type/size/path checks and cleanup. Archived 2026 and canonical placement data require no migration, seed or reset. No connections, followers, chat, rich-text CMS, gallery, discovery directory or additional notification backend is introduced. M10/M11 remain outside this milestone.
+
+## M10-B final Student intelligence decision
+
+Ollama qwen3.5:4b is the sole provider; obsolete Gemini implementation/configuration is removed. Generic provider and bounded validation/cache/rate-limit architecture remains. Exact 2027 guard; no historical changes or Company/Admin features.
+
+Objective Career/Drive calculations remain unchanged. AI Assessment Score/AI Role Fit are separate model-rubric opinions; the earlier 80/20 and 75/25 combined-score proposals are superseded and removed. Evidence references/rating ranges are validated and rubric dimension points reconcile to each independent score. Eligibility/Apply remains authoritative outside AI.
+
+Professional PDF extraction uses bounded PDF.js worker parsing, rooted server-owned paths, normalization/section allowlisting/redaction and graceful image-only/unreadable fallback. Replacement preserves verification. Structured professional profile plus actual safe resume content feeds Career and Drive; Drive additionally includes actual role/public criteria/phase descriptions and safe stored company fields. General career knowledge may guide advice but cannot establish person/company-specific facts.
+
+Explicit Generate/Refresh only, no silent inference. Latest successful assessment/timestamp survives browser reload in bounded authorized memory, reset on backend restart/24h expiry. Profile/resume/role/company fingerprint changes mark it stale. Failure keeps objective/previous AI result. Ask retains one independent latest question/answer, no history/database. See ai.md.
