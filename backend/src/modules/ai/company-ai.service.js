@@ -34,6 +34,17 @@ export function createCompanyIntelligence(config, { userModel = User, companyMod
   const ai = aiService ?? createAiService(config, aiDependencies)
   const extractor = resumeTextService ?? createResumeTextService(config)
   const latest = new Map(); const jobs = new Map(); const running = new Map(); const queue = []; let draining = false
+  ai.registerQueue?.({
+    count: () => [...jobs.values()].reduce((total, job) => total + job.items.filter(item => item.status === 'queued').length, 0),
+    cancel: () => {
+      queue.length = 0; running.clear()
+      for (const job of jobs.values()) {
+        if (job.status === 'completed') continue
+        job.cancelled = true; job.status = 'completed'
+        for (const item of job.items) if (item.status !== 'done' && item.status !== 'failed') { item.status = 'failed'; item.reason = 'cancelled' }
+      }
+    },
+  })
   async function owned(actor, driveId) {
     assertAiRuntime(config)
     if (actor?.role !== 'company') throw denied()
@@ -62,17 +73,20 @@ export function createCompanyIntelligence(config, { userModel = User, companyMod
   function result(row, provider = { status: 'not_requested' }, resume) { return { studentId: row.studentId, driveId: String(row.drive._id), applicationId: row.applicationId, deterministic: row.objective, assessment: prior(row), ai: provider, resumeStatus: resume?.status ?? prior(row)?.resumeStatus ?? (row.profile.resume ? 'not_analyzed' : 'not_uploaded') } }
   async function read(actor, driveId, studentId) { return result(await candidate(actor, driveId, studentId)) }
   async function analyze(actor, driveId, studentId, refresh = true) {
+    const generation = ai.runtimeEpoch?.()
     const row = await candidate(actor, driveId, studentId)
     if (!refresh && prior(row) && !prior(row).stale) return result(row, { status: 'available', cached: true })
     const taskKey = `${row.key}:${row.revision}`
     if (running.has(taskKey)) { await running.get(taskKey); return read(actor, driveId, studentId) }
     const task = (async () => {
       const resume = companyResumeEvidence(await extractor.extract(row.profile.resume))
+      if (generation !== ai.runtimeEpoch?.()) return result(row, { status: 'unavailable', reason: 'cancelled' })
       const provider = await ai.analyze({ actor, scope: `company:${driveId}:${studentId}:fit`, kind: 'match', resumeDependent: true, scoringVersion: companyFitContract.version, forceRefresh: refresh,
         authorize: async () => { await candidate(actor, driveId, studentId); return true }, loadContext: async () => ({ profile: row.profile, drive: row.drive }),
         enrichContext: () => qualityContext(companyContext(row.context, row.drive, row.company, resume)), contract: companyFitContract })
       const current = await candidate(actor, driveId, studentId)
-      if (provider.status === 'available') {
+      if (ai.isCurrent && !ai.isCurrent(provider)) return result(current, { status: 'unavailable', reason: 'cancelled' }, resume)
+      if (provider.status === 'available' && (!ai.isCurrent || ai.isCurrent(provider))) {
         const assessment = { ...assessmentScore(provider.analysis, true), strengths: provider.analysis.strengths, gaps: provider.analysis.gaps, interviewerFocus: provider.analysis.interviewerFocus, analyzedAt: new Date(now()).toISOString(), resumeStatus: resume.status }
         if (latest.size >= (config.AI_CACHE_MAX_ENTRIES ?? 100) && !latest.has(row.key)) latest.delete(latest.keys().next().value)
         latest.set(row.key, { revision: row.revision, expires: now() + 86400000, assessment })
@@ -80,7 +94,7 @@ export function createCompanyIntelligence(config, { userModel = User, companyMod
       return result(current, provider, resume)
     })()
     running.set(taskKey, task)
-    try { return await task } finally { running.delete(taskKey) }
+    try { return await task } finally { if (running.get(taskKey) === task) running.delete(taskKey) }
   }
   async function ask(actor, driveId, studentId, question) {
     const row = await candidate(actor, driveId, studentId); const resume = companyResumeEvidence(await extractor.extract(row.profile.resume))
@@ -121,13 +135,16 @@ export function createCompanyIntelligence(config, { userModel = User, companyMod
       while (queue.length) {
         const job = queue.shift(); job.status = 'running'
         for (const item of job.items) {
+          if (job.cancelled) break
           item.status = 'running'
           try {
             const deadline = now() + config.AI_TIMEOUT_MS + 30000
-            while (ai.availability && (ai.availability().active >= config.AI_MAX_CONCURRENT || ai.availability().cooldownMs > 0) && now() < deadline) await delay(1000)
+            while (ai.availability && (ai.availability().active >= config.AI_MAX_CONCURRENT || ai.availability().cooldownMs > 0) && !job.cancelled && now() < deadline) await delay(1000)
+            if (job.cancelled) break
             const data = await analyze(job.actor, job.driveId, item.studentId, false)
+            if (job.cancelled) break
             item.status = data.ai.status === 'unavailable' ? 'failed' : 'done'; item.reason = data.ai.reason; item.result = data
-          } catch { item.status = 'failed'; item.reason = 'unavailable' }
+          } catch { if (!job.cancelled) { item.status = 'failed'; item.reason = 'unavailable' } }
         }
         job.status = 'completed'
       }

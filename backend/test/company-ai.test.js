@@ -8,6 +8,7 @@ const { companyFitContract, groupQuestionContract } = await import('../src/modul
 const { retrieveCandidates } = await import('../src/modules/ai/company-ai.retrieval.js')
 const { companyResumeEvidence } = await import('../src/modules/ai/company-ai.resume.js')
 const { getCompanyCandidateExplorer } = await import('../src/modules/analytics/company-analytics.service.js')
+const {createAiService}=await import('../src/modules/ai/ai.service.js')
 const actor = { _id: '000000000000000000000001', role: 'company' }
 const driveId = '000000000000000000000002'; const ids = [3,4,5,6,7,8].map(n => String(n).padStart(24,'0'))
 const config = { MONGO_URI: process.env.MONGO_URI, AI_ENABLED: true, AI_PROVIDER: 'ollama', OLLAMA_BASE_URL: 'http://synthetic:11434', OLLAMA_MODEL: 'synthetic', AI_TIMEOUT_MS: 1000, AI_MAX_CONTEXT_BYTES: 16384, AI_CACHE_MAX_ENTRIES: 30, AI_CACHE_TTL_MS: 60000, AI_MAX_CONCURRENT: 1, AI_COOLDOWN_MS: 0 }
@@ -29,8 +30,9 @@ function fixture(extra = {}) {
     const sections=context.qualitySections.map(row=>({key:row.key,rating:row.evidenceIds.length?3:0,reason:'Specific documented professional work.',evidenceIds:row.evidenceIds.slice(0,1)}))
     return {sections,summary:'Based on the documented evidence available, relevant API work is present.',strengths:[{text:'Documented API project.',evidenceIds:[context.evidence.find(row=>row.type==='project').id]}],gaps:['Java is not documented.'],interviewerFocus:['Ask about API error handling.']}
   }}) }, resumeTextService:{extract:async resume=>{if(!extractionCache.has(resume.uploadedAt+resume.storagePath)){extracts++;extractionCache.set(resume.uploadedAt+resume.storagePath,{status:'extracted',text:'Projects\nDocumented backend API project with SQL.'})}return extractionCache.get(resume.uploadedAt+resume.storagePath)},peek:resume=>extractionCache.get(resume.uploadedAt+resume.storagePath)} }
+  const ai=createAiService(config,dependencies.aiDependencies);dependencies.aiService=ai
   const service=createCompanyIntelligence(config,dependencies)
-  return { service,dependencies,company,drive,profiles,users,applications,prompts,counts:()=>({calls,extracts}),offline:()=>{fail=true} }
+  return { ai,service,dependencies,company,drive,profiles,users,applications,prompts,counts:()=>({calls,extracts}),offline:()=>{fail=true} }
 }
 test('all-candidate objective reads are non-LLM, private data excluded and eligibility untouched',async()=>{
  const f=fixture(); const before=JSON.stringify(f.applications)
@@ -145,4 +147,27 @@ test('Company HTTP routes require authentication/role, reject client context and
  assert.equal((await fetch(`${base}/drives/${driveId}/candidates/${ids[0]}`,{headers:headers(actor._id)})).status,404)
  assert.equal((await fetch(`${base}/drives/${driveId}/group/ask`,{method:'POST',headers:headers(actor._id),body:JSON.stringify({question:'Compare candidates',profile:{gender:'forbidden'}})})).status,422)
  assert.equal((await fetch(`${base}/drives/${driveId}/batches`,{method:'POST',headers:headers(actor._id),body:JSON.stringify({studentIds:[ids[0],ids[0]]})})).status,422)
+})
+
+
+test('reset cancels active and queued batch items, preserves success and prevents further calls',async()=>{
+ let wait=false;let release
+ const f=fixture({generate:()=>wait?new Promise(resolve=>{release=resolve}):Promise.resolve()})
+ const previous=(await f.service.analyze(actor,driveId,ids[0])).assessment;wait=true
+ const job=await f.service.startBatch(actor,driveId,ids.slice(1,4));while(!release)await new Promise(resolve=>setTimeout(resolve,0))
+ assert.equal(f.ai.runtimeStatus().queued,2);f.ai.resetRuntime()
+ const result=await f.service.pollBatch(actor,driveId,job.id);assert.equal(result.status,'completed');assert.equal(result.completed,3)
+ assert(result.items.every(item=>item.status==='failed'&&item.reason==='cancelled'))
+ assert.deepEqual((await f.service.read(actor,driveId,ids[0])).assessment,previous)
+ release();await new Promise(resolve=>setTimeout(resolve,10));assert.equal(f.counts().calls,2);assert.equal(f.ai.runtimeStatus().status,'IDLE')
+ wait=false;assert.equal((await f.service.analyze(actor,driveId,ids[1])).ai.status,'available')
+})
+
+
+test('reset during batch resume preparation prevents an old job starting inference afterward',async()=>{
+ const f=fixture();let release
+ f.dependencies.resumeTextService.extract=()=>new Promise(resolve=>{release=resolve})
+ const job=await f.service.startBatch(actor,driveId,ids.slice(0,2));while(!release)await new Promise(resolve=>setTimeout(resolve,0))
+ f.ai.resetRuntime();release({status:'no_usable_text',text:''});await new Promise(resolve=>setTimeout(resolve,10))
+ const result=await f.service.pollBatch(actor,driveId,job.id);assert.equal(result.status,'completed');assert(result.items.every(item=>item.reason==='cancelled'));assert.equal(f.counts().calls,0)
 })

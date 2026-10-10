@@ -27,3 +27,17 @@ test('2027 key-free app imports, health works, AI status authenticates and rate 
   assert.equal((await fetch(`${base}/ai/status`, { headers: token('two') })).status, 200)
   assert.equal((await fetch(`${base}/ai/analyze`, { method: 'POST', headers: token('three') })).status, 404)
 })
+
+
+test('runtime endpoints are Admin-only, strictly validated and separately rate limited',async t=>{
+ t.mock.method(User,'findById',id=>({select:async()=>({_id:id,role:id.startsWith('admin')?'placement_admin':id,isActive:true})}))
+ const server=app.listen(0);const base='http://127.0.0.1:'+server.address().port+'/api/v1/ai/admin/runtime'
+ t.after(()=>new Promise(resolve=>server.close(resolve)))
+ const headers=id=>({Authorization:'Bearer '+jwt.sign({},process.env.JWT_SECRET,{subject:id}),'Content-Type':'application/json'})
+ assert.equal((await fetch(base)).status,401)
+ for(const role of ['student','company']){assert.equal((await fetch(base,{headers:headers(role)})).status,403);assert.equal((await fetch(base+'/reset',{method:'POST',headers:headers(role),body:'{}'})).status,403)}
+ const status=await fetch(base,{headers:headers('admin-reader')});assert.equal(status.status,200);assert.equal((await status.json()).data.status,'IDLE')
+ assert.equal((await fetch(base+'/reset',{method:'POST',headers:headers('admin-body'),body:JSON.stringify({prompt:'forbidden'})})).status,422)
+ for(let n=0;n<3;n++)assert.equal((await fetch(base+'/reset',{method:'POST',headers:headers('admin-reset'),body:'{}'})).status,200)
+ assert.equal((await fetch(base+'/reset',{method:'POST',headers:headers('admin-reset'),body:'{}'})).status,429)
+})

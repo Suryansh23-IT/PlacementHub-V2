@@ -51,9 +51,12 @@ export function createStudentIntelligence(config, { profileModel = StudentProfil
     const authorize = async () => await authorized(actor) && (!driveId || Boolean(await driveModel.findOne(visibleDrive(driveId)).select('_id').lean()))
     if (explain && (assess || deterministic.score !== null || userQuestion !== undefined)) {
       extractor ??= createResumeTextService(config)
-      resume = await extractor.extract(profile.resume)
       intelligence ??= createAiService(config, aiDependencies)
-      ai = await intelligence.analyze({ actor, scope: `${scope}${assess ? ':assessment' : userQuestion === undefined ? ':explanation' : ':ask'}`, kind,
+      const epoch = intelligence.runtimeEpoch?.()
+      resume = await extractor.extract(profile.resume)
+
+      intelligence ??= createAiService(config, aiDependencies)
+      ai = epoch !== intelligence.runtimeEpoch?.() ? { status: 'unavailable', reason: 'cancelled' } : await intelligence.analyze({ actor, scope: `${scope}${assess ? ':assessment' : userQuestion === undefined ? ':explanation' : ':ask'}`, kind,
         scoringVersion: assess ? ASSESSMENT_VERSION : STUDENT_SCORING_VERSION, authorize, loadContext: async () => ({ profile, drive }),
         enrichContext: safe => {
           const rich = enrichStudentContext(richBase(safe), drive, company, resume)
@@ -63,7 +66,7 @@ export function createStudentIntelligence(config, { profileModel = StudentProfil
         contract: assess ? qualityContract(Boolean(driveId)) : userQuestion === undefined ? (driveId ? matchContract : careerContract) : createQuestionContract(driveId ? 'preparation for this role' : 'professional career preparation'),
         resumeDependent: true, forceRefresh: assess,
       })
-      if (assess && ai.status === 'available') {
+      if (assess && ai.status === 'available' && (!intelligence.isCurrent || intelligence.isCurrent(ai))) {
         previous = { ...assessmentScore(ai.analysis, Boolean(driveId)), analyzedAt: new Date(now()).toISOString(), fingerprint: currentFingerprint, resumeStatus: resume.status, expires: now() + 86400000 }
         if (latest.size >= (config.AI_CACHE_MAX_ENTRIES ?? 100) && !latest.has(ownerKey)) latest.delete(latest.keys().next().value)
         latest.set(ownerKey, previous)

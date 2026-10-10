@@ -1,3 +1,4 @@
+import {AiRuntimeControl} from './AiRuntimeControl.jsx'
 import {useEffect,useRef,useState} from 'react'
 import {usePlacementCycle} from '../placement-cycle/usePlacementCycle.js'
 import {ContextualAskAi} from './ContextualAskAi.jsx'
@@ -26,6 +27,7 @@ export function AdminPlacementIntelligence({token,provider=api}){
   if(!enabled)return null
   const assessment=data?.assessment;const insight=assessment?.insight
   return <div className="space-y-4">
+    <AiRuntimeControl token={token} provider={provider}/>
     <section aria-label="Placement AI Insights" className="rounded-2xl border border-blue-100 bg-white p-5 shadow-sm">
       <h2 className="text-lg font-bold text-blue-950">Placement AI Insights</h2>
       <p className="mt-1 text-xs text-slate-500">Whole 2027 cycle · independent of dashboard filters · advisory only.</p>

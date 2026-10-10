@@ -1,3 +1,4 @@
+import { createAiRuntimeControllers } from './ai-runtime.controller.js'
 import { Router } from 'express'
 import { authenticate, authorizeRoles } from '../auth/auth.middleware.js'
 import { validateQuery, validateBody, validateParams } from '../../middleware/validate-request.js'
@@ -18,12 +19,18 @@ export function createAiRouter(config) {
   const router = Router()
   router.use(authenticate, authorizeRoles('student', 'company', 'placement_admin'))
   router.use((request, response, next) => { assertAiRuntime(config); next() })
+  const dependencies = { aiService: createAiService(config), resumeTextService: createResumeTextService(config) }
+  const recovery = createAiRuntimeControllers(dependencies.aiService)
+  const recoveryReadLimit = createAiRateLimiter({ ...config, AI_RATE_LIMIT_WINDOW_MS: 60000, AI_RATE_LIMIT_MAX: 30 })
+  const recoveryResetLimit = createAiRateLimiter({ ...config, AI_RATE_LIMIT_WINDOW_MS: 60000, AI_RATE_LIMIT_MAX: 3 })
+  router.get('/admin/runtime', authorizeRoles('placement_admin'), recoveryReadLimit, validateQuery(aiStatusQuerySchema), recovery.status)
+  router.post('/admin/runtime/reset', authorizeRoles('placement_admin'), recoveryResetLimit, validateBody(aiEmptyBodySchema), recovery.reset)
   const generationLimiter = createAiRateLimiter(config)
   const pollingLimiter = createAiRateLimiter({ ...config, AI_RATE_LIMIT_MAX: 30 })
   router.use((request, response, next) => request.method === 'GET' && /^\/companies\/drives\/[^/]+\/batches\//.test(request.path) ? pollingLimiter(request, response, next) : generationLimiter(request, response, next))
   // Only Ask endpoints accept a bounded question; never client profiles/scores/rules.
   router.get('/status', validateQuery(aiStatusQuerySchema), createAiStatusController(config))
-  const dependencies = { aiService: createAiService(config), resumeTextService: createResumeTextService(config) }
+
   const student = createStudentAiControllers(config, dependencies)
   const company = createCompanyAiControllers(config, dependencies)
   const admin = createAdminAiControllers(config, dependencies)

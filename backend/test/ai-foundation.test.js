@@ -150,3 +150,47 @@ test('oversized context stops before provider/cache initialization', async () =>
   const service = createAiService({ ...config, AI_MAX_CONTEXT_BYTES: 10 }, { cacheFactory: () => initialized++, providerFactory: () => initialized++ })
   assert.equal((await service.analyze(request())).reason, 'context_limit'); assert.equal(initialized, 0)
 })
+
+
+test('runtime reset aborts active work, clears queued work and protects a newer generation', async () => {
+  let release; let signal; let calls = 0; let queued = 2
+  const service = createAiService({...config,AI_MAX_CONCURRENT:1,AI_TIMEOUT_MS:10000}, {providerFactory:()=>({generate:options=>{signal=options.signal;calls++;return calls===1?new Promise(resolve=>{release=resolve}):Promise.resolve({...output,summary:'New successful result.'})}})})
+  service.registerQueue({count:()=>queued,cancel:()=>{queued=0}})
+  assert.equal(service.runtimeStatus().status,'IDLE')
+  const first=service.analyze(request());while(!release)await new Promise(resolve=>setTimeout(resolve,0))
+  assert.equal(service.runtimeStatus().status,'BUSY');assert.equal(service.runtimeStatus().queued,2)
+  assert(!JSON.stringify(service.runtimeStatus()).includes('JavaScript'))
+  service.resetRuntime();assert(signal.aborted);assert.equal(service.runtimeStatus().status,'IDLE');assert.equal(queued,0)
+  assert.equal((await first).reason,'cancelled')
+  const second=await service.analyze(request());assert.equal(second.analysis.summary,'New successful result.')
+  release(output);await new Promise(resolve=>setTimeout(resolve,0))
+  assert.equal((await service.analyze(request())).analysis.summary,'New successful result.')
+  assert.equal(service.availability().active,0);assert.equal(calls,2)
+})
+
+test('reset preserves successful cache and cancels duplicate waiters',async()=>{
+ let release;let calls=0
+ const service=createAiService({...config,AI_TIMEOUT_MS:10000},{providerFactory:()=>({generate:()=>{calls++;return calls===1?Promise.resolve(output):new Promise(resolve=>{release=resolve})}})})
+ await service.analyze(request());const task=service.analyze(request({forceRefresh:true}));while(!release)await new Promise(resolve=>setTimeout(resolve,0))
+ const duplicate=service.analyze(request({forceRefresh:true}));await new Promise(resolve=>setTimeout(resolve,0));service.resetRuntime()
+ assert.equal((await task).reason,'cancelled');assert.equal((await duplicate).reason,'cancelled')
+ assert.equal((await service.analyze(request())).cached,true)
+ release(output)
+})
+
+test('normal deadline aborts an uncooperative provider and releases gate',async()=>{
+ let signal;let calls=0
+ const service=createAiService({...config,AI_TIMEOUT_MS:20,AI_COOLDOWN_MS:0},{providerFactory:()=>({generate:options=>{signal=options.signal;return ++calls===1?new Promise(()=>{}):Promise.resolve(output)}})})
+ assert.equal((await service.analyze(request())).reason,'timeout');assert(signal.aborted);assert.equal(service.runtimeStatus().status,'IDLE')
+ assert.equal((await service.analyze(request())).status,'available')
+})
+
+test('independent watchdog cancels a stuck runtime after bounded recovery grace',async()=>{
+ const {createAiRuntime}=await import('../src/modules/ai/ai-runtime.js')
+ const runtime=createAiRuntime({...config,AI_TIMEOUT_MS:5});let signal;let cancelled=0
+ runtime.registerQueue({count:()=>1,cancel:()=>cancelled++})
+ const task=runtime.run('admin:placement:ask',s=>{signal=s;return new Promise(()=>{})})
+ await assert.rejects(task,{code:'timeout'});assert(signal.aborted);assert.equal(runtime.status().status,'IDLE');assert.equal(cancelled,1)
+ assert.equal(await runtime.run('student-career',async()=>42),42)
+ assert.throws(()=>createAiRuntime({...config,MONGO_URI:'mongodb://localhost/placementhub-v2'}),{errorCode:'NOT_FOUND'})
+})

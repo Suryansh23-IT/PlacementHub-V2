@@ -17,6 +17,7 @@ const { StudentProfile } = await import('../src/modules/students/student.model.j
 const { PlacementDrive } = await import('../src/modules/placement-drives/placement-drive.model.js')
 const { evaluatePlacementDriveEligibility } = await import('../src/modules/applications/application.service.js')
 const jwt = (await import('jsonwebtoken')).default
+const {createAiService}=await import('../src/modules/ai/ai.service.js')
 const actor = { _id: '000000000000000000000001', role: 'student', isActive: true }
 const driveId = '000000000000000000000002'
 const config = { MONGO_URI: process.env.MONGO_URI, AI_ENABLED: true, AI_PROVIDER: 'ollama', OLLAMA_BASE_URL: 'http://ollama.test:11434', OLLAMA_MODEL: 'synthetic', AI_TIMEOUT_MS: 1000, AI_MAX_CONTEXT_BYTES: 16384, AI_CACHE_MAX_ENTRIES: 30, AI_CACHE_TTL_MS: 60000, AI_MAX_CONCURRENT: 2, AI_COOLDOWN_MS: 1 }
@@ -27,13 +28,15 @@ function setup(overrides = {}) {
   const state = { profile: profile(), drive: { role: { title: 'Developer', requiredSkills: ['React'], preferredSkills: ['SQL'] } }, active: true, calls: 0, prompts: [] }
   const models = { profileModel: { findOne: () => query(state.profile) }, driveModel: { findOne: () => query(state.drive) }, userModel: { findById: () => query({ ...actor, isActive: state.active }) } }
   const providerFactory = () => ({ generate: async input => {
+    if (state.wait) await state.wait()
     state.calls++; const context = JSON.parse(input.prompt.split('DATA_JSON:\n')[1]); state.prompts.push(context)
     if (context.userQuestion) return { answer: `Advice for ${context.userQuestion}`, evidenceIds: context.evidence.slice(0, 1).map(row => row.id) }
     if (context.qualitySections) return { sections: context.qualitySections.map(row => ({ key: row.key, rating: row.evidenceIds.length && row.documentedPoints !== 0 ? 3 : 0, reason: row.evidenceIds.length ? 'Documented evidence is relevant but outcomes need detail.' : 'No evidence documented.', evidenceIds: row.evidenceIds.slice(0, 1) })), summary: 'Professional evidence quality assessment.' }
     return context.kind === 'professional' ? { ...baseOutput(), suitableRoles: context.deterministic.suitableRoles, nextLearningSteps: ['Build a focused project.'], profileSuggestions: ['Document measurable project outcomes.'] } : baseOutput()
   } })
-  const service = createStudentIntelligence({ ...config, ...overrides }, { ...models, aiDependencies: { providerFactory } })
-  return { state, service }
+  const ai = createAiService({ ...config, ...overrides }, { providerFactory })
+  const service = createStudentIntelligence({ ...config, ...overrides }, { ...models, aiService: ai })
+  return { state, service, ai }
 }
 
 test('Profile Strength is deterministic, bounded and uses capped professional evidence', () => {
@@ -287,4 +290,16 @@ test('HTTP Student endpoints enforce roles, ownership, validation, read-only pro
   }
   assert.equal(suppliedContexts.length, 2); assert(!('history' in suppliedContexts[1])); assert(!JSON.stringify(suppliedContexts[1]).includes('What first?'))
   assert(fields.some(value => value.includes('projects'))); assert(!fields.some(value => /phone|email|password|gender|hobbies|mbti/.test(value)))
+})
+
+
+test('runtime reset retains independent Career and Drive assessments and objective scores',async()=>{
+ const f=setup();await f.service.assessCareer(actor);await f.service.assessMatch(actor,driveId)
+ const career=await f.service.career(actor);const drive=await f.service.match(actor,driveId)
+ let release;f.state.wait=()=>new Promise(resolve=>{release=resolve})
+ const task=f.service.assessCareer(actor);while(!release)await new Promise(resolve=>setTimeout(resolve,0))
+ f.ai.resetRuntime();assert.equal((await task).ai.reason,'cancelled')
+ assert.deepEqual((await f.service.career(actor)).assessment,career.assessment);assert.deepEqual((await f.service.match(actor,driveId)).assessment,drive.assessment)
+ assert.deepEqual((await f.service.career(actor)).deterministic,career.deterministic)
+ f.state.wait=null;release();await new Promise(resolve=>setTimeout(resolve,0));assert.deepEqual((await f.service.career(actor)).assessment,career.assessment)
 })

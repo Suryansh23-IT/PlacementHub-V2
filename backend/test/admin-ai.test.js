@@ -17,7 +17,8 @@ function fixture(extra={}){
   const store={findOne:()=>({lean:async()=>structuredClone(saved)}),findOneAndUpdate:async(query,update)=>{if(extra.storageFailure)throw Error('storage');writes++;saved={...update.$set,scope:query.scope};return saved}}
   const users={findOne:query=>({select(){return this},lean:async()=>active&&query._id==='admin'&&query.role==='placement_admin'?{_id:'admin'}:null})}
   const dependencies={userModel:users,insightModel:store,factsLoader:async()=>structuredClone(current),aiDependencies:{providerFactory:()=>({generate:async({prompt})=>{calls++;prompts.push(prompt);if(extra.wait)await extra.wait();if(fail)throw Error('offline');const context=JSON.parse(prompt.split('DATA_JSON:\n')[1]);return extra.output??(context.userQuestion?{answer:'Based on the current PlacementHub data, consider targeted outreach.',evidenceRefs:['summary']}:output())}})}}
-  return {service:createAdminIntelligence(config,dependencies),dependencies,current,prompts,counts:()=>({calls,writes}),saved:()=>saved,deactivate:()=>active=false,offline:()=>fail=true}
+  const ai=createAiService(config,dependencies.aiDependencies);dependencies.aiService=ai
+  return {ai,service:createAdminIntelligence(config,dependencies),dependencies,current,prompts,counts:()=>({calls,writes}),saved:()=>saved,deactivate:()=>active=false,offline:()=>fail=true}
 }
 test('Admin read is facts-only, no inference or write; non-admin/inactive denied',async()=>{
   const f=fixture();assert.equal((await f.service.read(actor)).assessment,null);assert.deepEqual(f.counts(),{calls:0,writes:0})
@@ -96,4 +97,15 @@ test('Admin HTTP routes authenticate, reject Student/Company roles and client co
   const headers={Authorization:`Bearer ${jwt.sign({},process.env.JWT_SECRET,{subject:'placement_admin'})}`,'Content-Type':'application/json'}
   assert.equal((await fetch(`${base}/insights`,{method:'POST',headers,body:JSON.stringify({context:{rawDatabase:true}})})).status,422)
   assert.equal((await fetch(`${base}/ask`,{method:'POST',headers,body:JSON.stringify({question:'What next?',history:['previous']})})).status,422)
+})
+
+
+test('runtime cancellation preserves persisted insight and ignores late refresh output',async()=>{
+ let wait=false;let release
+ const f=fixture({wait:()=>wait?new Promise(resolve=>{release=resolve}):Promise.resolve()})
+ const saved=(await f.service.generate(actor)).assessment;wait=true
+ const task=f.service.generate(actor);while(!release)await new Promise(resolve=>setTimeout(resolve,0))
+ f.ai.resetRuntime();assert.equal((await task).ai.reason,'cancelled');assert.deepEqual((await f.service.read(actor)).assessment,saved)
+ wait=false;await f.service.generate(actor);const newer=f.saved();release();await new Promise(resolve=>setTimeout(resolve,0))
+ assert.deepEqual(f.saved(),newer);assert.equal(f.counts().writes,2)
 })

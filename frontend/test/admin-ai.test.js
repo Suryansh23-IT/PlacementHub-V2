@@ -46,3 +46,20 @@ test('2026 hides entire Admin AI UI and does not request data',async()=>{
  let calls=0;const view=await mount({getAdminAiInsights:async()=>{calls++;throw Error('archived')}},'2026');assert.equal(view.container.textContent,'');assert.equal(calls,0);await view.close()
 })
 after(async()=>{dom.window.close();await server.close()})
+
+
+test('Admin runtime shows safe busy status and requires confirmation before reset',async()=>{
+ let resets=0
+ const provider={getAdminAiInsights:async()=>({data:{...base,assessment}}),getAiRuntime:async()=>({data:{status:'BUSY',runningMs:134000,queued:2,category:'candidate',provider:'ollama',model:'qwen3.5:4b'}}),resetAiRuntime:async()=>{resets++;return {data:{status:'IDLE',runningMs:0,queued:0}}}}
+ const view=await mount(provider);assert.match(view.container.textContent,/Status: Busy/);assert.match(view.container.textContent,/2m 14s/);assert.match(view.container.textContent,/Queued: 2/)
+ await act(async()=>button(view,'Reset AI Runtime').click());assert.equal(resets,0);assert.match(view.container.textContent,/Previously saved AI results will not be deleted/)
+ await act(async()=>button(view,'Cancel').click());assert.equal(resets,0);assert(!view.container.querySelector('[role=dialog]'))
+ await act(async()=>button(view,'Reset AI Runtime').click());const confirm=view.container.querySelector('[role=dialog] button:last-child')
+ await act(async()=>confirm.click());assert.equal(resets,1);assert.match(view.container.textContent,/Status: Ready/);assert.match(view.container.textContent,/New AI requests can now be started/);assert.match(view.container.textContent,/review outreach/);await view.close()
+})
+
+test('failed runtime reset retains previous insight and settles button state',async()=>{
+ const view=await mount({getAdminAiInsights:async()=>({data:{...base,assessment}}),getAiRuntime:async()=>({data:{status:'IDLE',queued:0,provider:'ollama',model:'local'}}),resetAiRuntime:async()=>{throw Error('offline')}})
+ await act(async()=>button(view,'Reset AI Runtime').click());await act(async()=>view.container.querySelector('[role=dialog] button:last-child').click())
+ assert.match(view.container.textContent,/reset failed/);assert.match(view.container.textContent,/review outreach/);assert(!view.container.querySelector('[role=dialog] button:last-child').disabled);await view.close()
+})
