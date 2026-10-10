@@ -11,6 +11,7 @@ import { createCompanyAiControllers } from './company-ai.controller.js'
 import { companyAiParams, companyBatchBody, companyOverviewBody } from './company-ai.validation.js'
 import { createAiService } from './ai.service.js'
 import { createResumeTextService } from './resume-text.service.js'
+import { createAdminAiControllers } from './admin-ai.controller.js'
 
 export function createAiRouter(config) {
   assertAiRuntime(config)
@@ -25,6 +26,11 @@ export function createAiRouter(config) {
   const dependencies = { aiService: createAiService(config), resumeTextService: createResumeTextService(config) }
   const student = createStudentAiControllers(config, dependencies)
   const company = createCompanyAiControllers(config, dependencies)
+  const admin = createAdminAiControllers(config, dependencies)
+  router.use('/admin', authorizeRoles('placement_admin'))
+  router.get('/admin/insights', validateQuery(aiStatusQuerySchema), admin.read)
+  router.post('/admin/insights', validateBody(aiEmptyBodySchema), admin.generate)
+  router.post('/admin/ask', validateBody(contextualQuestionSchema), admin.ask)
   router.use('/companies', authorizeRoles('company'))
   router.get('/companies/limits', company.limits)
   router.post('/companies/overview', validateBody(companyOverviewBody), company.overview)

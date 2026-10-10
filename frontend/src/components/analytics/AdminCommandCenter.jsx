@@ -4,6 +4,7 @@ import { EmptyState } from '../feedback/EmptyState.jsx'
 import { ErrorState } from '../feedback/ErrorState.jsx'
 import { LoadingState } from '../feedback/LoadingState.jsx'
 import { getAdminAnalyticsDashboard } from '../../services/analytics.service.js'
+import { AdminPlacementIntelligence } from '../../features/ai/AdminIntelligence.jsx'
 import { usePlacementCycle } from '../../features/placement-cycle/usePlacementCycle.js'
 
 const money = value => {
@@ -30,7 +31,7 @@ export function AdminCommandCenter({ token, name }) {
   useEffect(() => { load() }, [load])
   const update = values => { setError(''); setParams(current => { const next = new URLSearchParams(current); Object.entries(values).forEach(([key, value]) => value ? next.set(key, value) : next.delete(key)); return next }) }
   const clear = () => { setError(''); setParams({}) }
-  return <section className="space-y-7"><header className="flex flex-wrap items-end justify-between gap-4"><div><p className="text-xs font-bold uppercase tracking-[.14em] text-blue-700">{cycle.id === '2026' ? '2025–26 Historical Placement Season' : '2027 Current Placement Season'}</p><h1 className="mt-1 text-3xl font-bold tracking-tight text-slate-950">Welcome back, {name}.</h1><p className="mt-2 max-w-3xl text-slate-600">Institution-wide placement performance from verified cohort and confirmed M7 outcomes.</p></div><Link className="rounded-xl bg-blue-700 px-4 py-2.5 text-sm font-bold text-white shadow-sm hover:bg-blue-800" to="/admin/placement-drives/monitoring">View drive history</Link></header><FilterBar filters={filters} options={data?.options} update={update} clear={clear} />{error && <ErrorState message={error} retry={load} />}{!data && !error && <LoadingState message="Loading command-center analytics…" />}{data && <DashboardData data={data} filters={filters} />}</section>
+  return <section className="space-y-7"><header className="flex flex-wrap items-end justify-between gap-4"><div><p className="text-xs font-bold uppercase tracking-[.14em] text-blue-700">{cycle.id === '2026' ? '2025–26 Historical Placement Season' : '2027 Current Placement Season'}</p><h1 className="mt-1 text-3xl font-bold tracking-tight text-slate-950">Welcome back, {name}.</h1><p className="mt-2 max-w-3xl text-slate-600">Institution-wide placement performance from verified cohort and confirmed M7 outcomes.</p></div><Link className="rounded-xl bg-blue-700 px-4 py-2.5 text-sm font-bold text-white shadow-sm hover:bg-blue-800" to="/admin/placement-drives/monitoring">View drive history</Link></header><FilterBar filters={filters} options={data?.options} update={update} clear={clear} />{error && <ErrorState message={error} retry={load} />}{!data && !error && <LoadingState message="Loading command-center analytics…" />}{data && <DashboardData data={data} filters={filters} />}{cycle.id === '2027' && <AdminPlacementIntelligence token={token} />}</section>
 }
 
 function FilterBar({ filters, options, update, clear }) {

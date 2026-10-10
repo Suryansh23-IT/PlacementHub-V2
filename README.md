@@ -4,7 +4,7 @@ PlacementHub V2 is a MERN platform for one college placement cell. Students mana
 
 ## Current status
 
-M0–M9 and M10-B are committed on demo-2027-m9. M10-C Company Candidate Intelligence is implemented and validated for its authorized checkpoint. M10-D Admin AI has not started. From backend: npm run test:ai, npm run check:ai, npm run check. Optional npm run ai:connectivity sends at most one synthetic request to the explicitly selected enabled provider; never runs in automated tests. See docs/ai.md and docs/m10c-checkpoint.md.
+M0–M9, M10-B and M10-C are committed on demo-2027-m9. M10-D Admin Placement Intelligence is implemented and validated for its authorized checkpoint. M11 has not started. From backend: npm run test:ai, npm run check:ai, npm run check. Optional npm run ai:connectivity sends at most one synthetic request to the explicitly selected enabled provider; never runs in automated tests. See docs/ai.md and docs/m10d-checkpoint.md.
 
 **Roadmap status:** M0 documentation complete; M1 foundation complete; M2 authentication and authorization complete; M3 student profiles, resumes, and verification complete; M4 company profiles, institution settings, and company approval complete.
 
@@ -16,7 +16,7 @@ M0–M9 and M10-B are committed on demo-2027-m9. M10-C Company Candidate Intelli
 - Authentication: JWT and bcrypt
 - Uploads: Multer with a storage provider selected later
 - Reporting: xlsx
-- AI: optional local Ollama qwen3.5:4b through the backend; current 2027 runtime only (Student and Company Intelligence; Admin pending). Generic provider boundary retained; no automatic external fallback.
+- AI: optional local Ollama qwen3.5:4b through the backend; Student, Company and Admin Intelligence in the current 2027 runtime only. Generic provider boundary retained; no automatic external fallback.
 
 ## Documentation
 

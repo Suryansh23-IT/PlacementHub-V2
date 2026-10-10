@@ -43,3 +43,9 @@ Only the exact 2027 runtime enables AI. No 2026 modifications, seed/reset or Com
 ## Completed milestone: M10-C Company Candidate Intelligence
 
 Explicitly authorized Company candidate review reuses M10-B infrastructure. Bulk deterministic Explorer matching, individual independent fit, list-to-detail analysis actions, manual refresh/latest-only Ask, configurable small serial batches and bounded group evidence retrieval. No Student redesign, Gemini live work, automatic recruitment decisions, seeds/resets or M10-D. Exact 2027 isolation remains. Automated and live Company checks passed for the user-authorized checkpoint; see m10c-checkpoint.md for evidence and local-model limitations. M10-D awaits separate approval.
+
+## Completed milestone: M10-D Admin Placement Intelligence
+
+Authorized scope: whole-current-cycle trusted aggregate analytics, permanent latest Placement AI Insights in the exact 2027 database, explicit Generate/Refresh, stale context fingerprints and latest-only Ask. Reuse M8 dashboard and report phase/count semantics, shared inference protection and Ollama adapter. Bounded deterministic intents answer exact facts without model calls; qualitative questions receive only allowlisted aggregate facts. No Student/Company redesign, unrestricted DB tools/query generation, Gemini integration, seed/reset or M11. Commit/push is authorized only after regression and live persistence/offline validation pass.
+
+Implementation, full regression and real 2027 Generate/Refresh, exact/qualitative Ask, stale/restoration, offline and reload/login/backend-restart persistence checks passed. See m10d-checkpoint.md for results and remaining local-model limitations. The M10-D checkpoint is authorized; M11/cloud-provider work awaits separate approval.

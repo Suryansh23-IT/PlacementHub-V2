@@ -171,3 +171,9 @@ All routes below are under authenticated Company-only /api/v1/ai/companies. Owne
 | POST | /drives/:driveId/group/ask | Bounded question, deterministic retrieval and small compact shortlist; cited candidate IDs. |
 
 Existing Company Candidate Explorer adds instant objectiveMatch only on 2027 and supports objective_match sorting before pagination. All legacy search/filter/group/decision workflows remain separate. AI is advisory and does not mutate eligibility, applications, recruitment phases or placement decisions.
+
+## M10-D Admin Placement Intelligence (exact 2027 only)
+
+Active Placement Admin authentication and AI-specific rate limiting apply under /api/v1/ai/admin. GET /insights accepts no filters and returns scope, trusted summary, nullable assessment {insight, analyzedAt, stale, provider, model} and not_requested status. No generation/write on GET. POST /insights accepts strict empty JSON and explicitly generates/refreshes; previous persisted insight remains on provider/validation/storage failure. POST /ask accepts only the existing bounded {question}; no history/context/query/identity. It returns {ai}, with source trusted_facts for bounded exact operations or local_ai for qualitative reasoning. Exact operations remain available offline. Unrecognized questions cannot execute DB commands or request raw records.
+
+Insight schema: bounded summary, evidenceRefs and up to two {text,evidenceRefs} highlights/concerns/recommendations. Answer schema: bounded answer/evidenceRefs. References are constrained to supplied facts both in generation schema and backend validation; unsupported numeric claims and prohibited command content are rejected. No Admin score. Persistence contains only the latest validated insight, timestamp, fingerprint and provider/model/contract metadata, never questions/raw facts/prompts/history.
