@@ -2,6 +2,7 @@ import 'dotenv/config'
 import { z } from 'zod'
 
 const environmentSchema = z.object({
+  NODE_ENV: z.enum(['development', 'test', 'production']).default('development'),
   PORT: z.coerce.number().int().min(1).max(65535).default(5000),
   MONGO_URI: z.string().url('MONGO_URI must be a valid MongoDB connection URL.'),
   CLIENT_URL: z.string().url('CLIENT_URL must be a valid URL.').default('http://localhost:5173'),
@@ -37,6 +38,16 @@ const environmentSchema = z.object({
   SOCIAL_IMAGE_MAX_BYTES: z.coerce.number().int().min(1).max(10 * 1024 * 1024).default(5 * 1024 * 1024),
   RESUME_MAX_FILE_SIZE_BYTES: z.coerce.number().int().min(1).max(10 * 1024 * 1024).default(5 * 1024 * 1024),
   PLACEMENT_WITHDRAWAL_RESTRICTION_DRIVES: z.coerce.number().int().min(1).max(50).default(5),
+}).superRefine((config, context) => {
+  if (config.NODE_ENV !== 'production') return
+  let databasePath
+  try { databasePath = new URL(config.MONGO_URI).pathname } catch { /* Zod reports invalid URI too. */ }
+  if (databasePath !== '/placementhub-v2-demo-2027') {
+    context.addIssue({ code: 'custom', path: ['MONGO_URI'], message: 'Production requires the current 2027 database (placementhub-v2-demo-2027).' })
+  }
+  if (config.AI_ENABLED) {
+    context.addIssue({ code: 'custom', path: ['AI_ENABLED'], message: 'Production AI must remain disabled for the initial public deployment.' })
+  }
 })
 
 const parsedEnvironment = environmentSchema.safeParse(process.env)

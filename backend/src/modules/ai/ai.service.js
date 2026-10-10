@@ -1,4 +1,5 @@
 import { createAiRuntime } from './ai-runtime.js'
+import { semanticAiEnabled } from '../../config/runtime-policy.js'
 import { AppError } from '../../errors/app-error.js'
 import { assertAiRuntime } from './ai.guard.js'
 import { AiProviderError, unavailable } from './ai.errors.js'
@@ -11,7 +12,8 @@ import { buildPrompt, PROMPT_VERSION, RESPONSE_VERSION, SYSTEM_INSTRUCTION } fro
 export function getAiStatus(config) {
   assertAiRuntime(config)
   const { provider, model, configured } = providerIdentity(config)
-  return { enabled: config.AI_ENABLED, configured, provider, model: model ?? null, status: !config.AI_ENABLED ? 'disabled' : configured ? 'configured' : 'unavailable' }
+  const enabled = semanticAiEnabled(config)
+  return { enabled, configured: enabled && configured, provider, model: model ?? null, status: !enabled ? 'disabled' : configured ? 'configured' : 'unavailable' }
 }
 
 export function createAiService(config, { providerFactory = createAiProvider, cacheFactory = createMemoryCache, now = Date.now } = {}) {
@@ -35,7 +37,7 @@ export function createAiService(config, { providerFactory = createAiProvider, ca
       const checkAccess = async () => { if (await authorize(actor, scope) !== true) throw new AppError('AI analysis access is forbidden.', { statusCode: 403, errorCode: 'FORBIDDEN' }) }
       const requestEpoch = runtime.epoch()
       await checkAccess()
-      if (!config.AI_ENABLED) return unavailable('disabled')
+      if (!semanticAiEnabled(config)) return unavailable('disabled')
       const selected = providerIdentity(config)
       if (!selected.configured) return unavailable('not_configured')
       const safe = buildSafeContext(await loadContext(), { kind, resumeDependent })

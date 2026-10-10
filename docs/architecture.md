@@ -1,5 +1,7 @@
 # Architecture
 
+M11-A introduces explicit runtime policies without changing domain ownership. Public frontend exposes only 2027; production backend requires the exact current database identity and disabled semantic AI. Objective routes remain available. See [M11-A environment contract](m11a-foundation.md) for the approved free hosting architecture and later storage phase.
+
 ## Approach
 
 The project is a modular monolith: one React frontend, one Express backend, and one MongoDB database. This is intentionally simpler to develop, debug, deploy, and explain than microservices.

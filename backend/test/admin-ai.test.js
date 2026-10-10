@@ -25,6 +25,21 @@ test('Admin read is facts-only, no inference or write; non-admin/inactive denied
   for(const role of ['student','company'])await assert.rejects(f.service.read({...actor,role}),{statusCode:403})
   f.deactivate();await assert.rejects(f.service.ask(actor,'Which branch?'),{statusCode:403})
 })
+
+test('disabled Admin retains trusted facts/exact answers and does not generate or persist insights', async () => {
+  const f = fixture()
+  for (const policy of [{ AI_ENABLED: false }, { NODE_ENV: 'production', AI_ENABLED: true }]) {
+    const service = createAdminIntelligence({ ...config, ...policy }, f.dependencies)
+    const read = await service.read(actor)
+    assert.equal(read.summary.eligibleStudents, 10); assert.equal(read.ai.reason, 'disabled')
+    assert.equal((await service.generate(actor)).ai.reason, 'disabled')
+    const exact = await service.ask(actor, 'How many eligible students remain unplaced?')
+    assert.equal(exact.ai.source, 'trusted_facts'); assert.match(exact.ai.analysis.answer, /8/)
+    assert.equal((await service.ask(actor, 'What should the placement team focus on next?')).ai.reason, 'disabled')
+    await assert.rejects(service.generate({ ...actor, role: 'student' }), { statusCode: 403 })
+  }
+  assert.deepEqual(f.counts(), { calls: 0, writes: 0 })
+})
 test('latest successful insight survives service recreation and GET without regeneration',async()=>{
   const f=fixture();const generated=await f.service.generate(actor);assert.equal(generated.ai.status,'available');assert.equal(generated.assessment.stale,false)
   const restarted=createAdminIntelligence(config,f.dependencies);assert.deepEqual((await restarted.read(actor)).assessment,generated.assessment);assert.deepEqual(f.counts(),{calls:1,writes:1});assert.equal(f.saved().scope,'2027-placement')

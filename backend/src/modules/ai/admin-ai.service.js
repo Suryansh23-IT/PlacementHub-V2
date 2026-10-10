@@ -1,4 +1,6 @@
 import {User} from '../auth/auth.model.js'
+import {semanticAiEnabled} from '../../config/runtime-policy.js'
+import {unavailable} from './ai.errors.js'
 import {AppError} from '../../errors/app-error.js'
 import {assertAiRuntime} from './ai.guard.js'
 import {fingerprint} from './ai.context.js'
@@ -17,9 +19,10 @@ export function createAdminIntelligence(config,{userModel=User,insightModel,fact
   async function authorize(actor){assertAiRuntime(config);if(actor?.role!=='placement_admin'||!await userModel.findOne({_id:actor._id,role:'placement_admin',isActive:true}).select('_id').lean())throw new AppError('Admin intelligence access is forbidden.',{statusCode:403,errorCode:'FORBIDDEN'});return true}
   const revision=facts=>fingerprint({facts,provider:providerIdentity(config),version:adminInsightContract.version})
   async function latest(hash){const row=await store.findOne({scope}).lean();if(!row)return null;const parsed=adminInsightSchema.safeParse(row.insight);if(!parsed.success)return null;return {insight:parsed.data,analyzedAt:row.analyzedAt,stale:row.contextFingerprint!==hash,provider:row.provider,model:row.model}}
-  async function read(actor){await authorize(actor);const facts=await factsLoader();const result=await latest(revision(facts));await authorize(actor);return {scope:facts.scope,summary:facts.summary,assessment:result,ai:{status:'not_requested'}}}
+  async function read(actor){await authorize(actor);const facts=await factsLoader();const result=await latest(revision(facts));await authorize(actor);return {scope:facts.scope,summary:facts.summary,assessment:result,ai:semanticAiEnabled(config)?{status:'not_requested'}:unavailable('disabled')}}
   async function generate(actor){
     await authorize(actor)
+    if(!semanticAiEnabled(config))return {...await read(actor),ai:unavailable('disabled')}
     if(generation){const completed=await generation;return {...await read(actor),ai:completed.ai}}
     const epoch=ai.runtimeEpoch?.()
     const task=(async()=>{
@@ -39,6 +42,7 @@ export function createAdminIntelligence(config,{userModel=User,insightModel,fact
   async function ask(actor,question){
     await authorize(actor);question=safeQuestion(question);const facts=await factsLoader();const exact=answerAdminFact(question,facts)
     if(exact){await authorize(actor);return {ai:{status:'available',analysis:exact,source:'trusted_facts'}}}
+    if(!semanticAiEnabled(config))return {ai:unavailable('disabled')}
     const context=adminContext(facts)
     const provider=await ai.analyze({actor,scope:'admin:placement:ask',authorize:()=>authorize(actor),loadContext:async()=>({}),enrichContext:()=>({...context,userQuestion:question}),contract:constrainAdminContract(adminAnswerContract,context)})
     return {ai:{...provider,source:'local_ai'}}

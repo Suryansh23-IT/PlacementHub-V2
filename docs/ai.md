@@ -1,5 +1,7 @@
 # M10 local Placement Intelligence
 
+M11-A preserves local Ollama and all M10 interfaces. Disabled/public mode shows Coming Soon for semantic areas while retaining objective scores/matching and exact Admin facts. Guards prevent disabled PDF extraction, inference and batch jobs, including direct APIs. See [M11-A contract](m11a-foundation.md).
+
 ## Provider and isolation
 
 Ollama is the only implemented M10 provider. Backend configuration: AI_ENABLED=true, AI_PROVIDER=ollama, OLLAMA_BASE_URL=http://127.0.0.1:11434, OLLAMA_MODEL=qwen3.5:4b. Missing/offline model does not prevent backend startup. Gemini adapter/configuration has been removed; no key, auto-switch or external fallback. The small generate({ system, prompt, jsonSchema, signal }) interface remains reusable.

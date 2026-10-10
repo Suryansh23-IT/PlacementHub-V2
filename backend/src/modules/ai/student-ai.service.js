@@ -1,4 +1,6 @@
 import { User } from '../auth/auth.model.js'
+import { semanticAiEnabled } from '../../config/runtime-policy.js'
+import { unavailable } from './ai.errors.js'
 import { StudentProfile } from '../students/student.model.js'
 import { PlacementDrive } from '../placement-drives/placement-drive.model.js'
 import { Company } from '../companies/company.model.js'
@@ -45,11 +47,11 @@ export function createStudentIntelligence(config, { profileModel = StudentProfil
     const currentFingerprint = fingerprint({ context: enrichStudentContext(richBase(context), drive, company, { status: 'revision_only' }), resumeRevision: resumeRevision(profile.resume), resumeVersion: RESUME_TEXT_VERSION, assessmentVersion: ASSESSMENT_VERSION, provider: providerIdentity(config) })
     let previous = latest.get(ownerKey)
     if (previous && previous.expires <= now()) { latest.delete(ownerKey); previous = undefined }
-    let ai = { status: 'not_requested' }
+    let ai = semanticAiEnabled(config) ? { status: 'not_requested' } : unavailable('disabled')
     let resume = { status: previous?.resumeStatus ?? (profile.resume ? 'not_analyzed' : 'not_uploaded'), text: '' }
     const userQuestion = question === undefined ? undefined : safeQuestion(question)
     const authorize = async () => await authorized(actor) && (!driveId || Boolean(await driveModel.findOne(visibleDrive(driveId)).select('_id').lean()))
-    if (explain && (assess || deterministic.score !== null || userQuestion !== undefined)) {
+    if (semanticAiEnabled(config) && explain && (assess || deterministic.score !== null || userQuestion !== undefined)) {
       extractor ??= createResumeTextService(config)
       intelligence ??= createAiService(config, aiDependencies)
       const epoch = intelligence.runtimeEpoch?.()

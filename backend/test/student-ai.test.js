@@ -39,6 +39,31 @@ function setup(overrides = {}) {
   return { state, service, ai }
 }
 
+test('disabled Career and Drive direct actions keep objective scores without PDF extraction or inference', async () => {
+  let extracts = 0; let calls = 0
+  const forbiddenAi = { analyze: async () => { calls++; throw Error('Disabled inference') } }
+  const dependencies = {
+    userModel: { findById: () => query(actor) },
+    profileModel: { findOne: () => query(profile()) },
+    driveModel: { findOne: () => query({ role: { title: 'Developer', requiredSkills: ['React'] } }) },
+    aiService: forbiddenAi,
+    resumeTextService: { extract: async () => { extracts++; throw Error('Disabled extraction') } },
+  }
+  for (const policy of [{ AI_ENABLED: false }, { NODE_ENV: 'production', AI_ENABLED: true }]) {
+    const service = createStudentIntelligence({ ...config, ...policy }, dependencies)
+    const career = await service.career(actor)
+    assert.equal(career.deterministic.score, 100)
+    assert.equal(career.ai.reason, 'disabled')
+    for (const response of [await service.assessCareer(actor), await service.assessMatch(actor, driveId), await service.career(actor, { explain: true })]) {
+      assert.equal(response.ai.reason, 'disabled'); assert.equal(typeof response.deterministic.score, 'number')
+    }
+    assert.equal((await service.askCareer(actor, 'What should I learn?')).ai.reason, 'disabled')
+    assert.equal((await service.askMatch(actor, driveId, 'How should I prepare?')).ai.reason, 'disabled')
+    await assert.rejects(service.assessCareer({ ...actor, role: 'company' }), { statusCode: 403 })
+  }
+  assert.equal(extracts, 0); assert.equal(calls, 0)
+})
+
 test('Profile Strength is deterministic, bounded and uses capped professional evidence', () => {
   const full = calculateProfileStrength(buildSafeContext({ profile: profile() }).context)
   assert.equal(full.score, 100); assert(full.suitableRoles.includes('Frontend Developer'))

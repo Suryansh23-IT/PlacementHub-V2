@@ -1,5 +1,7 @@
 # Security Plan
 
+M11-A production startup rejects non-2027 database identity and AI_ENABLED=true. Domain/shared-service/provider guards prevent disabled inference independently of UI; existing authorization and validation remain. Public cycle/session/API normalization excludes stale 2026 selections without deleting archived local state. No storage migration or cloud credentials are introduced. See [environment boundaries](m11a-foundation.md).
+
 ## M10-A AI isolation
 
 Archived/unknown runtimes import no AI router/service/provider/cache through startup and expose no AI routes. Exact 2027 guards also protect factories/access. Nested allowlists exclude identity/private/social/academic/decision fields; bounded professional prose is untrusted, with basic contact/link redaction. Provider has no DB/files/tools; Ollama remains behind the backend; redirects/retries/raw error logs are prohibited. Zod/evidence checks, per-user rate limits, timeout/byte/token/concurrency bounds, coalescing and cooldown isolate failures. Cache stores hashes/validated output/expiry only. Student controllers recheck active ownership/drive visibility on cache hits using read-only projections, never legacy upsert GET helpers. No AI database writes/indexes/migrations/seeds.

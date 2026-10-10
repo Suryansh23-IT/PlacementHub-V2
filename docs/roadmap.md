@@ -19,6 +19,10 @@ Only one milestone is active at a time. Each milestone requires implementation c
 
 ## Milestone protocol
 
+Active phase: **M11-A pre-production foundation only**, following accepted M0–M10. Implement local/public environment separation, public 2027-only cycles, disabled semantic AI with retained deterministic workflows and shared Coming Soon UI. Preserve local 2026/Ollama. No seed/reset, storage migration, deployment or M11-B. Await testing approval before checkpoint.
+
+Approved later free stack: Vercel Hobby, Render Free, MongoDB Atlas Free, Supabase Storage Free. Storage belongs to M11-E. Order: A foundation → B browser/API acceptance → C fixes/retests → D polish → E hardening/storage → F deployment → G smoke test → H documentation/release/freeze. Stop and report after each phase. See [M11-A contract](m11a-foundation.md).
+
 1. Inspect relevant files and documentation.
 2. Explain the scoped plan and affected files.
 3. Implement only the active milestone.

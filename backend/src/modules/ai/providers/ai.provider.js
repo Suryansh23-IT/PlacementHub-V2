@@ -1,6 +1,7 @@
 import { assertAiRuntime } from '../ai.guard.js'
 import { AiProviderError } from '../ai.errors.js'
 import { createOllamaProvider } from './ollama.provider.js'
+import { semanticAiEnabled } from '../../../config/runtime-policy.js'
 
 export function providerIdentity(config) {
   const provider = config.AI_PROVIDER ?? 'ollama'
@@ -11,6 +12,7 @@ export function providerIdentity(config) {
 // Exactly one manually selected provider; no external/paid failover.
 export function createAiProvider(config) {
   assertAiRuntime(config)
+  if (!semanticAiEnabled(config)) throw new AiProviderError('disabled')
   if ((config.AI_PROVIDER ?? 'ollama') !== 'ollama') throw new AiProviderError('not_configured')
   return createOllamaProvider(config)
 }

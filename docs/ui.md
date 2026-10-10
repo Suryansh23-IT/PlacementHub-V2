@@ -1,5 +1,7 @@
 # UI Plan
 
+M11-A uses a shared deep-blue Coming Soon card in all four disabled AI areas. Student/Company objectives and normal workflows remain; semantic Generate/Ask/batch controls and Admin runtime controls are hidden. Enabled local M10 UI and archived hiding remain. See [M11-A behavior](m11a-foundation.md).
+
 ## Visual direction
 
 Use a clean professional interface: white and neutral backgrounds, a restrained purple accent, readable typography, consistent spacing, responsive layouts, and accessible contrast.

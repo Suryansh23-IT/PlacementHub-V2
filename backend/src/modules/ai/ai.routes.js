@@ -20,7 +20,7 @@ export function createAiRouter(config) {
   router.use(authenticate, authorizeRoles('student', 'company', 'placement_admin'))
   router.use((request, response, next) => { assertAiRuntime(config); next() })
   const dependencies = { aiService: createAiService(config), resumeTextService: createResumeTextService(config) }
-  const recovery = createAiRuntimeControllers(dependencies.aiService)
+  const recovery = createAiRuntimeControllers(dependencies.aiService, config)
   const recoveryReadLimit = createAiRateLimiter({ ...config, AI_RATE_LIMIT_WINDOW_MS: 60000, AI_RATE_LIMIT_MAX: 30 })
   const recoveryResetLimit = createAiRateLimiter({ ...config, AI_RATE_LIMIT_WINDOW_MS: 60000, AI_RATE_LIMIT_MAX: 3 })
   router.get('/admin/runtime', authorizeRoles('placement_admin'), recoveryReadLimit, validateQuery(aiStatusQuerySchema), recovery.status)

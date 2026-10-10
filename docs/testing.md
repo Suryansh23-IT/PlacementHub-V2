@@ -1,5 +1,15 @@
 # Testing Strategy
 
+## M11-A foundation checks (2026-10-10)
+
+Full mocked current backend regression: **434/434**, excluding only historical-live-reconciliation.test.js (the live archived database oracle). Full frontend: **104/104**. New production suites: backend **3/3**, frontend **4/4**; additional disabled Student/Company/Admin domain tests cover objective retention and zero extraction/inference/jobs/writes. Existing enabled M10 tests and archived import/route isolation pass. Existing suites cover auth/ownership, eligibility/Apply, analytics, recruitment, uploads and Community.
+
+Backend syntax, expanded AI syntax **52/52**, frontend lint, public build and git diff --check pass. Six pre-existing frontend lint warnings, test-runner HMR-port notices and the existing bundle-size advisory remain. Backend HTTP tests initially hit sandbox loopback denial; the approved rerun passed. No live Ollama generation, database seed/reset/migration or placement mutation was run.
+
+Public build used VITE_APP_MODE=public, VITE_AI_ENABLED=false, VITE_API_URL_2027=/api/v1: an explicit foundation placeholder, not a configured Render URL. Real split-host URLs and persistent storage remain M11-E/F. Isolated browser visual QA used real feature wrappers with synthetic objective responses: all four Coming Soon cards at desktop and 390px width, objective scores retained, no semantic controls or console errors. Ignored screenshots: frontend/artifacts/m11-a-desktop.png and m11-a-mobile.png. No real role session was used; M11-B broad acceptance is not claimed.
+
+Manual steps: [M11-A foundation](m11a-foundation.md). Changes await testing approval before checkpoint; M11-B has not started.
+
 ## Automated checks
 
 Run frontend lint/build checks and backend test/lint checks once tooling exists. Add focused automated tests for registration, duplicate-email prevention, password hashing, login failure/inactive-account behavior, JWT verification, protected-route rejection, role authorization, student-verification transitions and enforcement, eligibility, duplicate-application prevention, ownership checks, recruitment transitions, deterministic dashboard aggregates, and AI-response validation.
