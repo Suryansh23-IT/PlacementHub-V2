@@ -32,10 +32,14 @@ M9B-A/A2/B/C implementation is complete: Admin/Company Feed with exactly one req
 
 M9B-D automated regression and current-2027 browser checks passed. The legacy archived institutionprofiles.updatedAt-only baseline deviation is documented and accepted by the user; its pure-read helper fix and explicit post-fix baseline complete the integrity closure. The final M9 checkpoint is authorized on demo-2027-m9. See testing.md and docs/integrity/m9-2026-post-fix-baseline.json for evidence and warnings.
 
-## Active milestone: M10-B Student Intelligence
+## Completed milestone: M10-B Student Intelligence
 
 Final approved architecture: Ollama qwen3.5:4b only, non-thinking local CPU inference, one active generation and bounded 180-second deadline. No Gemini dependency/fallback. M10-A foundation and verified-resume replacement behavior are retained.
 
 Career and Drive display unchanged instant objective scores plus independent semantic AI scores. No weighted combined score. Explicit Generate/Refresh retains previous success/timestamp through refresh/failure and marks relevant profile/resume/drive/company revisions stale. GET/reload/remount never generate. Actual professional resume PDF text is extracted safely on the backend and reusable by later M10-C. Latest-only Ask can use general technical knowledge while grounding person/company claims in supplied safe evidence.
 
 Only the exact 2027 runtime enables AI. No 2026 modifications, seed/reset or Company/Admin product implementation. User authorizes M10-B commit/push only after automated checks and real local validation pass; M10-C/D await separate approval. See ai.md and testing.md.
+
+## Completed milestone: M10-C Company Candidate Intelligence
+
+Explicitly authorized Company candidate review reuses M10-B infrastructure. Bulk deterministic Explorer matching, individual independent fit, list-to-detail analysis actions, manual refresh/latest-only Ask, configurable small serial batches and bounded group evidence retrieval. No Student redesign, Gemini live work, automatic recruitment decisions, seeds/resets or M10-D. Exact 2027 isolation remains. Automated and live Company checks passed for the user-authorized checkpoint; see m10c-checkpoint.md for evidence and local-model limitations. M10-D awaits separate approval.

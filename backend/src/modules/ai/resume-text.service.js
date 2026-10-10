@@ -42,6 +42,11 @@ export function createResumeTextService(config, { parsePdf = parseResumePdf, now
   assertAiRuntime(config)
   const cache = new Map(); const pending = new Map()
   return {
+    peek(resume) {
+      assertAiRuntime(config)
+      const hit = cache.get(resumeRevision(resume))
+      return hit && hit.expires > now() ? structuredClone(hit.value) : undefined
+    },
     async extract(resume) {
       assertAiRuntime(config)
       if (!resume) return { status: 'not_uploaded', text: '' }
@@ -74,8 +79,8 @@ export function createResumeTextService(config, { parsePdf = parseResumePdf, now
       try {
         const value = await task
         // Safe professional excerpts only, short TTL; never raw PDF/paths/prompts.
-        if (cache.size >= 20) cache.delete(cache.keys().next().value)
-        cache.set(revision, { value, expires: now() + 300000 })
+        if (cache.size >= (config.AI_RESUME_CACHE_MAX_ENTRIES ?? 20)) cache.delete(cache.keys().next().value)
+        cache.set(revision, { value, expires: now() + (config.AI_RESUME_CACHE_TTL_MS ?? 300000) })
         return structuredClone(value)
       } finally { pending.delete(revision) }
     },

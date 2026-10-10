@@ -20,6 +20,7 @@ export function createAiService(config, { providerFactory = createAiProvider, ca
   // Internal only. Future domain controllers supply a fresh authorization check
   // and read-only context loader; neither is accepted from an HTTP request.
   return {
+    availability: () => ({ active, cooldownMs: Math.max(0, cooldownUntil - now()) }),
     async analyze({ actor, scope, authorize, loadContext, kind = 'professional', resumeDependent = false, scoringVersion = 'none', enrichContext = value => value, contract, cacheOnly = false, forceRefresh = false }) {
       assertAiRuntime(config)
       if (!actor?._id || !['student', 'company', 'placement_admin'].includes(actor.role) || typeof authorize !== 'function') throw new AppError('AI authorization is required.', { statusCode: 403, errorCode: 'FORBIDDEN' })

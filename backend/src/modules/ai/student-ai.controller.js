@@ -1,9 +1,9 @@
 import { sendSuccess } from '../../utils/api-response.js'
 import { createStudentIntelligence } from './student-ai.service.js'
 
-export function createStudentAiControllers(config) {
+export function createStudentAiControllers(config, dependencies) {
   let service
-  const getService = () => service ??= createStudentIntelligence(config)
+  const getService = () => service ??= createStudentIntelligence(config, dependencies)
   return {
     assessCareer: async (request, response) => sendSuccess(response, { message: 'Career quality assessment.', data: await getService().assessCareer(request.user) }),
     assessMatch: async (request, response) => sendSuccess(response, { message: 'Drive quality assessment.', data: await getService().assessMatch(request.user, request.params.driveId) }),

@@ -154,3 +154,20 @@ Career deterministic.breakdown includes eight rows with key, label, maximum, raw
 # M10-B independent AI assessment
 
 2027-only authenticated Student POST /api/v1/ai/students/me/career/assessment and /api/v1/ai/students/me/drives/:driveId/match/assessment accept strict empty JSON. Explicitly generate/refresh independent Ollama rubric scores. Response data: unchanged deterministic, ai status/reason, assessment (nullable score/sections/summary/analyzedAt/stale/resumeStatus), resumeStatus and basis. No combined scoring object or decision mutation. Sections contain bounded ratings, validated evidence references and backend earnedPoints/maximum. Failure retains the previous successful assessment. GET returns objective facts/latest assessment without PDF parsing or inference. Ask remains strict { question }, latest-only; current safe extracted resume and richer role/company facts are read independently. No arbitrary document/context/actor/score input.
+
+## M10-C Company Intelligence (exact 2027 runtime only)
+
+All routes below are under authenticated Company-only /api/v1/ai/companies. Owned approved/published drive plus actual candidate application is required. No client-supplied professional context, file path or score is accepted.
+
+| Method | Suffix | Contract |
+| --- | --- | --- |
+| GET | /limits | Provider-aware batch and retrieval caps. |
+| POST | /overview | Strict candidates: [{driveId, studentId}], maximum 100; latest results without inference. |
+| GET | /drives/:driveId/candidates/:studentId | Instant objective/latest assessment, stale flag; no inference. |
+| POST | /drives/:driveId/candidates/:studentId/assessment | Empty JSON, explicit Generate/Refresh, independent fit; old success retained on failure. |
+| POST | /drives/:driveId/candidates/:studentId/ask | Strict bounded question only; latest independent answer. |
+| POST | /drives/:driveId/batches | Unique studentIds, bounded provider cap; scoped job/progress. |
+| GET | /drives/:driveId/batches/:jobId | Authorized progress and per-candidate completed results. |
+| POST | /drives/:driveId/group/ask | Bounded question, deterministic retrieval and small compact shortlist; cited candidate IDs. |
+
+Existing Company Candidate Explorer adds instant objectiveMatch only on 2027 and supports objective_match sorting before pagination. All legacy search/filter/group/decision workflows remain separate. AI is advisory and does not mutate eligibility, applications, recruitment phases or placement decisions.

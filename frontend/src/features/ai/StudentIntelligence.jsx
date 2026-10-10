@@ -14,9 +14,9 @@ function EvidenceList({ title, items = [] }) {
   return <div><h3 className="text-sm font-bold text-slate-900">{title}</h3><ul className="mt-2 space-y-1 text-sm text-slate-600">{items.slice(0, 6).map((item, index) => <li key={index}>{typeof item === 'string' ? item : item.text}</li>)}</ul></div>
 }
 
-export function AiAssessmentView({ assessment, match, busy, error, onGenerate, resumeStatus }) {
-  return <div className="mt-5 rounded-xl border border-blue-100 bg-blue-50/40 p-4" aria-label={match ? 'AI Role Fit' : 'AI Assessment'}>
-    <div className="flex flex-wrap justify-between gap-2"><h3 className="font-bold text-blue-950">{match ? 'AI Role Fit' : 'AI Assessment Score'}</h3>{assessment && <strong className="text-blue-900">{assessment.score}{match ? '%' : '/100'}</strong>}</div>
+export function AiAssessmentView({ assessment, match, busy, error, onGenerate, resumeStatus, title }) {
+  return <div className="mt-5 rounded-xl border border-blue-100 bg-blue-50/40 p-4" aria-label={title ?? (match ? 'AI Role Fit' : 'AI Assessment')}>
+    <div className="flex flex-wrap justify-between gap-2"><h3 className="font-bold text-blue-950">{title ?? (match ? 'AI Role Fit' : 'AI Assessment Score')}</h3>{assessment && <strong className="text-blue-900">{assessment.score}{match ? '%' : '/100'}</strong>}</div>
     <p className="mt-1 text-xs text-slate-500">Independent local AI opinion · never combined with your objective score.</p>
     {!assessment && <p className="mt-3 text-sm text-slate-600">Not analyzed yet</p>}
     {assessment && <><p className="mt-3 text-sm text-slate-700">{assessment.summary}</p><dl className="mt-3 space-y-2">{assessment.sections.map(row => <div key={row.key} className="text-sm"><div className="flex justify-between gap-3"><dt className="font-medium text-slate-700">{row.label}</dt><dd className="font-bold tabular-nums text-blue-900">{row.earnedPoints}/{row.maximum}</dd></div><p className="mt-1 text-xs text-slate-500">{row.reason}</p></div>)}</dl><p className="mt-3 text-xs text-slate-500">Last analyzed: <time dateTime={assessment.analyzedAt}>{new Date(assessment.analyzedAt).toLocaleString()}</time></p></>}

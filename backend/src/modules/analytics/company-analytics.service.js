@@ -11,7 +11,7 @@ const active = new Set(['applied', 'screening', 'pending', 'result_pending', 'qu
 const plain = value => value?.toObject ? value.toObject() : value
 const companyError = () => new AppError('Only approved Companies can view Company analytics.', { statusCode: 403, errorCode: 'FORBIDDEN' })
 
-async function companyData(companyUserId, { companyModel = Company, placementDriveModel = PlacementDrive, applicationModel = Application, placementRecordModel = PlacementRecord, userModel = User, profileModel = StudentProfile } = {}) {
+async function companyData(companyUserId, { companyModel = Company, placementDriveModel = PlacementDrive, applicationModel = Application, placementRecordModel = PlacementRecord, userModel = User, profileModel = StudentProfile, objectiveMatching = false } = {}) {
   const company = await companyModel.findOne({ userId: companyUserId, approvalStatus: 'approved' })
   if (!company) throw companyError()
   const drives = (await placementDriveModel.find({ companyId: company._id }).lean()).map(plain)
@@ -19,12 +19,19 @@ async function companyData(companyUserId, { companyModel = Company, placementDri
   const [applications, records] = await Promise.all([applicationModel.find({ placementDriveId: { $in: driveIds } }).lean(), placementRecordModel.find({ companyId: company._id }).lean()])
   const studentIds = [...new Set(applications.map(app => String(app.studentId)))]
   const [users, profiles] = await Promise.all([userModel.find({ _id: { $in: studentIds }, role: 'student' }).select('_id name email').lean(), profileModel.find({ userId: { $in: studentIds } }).select('userId rollNumber branch cgpa activeBacklogs graduationYear').lean()])
-  return { company: plain(company), drives, applications: applications.map(plain), records: records.map(plain), users: users.map(plain), profiles: profiles.map(plain) }
+  let objectiveByApplication
+  if (objectiveMatching) {
+    const [{ buildSafeContext }, { calculateDriveMatch }] = await Promise.all([import('../ai/ai.context.js'), import('../ai/student-ai.scoring.js')])
+    const evidenceProfiles = await profileModel.find({ userId: { $in: studentIds } }).select('userId skills skillGroups projects internships').lean()
+    const profileMap = new Map(evidenceProfiles.map(row => [String(row.userId), row])); const driveMap = new Map(drives.map(row => [String(row._id), row]))
+    objectiveByApplication = new Map(applications.map(row => [String(row._id), calculateDriveMatch(buildSafeContext({ profile: profileMap.get(String(row.studentId)), drive: driveMap.get(String(row.placementDriveId)) }, { kind: 'match' }).context)]))
+  }
+  return { company: plain(company), drives, applications: applications.map(plain), records: records.map(plain), users: users.map(plain), profiles: profiles.map(plain), objectiveByApplication }
 }
 
 function candidateRows(data) {
   const driveById = new Map(data.drives.map(drive => [String(drive._id), drive])); const userById = new Map(data.users.map(user => [String(user._id), user])); const profileById = new Map(data.profiles.map(profile => [String(profile.userId), profile])); const recordByApplication = new Map(data.records.map(record => [String(record.applicationId), record]))
-  return data.applications.map(application => { const drive = driveById.get(String(application.placementDriveId)); const user = userById.get(String(application.studentId)); const profile = profileById.get(String(application.studentId)); const record = recordByApplication.get(String(application._id)); const confirmationStatus = record?.verificationState ?? (application.currentStatus === 'selected_pending_confirmation' ? 'selected_report_not_submitted' : ''); return { id: String(application._id), studentId: String(application.studentId), name: user?.name ?? '', email: user?.email ?? '', rollNumber: profile?.rollNumber ?? '', branch: profile?.branch ?? '', cgpa: profile?.cgpa, activeBacklogs: profile?.activeBacklogs, graduationYear: profile?.graduationYear, driveId: String(application.placementDriveId), drive: drive ? { id: String(drive._id), code: drive.driveCode, role: drive.role?.title, phases: drive.phases ?? [] } : null, currentPhase: application.currentPhase, applicationStatus: application.currentStatus, confirmationStatus, outcomeType: record?.outcomeType ?? null, activityAt: application.updatedAt ?? application.appliedAt } })
+  return data.applications.map(application => { const drive = driveById.get(String(application.placementDriveId)); const user = userById.get(String(application.studentId)); const profile = profileById.get(String(application.studentId)); const record = recordByApplication.get(String(application._id)); const confirmationStatus = record?.verificationState ?? (application.currentStatus === 'selected_pending_confirmation' ? 'selected_report_not_submitted' : ''); return { ...(data.objectiveByApplication ? { objectiveMatch: data.objectiveByApplication.get(String(application._id)), aiAvailable: drive?.proposalStatus === 'approved' && drive?.lifecycleStatus === 'published' } : {}), id: String(application._id), studentId: String(application.studentId), name: user?.name ?? '', email: user?.email ?? '', rollNumber: profile?.rollNumber ?? '', branch: profile?.branch ?? '', cgpa: profile?.cgpa, activeBacklogs: profile?.activeBacklogs, graduationYear: profile?.graduationYear, driveId: String(application.placementDriveId), drive: drive ? { id: String(drive._id), code: drive.driveCode, role: drive.role?.title, phases: drive.phases ?? [] } : null, currentPhase: application.currentPhase, applicationStatus: application.currentStatus, confirmationStatus, outcomeType: record?.outcomeType ?? null, activityAt: application.updatedAt ?? application.appliedAt } })
 }
 
 function filterRows(rows, filters) {
@@ -32,7 +39,7 @@ function filterRows(rows, filters) {
   for (const [key, value] of Object.entries({ driveId: filters.drive, branch: filters.branch, currentPhase: filters.phase, applicationStatus: filters.status, confirmationStatus: filters.confirmationStatus, outcomeType: filters.outcomeType, graduationYear: filters.graduationYear })) if (value != null && value !== '') result = result.filter(row => String(row[key]) === String(value))
   if (filters.minCpi != null) result = result.filter(row => row.cgpa >= filters.minCpi); if (filters.maxCpi != null) result = result.filter(row => row.cgpa <= filters.maxCpi); if (filters.backlog === 'zero') result = result.filter(row => row.activeBacklogs === 0); if (filters.backlog === 'has_backlog') result = result.filter(row => row.activeBacklogs > 0)
   const field = { cgpa: 'cgpa', branch: 'branch', phase: 'currentPhase', status: 'applicationStatus', activity: 'activityAt' }[filters.sortBy] ?? 'name'; const direction = filters.sortOrder === 'desc' ? -1 : 1
-  return [...result].sort((a, b) => (String(a[field] ?? '').localeCompare(String(b[field] ?? '')) * direction) || a.id.localeCompare(b.id))
+  return [...result].sort((a, b) => (filters.sortBy === 'objective_match' ? ((a.objectiveMatch?.score ?? -1) - (b.objectiveMatch?.score ?? -1)) * direction : String(a[field] ?? '').localeCompare(String(b[field] ?? '')) * direction) || a.id.localeCompare(b.id))
 }
 
 function groups(rows, groupBy) { if (!groupBy) return undefined; const key = groupBy === 'phase' ? row => `Phase ${row.currentPhase}` : groupBy === 'status' ? row => row.applicationStatus : row => row.branch || 'Unspecified'; const map = new Map(); for (const row of rows) { const name = key(row); map.set(name, (map.get(name) ?? 0) + 1) } return [...map.entries()].map(([label, count]) => ({ label, count })).sort((a, b) => a.label.localeCompare(b.label)) }
