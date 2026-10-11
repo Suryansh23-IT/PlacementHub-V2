@@ -1,4 +1,5 @@
 import { AppError } from '../../errors/app-error.js'
+import { publicResumeMetadata } from '../students/resume-storage.js'
 import { USER_ROLES } from '../auth/auth.constants.js'
 import { User } from '../auth/auth.model.js'
 import { Company } from '../companies/company.model.js'
@@ -32,7 +33,7 @@ async function getOwnedPublishedDrive(companyUserId, driveId, { companyModel = C
 
 function publicResume(resume, driveId, studentId) {
   if (!resume) return undefined
-  const { storagePath, ...metadata } = plain(resume)
+  const metadata = publicResumeMetadata(resume)
   return { ...metadata, downloadUrl: `/api/v1/companies/me/placement-drives/${driveId}/applicants/${studentId}/resume/download` }
 }
 

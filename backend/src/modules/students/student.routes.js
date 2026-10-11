@@ -15,7 +15,7 @@ import { adminStudentDocumentParamsSchema, documentTypeParamsSchema, studentIdPa
 const resumeDirectory = path.resolve(env.RESUME_UPLOAD_DIR)
 await mkdir(resumeDirectory, { recursive: true })
 
-const resumeUpload = multer({
+const academicUpload = multer({
   storage: multer.diskStorage({
     destination: resumeDirectory,
     filename: (request, file, callback) => callback(null, `${randomUUID()}.pdf`),
@@ -28,6 +28,14 @@ const resumeUpload = multer({
   },
 })
 
+const resumeUpload = multer({
+  storage: multer.memoryStorage(),
+  limits: { fileSize: env.RESUME_MAX_FILE_SIZE_BYTES, files: 1 },
+  fileFilter: (_request, file, callback) => file.mimetype === 'application/pdf' && path.extname(file.originalname).toLowerCase() === '.pdf'
+    ? callback(null, true)
+    : callback(new AppError('Only PDF resume files are allowed.', { statusCode: 422, errorCode: 'VALIDATION_ERROR' })),
+})
+
 export const studentRouter = Router()
 studentRouter.use(authenticate, authorizeRoles(USER_ROLES.STUDENT))
 studentRouter.get('/me', getMyProfile)
@@ -36,7 +44,7 @@ studentRouter.get('/me/branches', getAvailableBranches)
 studentRouter.patch('/me', validateBody(studentProfileSchema), patchMyProfile)
 studentRouter.post('/me/resume', resumeUpload.single('resume'), uploadMyResume)
 studentRouter.get('/me/resume/download', downloadMyResume)
-studentRouter.post('/me/documents/:type', validateParams(documentTypeParamsSchema), resumeUpload.single('marksheet'), uploadMyMarksheet)
+studentRouter.post('/me/documents/:type', validateParams(documentTypeParamsSchema), academicUpload.single('marksheet'), uploadMyMarksheet)
 studentRouter.get('/me/documents/:type/download', validateParams(documentTypeParamsSchema), downloadMyMarksheet)
 studentRouter.post('/me/verification/resubmit', resubmitMyProfileForVerification)
 

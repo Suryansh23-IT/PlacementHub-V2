@@ -14,6 +14,9 @@ import { createPlacementWorkbookExport } from '../recruitment/recruitment-export
 import { createNotifications } from '../notifications/notification.service.js'
 import { Notification } from '../notifications/notification.model.js'
 import { randomUUID } from 'node:crypto'
+import path from 'node:path'
+import { env } from '../../config/env.js'
+import { getResumeStorage } from './resume-storage.js'
 
 const VERIFICATION_STATUS = Object.freeze({ PENDING: 'pending', VERIFIED: 'verified', REJECTED: 'rejected' })
 
@@ -81,39 +84,38 @@ export async function getStudentDocumentForAdmin(studentId, type, { userModel = 
   return getAcademicMarksheet(student._id, type, { profileModel })
 }
 
-export async function saveResume(userId, file, { profileModel = StudentProfile } = {}) {
+export async function saveResume(userId, file, { profileModel = StudentProfile, resumeStorage, maxFileSize = env.RESUME_MAX_FILE_SIZE_BYTES, onCleanupFailure = () => console.warn('Resume file cleanup failed.') } = {}) {
   if (!file) {
     throw new AppError('Attach a PDF resume to upload.', { statusCode: 422, errorCode: 'VALIDATION_ERROR' })
   }
 
-  const contents = await readFile(file.path).catch(() => null)
-  if (!contents?.subarray(0, 5).equals(Buffer.from('%PDF-'))) {
-    await unlink(file.path).catch(() => undefined)
+  const contents = file.buffer
+  if (!Buffer.isBuffer(contents) || !contents.length || contents.length > maxFileSize || file.mimetype !== 'application/pdf' || path.extname(file.originalname ?? '').toLowerCase() !== '.pdf' || !contents.subarray(0, 5).equals(Buffer.from('%PDF-'))) {
     throw new AppError('The uploaded file is not a valid PDF resume.', { statusCode: 422, errorCode: 'VALIDATION_ERROR' })
   }
 
   const profile = await ensureStudentProfile(userId, { profileModel })
   const previousResume = profile.resume
-  const previousPath = previousResume?.storagePath
-  profile.resume = {
+  const storage = resumeStorage ?? getResumeStorage()
+  const stored = await storage.store({ buffer: contents, mimeType: file.mimetype })
+  const replacement = {
     originalName: file.originalname,
-    storagePath: file.path,
+    ...stored,
     mimeType: file.mimetype,
-    size: file.size,
+    size: contents.length,
     uploadedAt: new Date(),
   }
   // Resume improvements do not change the academic verification decision.
   try {
+    profile.resume = replacement
     await profile.save()
   } catch (error) {
     profile.resume = previousResume
-    await unlink(file.path).catch(() => undefined)
+    await storage.remove(replacement).catch(() => { try { onCleanupFailure() } catch { /* Cleanup reporting cannot mask save failure. */ } })
     throw error
   }
 
-  if (previousPath && previousPath !== file.path) {
-    await unlink(previousPath).catch(() => undefined)
-  }
+  if (previousResume?.storagePath || previousResume?.storageReference) await storage.remove(previousResume).catch(() => { try { onCleanupFailure() } catch { /* Committed replacement remains valid. */ } })
   return profile
 }
 

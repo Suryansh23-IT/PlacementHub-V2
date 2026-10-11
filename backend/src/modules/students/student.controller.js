@@ -1,4 +1,5 @@
 import { sendSuccess } from '../../utils/api-response.js'
+import { publicResumeMetadata, sendResumeDownload } from './resume-storage.js'
 import { getInstitutionProfile } from '../institution/institution.service.js'
 import { getStudentPolicyAgreementSummary } from '../student-policy/student-policy.service.js'
 import { exploreStudents, exportStudentExplorer, getAcademicMarksheet, getProfileCompletion, getResumeForDownload, getStudentDocumentForAdmin, getStudentIdentityContext, getStudentProfile, listStudentsForReview, previewStudentExplorerNotification, resubmitStudentVerification, reviewStudentVerification, saveAcademicMarksheet, saveResume, sendStudentExplorerNotification, updateStudentProfile } from './student.service.js'
@@ -7,7 +8,7 @@ export function toProfileResponse(profile, { includeResumeDownloadUrl = false, a
   const value = profile.toObject ? profile.toObject() : profile
   const safeDocument = (document, url) => document?.marksheet ? { ...document, marksheet: (({ storagePath, ...marksheet }) => ({ ...marksheet, ...(url ? { downloadUrl: url } : {}) }))(document.marksheet) } : document
   const resumeUrl = includeResumeDownloadUrl ? '/api/v1/students/me/resume/download' : adminStudentId ? `/api/v1/admin/students/${adminStudentId}/documents/resume/download` : undefined
-  const resume = value.resume ? (({ storagePath, ...file }) => ({ ...file, ...(resumeUrl ? { downloadUrl: resumeUrl } : {}) }))(value.resume) : undefined
+  const resume = value.resume ? { ...publicResumeMetadata(value.resume), ...(resumeUrl ? { downloadUrl: resumeUrl } : {}) } : undefined
   const documentUrl = (type) => includeResumeDownloadUrl ? `/api/v1/students/me/documents/${type}/download` : adminStudentId ? `/api/v1/admin/students/${adminStudentId}/documents/${type}/download` : undefined
   const collegeResult = value.collegeResult ? (({ storagePath, ...file }) => ({ ...file, ...(documentUrl('collegeResult') ? { downloadUrl: documentUrl('collegeResult') } : {}) }))(value.collegeResult) : undefined
   return { ...value, ...(resume ? { resume } : {}), ...(collegeResult ? { collegeResult } : {}), class10: safeDocument(value.class10, documentUrl('class10')), class12: safeDocument(value.class12, documentUrl('class12')), completion: getProfileCompletion(value) }
@@ -32,11 +33,11 @@ export async function uploadMyResume(request, response) {
 
 export async function downloadMyResume(request, response) {
   const resume = await getResumeForDownload(request.user._id)
-  return response.download(resume.storagePath, resume.originalName)
+  return sendResumeDownload(response, resume)
 }
 export async function uploadMyMarksheet(request, response) { const profile = await saveAcademicMarksheet(request.user._id, request.params.type, request.file); return sendSuccess(response, { statusCode: 201, message: 'Document uploaded successfully.', data: toProfileResponse(profile, { includeResumeDownloadUrl: true }) }) }
 export async function downloadMyMarksheet(request, response) { const marksheet = await getAcademicMarksheet(request.user._id, request.params.type); return response.download(marksheet.storagePath, marksheet.originalName) }
-export async function downloadStudentDocumentForAdmin(request, response) { const document = await getStudentDocumentForAdmin(request.params.id, request.params.type); return response.download(document.storagePath, document.originalName) }
+export async function downloadStudentDocumentForAdmin(request, response) { const document = await getStudentDocumentForAdmin(request.params.id, request.params.type); return request.params.type === 'resume' ? sendResumeDownload(response, document) : response.download(document.storagePath, document.originalName) }
 
 export async function resubmitMyProfileForVerification(request, response) {
   const profile = await resubmitStudentVerification(request.user._id)

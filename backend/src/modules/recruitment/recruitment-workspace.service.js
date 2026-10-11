@@ -1,4 +1,5 @@
 import { readFile, unlink } from 'node:fs/promises'
+import { publicResumeMetadata } from '../students/resume-storage.js'
 import { AppError } from '../../errors/app-error.js'
 import { Application } from '../applications/application.model.js'
 import { Company } from '../companies/company.model.js'
@@ -50,7 +51,7 @@ async function candidateSummary(application, driveId, { userModel = User, profil
   const [user, profile] = await Promise.all([userModel.findOne({ _id: value.studentId, role: 'student' }), profileModel.findOne({ userId: value.studentId })])
   if (!user || !profile) return null
   const student = plain(user); const details = plain(profile)
-  const resume = details.resume ? (() => { const { storagePath, ...metadata } = plain(details.resume); return { ...metadata, downloadUrl: `/api/v1/companies/me/placement-drives/${driveId}/applicants/${value.studentId}/resume/download` } })() : undefined
+  const resume = details.resume ? { ...publicResumeMetadata(details.resume), downloadUrl: `/api/v1/companies/me/placement-drives/${driveId}/applicants/${value.studentId}/resume/download` } : undefined
   const record = plain(placementRecord)
   const selection = !record ? value.currentStatus === 'selected_pending_confirmation' ? { state: 'selected_report_not_submitted', label: 'Selected — report not submitted' } : {} : record.verificationState === 'pending_admin_verification' ? { state: 'confirmation_pending', label: 'Confirmation Pending' } : record.verificationState === 'confirmed' ? { state: 'placement_confirmed', label: 'Placement Confirmed' } : { state: record.verificationState, label: record.verificationState === 'revoked' ? 'Placement Revoked' : 'Report Rejected' }
   return { applicationId: value._id, studentId: value.studentId, currentPhase: value.currentPhase, currentStatus: value.currentStatus, appliedAt: value.appliedAt, selection: { ...selection, outcomeType: record?.outcomeType, package: record?.package?.amount, packagePeriod: record?.package?.period, studentReportedAt: record?.studentReportedAt, adminVerifiedAt: record?.adminVerifiedAt }, student: { name: student.name, rollNumber: details.rollNumber, branch: details.branch, cgpa: details.cgpa, activeBacklogs: details.activeBacklogs, graduationYear: details.graduationYear, resume } }

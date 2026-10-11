@@ -1,4 +1,5 @@
 import { sendSuccess } from '../../utils/api-response.js'
+import { sendResumeDownload } from '../students/resume-storage.js'
 import { getCompanyDriveApplicant, getCompanyDriveApplicantResume, listCompanyDriveApplicants } from './company-drive-applicant.service.js'
 
 export async function listDriveApplicants(request, response) {
@@ -11,5 +12,5 @@ export async function getDriveApplicant(request, response) {
 
 export async function downloadDriveApplicantResume(request, response) {
   const resume = await getCompanyDriveApplicantResume(request.user._id, request.params.id, request.params.studentId)
-  return response.download(resume.storagePath, resume.originalName)
+  return sendResumeDownload(response, resume)
 }

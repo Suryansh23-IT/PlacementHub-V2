@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict'
-import { mkdtemp, readFile, rm, writeFile } from 'node:fs/promises'
+import { mkdtemp, readFile, readdir, rm, unlink, writeFile } from 'node:fs/promises'
 import path from 'node:path'
 import { tmpdir } from 'node:os'
 import test from 'node:test'
@@ -11,6 +11,16 @@ process.env.CLIENT_URL = 'http://localhost:5173'
 const { USER_ROLES } = await import('../src/modules/auth/auth.constants.js')
 const { ensureStudentProfile, getAcademicMarksheet, getProfileCompletion, getStudentDocumentForAdmin, getStudentIdentityContext, resubmitStudentVerification, reviewStudentVerification, saveAcademicMarksheet, saveResume, updateStudentProfile } = await import('../src/modules/students/student.service.js')
 const { studentProfileSchema, verificationSchema } = await import('../src/modules/students/student.validation.js')
+const { createResumeStorage } = await import('../src/modules/students/resume-storage.js')
+
+// Convert temporary test upload files into the new bounded memory-upload input.
+async function saveResumeFixture(userId, file, dependencies) {
+  const buffer = await readFile(file.path)
+  // Marksheets in the combined document test are independent existing files.
+  if (file.originalname !== 'resume.pdf') await unlink(file.path)
+  return saveResume(userId, { ...file, buffer }, { ...dependencies, resumeStorage: createResumeStorage({ NODE_ENV: 'test', RESUME_UPLOAD_DIR: path.dirname(file.path) }) })
+}
+
 const { toProfileResponse } = await import('../src/modules/students/student.controller.js')
 
 const completeProfileInput = {
@@ -219,16 +229,16 @@ test('replacing a verified student resume preserves verification/review metadata
     const profile = await ensureStudentProfile('student-1', { profileModel })
     const reviewedAt = new Date('2026-01-01')
     Object.assign(profile, completeProfile({ verificationStatus: 'verified', reviewedBy: 'admin-1', reviewedAt, resume: { originalName: 'old.pdf', storagePath: oldPath, uploadedAt: new Date(0) } }))
-    const saved = await saveResume('student-1', { originalname: 'replacement.pdf', path: filePath, mimetype: 'application/pdf', size: 22 }, { profileModel })
+    const saved = await saveResumeFixture('student-1', { originalname: 'replacement.pdf', path: filePath, mimetype: 'application/pdf', size: 22 }, { profileModel })
     assert.equal(saved.verificationStatus, 'verified')
     assert.equal(saved.reviewedBy, 'admin-1')
     assert.deepEqual(saved.reviewedAt, reviewedAt)
-    assert.equal(saved.resume.storagePath, filePath)
+    assert.notEqual(saved.resume.storagePath, filePath); assert.equal(path.dirname(saved.resume.storagePath), directory)
     assert.equal(saved.resume.originalName, 'replacement.pdf')
     assert.equal(saved.resume.mimeType, 'application/pdf')
-    assert.equal(saved.resume.size, 22)
+    assert.equal(saved.resume.size, Buffer.byteLength('%PDF-1.7\nreplacement'))
     assert(saved.resume.uploadedAt > new Date(0))
-    assert.equal(await readFile(filePath, 'utf8'), '%PDF-1.7\nreplacement')
+    assert.equal(await readFile(saved.resume.storagePath, 'utf8'), '%PDF-1.7\nreplacement')
     await assert.rejects(readFile(oldPath), { code: 'ENOENT' })
   } finally { await rm(directory, { recursive: true, force: true }) }
 })
@@ -243,7 +253,7 @@ test('resume replacement preserves pending/rejected status and rejection review 
       Object.assign(profile, completeProfile(review))
       const filePath = path.join(directory, `${verificationStatus}.pdf`)
       await writeFile(filePath, '%PDF-1.7\nreplacement')
-      const saved = await saveResume('student-1', { originalname: 'new.pdf', path: filePath, mimetype: 'application/pdf', size: 22 }, { profileModel })
+      const saved = await saveResumeFixture('student-1', { originalname: 'new.pdf', path: filePath, mimetype: 'application/pdf', size: 22 }, { profileModel })
       for (const key of Object.keys(review)) assert.deepEqual(saved[key], review[key])
     }
   } finally { await rm(directory, { recursive: true, force: true }) }
@@ -258,10 +268,11 @@ test('failed resume save retains old file/metadata and verification, removing on
     const oldResume = { originalName: 'old.pdf', storagePath: oldPath, uploadedAt: new Date(0) }
     Object.assign(profile, completeProfile({ verificationStatus: 'verified', reviewedBy: 'admin-1', reviewedAt: new Date(0), resume: oldResume }))
     profile.save = async () => { throw new Error('Synthetic save failure') }
-    await assert.rejects(saveResume('student-1', { originalname: 'new.pdf', path: newPath, mimetype: 'application/pdf', size: 12 }, { profileModel }), /Synthetic save failure/)
+    await assert.rejects(saveResumeFixture('student-1', { originalname: 'new.pdf', path: newPath, mimetype: 'application/pdf', size: 12 }, { profileModel }), /Synthetic save failure/)
     assert.deepEqual(profile.resume, oldResume); assert.equal(profile.verificationStatus, 'verified'); assert.equal(profile.reviewedBy, 'admin-1'); assert.deepEqual(profile.reviewedAt, new Date(0))
     assert.equal(await readFile(oldPath, 'utf8'), '%PDF-1.7\nold')
     await assert.rejects(readFile(newPath), { code: 'ENOENT' })
+    assert.deepEqual(await readdir(directory), ['old.pdf'])
   } finally { await rm(directory, { recursive: true, force: true }) }
 })
 
@@ -277,12 +288,12 @@ test('successful resume replacement refreshes only resume-dependent AI cache usi
     const service = createAiService({ MONGO_URI: 'mongodb://localhost/placementhub-v2-demo-2027', AI_ENABLED: true, AI_PROVIDER: 'ollama', OLLAMA_BASE_URL: 'http://127.0.0.1:11434', OLLAMA_MODEL: 'mock-model', AI_MAX_CONTEXT_BYTES: 16384, AI_TIMEOUT_MS: 1000, AI_CACHE_MAX_ENTRIES: 4, AI_CACHE_TTL_MS: 60000, AI_MAX_CONCURRENT: 1 }, { providerFactory: () => ({ generate: async () => ({ summary: `Synthetic analysis ${++calls}`, strengths: [], gaps: [], recommendations: [] }) }) })
     const input = resumeDependent => ({ actor: { _id: 'student-1', role: 'student' }, scope: resumeDependent ? 'resume' : 'profile', authorize: async () => true, loadContext: async () => ({ profile }), resumeDependent })
     const oldProfileAnalysis = await service.analyze(input(false)); const oldResumeAnalysis = await service.analyze(input(true))
-    await saveResume('student-1', { originalname: 'new.pdf', path: newPath, mimetype: 'application/pdf', size: 12 }, { profileModel })
+    await saveResumeFixture('student-1', { originalname: 'new.pdf', path: newPath, mimetype: 'application/pdf', size: 12 }, { profileModel })
     const currentProfileAnalysis = await service.analyze(input(false)); const currentResumeAnalysis = await service.analyze(input(true))
     assert.equal(currentProfileAnalysis.cached, true); assert.deepEqual(currentProfileAnalysis.analysis, oldProfileAnalysis.analysis)
     assert.equal(currentResumeAnalysis.cached, false); assert.notDeepEqual(currentResumeAnalysis.analysis, oldResumeAnalysis.analysis)
     assert.equal((await service.analyze(input(true))).cached, true); assert.equal(calls, 3)
-    assert.equal(profile.resume.storagePath, newPath); assert.equal(profile.verificationStatus, 'verified')
+    assert.notEqual(profile.resume.storagePath, oldPath); assert.equal(await readFile(profile.resume.storagePath, 'utf8'), '%PDF-1.7\nnew'); assert.equal(profile.verificationStatus, 'verified')
   } finally { await rm(directory, { recursive: true, force: true }) }
 })
 
@@ -333,7 +344,7 @@ test('required college result and optional Class 10/Class 12 marksheets persist 
     await ensureStudentProfile('student-1', { profileModel })
     const afterClass10 = await saveAcademicMarksheet('student-1', 'class10', { originalname: 'class-10.pdf', path: class10Path, mimetype: 'application/pdf', size: 18 }, { profileModel })
     const saved = await saveAcademicMarksheet('student-1', 'class12', { originalname: 'class-12.pdf', path: class12Path, mimetype: 'application/pdf', size: 18 }, { profileModel })
-    const savedWithResume = await saveResume('student-1', { originalname: 'resume.pdf', path: class10Path, mimetype: 'application/pdf', size: 18 }, { profileModel })
+    const savedWithResume = await saveResumeFixture('student-1', { originalname: 'resume.pdf', path: class10Path, mimetype: 'application/pdf', size: 18 }, { profileModel })
     const savedWithCollegeResult = await saveAcademicMarksheet('student-1', 'collegeResult', { originalname: 'college-result.pdf', path: class12Path, mimetype: 'application/pdf', size: 18 }, { profileModel })
     assert.equal(afterClass10.class10.marksheet.originalName, 'class-10.pdf')
     assert.equal(saved.class12.marksheet.originalName, 'class-12.pdf')
@@ -354,13 +365,11 @@ test('required college result and optional Class 10/Class 12 marksheets persist 
   } finally { await rm(directory, { recursive: true, force: true }) }
 })
 
-test('invalid resume content is removed before it can be saved as metadata', async () => {
+test('invalid resume content is rejected before any file or metadata is stored', async () => {
   const directory = await mkdtemp(path.join(tmpdir(), 'placementhub-m3-'))
-  const filePath = path.join(directory, 'not-a-pdf.pdf')
-  await writeFile(filePath, 'not a PDF')
   try {
-    await assert.rejects(saveResume('student-1', { originalname: 'not-a-pdf.pdf', path: filePath, mimetype: 'application/pdf', size: 9 }, { profileModel: createProfileModel() }), { errorCode: 'VALIDATION_ERROR' })
-    await assert.rejects(readFile(filePath), { code: 'ENOENT' })
+    await assert.rejects(saveResume('student-1', { originalname: 'not-a-pdf.pdf', buffer: Buffer.from('not a PDF'), mimetype: 'application/pdf', size: 9 }, { profileModel: createProfileModel(), resumeStorage: createResumeStorage({ NODE_ENV: 'test', RESUME_UPLOAD_DIR: directory }) }), { errorCode: 'VALIDATION_ERROR' })
+    assert.deepEqual(await readdir(directory), [])
   } finally { await rm(directory, { recursive: true, force: true }) }
 })
 
