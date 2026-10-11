@@ -5,6 +5,10 @@ process.env.NODE_ENV = 'production'
 process.env.MONGO_URI = 'mongodb://localhost/placementhub-v2-demo-2027'
 process.env.JWT_SECRET = 'synthetic-production-foundation-secret-long-enough'
 process.env.AI_ENABLED = 'false'
+// E1 validates production storage configuration, but adapters are not wired into routes.
+process.env.STORAGE_PROVIDER = 'supabase'
+process.env.SUPABASE_URL = 'https://synthetic-project.supabase.co'
+process.env.SUPABASE_SECRET_KEY = ['sb', 'secret', 'synthetic_production_test_key_only'].join('_')
 const { app } = await import('../src/app.js')
 const { env } = await import('../src/config/env.js')
 const { User } = await import('../src/modules/auth/auth.model.js')

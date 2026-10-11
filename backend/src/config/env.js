@@ -1,5 +1,6 @@
 import 'dotenv/config'
 import { z } from 'zod'
+import { selectedStorageProvider, storageEnvironmentShape, validateStorageEnvironment } from './storage-config.js'
 
 const environmentSchema = z.object({
   NODE_ENV: z.enum(['development', 'test', 'production']).default('development'),
@@ -38,7 +39,9 @@ const environmentSchema = z.object({
   SOCIAL_IMAGE_MAX_BYTES: z.coerce.number().int().min(1).max(10 * 1024 * 1024).default(5 * 1024 * 1024),
   RESUME_MAX_FILE_SIZE_BYTES: z.coerce.number().int().min(1).max(10 * 1024 * 1024).default(5 * 1024 * 1024),
   PLACEMENT_WITHDRAWAL_RESTRICTION_DRIVES: z.coerce.number().int().min(1).max(50).default(5),
+  ...storageEnvironmentShape,
 }).superRefine((config, context) => {
+  validateStorageEnvironment(config, context)
   if (config.NODE_ENV !== 'production') return
   let databasePath
   try { databasePath = new URL(config.MONGO_URI).pathname } catch { /* Zod reports invalid URI too. */ }
@@ -57,4 +60,4 @@ if (!parsedEnvironment.success) {
   process.exit(1)
 }
 
-export const env = { ...parsedEnvironment.data, AI_TIMEOUT_MS: parsedEnvironment.data.AI_TIMEOUT_MS ?? 180_000 }
+export const env = { ...parsedEnvironment.data, STORAGE_PROVIDER: selectedStorageProvider(parsedEnvironment.data), AI_TIMEOUT_MS: parsedEnvironment.data.AI_TIMEOUT_MS ?? 180_000 }
