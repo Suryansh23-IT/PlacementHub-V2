@@ -18,12 +18,15 @@ export function categoryPolicy(config, category) {
   }
 }
 
-export function newReference(config, provider, { category, buffer, mimeType }) {
+export function newReference(config, provider, { category, buffer, mimeType, key }) {
   const policy = categoryPolicy(config, category)
   const extension = Object.hasOwn(policy.extensions, mimeType) ? policy.extensions[mimeType] : undefined
   // Domain services retain signature validation and authorization before calling store.
   if (!extension || !Buffer.isBuffer(buffer) || !buffer.length || buffer.length > policy.maxBytes) throw storageInvalid()
-  return Object.freeze({ provider, key: `2027/${category}/${randomUUID()}.${extension}` })
+  const reference = { provider, key: key ?? `2027/${category}/${randomUUID()}.${extension}` }
+  referencePolicy(config, provider, reference)
+  if (!reference.key.startsWith(`2027/${category}/`) || !reference.key.endsWith(`.${extension}`)) throw storageInvalid()
+  return Object.freeze(reference)
 }
 
 export function referencePolicy(config, provider, reference) {

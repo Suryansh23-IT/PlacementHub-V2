@@ -1,5 +1,6 @@
 import { StorageClient } from '@supabase/storage-js'
 import { AsyncLocalStorage } from 'node:async_hooks'
+import { randomUUID } from 'node:crypto'
 import { newReference, referencePolicy, storageInvalid as invalid, storageMissing as missing, storageUnavailable as unavailable } from './storage-contract.js'
 
 export function createSupabaseStorage(config, { client, fetch: fetchImplementation = globalThis.fetch } = {}) {
@@ -75,6 +76,32 @@ export function createSupabaseStorage(config, { client, fetch: fetchImplementati
   }
   return Object.freeze({
     provider: 'supabase',
+    // Explicit operator-only maintenance check; no HTTP route or product category.
+    async sanityCheck() {
+      const key = `2027/m11-e-sanity/${randomUUID()}.pdf`
+      const buffer = Buffer.from('%PDF-1.7\nPlacementHub disposable M11-E private storage check.\n')
+      let verified = false
+      try {
+        await safely(async () => {
+          const { error } = await (await bucket()).upload(key, buffer, { contentType: 'application/pdf', upsert: false })
+          checkError(error)
+        })
+        await safely(async () => {
+          const { data, error } = await (await bucket()).download(key)
+          checkError(error)
+          if (data?.size !== buffer.length || !Buffer.from(await data.arrayBuffer()).equals(buffer)) throw storageUnavailable()
+          verified = true
+        })
+      } finally {
+        // Also remove a possible upload whose response timed out. UUID is unique to this check.
+        await safely(async () => {
+          const { error } = await (await bucket()).remove([key])
+          if (String(error?.statusCode) !== '404') checkError(error)
+        })
+      }
+      await safely(bucket)
+      return { verified, deleted: true, privateBucket: true, bytes: buffer.length }
+    },
     async store(input) {
       const reference = newReference(config, 'supabase', input)
       return safely(async () => {

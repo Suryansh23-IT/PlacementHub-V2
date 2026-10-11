@@ -4,7 +4,8 @@ import { createSupabaseStorage } from './supabase-storage.js'
 
 /**
  * Internal backend interface, to be wired into domain services in a later checkpoint.
- * store({ category, buffer, mimeType }) -> internal { provider, key }
+ * store({ category, buffer, mimeType, key? }) -> internal { provider, key }
+ * Optional validated key is for internal, deterministic migration retries only; never HTTP input.
  * read(reference) -> bounded Buffer; remove(reference) -> void (missing is idempotent).
  * Callers must authorize the domain operation and validate file signatures first.
  * References are server-generated and must never be accepted from HTTP input or returned in DTOs.
