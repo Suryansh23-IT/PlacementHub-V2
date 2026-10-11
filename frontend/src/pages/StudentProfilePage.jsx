@@ -24,7 +24,7 @@ const empty = {
   semesterSpis: [], skillGroups: [], projects: [], skills: [],
   professionalLinks: { linkedin: '', github: '', portfolio: '' }, codingProfiles: [],
   professionalHeadline: '', about: '', softSkills: [],
-  targetRole: '', careerInterests: [], internships: [], certifications: [], achievements: [], extracurriculars: [], leadership: [],
+  targetRole: '', careerInterests: '', internships: [], certifications: [], achievements: [], extracurriculars: [], leadership: [],
 }
 
 const completionLabels = {
@@ -39,7 +39,7 @@ const formFrom = (profile) => ({
   semesterSpis: profile.semesterSpis ?? [], skillGroups: profile.skillGroups ?? [], projects: profile.projects ?? [],
   professionalLinks: { ...empty.professionalLinks, ...profile.professionalLinks }, codingProfiles: profile.codingProfiles ?? [],
   softSkills: profile.softSkills ?? [],
-  careerInterests: profile.careerInterests ?? [], internships: profile.internships ?? [], certifications: profile.certifications ?? [],
+  careerInterests: (profile.careerInterests ?? []).join(', '), internships: profile.internships ?? [], certifications: profile.certifications ?? [],
   achievements: profile.achievements ?? [], extracurriculars: profile.extracurriculars ?? [], leadership: profile.leadership ?? [],
 })
 
@@ -195,7 +195,7 @@ export function StudentProfilePage() {
       </ProfileSection>
 
       <ProfileSection title="Career focus & placement evidence" description="Keep the information used for placement matching and resume preparation accurate. This is part of your placement record, not a public social profile.">
-        <div className="grid gap-4 md:grid-cols-2"><FormField label="Target role" placeholder="e.g. Backend Engineer" value={form.targetRole} onChange={(event) => change('targetRole', event.target.value)} /><FormField label="Career interests (comma-separated)" placeholder="e.g. Distributed systems, cloud engineering" value={form.careerInterests.join(', ')} onChange={(event) => change('careerInterests', event.target.value)} /></div>
+        <div className="grid gap-4 md:grid-cols-2"><FormField label="Target role" placeholder="e.g. Backend Engineer" value={form.targetRole} onChange={(event) => change('targetRole', event.target.value)} /><FormField label="Career interests (comma-separated)" placeholder="e.g. Distributed systems, cloud engineering" value={form.careerInterests} onChange={(event) => change('careerInterests', event.target.value)} /></div>
         <div className="mt-6 space-y-8 border-t border-slate-100 pt-6">
           <EvidenceSection title="Internship / experience" description="Add relevant internship, research, part-time, full-time, or freelance work." items={form.internships} maxItems={5} emptyItem={{ organization: '', role: '', employmentType: 'internship', startDate: '', endDate: '', description: '', skills: '', url: '' }} fields={[['organization', 'Organization'], ['role', 'Role'], ['employmentType', 'Type', 'select'], ['startDate', 'Start date', 'date'], ['endDate', 'End date', 'date'], ['description', 'Description', 'textarea'], ['skills', 'Skills (comma-separated)'], ['url', 'Experience URL', 'url']]} onChange={(items) => change('internships', items)} />
           <EvidenceSection title="Certifications" description="Add certifications that support your target role." items={form.certifications} maxItems={10} emptyItem={{ title: '', issuer: '', issuedOn: '', credentialUrl: '' }} fields={[['title', 'Certification title'], ['issuer', 'Issuer'], ['issuedOn', 'Issued on', 'date'], ['credentialUrl', 'Credential URL', 'url']]} onChange={(items) => change('certifications', items)} />

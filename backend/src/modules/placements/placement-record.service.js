@@ -77,5 +77,5 @@ export async function invalidateUnselectedPlacementReport(applicationId, company
   assign(record, { verificationState: 'rejected', history: [...(record.history ?? []), { event: 'company_selection_reversed', occurredAt: now, actorId: companyUserId }] })
   return record.save()
 }
-export async function listPlacementRecords(state, { recordModel = PlacementRecord } = {}) { return recordModel.find(state ? { verificationState: state } : {}).sort({ updatedAt: -1 }).populate('studentId', 'name email').populate('placementDriveId', 'role company') }
+export async function listPlacementRecords(state, { recordModel = PlacementRecord } = {}) { return recordModel.find(state ? { verificationState: state } : {}).sort({ updatedAt: -1 }).populate('studentId', 'name email').populate('placementDriveId', 'role company').populate('companyId', 'companyName') }
 export async function listMyOffCampusPlacementRecords(studentId, { recordModel = PlacementRecord } = {}) { return recordModel.find({ studentId, placementSource: 'OFF_CAMPUS', verificationState: 'confirmed' }).sort({ adminVerifiedAt: -1 }) }

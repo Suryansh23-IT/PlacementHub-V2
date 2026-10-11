@@ -54,6 +54,23 @@ function createStudentUserModel(studentId = 'student-1') {
 
 const institutionService = async () => ({ branches: ['Information Technology', 'Computer Science and Engineering'] })
 
+test('M11C verified profile round-trip ignores generated IDs but detects real evidence changes', async () => {
+  const { StudentProfile } = await import('../src/modules/students/student.model.js')
+  const doc = new StudentProfile({ ...completeProfileInput, userId: '507f1f77bcf86cd799439701', verificationStatus: 'verified', reviewedBy: '507f1f77bcf86cd799439702', reviewedAt: new Date('2026-10-10') })
+  const profileModel = createProfileModel()
+  profileModel.profiles.push({ ...doc.toObject(), userId: String(doc.userId) })
+  const before = profileModel.profiles[0]
+  const input = studentProfileSchema.parse({ ...JSON.parse(JSON.stringify(before)), professionalHeadline: 'Presentation only', careerInterests: ['Cloud', 'Systems'] })
+  assert.ok(before.projects[0]._id)
+  assert.equal(input.projects[0]._id, undefined)
+  const saved = await updateStudentProfile(String(doc.userId), input, { profileModel, institutionService })
+  assert.equal(saved.verificationStatus, 'verified')
+  assert.equal(String(saved.reviewedBy), String(doc.reviewedBy))
+  assert.deepEqual(saved.reviewedAt, doc.reviewedAt)
+  const changed = await updateStudentProfile(String(doc.userId), { ...input, projects: input.projects.map(p => ({ ...p, description: 'Changed professional evidence' })) }, { profileModel, institutionService })
+  assert.equal(changed.verificationStatus, 'pending')
+})
+
 test('student profile validation accepts the complete richer profile and rejects invalid values', () => {
   assert.equal(studentProfileSchema.safeParse(completeProfileInput).success, true)
   assert.equal(studentProfileSchema.safeParse({ ...completeProfileInput, graduationYear: 1999, cgpa: 11, activeBacklogs: -1 }).success, false)

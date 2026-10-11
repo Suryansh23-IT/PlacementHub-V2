@@ -12,6 +12,13 @@ test('company workspace supports dynamic 1-phase and 5-phase Drive blueprints', 
   assert.equal((await getCompanyRecruitmentWorkspace(ids.user, ids.drive, one)).drive.phases.length, 1)
   assert.equal((await getCompanyRecruitmentWorkspace(ids.user, ids.drive, five)).phaseCounts.length, 6)
 })
+
+test('M11C only provisional selections without reports receive the selected label', async () => {
+  for (const status of ['applied', 'rejected', 'absent', 'withdrawn', 'active', 'closed_placed_elsewhere', 'selected_pending_confirmation']) {
+    const result = await listCompanyRecruitmentCandidates(ids.user, ids.drive, {}, deps({ applications: [app({ currentStatus: status })] }))
+    assert.equal(result.candidates[0].selection.label, status === 'selected_pending_confirmation' ? 'Selected — report not submitted' : undefined)
+  }
+})
 test('candidate filtering returns only the requested phase and provisional selected candidates', async () => {
   const first = app(); const selected = app({ _id: '507f1f77bcf86cd799439107', currentPhase: 1, currentStatus: 'selected_pending_confirmation' })
   const dependencies = deps({ applications: [first, selected] })

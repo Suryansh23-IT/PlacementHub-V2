@@ -18,7 +18,7 @@ const notificationSchema = new mongoose.Schema({
   phaseNumber: { type: Number, min: 1, max: 5, index: true },
   context: {
     action: { type: String, enum: ['view_drive', 'view_application', 'view_incident', 'view_restriction', 'view_company', 'view_phase', 'view_community_post'], trim: true },
-    audience: { type: String, enum: ['eligible_students', 'eligible_drive', 'drive_applicants', 'phase_candidates', 'student', 'company', 'placement_admin'], trim: true },
+    audience: { type: String, enum: ['eligible_students', 'eligible_drive', 'drive_applicants', 'phase_candidates', 'all_applicants', 'active', 'phase', 'selected', 'specific', 'student', 'company', 'placement_admin'], trim: true },
     roleTitle: { type: String, trim: true, maxlength: 160 },
     phaseTitle: { type: String, trim: true, maxlength: 120 },
   },

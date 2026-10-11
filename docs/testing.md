@@ -1,5 +1,11 @@
 # Testing Strategy
 
+## M11-C targeted acceptance (2026-10-11)
+
+All 19 authoritative M11-B defects are fixed and verified; no deferred defect. See [M11-C closure, changed files, verification and review steps](m11c-acceptance.md). Backend safe regression: **429/429**; frontend: **111/111**, plus **6/6** final targeted interaction checks. Backend syntax, AI syntax **52/52**, frontend lint, public production build and whitespace checks pass. Six existing lint warnings and the bundle-size advisory remain.
+
+Real-browser retests covered changed Student, Company, Admin and Community paths, plus desktop/mobile Admin header and brief public AI-disabled sanity. No broad M9/M10 sweep or live AI generation was repeated. Six live/reset database fixture scripts were excluded. Read-only before/after hashes confirm the 2026 archive and every 2027 application/placement record unchanged. Final state remains **62 eligible / 4 placed / 58 unplaced / 0 pending**, with Alpha/Beta confirmed and fresh-drive outcomes **2 confirmed / 3 rejected / 1 withdrawn**. Test evidence: `artifacts/m11c/2026-10-11/`. Changes await user approval before checkpoint; M11-D has not started.
+
 ## M11-A foundation checks (2026-10-10)
 
 Full mocked current backend regression: **434/434**, excluding only historical-live-reconciliation.test.js (the live archived database oracle). Full frontend: **104/104**. New production suites: backend **3/3**, frontend **4/4**; additional disabled Student/Company/Admin domain tests cover objective retention and zero extraction/inference/jobs/writes. Existing enabled M10 tests and archived import/route isolation pass. Existing suites cover auth/ownership, eligibility/Apply, analytics, recruitment, uploads and Community.
