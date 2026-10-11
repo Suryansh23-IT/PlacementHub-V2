@@ -5,11 +5,12 @@ const text = (label, max) => z.string().trim().min(2, `${label} is required.`).m
 const optionalText = max => z.string().trim().max(max).optional().transform(value => value || undefined)
 const pdfMetadataSchema = z.object({
   originalName: text('PDF filename', 255),
-  storagePath: z.string().trim().min(1).max(1000),
+  storagePath: z.string().trim().min(1).max(1000).optional(),
+  storageReference: z.object({ provider: z.enum(['local', 'supabase']), key: z.string().regex(/^2027\/(company-recruitment-information|drive-job-description|recruitment-process-instructions)\/[a-f\d]{8}-[a-f\d]{4}-4[a-f\d]{3}-[89ab][a-f\d]{3}-[a-f\d]{12}\.pdf$/) }).optional(),
   mimeType: z.literal('application/pdf'),
   size: z.coerce.number().int().positive(),
   uploadedAt: z.coerce.date().optional(),
-})
+}).refine(value => value.storageReference?.provider === 'supabase' || Boolean(value.storagePath), { message: 'PDF storage metadata is required.' })
 const phaseSchema = z.object({
   phaseNumber: z.coerce.number().int().min(1).max(5),
   title: text('Phase title', 120),

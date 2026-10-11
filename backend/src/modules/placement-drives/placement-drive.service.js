@@ -1,4 +1,4 @@
-import { readFile, unlink } from 'node:fs/promises'
+import { DRIVE_PDF_CATEGORIES, persistPdfUpload, validatePdfUpload } from '../../storage/pdf-storage.js'
 import { AppError } from '../../errors/app-error.js'
 import { evaluatePlacementDriveEligibility } from '../applications/application.service.js'
 import { Application } from '../applications/application.model.js'
@@ -79,25 +79,20 @@ export async function updateMyPlacementDrive(companyUserId, driveId, input, depe
 
 export async function saveMyPlacementDriveDocument(companyUserId, driveId, type, file, dependencies = {}) {
   if (!file) throw new AppError('Attach a PDF document.', { statusCode: 422, errorCode: 'VALIDATION_ERROR' })
-  const bytes = await readFile(file.path).catch(() => null)
-  if (!bytes?.subarray(0, 5).equals(Buffer.from('%PDF-'))) {
-    await unlink(file.path).catch(() => {})
-    throw new AppError('The uploaded file is not a valid PDF.', { statusCode: 422, errorCode: 'VALIDATION_ERROR' })
-  }
+  validatePdfUpload(file, 'The uploaded file is not a valid PDF.', dependencies.maxFileSize)
+  const category = DRIVE_PDF_CATEGORIES[type]
+  if (!category) throw new AppError('Invalid document type.', { statusCode: 422, errorCode: 'VALIDATION_ERROR' })
   const drive = await getMyPlacementDrive(companyUserId, driveId, dependencies)
-  try {
-    requireEditable(drive)
-    const previous = drive.documents?.[type]?.storagePath
-    const metadata = { originalName: file.originalname, storagePath: file.path, mimeType: file.mimetype, size: file.size, uploadedAt: new Date() }
+  requireEditable(drive)
+  const previous = drive.documents?.[type]
+  const setDocument = metadata => {
     if (typeof drive.set === 'function') drive.set(`documents.${type}`, metadata)
     else { drive.documents ??= {}; drive.documents[type] = metadata }
-    const saved = await drive.save()
-    if (previous && previous !== file.path) await unlink(previous).catch(() => {})
-    return saved
-  } catch (error) {
-    await unlink(file.path).catch(() => {})
-    throw error
   }
+  return persistPdfUpload(file, category, previous, async metadata => {
+    try { setDocument(metadata); return await drive.save() }
+    catch (error) { setDocument(previous); throw error }
+  }, dependencies)
 }
 
 export async function getMyPlacementDriveDocument(companyUserId, driveId, type, dependencies = {}) {

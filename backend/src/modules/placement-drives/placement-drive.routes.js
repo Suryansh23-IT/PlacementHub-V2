@@ -1,5 +1,3 @@
-import { randomUUID } from 'node:crypto'
-import { mkdir } from 'node:fs/promises'
 import path from 'node:path'
 import { Router } from 'express'
 import multer from 'multer'
@@ -17,10 +15,8 @@ import { bulkTransitionMyRecruitmentCandidates, downloadMyPhaseInstructionPdf, e
 import { exportMyCompanyCandidateExplorer, getMyCompanyAnalytics, getMyCompanyCandidateExplorer } from '../analytics/company-analytics.controller.js'
 import { companyCandidateQuerySchema } from '../analytics/company-analytics.validation.js'
 
-const uploadDirectory = path.resolve(env.RESUME_UPLOAD_DIR)
-await mkdir(uploadDirectory, { recursive: true })
 const upload = multer({
-  storage: multer.diskStorage({ destination: uploadDirectory, filename: (_request, _file, callback) => callback(null, `${randomUUID()}.pdf`) }),
+  storage: multer.memoryStorage(),
   limits: { fileSize: env.RESUME_MAX_FILE_SIZE_BYTES, files: 1 },
   fileFilter: (_request, file, callback) => file.mimetype === 'application/pdf' && path.extname(file.originalname).toLowerCase() === '.pdf'
     ? callback(null, true)

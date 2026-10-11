@@ -1,3 +1,4 @@
+import { publicPdfMetadata, sendPdfDownload, ACADEMIC_PDF_CATEGORIES } from '../../storage/pdf-storage.js'
 import { sendSuccess } from '../../utils/api-response.js'
 import { publicResumeMetadata, sendResumeDownload } from './resume-storage.js'
 import { getInstitutionProfile } from '../institution/institution.service.js'
@@ -6,11 +7,11 @@ import { exploreStudents, exportStudentExplorer, getAcademicMarksheet, getProfil
 
 export function toProfileResponse(profile, { includeResumeDownloadUrl = false, adminStudentId } = {}) {
   const value = profile.toObject ? profile.toObject() : profile
-  const safeDocument = (document, url) => document?.marksheet ? { ...document, marksheet: (({ storagePath, ...marksheet }) => ({ ...marksheet, ...(url ? { downloadUrl: url } : {}) }))(document.marksheet) } : document
+  const safeDocument = (document, url) => document?.marksheet ? { ...document, marksheet: { ...publicPdfMetadata(document.marksheet), ...(url ? { downloadUrl: url } : {}) } } : document
   const resumeUrl = includeResumeDownloadUrl ? '/api/v1/students/me/resume/download' : adminStudentId ? `/api/v1/admin/students/${adminStudentId}/documents/resume/download` : undefined
   const resume = value.resume ? { ...publicResumeMetadata(value.resume), ...(resumeUrl ? { downloadUrl: resumeUrl } : {}) } : undefined
   const documentUrl = (type) => includeResumeDownloadUrl ? `/api/v1/students/me/documents/${type}/download` : adminStudentId ? `/api/v1/admin/students/${adminStudentId}/documents/${type}/download` : undefined
-  const collegeResult = value.collegeResult ? (({ storagePath, ...file }) => ({ ...file, ...(documentUrl('collegeResult') ? { downloadUrl: documentUrl('collegeResult') } : {}) }))(value.collegeResult) : undefined
+  const collegeResult = value.collegeResult ? { ...publicPdfMetadata(value.collegeResult), ...(documentUrl('collegeResult') ? { downloadUrl: documentUrl('collegeResult') } : {}) } : undefined
   return { ...value, ...(resume ? { resume } : {}), ...(collegeResult ? { collegeResult } : {}), class10: safeDocument(value.class10, documentUrl('class10')), class12: safeDocument(value.class12, documentUrl('class12')), completion: getProfileCompletion(value) }
 }
 
@@ -36,8 +37,8 @@ export async function downloadMyResume(request, response) {
   return sendResumeDownload(response, resume)
 }
 export async function uploadMyMarksheet(request, response) { const profile = await saveAcademicMarksheet(request.user._id, request.params.type, request.file); return sendSuccess(response, { statusCode: 201, message: 'Document uploaded successfully.', data: toProfileResponse(profile, { includeResumeDownloadUrl: true }) }) }
-export async function downloadMyMarksheet(request, response) { const marksheet = await getAcademicMarksheet(request.user._id, request.params.type); return response.download(marksheet.storagePath, marksheet.originalName) }
-export async function downloadStudentDocumentForAdmin(request, response) { const document = await getStudentDocumentForAdmin(request.params.id, request.params.type); return request.params.type === 'resume' ? sendResumeDownload(response, document) : response.download(document.storagePath, document.originalName) }
+export async function downloadMyMarksheet(request, response) { const marksheet = await getAcademicMarksheet(request.user._id, request.params.type); return sendPdfDownload(response, marksheet, ACADEMIC_PDF_CATEGORIES[request.params.type]) }
+export async function downloadStudentDocumentForAdmin(request, response) { const document = await getStudentDocumentForAdmin(request.params.id, request.params.type); return request.params.type === 'resume' ? sendResumeDownload(response, document) : sendPdfDownload(response, document, ACADEMIC_PDF_CATEGORIES[request.params.type]) }
 
 export async function resubmitMyProfileForVerification(request, response) {
   const profile = await resubmitStudentVerification(request.user._id)

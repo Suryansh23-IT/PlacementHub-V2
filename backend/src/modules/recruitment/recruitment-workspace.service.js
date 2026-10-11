@@ -1,4 +1,4 @@
-import { readFile, unlink } from 'node:fs/promises'
+import { persistPdfUpload, validatePdfUpload, publicPdfMetadata } from '../../storage/pdf-storage.js'
 import { publicResumeMetadata } from '../students/resume-storage.js'
 import { AppError } from '../../errors/app-error.js'
 import { Application } from '../applications/application.model.js'
@@ -37,8 +37,7 @@ function publicExecution(entry) {
   const value = plain(entry)
   const { instructionPdf, ...safe } = value
   if (!instructionPdf) return safe
-  const { storagePath, ...pdf } = plain(instructionPdf)
-  return { ...safe, instructionPdf: pdf }
+  return { ...safe, instructionPdf: publicPdfMetadata(instructionPdf) }
 }
 
 function publicWorkspaceDrive(drive) {
@@ -161,16 +160,18 @@ export async function updateCompanyPhaseExecution(companyUserId, driveId, phaseN
 
 export async function saveCompanyPhaseInstructionPdf(companyUserId, driveId, phaseNumber, file, dependencies = {}) {
   if (!file) throw invalid('Attach an instruction PDF.')
-  const bytes = await readFile(file.path).catch(() => null)
-  if (!bytes?.subarray(0, 5).equals(Buffer.from('%PDF-'))) { await unlink(file.path).catch(() => {}); throw invalid('The uploaded file is not a valid PDF.') }
-  try {
-    const { drive } = await getCompanyRecruitmentDrive(companyUserId, driveId, dependencies)
-    const current = phaseExecutionFor(drive, phaseNumber)
-    const previous = current?.instructionPdf?.storagePath
-    const execution = await updateCompanyPhaseExecution(companyUserId, driveId, phaseNumber, { instructionPdf: { originalName: file.originalname, storagePath: file.path, mimeType: file.mimetype, size: file.size, uploadedAt: new Date() } }, dependencies)
-    if (previous && previous !== file.path) await unlink(previous).catch(() => {})
-    return execution
-  } catch (error) { await unlink(file.path).catch(() => {}); throw error }
+  validatePdfUpload(file, 'The uploaded file is not a valid PDF.', dependencies.maxFileSize)
+  const { drive } = await getCompanyRecruitmentDrive(companyUserId, driveId, dependencies)
+  const current = phaseExecutionFor(drive, phaseNumber)
+  const previousEntries = drive.phaseExecution
+  return persistPdfUpload(file, 'phase-instruction', current?.instructionPdf, async metadata => {
+    const entries = (drive.phaseExecution ?? []).filter(entry => entry.phaseNumber !== phaseNumber).map(plain)
+    entries.push({ ...(plain(current) ?? { phaseNumber, status: 'unscheduled', resources: [] }), instructionPdf: metadata })
+    entries.sort((left, right) => left.phaseNumber - right.phaseNumber)
+    try { assign(drive, { phaseExecution: entries }); await drive.save() }
+    catch (error) { assign(drive, { phaseExecution: previousEntries }); throw error }
+    return publicExecution((drive.phaseExecution ?? []).find(entry => entry.phaseNumber === phaseNumber))
+  }, dependencies)
 }
 
 export async function getCompanyPhaseInstructionPdf(companyUserId, driveId, phaseNumber, dependencies = {}) {

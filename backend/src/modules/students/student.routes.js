@@ -1,5 +1,3 @@
-import { randomUUID } from 'node:crypto'
-import { mkdir } from 'node:fs/promises'
 import path from 'node:path'
 import { Router } from 'express'
 import multer from 'multer'
@@ -12,14 +10,9 @@ import { downloadMyMarksheet, downloadMyResume, downloadStudentDocumentForAdmin,
 import { studentExplorerExportSchema, studentExplorerNotificationSchema, studentExplorerQuerySchema } from './student-explorer.validation.js'
 import { adminStudentDocumentParamsSchema, documentTypeParamsSchema, studentIdParamsSchema, studentProfileSchema, verificationSchema } from './student.validation.js'
 
-const resumeDirectory = path.resolve(env.RESUME_UPLOAD_DIR)
-await mkdir(resumeDirectory, { recursive: true })
 
 const academicUpload = multer({
-  storage: multer.diskStorage({
-    destination: resumeDirectory,
-    filename: (request, file, callback) => callback(null, `${randomUUID()}.pdf`),
-  }),
+  storage: multer.memoryStorage(),
   limits: { fileSize: env.RESUME_MAX_FILE_SIZE_BYTES, files: 1 },
   fileFilter: (request, file, callback) => {
     const isPdf = file.mimetype === 'application/pdf' && path.extname(file.originalname).toLowerCase() === '.pdf'

@@ -1,3 +1,6 @@
+import { mkdtemp, rm } from 'node:fs/promises'
+import path from 'node:path'
+import { tmpdir } from 'node:os'
 import assert from 'node:assert/strict'
 import test from 'node:test'
 
@@ -5,6 +8,9 @@ process.env.MONGO_URI = 'mongodb://127.0.0.1:27017/placementhub-v2-test'
 process.env.JWT_SECRET = 'm4-company-test-secret-which-is-safely-long-enough'
 process.env.CLIENT_URL = 'http://localhost:5173'
 
+const uploadRoot = await mkdtemp(path.join(tmpdir(), 'placementhub-company-tests-'))
+process.env.RESUME_UPLOAD_DIR = uploadRoot
+test.after(() => rm(uploadRoot, { recursive: true, force: true }))
 const { USER_ROLES } = await import('../src/modules/auth/auth.constants.js')
 const { companyApprovalSchema, companyIdParamsSchema, companyProfileSchema } = await import('../src/modules/companies/company.validation.js')
 const { ensureCompanyProfile, getAdminParticipationLetter, listCompaniesForReview, reviewCompany, updateCompanyProfile } = await import('../src/modules/companies/company.service.js')
@@ -145,7 +151,7 @@ test('Admin letter route enforces roles and IDs and downloads the stored PDF', a
   const { Company } = await import('../src/modules/companies/company.model.js')
   const { env } = await import('../src/config/env.js')
   const id = '507f1f77bcf86cd799439011'
-  const filePath = join(tmpdir(), `company-letter-${randomUUID()}.pdf`)
+  const filePath = join(uploadRoot, `company-letter-${randomUUID()}.pdf`)
   const content = '%PDF-1.7\nCompany participation letter'
   let role = USER_ROLES.COMPANY
   t.mock.method(User, 'findById', () => ({ select: async () => ({ _id: id, role, isActive: true }) }))

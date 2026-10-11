@@ -1,3 +1,4 @@
+import { sendPdfDownload, DRIVE_PDF_CATEGORIES } from '../../storage/pdf-storage.js'
 import { AppError } from '../../errors/app-error.js'
 import { sendSuccess } from '../../utils/api-response.js'
 import { applyToStudentPlacementDrive, getStudentCurrentPhaseExecution, getStudentCurrentPhaseInstructionPdf, getStudentPlacementDriveDetail, getStudentPlacementDriveDocument, getStudentRecruitmentJourney, listMyPlacementApplications, listStudentPlacementDrives } from './student-placement-drive.service.js'
@@ -13,7 +14,7 @@ export async function applyToDrive(request, response) {
 }
 export async function listMyApplications(request, response) { return sendSuccess(response, { message: 'Applications retrieved.', data: await listMyPlacementApplications(request.user._id) }) }
 export async function withdrawMyApplication(request, response) { const result = await withdrawStudentApplication(request.user._id, request.params.id); return sendSuccess(response, { message: 'Application withdrawn successfully.', data: result.application }) }
-export async function downloadStudentDriveDocument(request, response) { const document = await getStudentPlacementDriveDocument(request.user._id, request.params.id, request.params.type); return response.download(document.storagePath, document.originalName) }
+export async function downloadStudentDriveDocument(request, response) { const document = await getStudentPlacementDriveDocument(request.user._id, request.params.id, request.params.type); return sendPdfDownload(response, document, DRIVE_PDF_CATEGORIES[request.params.type]) }
 export async function getMyCurrentPhaseExecution(request, response) { return sendSuccess(response, { message: 'Current phase resources retrieved.', data: await getStudentCurrentPhaseExecution(request.user._id, request.params.id) }) }
-export async function downloadMyCurrentPhaseInstructionPdf(request, response) { const document = await getStudentCurrentPhaseInstructionPdf(request.user._id, request.params.id); return response.download(document.storagePath, document.originalName) }
+export async function downloadMyCurrentPhaseInstructionPdf(request, response) { const document = await getStudentCurrentPhaseInstructionPdf(request.user._id, request.params.id); return sendPdfDownload(response, document, 'phase-instruction') }
 export async function getMyRecruitmentJourney(request, response) { return sendSuccess(response, { message: 'Recruitment journey retrieved.', data: await getStudentRecruitmentJourney(request.user._id, request.params.id, { placementRecordModel: PlacementRecord }) }) }

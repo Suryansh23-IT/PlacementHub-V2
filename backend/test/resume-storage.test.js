@@ -140,7 +140,7 @@ test('production rejects legacy/local references without local reads or cloud ca
   assert.deepEqual(await readFile(foreign), pdf)
 })
 
-test('Mongoose resume schema accepts legacy, local and cloud resumes without changing academic schema requirements', async () => {
+test('Mongoose resume schema accepts legacy, local and cloud resumes without permitting resume references in academic metadata', async () => {
   const fixture = cloud(); const stored = await fixture.storage.store({ buffer: pdf, mimeType: 'application/pdf' })
   const base = { originalName: 'resume.pdf', mimeType: 'application/pdf', size: pdf.length, uploadedAt: new Date() }
   for (const metadata of [{ ...base, storagePath: '/legacy/resume.pdf' }, { ...base, ...stored }]) {
@@ -148,5 +148,5 @@ test('Mongoose resume schema accepts legacy, local and cloud resumes without cha
     await model.validate(); assert.deepEqual(publicResumeMetadata(model.resume), base)
   }
   const invalid = new StudentProfile({ userId: '507f1f77bcf86cd799439001', class10: { marksheet: { ...base, ...stored } } })
-  await assert.rejects(invalid.validate(), /storagePath/)
+  await assert.rejects(invalid.validate(), /storageReference.key/)
 })

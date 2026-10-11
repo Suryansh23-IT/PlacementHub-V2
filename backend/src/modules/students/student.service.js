@@ -1,4 +1,4 @@
-import { readFile, unlink } from 'node:fs/promises'
+import { ACADEMIC_PDF_CATEGORIES, persistPdfUpload, validatePdfUpload } from '../../storage/pdf-storage.js'
 import { isDeepStrictEqual } from 'node:util'
 import { AppError } from '../../errors/app-error.js'
 import { USER_ROLES } from '../auth/auth.constants.js'
@@ -57,23 +57,31 @@ export async function updateStudentProfile(userId, input, { profileModel = Stude
   return profileModel.findOneAndUpdate({ userId }, { $set: update }, { new: true, runValidators: true })
 }
 
-export async function saveAcademicMarksheet(userId, type, file, { profileModel = StudentProfile } = {}) {
+export async function saveAcademicMarksheet(userId, type, file, dependencies = {}) {
   if (!file) throw new AppError('Attach a PDF document to upload.', { statusCode: 422, errorCode: 'VALIDATION_ERROR' })
-  const contents = await readFile(file.path).catch(() => null)
-  if (!contents?.subarray(0, 5).equals(Buffer.from('%PDF-'))) { await unlink(file.path).catch(() => undefined); throw new AppError('The uploaded file is not a valid PDF document.', { statusCode: 422, errorCode: 'VALIDATION_ERROR' }) }
-  const profile = await ensureStudentProfile(userId, { profileModel })
-  const document = { originalName: file.originalname, storagePath: file.path, mimeType: file.mimetype, size: file.size, uploadedAt: new Date() }
-  const previous = type === 'collegeResult' ? profile.collegeResult?.storagePath : profile[type]?.marksheet?.storagePath
-  if (type === 'collegeResult') {
-    profile.collegeResult = document
-    revokeVerificationForMaterialChange(profile)
-  } else {
-    profile[type] ??= {}
-    profile[type].marksheet = document
-  }
-  try { await profile.save() } catch (error) { await unlink(file.path).catch(() => undefined); throw error }
-  if (previous && previous !== file.path) await unlink(previous).catch(() => undefined)
-  return profile
+  validatePdfUpload(file, 'The uploaded file is not a valid PDF document.', dependencies.maxFileSize)
+  const category = ACADEMIC_PDF_CATEGORIES[type]
+  if (!category) throw new AppError('Invalid document type.', { statusCode: 422, errorCode: 'VALIDATION_ERROR' })
+  const profile = await ensureStudentProfile(userId, dependencies)
+  const previous = type === 'collegeResult' ? profile.collegeResult : profile[type]?.marksheet
+  const review = { verificationStatus: profile.verificationStatus, reviewedBy: profile.reviewedBy, reviewedAt: profile.reviewedAt, rejectionReason: profile.rejectionReason }
+  return persistPdfUpload(file, category, previous, async document => {
+    if (type === 'collegeResult') {
+      profile.collegeResult = document
+      revokeVerificationForMaterialChange(profile)
+    } else {
+      profile[type] ??= {}
+      profile[type].marksheet = document
+    }
+    try { await profile.save() }
+    catch (error) {
+      if (type === 'collegeResult') profile.collegeResult = previous
+      else profile[type].marksheet = previous
+      Object.assign(profile, review)
+      throw error
+    }
+    return profile
+  }, dependencies)
 }
 export async function getAcademicMarksheet(userId, type, dependencies = {}) { const profile = await getStudentProfile(userId, dependencies); const document = type === 'collegeResult' ? profile.collegeResult : profile[type]?.marksheet; if (!document) throw new AppError('No document has been uploaded yet.', { statusCode: 404, errorCode: 'NOT_FOUND' }); return document }
 

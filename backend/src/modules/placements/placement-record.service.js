@@ -5,7 +5,7 @@ import { PlacementRecord } from './placement-record.model.js'
 import { createNotifications } from '../notifications/notification.service.js'
 import { User } from '../auth/auth.model.js'
 import { USER_ROLES } from '../auth/auth.constants.js'
-import { readFile } from 'node:fs/promises'
+import { persistPdfUpload, validatePdfUpload } from '../../storage/pdf-storage.js'
 const fail = (message, code = 'CONFLICT') => new AppError(message, { statusCode: code === 'NOT_FOUND' ? 404 : 409, errorCode: code })
 const blocking = type => ['full_time', 'ppo', 'internship_and_ppo', 'internship'].includes(type)
 const assign = (doc, values) => typeof doc.set === 'function' ? doc.set(values) : Object.assign(doc, values)
@@ -34,14 +34,21 @@ export async function submitPlacementReport(studentId, applicationId, input, { a
   if (record) { if (record.verificationState === 'confirmed') throw fail('This placement outcome is already confirmed.'); if (record.verificationState === 'revoked') throw fail('A revoked outcome cannot be resubmitted.'); assign(record, { ...values, history: [...(record.history ?? []), { event: 'student_report_updated', occurredAt: now, actorId: studentId }] }); await record.save() } else { record = await recordModel.create({ ...values, history: [{ event: 'student_reported', occurredAt: now, actorId: studentId }] }) }
   return record
 }
-export async function savePlacementProof(studentId, applicationId, file, { recordModel = PlacementRecord, now = new Date() } = {}) {
+export async function savePlacementProof(studentId, applicationId, file, dependencies = {}) {
+  const { recordModel = PlacementRecord, now = new Date() } = dependencies
   if (!file) throw fail('Attach a PDF proof document.', 'VALIDATION_ERROR')
-  const bytes = await readFile(file.path).catch(() => null)
-  if (!bytes?.subarray(0, 5).equals(Buffer.from('%PDF-'))) throw fail('The uploaded proof is not a valid PDF.', 'VALIDATION_ERROR')
+  // Preserve the proof endpoint's existing validation status/message.
+  try { validatePdfUpload(file, 'The uploaded proof is not a valid PDF.', dependencies.maxFileSize) }
+  catch { throw fail('The uploaded proof is not a valid PDF.', 'VALIDATION_ERROR') }
   const record = await recordModel.findOne({ applicationId, studentId, verificationState: { $in: ['pending_admin_verification', 'rejected'] } })
   if (!record) throw fail('A pending placement report was not found.', 'NOT_FOUND')
-  assign(record, { proof: [...(record.proof ?? []), { originalName: file.originalname, storagePath: file.path, mimeType: file.mimetype, size: file.size, uploadedAt: now }], history: [...(record.history ?? []), { event: 'proof_uploaded', occurredAt: now, actorId: studentId }] })
-  return record.save()
+  const previousProof = record.proof; const previousHistory = record.history
+  return persistPdfUpload(file, 'placement-proof', undefined, async metadata => {
+    try {
+      assign(record, { proof: [...(record.proof ?? []), metadata], history: [...(record.history ?? []), { event: 'proof_uploaded', occurredAt: now, actorId: studentId }] })
+      return await record.save()
+    } catch (error) { assign(record, { proof: previousProof, history: previousHistory }); throw error }
+  }, { ...dependencies, now })
 }
 export async function getPlacementProof(actorId, recordId, proofIndex, { recordModel = PlacementRecord, isAdmin = false } = {}) {
   const record = await recordModel.findOne(isAdmin ? { _id: recordId } : { _id: recordId, studentId: actorId })

@@ -9,9 +9,15 @@ process.env.JWT_SECRET = 'm5-placement-drive-test-secret-which-is-safely-long-en
 process.env.CLIENT_URL = 'http://localhost:5173'
 
 const { toPlacementDriveResponse } = await import('../src/modules/placement-drives/placement-drive.controller.js')
-const { getMyPlacementDriveDocument, resubmitMyPlacementDrive, reviewPlacementDriveProposal, saveMyPlacementDriveDocument, submitMyPlacementDrive, updateMyPlacementDrive } = await import('../src/modules/placement-drives/placement-drive.service.js')
+const { getMyPlacementDriveDocument, resubmitMyPlacementDrive, reviewPlacementDriveProposal, saveMyPlacementDriveDocument: saveDocumentService, submitMyPlacementDrive, updateMyPlacementDrive } = await import('../src/modules/placement-drives/placement-drive.service.js')
 const { placementDriveCreateSchema, placementDriveReviewSchema } = await import('../src/modules/placement-drives/placement-drive.validation.js')
 
+async function saveMyPlacementDriveDocument(userId, driveId, type, file, deps) {
+  const { createPdfStorage, DRIVE_PDF_CATEGORIES } = await import('../src/storage/pdf-storage.js')
+  const buffer = await readFile(file.path)
+  await (await import('node:fs/promises')).unlink(file.path)
+  return saveDocumentService(userId, driveId, type, { ...file, buffer }, { ...deps, pdfStorage: createPdfStorage({ NODE_ENV: 'test', RESUME_UPLOAD_DIR: path.dirname(file.path) }, DRIVE_PDF_CATEGORIES[type]), onCleanupFailure: () => {} })
+}
 const pdf = (name) => ({ originalName: name, storagePath: `/safe/${name}`, mimeType: 'application/pdf', size: 120, uploadedAt: new Date() })
 const input = {
   role: { title: 'Software Engineer', employmentType: 'full_time', description: 'Build systems used by customers.', requiredSkills: ['JavaScript'] },

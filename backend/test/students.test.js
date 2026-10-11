@@ -9,7 +9,7 @@ process.env.JWT_SECRET = 'm3-student-test-secret-which-is-safely-long-enough'
 process.env.CLIENT_URL = 'http://localhost:5173'
 
 const { USER_ROLES } = await import('../src/modules/auth/auth.constants.js')
-const { ensureStudentProfile, getAcademicMarksheet, getProfileCompletion, getStudentDocumentForAdmin, getStudentIdentityContext, resubmitStudentVerification, reviewStudentVerification, saveAcademicMarksheet, saveResume, updateStudentProfile } = await import('../src/modules/students/student.service.js')
+const { ensureStudentProfile, getAcademicMarksheet, getProfileCompletion, getStudentDocumentForAdmin, getStudentIdentityContext, resubmitStudentVerification, reviewStudentVerification, saveAcademicMarksheet: saveAcademicService, saveResume, updateStudentProfile } = await import('../src/modules/students/student.service.js')
 const { studentProfileSchema, verificationSchema } = await import('../src/modules/students/student.validation.js')
 const { createResumeStorage } = await import('../src/modules/students/resume-storage.js')
 
@@ -40,6 +40,11 @@ const completeProfileInput = {
 
 function completeProfile(overrides = {}) {
   return { ...completeProfileInput, resume: { originalName: 'resume.pdf' }, collegeResult: { originalName: 'college-result.pdf' }, ...overrides }
+}
+
+async function saveAcademicMarksheet(userId, type, file, dependencies) {
+  const { createPdfStorage, ACADEMIC_PDF_CATEGORIES } = await import('../src/storage/pdf-storage.js')
+  return saveAcademicService(userId, type, { ...file, buffer: await readFile(file.path) }, { ...dependencies, pdfStorage: createPdfStorage({ NODE_ENV: 'test', RESUME_UPLOAD_DIR: path.dirname(file.path) }, ACADEMIC_PDF_CATEGORIES[type]) })
 }
 
 function createProfileModel() {

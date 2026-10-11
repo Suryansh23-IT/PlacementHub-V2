@@ -1,3 +1,4 @@
+import { publicPdfMetadata } from '../../storage/pdf-storage.js'
 import { AppError } from '../../errors/app-error.js'
 import { Company } from '../companies/company.model.js'
 import { PLACEMENT_DRIVE_LIFECYCLE_STATUSES, PLACEMENT_DRIVE_PROPOSAL_STATUSES } from '../placement-drives/placement-drive.constants.js'
@@ -19,8 +20,7 @@ function plain(value) { return value?.toObject ? value.toObject() : value }
 
 function publicDocument(document, downloadUrl) {
   if (!document) return undefined
-  const { storagePath, ...metadata } = plain(document)
-  return { ...metadata, downloadUrl }
+  return { ...publicPdfMetadata(document), downloadUrl }
 }
 
 async function getCompanySummary(companyId, { companyModel = Company } = {}) {
