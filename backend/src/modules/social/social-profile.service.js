@@ -1,8 +1,6 @@
-import path from 'node:path'
-import { env } from '../../config/env.js'
 import { SocialProfile } from './social-profile.model.js'
 import { socialProfileSchemas } from './social-profile.validation.js'
-import { storeImage, removeImage, imagePath } from './social.media.js'
+import { storeAvatar, removeAvatar, readAvatar, hasStoredImage, cleanupImage } from './social.media.js'
 import { AppError } from '../../errors/app-error.js'
 import { User } from '../auth/auth.model.js'
 import { StudentProfile } from '../students/student.model.js'
@@ -48,7 +46,6 @@ export async function getStudentMainProfile(viewer, id, deps = {}) {
     professionalLinks: Object.fromEntries(['linkedin', 'github', 'portfolio'].map(key => [key, safeUrl(p.professionalLinks?.[key])]).filter(([, url]) => url)), codingProfiles: (p.codingProfiles ?? []).map(x => ({ platform: x.platform, url: safeUrl(x.url) })).filter(x => x.url) }
 }
 
-const avatarDirectory = path.join(env.SOCIAL_UPLOAD_DIR, 'profile-avatars')
 const savedFields = 'userId role headline bio hobbies interests softSkills personalityType achievementHighlights clubs extracurriculars volunteering languages currentlyLearning lookingToExplore links companyName industry location website hiringDomains representativeName designation publicEmail publicPhone representativeNote avatar updatedAt'
 export async function getSocialProfile(viewer, id, deps = {}) {
   const base = await getBaseSocialProfile(viewer, id, deps)
@@ -61,7 +58,7 @@ export async function getSocialProfile(viewer, id, deps = {}) {
     else overlay[key] = saved[key]
   }
   return { ...base, ...overlay, ...(saved?.bio !== undefined ? { about: saved.bio } : {}), ...(base.role === 'company' && saved?.companyName ? { name: saved.companyName } : {}),
-    canEdit: viewer.role === 'placement_admin' || String(viewer._id) === String(id), hasAvatar: base.role !== 'placement_admin' && Boolean(saved?.avatar?.filename), avatarVersion: saved?.avatar?.filename ? saved.updatedAt : undefined }
+    canEdit: viewer.role === 'placement_admin' || String(viewer._id) === String(id), hasAvatar: base.role !== 'placement_admin' && hasStoredImage(saved?.avatar), avatarVersion: hasStoredImage(saved?.avatar) ? saved.updatedAt : undefined }
 }
 export async function authorizeProfileEdit(viewer, id, deps = {}) {
   if (viewer.role !== 'placement_admin' && String(viewer._id) !== String(id)) throw new AppError('You may edit only your own Social Profile.', { statusCode: 403, errorCode: 'FORBIDDEN' })
@@ -74,17 +71,21 @@ export async function updateSocialProfile(viewer, id, rawInput, deps = {}) {
   if (deps.imageFile && input.removeImage) throw new AppError('Choose image replacement or removal.', { statusCode: 422, errorCode: 'VALIDATION_ERROR' })
   const model = deps.socialProfileModel ?? SocialProfile
   const old = await read(model, { userId: id }, 'avatar')
-  const replacement = await (deps.storeAvatar ?? (file => storeImage(file, avatarDirectory)))(deps.imageFile)
+  const replacement = await (deps.storeAvatar ?? storeAvatar)(deps.imageFile)
   const { removeImage: removing, ...values } = input
   const update = { $set: { ...values, userId: target._id, role: target.role, ...(replacement ? { avatar: replacement } : {}) }, ...(removing ? { $unset: { avatar: 1 } } : {}) }
   try { await model.findOneAndUpdate({ userId: id }, update, { upsert: true, runValidators: true, returnDocument: 'after' }) }
-  catch (error) { if (replacement) await (deps.removeAvatar ?? (image => removeImage(image, avatarDirectory)))(replacement); throw error }
-  if (old?.avatar?.filename && (replacement || removing)) await (deps.removeAvatar ?? (image => removeImage(image, avatarDirectory)))(old.avatar)
+  catch (error) { await cleanupImage(replacement, deps.removeAvatar ?? removeAvatar, deps); throw error }
+  if (hasStoredImage(old?.avatar) && (replacement || removing)) await cleanupImage(old.avatar, deps.removeAvatar ?? removeAvatar, deps)
   return getSocialProfile(viewer, id, deps)
 }
 export async function getProfileAvatar(id, deps = {}) {
   const user = await identity(id, deps)
   const saved = await read(deps.socialProfileModel ?? SocialProfile, { userId: id }, 'avatar')
-  if (user.role === 'placement_admin' || !saved?.avatar?.filename) throw missing()
-  return { path: imagePath(saved.avatar, avatarDirectory), mimeType: saved.avatar.mimeType }
+  if (user.role === 'placement_admin' || !hasStoredImage(saved?.avatar)) throw missing()
+  const buffer = await (deps.readAvatar ?? readAvatar)(saved.avatar).catch(error => {
+    if (error.statusCode === 404) throw new AppError('Profile image was not found.', { statusCode: 404, errorCode: 'NOT_FOUND' })
+    throw error
+  })
+  return { buffer, mimeType: saved.avatar.mimeType }
 }
