@@ -24,7 +24,7 @@ const { placementDriveSubmissionSchema } = await import('../src/modules/placemen
 const pdf = Buffer.from('%PDF-1.7\nPDF flow fixture')
 const file = { originalname: 'document.pdf', mimetype: 'application/pdf', buffer: pdf, size: pdf.length }
 const categories = [...Object.values(ACADEMIC_PDF_CATEGORIES), 'participation-letter', ...Object.values(DRIVE_PDF_CATEGORIES), 'phase-instruction', 'placement-proof']
-const cloudConfig = { NODE_ENV: 'production', MONGO_URI: 'mongodb://localhost/placementhub-v2-demo-2027', SUPABASE_URL: 'https://synthetic-project.supabase.co', SUPABASE_SECRET_KEY: ['sb', 'secret', 'synthetic_pdf_fixture'].join('_') }
+const cloudConfig = { NODE_ENV: 'production', STORAGE_PROVIDER: 'supabase', SUPABASE_STORAGE_BUCKET: 'placementhub-2027', MONGO_URI: 'mongodb://localhost/placementhub-v2-demo-2027', SUPABASE_URL: 'https://synthetic-project.supabase.co', SUPABASE_SECRET_KEY: ['sb', 'secret', 'synthetic_pdf_fixture'].join('_') }
 const query = value => ({ select() { return this }, sort() { return this }, lean() { return this }, then(resolve, reject) { return Promise.resolve(value).then(resolve, reject) } })
 const safe = value => assert.doesNotMatch(JSON.stringify(value), /storageReference|storagePath|"provider"|"key"|2027\/(class|college|participation|company|drive|recruitment|phase|placement)/)
 

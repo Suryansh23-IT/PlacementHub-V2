@@ -1,6 +1,6 @@
 import 'dotenv/config'
 import { z } from 'zod'
-import { selectedStorageProvider, storageEnvironmentShape, validateStorageEnvironment } from './storage-config.js'
+import { selectedStorageProvider, storageEnvironmentShape, validateStorageEnvironment, validatePublicEnvironment } from './storage-config.js'
 
 const environmentSchema = z.object({
   NODE_ENV: z.enum(['development', 'test', 'production']).default('development'),
@@ -53,11 +53,16 @@ const environmentSchema = z.object({
   }
 })
 
+try { validatePublicEnvironment(process.env) }
+catch { console.error('Backend credentials are forbidden in VITE_* environment variables.'); process.exit(1) }
+
 const parsedEnvironment = environmentSchema.safeParse(process.env)
 
 if (!parsedEnvironment.success) {
-  console.error('Invalid environment configuration:', parsedEnvironment.error.flatten().fieldErrors)
+  console.error('Invalid environment configuration:', process.env.NODE_ENV === 'production'
+    ? { message: 'Production configuration is invalid.', fields: Object.keys(parsedEnvironment.error.flatten().fieldErrors) }
+    : parsedEnvironment.error.flatten().fieldErrors)
   process.exit(1)
 }
 
-export const env = { ...parsedEnvironment.data, STORAGE_PROVIDER: selectedStorageProvider(parsedEnvironment.data), AI_TIMEOUT_MS: parsedEnvironment.data.AI_TIMEOUT_MS ?? 180_000 }
+export const env = { ...parsedEnvironment.data, STORAGE_PROVIDER: selectedStorageProvider(parsedEnvironment.data), SUPABASE_STORAGE_BUCKET: parsedEnvironment.data.SUPABASE_STORAGE_BUCKET ?? 'placementhub-2027', AI_TIMEOUT_MS: parsedEnvironment.data.AI_TIMEOUT_MS ?? 180_000 }

@@ -20,7 +20,7 @@ export function categoryPolicy(config, category) {
 
 export function newReference(config, provider, { category, buffer, mimeType }) {
   const policy = categoryPolicy(config, category)
-  const extension = policy.extensions[mimeType]
+  const extension = Object.hasOwn(policy.extensions, mimeType) ? policy.extensions[mimeType] : undefined
   // Domain services retain signature validation and authorization before calling store.
   if (!extension || !Buffer.isBuffer(buffer) || !buffer.length || buffer.length > policy.maxBytes) throw storageInvalid()
   return Object.freeze({ provider, key: `2027/${category}/${randomUUID()}.${extension}` })
@@ -29,7 +29,7 @@ export function newReference(config, provider, { category, buffer, mimeType }) {
 export function referencePolicy(config, provider, reference) {
   if (!reference || reference.provider !== provider || typeof reference.key !== 'string') throw storageInvalid()
   const match = /^2027\/([a-z0-9-]+)\/([a-f\d]{8}-[a-f\d]{4}-4[a-f\d]{3}-[89ab][a-f\d]{3}-[a-f\d]{12}\.(pdf|jpg|png|webp))$/.exec(reference.key)
-  if (!match) throw storageInvalid()
+  if (!match || match[0] !== reference.key) throw storageInvalid()
   const policy = categoryPolicy(config, match[1])
   if (!Object.values(policy.extensions).includes(match[3])) throw storageInvalid()
   return { ...policy, filename: match[2] }

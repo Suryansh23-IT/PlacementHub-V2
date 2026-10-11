@@ -13,7 +13,7 @@ const { SocialPost } = await import('../src/modules/social/social.model.js')
 const { SocialProfile } = await import('../src/modules/social/social-profile.model.js')
 const png = Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+aM1sAAAAASUVORK5CYII=', 'base64')
 const file = { originalname: '../../client.png', mimetype: 'image/png', buffer: png }
-const cloudConfig = { NODE_ENV: 'production', MONGO_URI: 'mongodb://localhost/placementhub-v2-demo-2027', SUPABASE_URL: 'https://synthetic-project.supabase.co', SUPABASE_SECRET_KEY: ['sb', 'secret', 'synthetic_social_storage_fixture'].join('_') }
+const cloudConfig = { NODE_ENV: 'production', STORAGE_PROVIDER: 'supabase', SUPABASE_STORAGE_BUCKET: 'placementhub-2027', MONGO_URI: 'mongodb://localhost/placementhub-v2-demo-2027', SUPABASE_URL: 'https://synthetic-project.supabase.co', SUPABASE_SECRET_KEY: ['sb', 'secret', 'synthetic_social_storage_fixture'].join('_') }
 const safe = value => assert.doesNotMatch(JSON.stringify(value), /storageReference|storagePath|"provider"|"key"|"filename"|supabase\.co|2027\/(feed-image|profile-avatar)/)
 async function storageFixture(t, category, provider) {
   const directory = await mkdtemp(path.join(tmpdir(), 'placementhub-e3-'))

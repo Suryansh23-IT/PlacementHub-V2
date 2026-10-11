@@ -6,7 +6,7 @@ import { tmpdir } from 'node:os'
 import { createStorage } from '../src/storage/storage.js'
 import { STORAGE_CATEGORIES } from '../src/storage/storage-contract.js'
 
-const cloud = { NODE_ENV: 'production', MONGO_URI: 'mongodb://localhost/placementhub-v2-demo-2027', SUPABASE_URL: 'https://synthetic-project.supabase.co', SUPABASE_SECRET_KEY: ['sb', 'secret', 'synthetic_storage_test_key_only'].join('_') }
+const cloud = { NODE_ENV: 'production', STORAGE_PROVIDER: 'supabase', SUPABASE_STORAGE_BUCKET: 'placementhub-2027', MONGO_URI: 'mongodb://localhost/placementhub-v2-demo-2027', SUPABASE_URL: 'https://synthetic-project.supabase.co', SUPABASE_SECRET_KEY: ['sb', 'secret', 'synthetic_storage_test_key_only'].join('_') }
 const pdf = Buffer.from('%PDF-1.7\nsynthetic test document')
 const upload = { category: 'resume', buffer: pdf, mimeType: 'application/pdf' }
 const reference = { provider: 'supabase', key: '2027/resume/12345678-1234-4123-8123-123456789abc.pdf' }

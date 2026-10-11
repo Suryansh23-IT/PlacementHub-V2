@@ -12,7 +12,7 @@ const { toProfileResponse } = await import('../src/modules/students/student.cont
 const { createResumeTextService } = await import('../src/modules/ai/resume-text.service.js')
 const pdf = Buffer.from('%PDF-1.7\nresume fixture')
 const file = { originalname: 'resume.pdf', mimetype: 'application/pdf', buffer: pdf, size: pdf.length }
-const cloudConfig = { NODE_ENV: 'production', MONGO_URI: 'mongodb://localhost/placementhub-v2-demo-2027', SUPABASE_URL: 'https://synthetic-project.supabase.co', SUPABASE_SECRET_KEY: ['sb', 'secret', 'synthetic_resume_fixture_only'].join('_') }
+const cloudConfig = { NODE_ENV: 'production', STORAGE_PROVIDER: 'supabase', SUPABASE_STORAGE_BUCKET: 'placementhub-2027', MONGO_URI: 'mongodb://localhost/placementhub-v2-demo-2027', SUPABASE_URL: 'https://synthetic-project.supabase.co', SUPABASE_SECRET_KEY: ['sb', 'secret', 'synthetic_resume_fixture_only'].join('_') }
 
 function profileFixture(resume) {
   const events = []

@@ -7,6 +7,7 @@ process.env.MONGO_URI = 'mongodb://localhost/placementhub-v2-demo-2027'
 process.env.JWT_SECRET = 'synthetic-social-storage-http-secret-long-enough'
 process.env.AI_ENABLED = 'false'
 process.env.STORAGE_PROVIDER = 'supabase'
+process.env.SUPABASE_STORAGE_BUCKET = 'placementhub-2027'
 process.env.SUPABASE_URL = 'https://synthetic-project.supabase.co'
 process.env.SUPABASE_SECRET_KEY = ['sb', 'secret', 'synthetic_social_http_fixture'].join('_')
 process.env.SOCIAL_IMAGE_MAX_BYTES = '1024'

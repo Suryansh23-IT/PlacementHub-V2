@@ -21,6 +21,6 @@ async function startServer() {
 }
 
 startServer().catch((error) => {
-  console.error('Failed to start PlacementHub API:', error)
+  console.error('Failed to start PlacementHub API:', env.NODE_ENV === 'production' ? 'Startup failed. Check backend configuration and database availability.' : error)
   process.exit(1)
 })
