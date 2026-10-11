@@ -4,7 +4,15 @@ M11-A uses a shared deep-blue Coming Soon card in all four disabled AI areas. St
 
 ## Visual direction
 
-Use a clean professional interface: white and neutral backgrounds, a restrained purple accent, readable typography, consistent spacing, responsive layouts, and accessible contrast.
+Use a clean professional interface: white and slate-neutral backgrounds, the existing deep-blue identity, readable typography, consistent spacing, responsive layouts, and accessible contrast. Do not introduce purple/violet accents.
+
+## M11-D restrained presentation
+
+Operational pages share a scoped `ph-workspace` presentation layer. Preserve their existing routes, role boundaries, forms and information hierarchy. Prefer solid surfaces, 8px controls, 12px bordered cards, subtle shadows, compact headings and prominent tabular numbers. Primary actions use solid deep blue; secondary/quiet actions are neutral and destructive actions remain red. Shared form hints/errors are associated with inputs, required markers are decorative, and keyboard focus is visible.
+
+Tables remain tables with controlled scrolling. Admin numeric columns align right; report preview labels split camel case, percentage precision is readable, and CTC is displayed in LPA without changing API values/calculations/exports. Dashboard KPI strips use two columns on mobile and balanced desktop grids. Small screens retain the established horizontally scrollable navigation with a visible scroll affordance. Confirmation forms are bounded by the viewport and scroll internally.
+
+Community keeps its 660px feed, article reading layout, existing composer and distinct social/professional profiles. Public Coming Soon uses a white surface with a deep-blue edge and a small static icon in all four areas; objective evidence remains separate from the semantic panel. Marketing page composition, branding, contact data, native confirmations and product workflows are preserved. See [M11-D review](m11d-ui-polish.md) for verification and limitations.
 
 ## Shared UI
 

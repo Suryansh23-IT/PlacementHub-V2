@@ -1,9 +1,7 @@
 export function AiComingSoon({ area }) {
-  return <section aria-label={`${area} — Coming Soon`} className="relative overflow-hidden rounded-2xl border border-blue-200 bg-gradient-to-br from-blue-950 via-blue-900 to-blue-800 p-6 text-white shadow-sm sm:p-8">
-    <div aria-hidden="true" className="pointer-events-none absolute -right-12 -top-12 h-48 w-48 rounded-full border border-white/10 bg-white/5" />
-    <p className="relative text-xs font-bold uppercase tracking-widest text-blue-200">{area}</p>
-    <h2 className="relative mt-3 text-xl font-bold sm:text-2xl">AI Intelligence — Coming Soon</h2>
-    <p className="relative mt-3 max-w-xl text-sm leading-6 text-blue-100">Intelligent guidance is planned for a future release. Your placement tools and workflows are ready to use.</p>
-    <span className="relative mt-5 inline-flex rounded-full border border-blue-300/30 bg-white/10 px-3 py-1 text-xs font-semibold text-blue-100">Coming Soon</span>
+  return <section aria-label={`${area} — Coming Soon`} className="rounded-xl border border-slate-200 border-l-4 border-l-blue-800 bg-white p-5 sm:p-6">
+    <div className="flex items-start gap-3"><span aria-hidden="true" className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-blue-50 text-blue-800"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M12 3 14.5 9.5 21 12l-6.5 2.5L12 21l-2.5-6.5L3 12l6.5-2.5L12 3Z" /></svg></span><div className="min-w-0"><p className="text-xs font-semibold uppercase tracking-wide text-blue-800">{area}</p><h2 className="mt-1 text-lg font-semibold text-slate-950">AI Intelligence — Coming Soon</h2></div></div>
+    <p className="mt-3 max-w-xl text-sm leading-6 text-slate-600">Intelligent guidance is planned for a future release. Your placement tools and workflows are ready to use.</p>
+    <span className="mt-4 inline-flex rounded-md border border-slate-200 bg-slate-50 px-2 py-1 text-xs font-medium text-slate-600">Coming Soon</span>
   </section>
 }

@@ -1,0 +1,49 @@
+/* Shared operational presentation. Marketing composition and business logic stay separate. */
+.app-shell .app-nav { background:#fff; border-bottom:1px solid #e2e8f0; box-shadow:none; backdrop-filter:none; }
+.app-shell .brand-logo-mark { border-radius:.65rem; background:#fff; box-shadow:none; }
+.app-shell .nav-link { border-radius:.4rem; font-weight:600; }
+.app-shell .app-nav-links { scrollbar-width:thin; scrollbar-color:#cbd5e1 transparent; }
+.app-shell .app-nav-links::-webkit-scrollbar { display:block; height:3px; }
+.app-shell .app-nav-links::-webkit-scrollbar-thumb { border-radius:3px; background:#cbd5e1; }
+.app-shell .policy-menu-panel { border-radius:.65rem; background:#fff; box-shadow:0 8px 24px rgb(15 23 42 / .12); }
+.app-shell :where(a,button,input,select,textarea,summary):focus-visible { outline:2px solid #2563eb; outline-offset:3px; }
+.app-shell :where(button):disabled { cursor:not-allowed; }
+
+.ph-workspace { color:#17233b; }
+.ph-workspace > section { min-width:0; }
+.ph-workspace :where(.grid,.flex) > * { min-width:0; }
+.ph-workspace :where(h1,h2,h3,p,dt,dd) { overflow-wrap:break-word; }
+.ph-workspace h1 { font-size:clamp(1.5rem, 2.4vw, 1.875rem); line-height:1.25; letter-spacing:-.025em; }
+.ph-workspace :where(section,article,form,div,a,button).rounded-2xl.border,
+.ph-workspace :where(section,article,form,div).rounded-3xl.border,
+.ph-workspace .premium-surface { border-radius:.75rem; box-shadow:0 1px 2px rgb(15 23 42 / .035); }
+.ph-workspace .premium-surface { background:#fff; }
+.ph-workspace :where(button,a)[class*="bg-blue-"] { transition:background-color .15s ease, border-color .15s ease; }
+.ph-workspace :where(button):disabled { opacity:.5; }
+.ph-workspace :where(button).rounded-full { border-radius:.4rem; }
+.ph-workspace :where(input,select,textarea):not([type="checkbox"]):not([type="radio"]) { max-width:100%; border-radius:.5rem; }
+.ph-workspace :where(input,select):not([type="checkbox"]):not([type="radio"]):not([type="file"]) { min-height:2.75rem; }
+.ph-workspace textarea { resize:vertical; }
+.ph-workspace input:where([type="checkbox"],[type="radio"]) { width:1.125rem; height:1.125rem; justify-self:start; align-self:center; flex-shrink:0; accent-color:#1d4ed8; }
+.ph-workspace .overflow-x-auto { max-width:100%; overscroll-behavior-x:contain; scrollbar-width:thin; }
+.ph-workspace table { min-width:100%; font-variant-numeric:tabular-nums; line-height:1.5; }
+.ph-workspace thead { background:#f8fafc; color:#526079; }
+.ph-workspace th { font-size:.75rem; font-weight:600; }
+.ph-workspace :where(th,td) { vertical-align:top; }
+.ph-workspace td { max-width:24rem; }
+.ph-workspace tbody tr:hover { background:#f8fafc; }
+.ph-workspace td:last-child :where(a,button) { white-space:nowrap; }
+.ph-workspace .ph-kpi { box-shadow:none; font-variant-numeric:tabular-nums; }
+.ph-workspace .ph-kpi > p:first-child { font-size:.75rem; letter-spacing:.035em; font-weight:600; }
+.ph-workspace .ph-kpi > p:last-child { font-variant-numeric:tabular-nums; letter-spacing:-.025em; }
+.ph-workspace .fixed > form { max-height:calc(100dvh - 2rem); overflow-y:auto; overscroll-behavior:contain; border-radius:.75rem; }
+.ph-workspace [aria-label="AI Assessment"], .ph-workspace [aria-label="AI Role Fit"] { border-color:#cbd5e1; background:#f8fafc; }
+.ph-workspace .auth-panel { border-radius:.9rem; box-shadow:0 8px 28px rgb(15 23 42 / .07); }
+.ph-workspace .auth-backdrop::before { content:none; }
+
+@media (max-width:639px) {
+  .ph-workspace { padding-top:1.5rem; padding-bottom:2rem; }
+  .ph-workspace :where(button,a)[class*="px-"] { overflow-wrap:normal; }
+  .ph-workspace .fixed { padding:.75rem; }
+  .ph-workspace .fixed > form { max-height:calc(100dvh - 1.5rem); padding:1.25rem; }
+}

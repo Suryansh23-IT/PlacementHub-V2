@@ -1,3 +1,3 @@
 export function LoadingState({ message = 'Loading…' }) {
-  return <p className="flex items-center gap-3 rounded-2xl border border-slate-200 bg-white/85 px-5 py-4 text-sm font-semibold text-slate-600 shadow-sm shadow-slate-200/50" role="status"><span className="grid h-6 w-6 place-items-center rounded-full bg-blue-50"><span className="h-2 w-2 animate-pulse rounded-full bg-blue-600" /></span>{message}</p>
+  return <p className="flex items-center gap-3 rounded-xl border border-slate-200 bg-white px-5 py-4 text-sm text-slate-600" role="status" aria-live="polite"><span aria-hidden="true" className="h-4 w-4 shrink-0 animate-spin rounded-full border-2 border-slate-200 border-t-blue-700" />{message}</p>
 }

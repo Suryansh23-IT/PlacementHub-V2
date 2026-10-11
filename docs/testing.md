@@ -1,5 +1,11 @@
 # Testing Strategy
 
+## M11-D UI/UX checks (2026-10-11)
+
+Frontend-only polish: existing frontend tests **111/111 passed**; lint/public production build and whitespace checks passed. Six existing lint warnings, test-runner HMR port notices and the existing bundle-size advisory remain. Backend product code was untouched, so backend suites and live Ollama generations were not repeated.
+
+Focused browser checks cover the three dashboards, Student/Company forms, Placement Center/drive detail, candidate table/detail, recruitment tabs and canceled confirmation, Admin tables/outcomes/reports, Community tabs/social profile, contact and public login. Representative layouts were checked at **1280px desktop / 390px mobile**, plus an **820px drive form**. All four public Coming Soon areas were inspected with semantic controls absent; local AI/objective interfaces remain. Browser console snapshots are empty. No broad acceptance workflow was rerun. Read-only hashes match accepted M11-C applications, placements and the entire 2026 archive. Details, screenshots, logs and review steps: [M11-D review](m11d-ui-polish.md), `artifacts/m11d/2026-10-11/`.
+
 ## M11-C targeted acceptance (2026-10-11)
 
 All 19 authoritative M11-B defects are fixed and verified; no deferred defect. See [M11-C closure, changed files, verification and review steps](m11c-acceptance.md). Backend safe regression: **429/429**; frontend: **111/111**, plus **6/6** final targeted interaction checks. Backend syntax, AI syntax **52/52**, frontend lint, public production build and whitespace checks pass. Six existing lint warnings and the bundle-size advisory remain.

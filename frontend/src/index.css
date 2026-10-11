@@ -1,11 +1,12 @@
 @import "tailwindcss";
+@import "./styles/workspace.css";
 
 @theme { --font-sans: "Inter", "Aptos", "Segoe UI", sans-serif; }
 
 :root { color: #0b1534; background: #f7faff; font-synthesis: none; }
 * { box-sizing: border-box; }
 html { min-width: 320px; background: #f7faff; scroll-behavior: smooth; }
-body { min-width: 320px; margin: 0; background: radial-gradient(circle at 90% -10%, rgba(37, 99, 235, .11), transparent 27rem), radial-gradient(circle at 0% 25%, rgba(44, 198, 244, .08), transparent 29rem), #f7faff; color: #0b1534; }
+body { min-width: 320px; margin: 0; background:#f6f8fb; color: #0b1534; }
 button, input, select, textarea { font: inherit; }
 button, a { -webkit-tap-highlight-color: transparent; }
 ::selection { background: #bfdbfe; color: #0b2d5c; }
