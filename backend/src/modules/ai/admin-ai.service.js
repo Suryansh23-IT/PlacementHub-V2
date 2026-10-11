@@ -7,7 +7,7 @@ import {fingerprint} from './ai.context.js'
 import {createAiService} from './ai.service.js'
 import {providerIdentity} from './providers/ai.provider.js'
 import {createAdminInsightModel} from './admin-ai.model.js'
-import {loadAdminFacts,adminContext} from './admin-ai.context.js'
+import {loadAdminFacts,adminContext,adminInsightContext} from './admin-ai.context.js'
 import {adminInsightContract,adminAnswerContract,adminInsightSchema,constrainAdminContract} from './admin-ai.schemas.js'
 import {answerAdminFact} from './admin-ai.intents.js'
 import {safeQuestion} from './ai-question.js'
@@ -26,7 +26,7 @@ export function createAdminIntelligence(config,{userModel=User,insightModel,fact
     if(generation){const completed=await generation;return {...await read(actor),ai:completed.ai}}
     const epoch=ai.runtimeEpoch?.()
     const task=(async()=>{
-      const facts=await factsLoader();const hash=revision(facts);const context=adminContext(facts)
+      const facts=await factsLoader();const hash=revision(facts);const context=adminInsightContext(facts)
       if(epoch!==ai.runtimeEpoch?.())return {...await read(actor),ai:{status:'unavailable',reason:'cancelled'}}
       const provider=await ai.analyze({actor,scope:'admin:placement:insights',authorize:()=>authorize(actor),loadContext:async()=>({}),enrichContext:()=>context,contract:constrainAdminContract(adminInsightContract,context),forceRefresh:true})
       await authorize(actor)

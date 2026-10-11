@@ -61,11 +61,26 @@ export function createAiService(config, { providerFactory = createAiProvider, ca
         const generation = runtime.epoch(); let timer
         try {
           provider ??= providerFactory(config)
-          const output = await runtime.run(scope, async signal => {
+          const analysis = await runtime.run(scope, async signal => {
             const deadline = new Promise((resolve, reject) => { timer = setTimeout(() => { reject(new AiProviderError('timeout')) }, config.AI_TIMEOUT_MS) })
-            return await Promise.race([provider.generate({ system: `${SYSTEM_INSTRUCTION} ${contract?.instruction ?? ''}`, prompt: buildPrompt(context), jsonSchema: constrainEvidenceSchema(contract?.jsonSchema ?? analysisJsonSchema, context), signal }), deadline])
+            const attempts = async () => {
+              // Only trusted domain contracts opt in. Both attempts share one gate/deadline.
+              for (let attempt = 0; attempt < 2; attempt++) {
+                if (attempt) await checkAccess()
+                if (signal.aborted || generation !== runtime.epoch()) throw new AiProviderError('cancelled')
+                try {
+                  const attemptContext = attempt && contract.validationRetryContext ? contract.validationRetryContext(context) : context
+                  const attemptSchema = attempt ? contract.validationRetryJsonSchema ?? contract.jsonSchema : contract?.jsonSchema
+                  const instruction = attempt ? contract.validationRetryInstruction : contract?.instruction ?? ''
+                  const output = await provider.generate({ system: `${SYSTEM_INSTRUCTION} ${instruction}`, prompt: buildPrompt(attemptContext), jsonSchema: constrainEvidenceSchema(attemptSchema ?? analysisJsonSchema, attemptContext), signal })
+                  return contract ? contract.validate(output, attemptContext) : validateAnalysis(output, attemptContext.evidence.map(entry => entry.id))
+                } catch (error) {
+                  if (attempt || !contract?.validationRetryInstruction || !(error instanceof AiProviderError) || !['invalid_output', 'invalid_evidence'].includes(error.code)) throw error
+                }
+              }
+            }
+            return await Promise.race([attempts(), deadline])
           })
-          const analysis = contract ? contract.validate(output, context) : validateAnalysis(output, context.evidence.map(entry => entry.id))
           // Recheck after a slow provider request, before exposing or caching output.
           await checkAccess()
           if (generation !== runtime.epoch()) return unavailable('cancelled')
