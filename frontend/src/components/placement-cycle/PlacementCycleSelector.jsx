@@ -2,6 +2,7 @@ import { usePlacementCycle } from '../../features/placement-cycle/usePlacementCy
 
 export function PlacementCycleSelector({ compact = false }) {
   const { activeCycle, cycles, setActiveCycle } = usePlacementCycle()
+  if (cycles.length < 2) return null
   return <fieldset className={compact ? 'flex items-center gap-1' : 'mt-6'} aria-label="Placement cycle">
     {!compact && <legend className="mb-2 text-sm font-bold text-slate-800">Placement Cycle</legend>}
     <div className="inline-flex rounded-xl border border-slate-200 bg-slate-50 p-1">

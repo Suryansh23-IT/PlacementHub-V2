@@ -23,12 +23,28 @@ test('public runtime excludes archive while local runtime keeps both cycles and 
   assert.equal(createFrontendRuntime({ VITE_AI_ENABLED: 'false' }).archiveEnabled, true)
 })
 
-const server = await createServer({ configFile: false, plugins: [(await import('@vitejs/plugin-react')).default()], define: { 'import.meta.env.VITE_APP_MODE': JSON.stringify('public'), 'import.meta.env.VITE_AI_ENABLED': JSON.stringify('false'), 'import.meta.env.VITE_API_URL_2027': JSON.stringify('/api/v1') }, server: { middlewareMode: true, hmr: false }, appType: 'custom', cacheDir: 'node_modules/.vite-production-test' })
+test('production builds override stale local mode while development preserves both cycles', () => {
+  for (const configuredMode of [undefined, 'local', 'public']) {
+    const runtime = createFrontendRuntime({ VITE_APP_MODE: configuredMode }, true)
+    const config = createPlacementCycleConfig(runtime)
+    assert.equal(runtime.mode, 'public')
+    assert.equal(runtime.api2026, undefined)
+    assert.deepEqual(Object.keys(config.cycles), ['2027'])
+    assert.equal(config.normalize('2026'), '2027')
+  }
+  for (const configuredMode of [undefined, 'local']) {
+    const config = createPlacementCycleConfig(createFrontendRuntime({ VITE_APP_MODE: configuredMode }, false))
+    assert.deepEqual(Object.keys(config.cycles), ['2026', '2027'])
+    assert.equal(config.normalize('2026'), '2026')
+  }
+})
+
+const server = await createServer({ configFile: false, plugins: [(await import('@vitejs/plugin-react')).default()], define: { 'import.meta.env.PROD': 'true', 'import.meta.env.VITE_APP_MODE': JSON.stringify('local'), 'import.meta.env.VITE_AI_ENABLED': JSON.stringify('false'), 'import.meta.env.VITE_API_URL_2027': JSON.stringify('/api/v1') }, server: { middlewareMode: true, hmr: false }, appType: 'custom', cacheDir: 'node_modules/.vite-production-test' })
 const { StudentIntelligence } = await server.ssrLoadModule('/src/features/ai/StudentIntelligence.jsx')
 const { CompanyCandidateIntelligence, CompanyExplorerTools } = await server.ssrLoadModule('/src/features/ai/CompanyIntelligence.jsx')
 const { AdminPlacementIntelligence } = await server.ssrLoadModule('/src/features/ai/AdminIntelligence.jsx')
 const { useCompanyExplorerAi } = await server.ssrLoadModule('/src/features/ai/useCompanyExplorerAi.js')
-const { PlacementCycleContext } = await server.ssrLoadModule('/src/features/placement-cycle/PlacementCycleContext.jsx')
+const { PlacementCycleContext, PlacementCycleProvider } = await server.ssrLoadModule('/src/features/placement-cycle/PlacementCycleContext.jsx')
 const cycleApi = await server.ssrLoadModule('/src/features/placement-cycle/placement-cycle.js')
 const { CompanyCandidateExplorerPage } = await server.ssrLoadModule('/src/pages/CompanyCandidateExplorerPage.jsx')
 const { AuthContext } = await server.ssrLoadModule('/src/features/auth/auth.context.js')
@@ -45,7 +61,7 @@ async function mount(content, value = cycle) {
   await act(async () => { root.render(h(PlacementCycleContext.Provider, { value }, content)); await new Promise(resolve => setTimeout(resolve, 20)) })
   return { container, close: async () => { await act(async () => root.unmount()); container.remove() } }
 }
-test('stored 2026 selection uses 2027 API/auth and selector exposes only current cycle', async () => {
+test('stored 2026 selection uses 2027 API/auth and production hides the cycle selector', async () => {
   localStorage.setItem('placementhub_active_cycle', '2026')
   localStorage.setItem('placementhub_auth_2026', '{"accessToken":"archived-token"}')
   assert.equal(cycleApi.readStoredPlacementCycle(), '2027')
@@ -56,8 +72,36 @@ test('stored 2026 selection uses 2027 API/auth and selector exposes only current
   assert.equal(cycleApi.persistPlacementCycle('2026'), '2027')
   assert.equal(localStorage.getItem('placementhub_auth_2026'), '{"accessToken":"archived-token"}')
   const view = await mount(h(PlacementCycleSelector))
-  assert.equal(view.container.querySelectorAll('button').length, 1)
+  assert.equal(view.container.querySelectorAll('button').length, 0)
+  assert.equal(view.container.querySelector('fieldset'), null)
   assert(!view.container.textContent.includes('2026')); await view.close()
+})
+test('production provider resolves stale browser state to the visible 2027 label', async () => {
+  localStorage.setItem('placementhub_active_cycle', '2026')
+  function CycleLabel() {
+    const { cycle } = React.useContext(PlacementCycleContext)
+    return h(React.Fragment, null, h('p', null, cycle.label), h(PlacementCycleSelector))
+  }
+  const view = await mount(h(PlacementCycleProvider, null, h(CycleLabel)))
+  assert.equal(view.container.textContent, 'Placement Cycle 2027')
+  assert.equal(view.container.querySelectorAll('button').length, 0)
+  await view.close()
+})
+test('local cycle selector still displays and selects both cycles', async () => {
+  const config = createPlacementCycleConfig(createFrontendRuntime({ VITE_APP_MODE: 'local' }, false))
+  let selected
+  const view = await mount(h(PlacementCycleSelector), {
+    activeCycle: '2027', cycles: Object.values(config.cycles), setActiveCycle: value => { selected = value },
+  })
+  const buttons = [...view.container.querySelectorAll('button')]
+  assert.equal(buttons.length, 2)
+  assert.match(buttons[0].textContent, /2026/)
+  assert.match(buttons[1].textContent, /2027/)
+  await act(async () => { buttons[0].click() })
+  assert.equal(selected, '2026')
+  await act(async () => { buttons[1].click() })
+  assert.equal(selected, '2027')
+  await view.close()
 })
 test('all four public AI areas show Coming Soon, keep objective scores, and never call semantic APIs', async () => {
   let reads = 0; let semanticCalls = 0

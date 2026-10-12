@@ -19,7 +19,7 @@ Backend production validates the exact current database identity already used by
 
 Frontend mode is explicit, never inferred from the hostname. Dev defaults local and builds default public. VITE_APP_MODE=local permits a local build/preview; never use it on Vercel. Keep frontend/backend AI settings aligned. Backend ai.reason=disabled also replaces semantic controls if the local UI flag was left enabled.
 
-Public configuration contains only 2027. Stored 2026 selection normalizes to 2027 for context, session keys and API lookup. Archived auth data is neither restored nor deleted. Local mode retains both cycles and isolated sessions. Public API URLs reject HTTP/local addresses, credentials and protocol-relative URLs. /api/v1 is a relative build placeholder only: split Vercel/Render deployment must configure the actual Render URL during M11-E/F. Actual hosting URLs are not configured here.
+Public configuration contains only 2027. Production builds always use public mode, including when a stale VITE_APP_MODE=local is configured; development retains explicit local/public selection. The cycle selector is hidden when only 2027 is available. Stored 2026 selection normalizes to 2027 for context, session keys and API lookup. Archived auth data is neither restored nor deleted. Local mode retains both cycles and isolated sessions. Public API URLs reject HTTP/local addresses, credentials and protocol-relative URLs. /api/v1 is a relative build placeholder only: split Vercel/Render deployment must configure the actual Render URL during M11-E/F. Actual hosting URLs are not configured here.
 
 ## Disabled AI contract
 

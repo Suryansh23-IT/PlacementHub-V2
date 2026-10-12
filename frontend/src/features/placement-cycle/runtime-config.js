@@ -1,7 +1,8 @@
-// Public values only. Deployment mode is explicit; never inferred from the hostname.
+// Public values only. Production builds are public; development can opt into public mode.
 export function createFrontendRuntime(env, productionBuild = false) {
-  const mode = env.VITE_APP_MODE ?? (productionBuild ? 'public' : 'local')
-  if (!['local', 'public'].includes(mode)) throw new Error('VITE_APP_MODE must be local or public.')
+  const configuredMode = env.VITE_APP_MODE ?? 'local'
+  if (!['local', 'public'].includes(configuredMode)) throw new Error('VITE_APP_MODE must be local or public.')
+  const mode = productionBuild ? 'public' : configuredMode
   if (env.VITE_AI_ENABLED !== undefined && !['true', 'false'].includes(env.VITE_AI_ENABLED)) throw new Error('VITE_AI_ENABLED must be true or false.')
   const publicMode = mode === 'public'
   if (publicMode && env.VITE_AI_ENABLED === 'true') throw new Error('Public AI must remain disabled.')
