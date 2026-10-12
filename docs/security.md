@@ -1,5 +1,7 @@
 # Security Plan
 
+M11-F3 configures Express proxy trust to exactly one hop in production for Render's reverse proxy. Development/test retain `trust proxy=false`; authentication rate limits use the socket IP locally and the nearest forwarded client IP in production, ignoring additional forwarded addresses. Keep the production service behind Render's proxy and verify per-client authentication limits during deployment smoke testing.
+
 M11-A production startup rejects non-2027 database identity and AI_ENABLED=true. Domain/shared-service/provider guards prevent disabled inference independently of UI; existing authorization and validation remain. Public cycle/session/API normalization excludes stale 2026 selections without deleting archived local state. No storage migration or cloud credentials are introduced. See [environment boundaries](m11a-foundation.md).
 
 ## M10-A AI isolation

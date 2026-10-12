@@ -22,6 +22,9 @@ import { isAiRuntime } from './modules/ai/ai.guard.js'
 
 export const app = express()
 
+// Render terminates requests at a reverse proxy. Trust one hop, never the full chain.
+app.set('trust proxy', env.NODE_ENV === 'production' ? 1 : false)
+
 app.use(cors({ origin: env.CLIENT_URL }))
 app.use(express.json({ limit: '1mb' }))
 app.use('/api/v1/health', healthRouter)
