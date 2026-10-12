@@ -4,10 +4,10 @@ export const listPosts = async (r,s) => sendSuccess(s,{ data: await social.listP
 export const createPost = async (r,s) => sendSuccess(s,{ statusCode:201,data:await social.createPost(r.user,r.body,{ imageFile: r.file }) })
 export const getPost = async (r,s) => sendSuccess(s,{ data:await social.getPost(r.user,r.params.postId) })
 export const updatePost = async (r,s) => sendSuccess(s,{ data:await social.updatePost(r.user,r.params.postId,r.body,{ imageFile: r.file }) })
-export const getImage = async (r,s,next) => {
+export const getImage = async (r,s) => {
   const image = await social.getPostImage(r.params.postId)
   s.set({ 'Content-Type': image.mimeType, 'X-Content-Type-Options': 'nosniff', 'Cache-Control': 'private, no-store' })
-  s.sendFile(image.path, error => { if (error && !s.headersSent) next(error.code === 'ENOENT' ? Object.assign(new Error('Community image was not found.'), { statusCode: 404, errorCode: 'NOT_FOUND' }) : error) })
+  return s.send(image.buffer)
 }
 export const deletePost = async (r,s) => sendSuccess(s,{ data:await social.deletePost(r.user,r.params.postId) })
 export const like = async (r,s) => sendSuccess(s,{ data:await social.toggleLike(r.user,r.params.postId,true) })

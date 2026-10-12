@@ -1,5 +1,7 @@
 # API Conventions
 
+M11-A keeps authenticated 2027 objective AI endpoints when semantic AI is disabled. Student/Company objective responses include ai.status=unavailable, ai.reason=disabled; Ask/group and authorized batch POST return disabled without inference/jobs. Admin exact facts remain; runtime GET/reset return DISABLED. Existing auth/ownership/validation/quota behavior remains. See [full disabled contract](m11a-foundation.md).
+
 ## M10-A AI foundation
 
 Only exact database placementhub-v2-demo-2027 registers GET /api/v1/ai/status. Active authenticated Student/Company/Placement Admin required; authenticated-user AI limit returns standard 429 RATE_LIMITED. Success data: { enabled, configured, provider, model, status }, where status is disabled/configured/unavailable. Configured reports selected-provider settings, not live connectivity. No key, endpoint, prompt or cache details are exposed. Ollama is the only provider; no API key or external fallback. Offline Ollama does not prevent backend startup. Archived/unknown runtimes return 404 because no AI routes are mounted. Student endpoints are documented below; Company/Admin features await approval. See ai.md.

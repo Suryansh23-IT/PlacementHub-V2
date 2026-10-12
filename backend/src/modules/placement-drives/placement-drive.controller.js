@@ -1,17 +1,17 @@
+import { publicPdfMetadata, sendPdfDownload, DRIVE_PDF_CATEGORIES } from '../../storage/pdf-storage.js'
 import { sendSuccess } from '../../utils/api-response.js'
 import { cancelPlacementDrive, closePlacementDriveApplications, completePlacementDrive, createPlacementDriveDraft, extendPlacementDriveApplicationDeadline, getMyPlacementDrive, getMyPlacementDriveDocument, getPlacementDriveDocumentForAdmin, getPlacementDriveBranches, getPlacementDriveProposal, listMyPlacementDrives, listPlacementDriveProposals, postponePlacementDrive, publishPlacementDriveProposal, reopenPlacementDriveApplications, resubmitMyPlacementDrive, reviewPlacementDriveProposal, saveMyPlacementDriveDocument, submitMyPlacementDrive, updateMyPlacementDrive } from './placement-drive.service.js'
 import { getApplicationWindowStatus } from './placement-drive.application-window.js'
 
 function publicDocument(document) {
   if (!document) return undefined
-  const { storagePath, ...safe } = document.toObject ? document.toObject() : document
-  return safe
+  return publicPdfMetadata(document)
 }
 
 export function toPlacementDriveResponse(drive) {
   const value = drive.toObject ? drive.toObject() : drive
   const lifecycleHistory = (value.lifecycleHistory ?? []).map(({ event, status, reason, occurredAt }) => ({ event, status, reason, occurredAt }))
-  return { ...value, lifecycleHistory, applicationWindow: getApplicationWindowStatus(value), documents: { companyRecruitmentInformation: publicDocument(value.documents?.companyRecruitmentInformation), placementDriveJobDescription: publicDocument(value.documents?.placementDriveJobDescription) } }
+  return { ...value, phaseExecution: (value.phaseExecution ?? []).map(entry => ({ ...entry, ...(entry.instructionPdf ? { instructionPdf: publicPdfMetadata(entry.instructionPdf) } : {}) })), lifecycleHistory, applicationWindow: getApplicationWindowStatus(value), documents: { companyRecruitmentInformation: publicDocument(value.documents?.companyRecruitmentInformation), placementDriveJobDescription: publicDocument(value.documents?.placementDriveJobDescription) } }
 }
 
 export async function createMyPlacementDrive(request, response) { return sendSuccess(response, { statusCode: 201, message: 'Placement Drive draft created.', data: toPlacementDriveResponse(await createPlacementDriveDraft(request.user._id, request.body)) }) }
@@ -20,7 +20,7 @@ export async function listMyDrives(request, response) { return sendSuccess(respo
 export async function getMyDrive(request, response) { return sendSuccess(response, { message: 'Placement Drive retrieved.', data: toPlacementDriveResponse(await getMyPlacementDrive(request.user._id, request.params.id)) }) }
 export async function updateMyDrive(request, response) { return sendSuccess(response, { message: 'Placement Drive draft saved.', data: toPlacementDriveResponse(await updateMyPlacementDrive(request.user._id, request.params.id, request.body)) }) }
 export async function uploadMyDriveDocument(request, response) { return sendSuccess(response, { statusCode: 201, message: 'Placement Drive PDF uploaded.', data: toPlacementDriveResponse(await saveMyPlacementDriveDocument(request.user._id, request.params.id, request.params.type, request.file)) }) }
-export async function downloadMyDriveDocument(request, response) { const file = await getMyPlacementDriveDocument(request.user._id, request.params.id, request.params.type); return response.download(file.storagePath, file.originalName) }
+export async function downloadMyDriveDocument(request, response) { const file = await getMyPlacementDriveDocument(request.user._id, request.params.id, request.params.type); return sendPdfDownload(response, file, DRIVE_PDF_CATEGORIES[request.params.type]) }
 export async function submitMyDrive(request, response) { return sendSuccess(response, { message: 'Placement Drive proposal submitted for Admin review.', data: toPlacementDriveResponse(await submitMyPlacementDrive(request.user._id, request.params.id)) }) }
 export async function resubmitMyDrive(request, response) { return sendSuccess(response, { message: 'Placement Drive proposal resubmitted for Admin review.', data: toPlacementDriveResponse(await resubmitMyPlacementDrive(request.user._id, request.params.id)) }) }
 export async function listAdminDrives(request, response) { return sendSuccess(response, { message: 'Placement Drive proposals retrieved.', data: (await listPlacementDriveProposals()).map(toPlacementDriveResponse) }) }
@@ -33,4 +33,4 @@ export async function reopenAdminDriveApplications(request, response) { const re
 export async function postponeAdminDrive(request, response) { const result = await postponePlacementDrive(request.params.id, request.user._id, request.body.reason); return sendSuccess(response, { message: result.alreadyChanged ? 'Placement Drive is already postponed.' : 'Placement Drive postponed.', data: { drive: toPlacementDriveResponse(result.drive), notificationsCreated: result.notificationsCreated, alreadyChanged: result.alreadyChanged } }) }
 export async function completeAdminDrive(request, response) { const result = await completePlacementDrive(request.params.id, request.user._id, request.body.reason); return sendSuccess(response, { message: result.alreadyChanged ? 'Placement Drive is already closed.' : 'Placement Drive closed.', data: { drive: toPlacementDriveResponse(result.drive), notificationsCreated: result.notificationsCreated, alreadyChanged: result.alreadyChanged } }) }
 export async function cancelAdminDrive(request, response) { const result = await cancelPlacementDrive(request.params.id, request.user._id, request.body.reason); return sendSuccess(response, { message: result.alreadyChanged ? 'Placement Drive is already cancelled.' : 'Placement Drive cancelled.', data: { drive: toPlacementDriveResponse(result.drive), notificationsCreated: result.notificationsCreated, alreadyChanged: result.alreadyChanged } }) }
-export async function downloadAdminDriveDocument(request, response) { const file = await getPlacementDriveDocumentForAdmin(request.params.id, request.params.type); return response.download(file.storagePath, file.originalName) }
+export async function downloadAdminDriveDocument(request, response) { const file = await getPlacementDriveDocumentForAdmin(request.params.id, request.params.type); return sendPdfDownload(response, file, DRIVE_PDF_CATEGORIES[request.params.type]) }

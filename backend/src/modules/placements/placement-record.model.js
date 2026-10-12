@@ -1,7 +1,9 @@
+import { pdfStorageReference } from '../../storage/pdf-metadata.js'
 import mongoose from 'mongoose'
 import { PLACEMENT_OUTCOME_TYPES, PLACEMENT_VERIFICATION_STATES } from './placement-record.constants.js'
 
 const proofMetadataSchema = new mongoose.Schema({
+  storageReference: pdfStorageReference('placement-proof'),
   originalName: { type: String, trim: true, maxlength: 255 },
   storagePath: { type: String, trim: true, maxlength: 1000 },
   mimeType: { type: String, trim: true, maxlength: 120 },

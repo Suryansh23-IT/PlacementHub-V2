@@ -1,4 +1,4 @@
-import { readFile, unlink } from 'node:fs/promises'
+import { ACADEMIC_PDF_CATEGORIES, persistPdfUpload, validatePdfUpload } from '../../storage/pdf-storage.js'
 import { isDeepStrictEqual } from 'node:util'
 import { AppError } from '../../errors/app-error.js'
 import { USER_ROLES } from '../auth/auth.constants.js'
@@ -14,6 +14,9 @@ import { createPlacementWorkbookExport } from '../recruitment/recruitment-export
 import { createNotifications } from '../notifications/notification.service.js'
 import { Notification } from '../notifications/notification.model.js'
 import { randomUUID } from 'node:crypto'
+import path from 'node:path'
+import { env } from '../../config/env.js'
+import { getResumeStorage } from './resume-storage.js'
 
 const VERIFICATION_STATUS = Object.freeze({ PENDING: 'pending', VERIFIED: 'verified', REJECTED: 'rejected' })
 
@@ -54,23 +57,31 @@ export async function updateStudentProfile(userId, input, { profileModel = Stude
   return profileModel.findOneAndUpdate({ userId }, { $set: update }, { new: true, runValidators: true })
 }
 
-export async function saveAcademicMarksheet(userId, type, file, { profileModel = StudentProfile } = {}) {
+export async function saveAcademicMarksheet(userId, type, file, dependencies = {}) {
   if (!file) throw new AppError('Attach a PDF document to upload.', { statusCode: 422, errorCode: 'VALIDATION_ERROR' })
-  const contents = await readFile(file.path).catch(() => null)
-  if (!contents?.subarray(0, 5).equals(Buffer.from('%PDF-'))) { await unlink(file.path).catch(() => undefined); throw new AppError('The uploaded file is not a valid PDF document.', { statusCode: 422, errorCode: 'VALIDATION_ERROR' }) }
-  const profile = await ensureStudentProfile(userId, { profileModel })
-  const document = { originalName: file.originalname, storagePath: file.path, mimeType: file.mimetype, size: file.size, uploadedAt: new Date() }
-  const previous = type === 'collegeResult' ? profile.collegeResult?.storagePath : profile[type]?.marksheet?.storagePath
-  if (type === 'collegeResult') {
-    profile.collegeResult = document
-    revokeVerificationForMaterialChange(profile)
-  } else {
-    profile[type] ??= {}
-    profile[type].marksheet = document
-  }
-  try { await profile.save() } catch (error) { await unlink(file.path).catch(() => undefined); throw error }
-  if (previous && previous !== file.path) await unlink(previous).catch(() => undefined)
-  return profile
+  validatePdfUpload(file, 'The uploaded file is not a valid PDF document.', dependencies.maxFileSize)
+  const category = ACADEMIC_PDF_CATEGORIES[type]
+  if (!category) throw new AppError('Invalid document type.', { statusCode: 422, errorCode: 'VALIDATION_ERROR' })
+  const profile = await ensureStudentProfile(userId, dependencies)
+  const previous = type === 'collegeResult' ? profile.collegeResult : profile[type]?.marksheet
+  const review = { verificationStatus: profile.verificationStatus, reviewedBy: profile.reviewedBy, reviewedAt: profile.reviewedAt, rejectionReason: profile.rejectionReason }
+  return persistPdfUpload(file, category, previous, async document => {
+    if (type === 'collegeResult') {
+      profile.collegeResult = document
+      revokeVerificationForMaterialChange(profile)
+    } else {
+      profile[type] ??= {}
+      profile[type].marksheet = document
+    }
+    try { await profile.save() }
+    catch (error) {
+      if (type === 'collegeResult') profile.collegeResult = previous
+      else profile[type].marksheet = previous
+      Object.assign(profile, review)
+      throw error
+    }
+    return profile
+  }, dependencies)
 }
 export async function getAcademicMarksheet(userId, type, dependencies = {}) { const profile = await getStudentProfile(userId, dependencies); const document = type === 'collegeResult' ? profile.collegeResult : profile[type]?.marksheet; if (!document) throw new AppError('No document has been uploaded yet.', { statusCode: 404, errorCode: 'NOT_FOUND' }); return document }
 
@@ -81,39 +92,38 @@ export async function getStudentDocumentForAdmin(studentId, type, { userModel = 
   return getAcademicMarksheet(student._id, type, { profileModel })
 }
 
-export async function saveResume(userId, file, { profileModel = StudentProfile } = {}) {
+export async function saveResume(userId, file, { profileModel = StudentProfile, resumeStorage, maxFileSize = env.RESUME_MAX_FILE_SIZE_BYTES, onCleanupFailure = () => console.warn('Resume file cleanup failed.') } = {}) {
   if (!file) {
     throw new AppError('Attach a PDF resume to upload.', { statusCode: 422, errorCode: 'VALIDATION_ERROR' })
   }
 
-  const contents = await readFile(file.path).catch(() => null)
-  if (!contents?.subarray(0, 5).equals(Buffer.from('%PDF-'))) {
-    await unlink(file.path).catch(() => undefined)
+  const contents = file.buffer
+  if (!Buffer.isBuffer(contents) || !contents.length || contents.length > maxFileSize || file.mimetype !== 'application/pdf' || path.extname(file.originalname ?? '').toLowerCase() !== '.pdf' || !contents.subarray(0, 5).equals(Buffer.from('%PDF-'))) {
     throw new AppError('The uploaded file is not a valid PDF resume.', { statusCode: 422, errorCode: 'VALIDATION_ERROR' })
   }
 
   const profile = await ensureStudentProfile(userId, { profileModel })
   const previousResume = profile.resume
-  const previousPath = previousResume?.storagePath
-  profile.resume = {
+  const storage = resumeStorage ?? getResumeStorage()
+  const stored = await storage.store({ buffer: contents, mimeType: file.mimetype })
+  const replacement = {
     originalName: file.originalname,
-    storagePath: file.path,
+    ...stored,
     mimeType: file.mimetype,
-    size: file.size,
+    size: contents.length,
     uploadedAt: new Date(),
   }
   // Resume improvements do not change the academic verification decision.
   try {
+    profile.resume = replacement
     await profile.save()
   } catch (error) {
     profile.resume = previousResume
-    await unlink(file.path).catch(() => undefined)
+    await storage.remove(replacement).catch(() => { try { onCleanupFailure() } catch { /* Cleanup reporting cannot mask save failure. */ } })
     throw error
   }
 
-  if (previousPath && previousPath !== file.path) {
-    await unlink(previousPath).catch(() => undefined)
-  }
+  if (previousResume?.storagePath || previousResume?.storageReference) await storage.remove(previousResume).catch(() => { try { onCleanupFailure() } catch { /* Committed replacement remains valid. */ } })
   return profile
 }
 
@@ -144,9 +154,9 @@ export async function exploreStudents(filters, { profileModel = StudentProfile, 
   const text = filters.search?.toLowerCase(); if (text) rows = rows.filter(row => [row.name, row.email, row.rollNumber].some(value => value.toLowerCase().includes(text)))
   for (const [key, value] of Object.entries({ branch: filters.branch, graduationYear: filters.graduationYear ?? filters.batch, verificationStatus: filters.verificationStatus, companyId: filters.company, driveId: filters.drive, currentPhase: filters.phase, applicationStatus: filters.applicationStatus })) if (value != null && value !== '') rows = rows.filter(row => String(row[key]) === String(value))
   if (filters.minCpi != null) rows = rows.filter(row => row.cgpa >= filters.minCpi); if (filters.maxCpi != null) rows = rows.filter(row => row.cgpa <= filters.maxCpi); if (filters.backlog === 'zero') rows = rows.filter(row => row.activeBacklogs === 0); if (filters.backlog === 'has_backlog') rows = rows.filter(row => row.activeBacklogs > 0)
-  if (filters.collegeEligibility) rows = rows.filter(row => row.collegeEligibility === filters.collegeEligibility); if (filters.placementStatus === 'placed') rows = rows.filter(row => row.placementStatus.startsWith('placed_')); else if (filters.placementStatus === 'offer_received') rows = rows.filter(row => row.offerStatus === 'offer_received'); else if (filters.placementStatus === 'confirmation_pending') rows = rows.filter(row => row.confirmationStatus === 'pending_admin_verification'); else if (filters.placementStatus === 'unplaced') rows = rows.filter(row => !row.placementStatus.startsWith('placed_') && row.placementStatus !== 'confirmation_pending' && row.placementStatus !== 'offer_received'); else if (filters.placementStatus) rows = rows.filter(row => row.placementStatus === filters.placementStatus); if (filters.outcomeType) rows = rows.filter(row => row.placementRecords.some(record => record.outcomeType === filters.outcomeType)); if (filters.placementSource) rows = rows.filter(row => row.placementRecords.some(record => record.placementSource === filters.placementSource)); rows = rows.map(({ placementRecords, ...row }) => row)
+  if (filters.collegeEligibility) rows = rows.filter(row => row.collegeEligibility === filters.collegeEligibility); if (filters.placementStatus === 'placed') rows = rows.filter(row => row.placementStatus.startsWith('placed_')); else if (filters.placementStatus === 'offer_received') rows = rows.filter(row => row.offerStatus === 'offer_received'); else if (filters.placementStatus === 'confirmation_pending') rows = rows.filter(row => row.confirmationStatus === 'pending_admin_verification'); else if (filters.placementStatus === 'unplaced') rows = rows.filter(row => !row.placementStatus.startsWith('placed_') && row.placementStatus !== 'confirmation_pending' && row.placementStatus !== 'offer_received'); else if (filters.placementStatus === 'unplaced_eligible') rows = rows.filter(row => row.collegeEligibility === 'eligible' && !row.placementStatus.startsWith('placed_')); else if (filters.placementStatus) rows = rows.filter(row => row.placementStatus === filters.placementStatus); if (filters.outcomeType) rows = rows.filter(row => row.placementRecords.some(record => record.outcomeType === filters.outcomeType)); if (filters.placementSource) rows = rows.filter(row => row.placementRecords.some(record => record.placementSource === filters.placementSource)); rows = rows.map(({ placementRecords, ...row }) => row)
   const direction = filters.sortOrder === 'desc' ? -1 : 1; const field = { cgpa: 'cgpa', branch: 'branch', activity: 'activityAt', placement_status: 'placementStatus' }[filters.sortBy] ?? 'name'; rows.sort((left, right) => (String(left[field] ?? '').localeCompare(String(right[field] ?? '')) * direction) || left.id.localeCompare(right.id))
-  const totalRecords = rows.length; const page = filters.page ?? 1; const limit = filters.limit ?? 50; const start = (page - 1) * limit; const groupSummary = filters.groupBy === 'branch' ? Object.values(rows.reduce((result, row) => { const item = result[row.branch] ?? { branch: row.branch, count: 0, placed: 0, unplacedEligible: 0, ineligible: 0 }; item.count += 1; if (row.placementStatus.startsWith('placed_')) item.placed += 1; if (row.placementStatus === 'unplaced_eligible') item.unplacedEligible += 1; if (row.collegeEligibility === 'ineligible') item.ineligible += 1; result[row.branch] = item; return result }, {})).sort((left, right) => left.branch.localeCompare(right.branch)) : undefined; return { records: rows.slice(start, start + limit), page, limit, totalRecords, totalPages: Math.max(1, Math.ceil(totalRecords / limit)), appliedFilters: filters, groupSummary }
+  const totalRecords = rows.length; const page = filters.page ?? 1; const limit = filters.limit ?? 50; const start = (page - 1) * limit; const groupSummary = filters.groupBy === 'branch' ? Object.values(rows.reduce((result, row) => { const item = result[row.branch] ?? { branch: row.branch, count: 0, placed: 0, unplacedEligible: 0, ineligible: 0 }; item.count += 1; if (row.placementStatus.startsWith('placed_')) item.placed += 1; if (row.collegeEligibility === 'eligible' && !row.placementStatus.startsWith('placed_')) item.unplacedEligible += 1; if (row.collegeEligibility === 'ineligible') item.ineligible += 1; result[row.branch] = item; return result }, {})).sort((left, right) => left.branch.localeCompare(right.branch)) : undefined; return { records: rows.slice(start, start + limit), page, limit, totalRecords, totalPages: Math.max(1, Math.ceil(totalRecords / limit)), appliedFilters: filters, groupSummary }
 }
 
 export async function resolveStudentExplorerRecipients(input, dependencies = {}) {
@@ -298,6 +308,15 @@ function toComparable(value, field) {
     const { board, schoolName, passingYear, score } = plainValue ?? {}
     return { board: board ?? null, schoolName: schoolName ?? null, passingYear: passingYear ?? null, score: score ?? null }
   }
+  const rowFields = {
+    semesterSpis: ['semester', 'spi'],
+    skillGroups: ['name', 'skills'],
+    projects: ['title', 'description', 'technologies', 'url'],
+  }
+  if (rowFields[field]) return Array.from(plainValue ?? [], row => {
+    const plainRow = row?.toObject ? row.toObject() : row
+    return Object.fromEntries(rowFields[field].map(key => [key, plainRow[key] === '' ? null : plainRow[key] ?? null]))
+  })
   return JSON.parse(JSON.stringify(plainValue ?? null))
 }
 

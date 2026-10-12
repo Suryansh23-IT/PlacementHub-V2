@@ -66,3 +66,13 @@ export function adminContext(facts) {
   evidence.push({id:'outcomes',type:'analytics',data:facts.outcomes??[]})
   return {kind:'professional',scope:facts.scope,evidence,limitations:facts.limitations,coverage:{branchesIncluded:Math.min(20,facts.branches.length),branchesTotal:facts.branches.length,companiesIncluded:Math.min(8,facts.companies.length),companiesTotal:facts.companies.length,drivesIncluded:Math.min(10,facts.drives.length),drivesTotal:facts.drives.length}}
 }
+
+// Generate is a concise placement overview. Detailed phases/skills/trends remain in Ask.
+export function adminInsightContext(facts) {
+  const context=adminContext(facts)
+  const companies=context.evidence.filter(row=>row.id.startsWith('company:')).slice(0,4)
+  const allowed=new Set(['summary','packages','recruitment','funnel','operations','outcomes',...companies.map(row=>row.id)])
+  return {...context,evidence:context.evidence.filter(row=>allowed.has(row.id)||row.id.startsWith('branch:')),
+    coverage:{...context.coverage,companiesIncluded:companies.length,drivesIncluded:0},
+    limitations:[...context.limitations,'This overview omits detailed drive phases, skills and trends. No branch-specific active-drive metric is supplied.']}
+}

@@ -1,4 +1,5 @@
-import { readFile, unlink } from 'node:fs/promises'
+import { persistPdfUpload, validatePdfUpload, publicPdfMetadata } from '../../storage/pdf-storage.js'
+import { publicResumeMetadata } from '../students/resume-storage.js'
 import { AppError } from '../../errors/app-error.js'
 import { Application } from '../applications/application.model.js'
 import { Company } from '../companies/company.model.js'
@@ -36,8 +37,7 @@ function publicExecution(entry) {
   const value = plain(entry)
   const { instructionPdf, ...safe } = value
   if (!instructionPdf) return safe
-  const { storagePath, ...pdf } = plain(instructionPdf)
-  return { ...safe, instructionPdf: pdf }
+  return { ...safe, instructionPdf: publicPdfMetadata(instructionPdf) }
 }
 
 function publicWorkspaceDrive(drive) {
@@ -50,9 +50,9 @@ async function candidateSummary(application, driveId, { userModel = User, profil
   const [user, profile] = await Promise.all([userModel.findOne({ _id: value.studentId, role: 'student' }), profileModel.findOne({ userId: value.studentId })])
   if (!user || !profile) return null
   const student = plain(user); const details = plain(profile)
-  const resume = details.resume ? (() => { const { storagePath, ...metadata } = plain(details.resume); return { ...metadata, downloadUrl: `/api/v1/companies/me/placement-drives/${driveId}/applicants/${value.studentId}/resume/download` } })() : undefined
+  const resume = details.resume ? { ...publicResumeMetadata(details.resume), downloadUrl: `/api/v1/companies/me/placement-drives/${driveId}/applicants/${value.studentId}/resume/download` } : undefined
   const record = plain(placementRecord)
-  const selection = !record ? { state: 'selected_report_not_submitted', label: 'Selected — report not submitted' } : record.verificationState === 'pending_admin_verification' ? { state: 'confirmation_pending', label: 'Confirmation Pending' } : record.verificationState === 'confirmed' ? { state: 'placement_confirmed', label: 'Placement Confirmed' } : { state: record.verificationState, label: record.verificationState === 'revoked' ? 'Placement Revoked' : 'Report Rejected' }
+  const selection = !record ? value.currentStatus === 'selected_pending_confirmation' ? { state: 'selected_report_not_submitted', label: 'Selected — report not submitted' } : {} : record.verificationState === 'pending_admin_verification' ? { state: 'confirmation_pending', label: 'Confirmation Pending' } : record.verificationState === 'confirmed' ? { state: 'placement_confirmed', label: 'Placement Confirmed' } : { state: record.verificationState, label: record.verificationState === 'revoked' ? 'Placement Revoked' : 'Report Rejected' }
   return { applicationId: value._id, studentId: value.studentId, currentPhase: value.currentPhase, currentStatus: value.currentStatus, appliedAt: value.appliedAt, selection: { ...selection, outcomeType: record?.outcomeType, package: record?.package?.amount, packagePeriod: record?.package?.period, studentReportedAt: record?.studentReportedAt, adminVerifiedAt: record?.adminVerifiedAt }, student: { name: student.name, rollNumber: details.rollNumber, branch: details.branch, cgpa: details.cgpa, activeBacklogs: details.activeBacklogs, graduationYear: details.graduationYear, resume } }
 }
 
@@ -160,16 +160,18 @@ export async function updateCompanyPhaseExecution(companyUserId, driveId, phaseN
 
 export async function saveCompanyPhaseInstructionPdf(companyUserId, driveId, phaseNumber, file, dependencies = {}) {
   if (!file) throw invalid('Attach an instruction PDF.')
-  const bytes = await readFile(file.path).catch(() => null)
-  if (!bytes?.subarray(0, 5).equals(Buffer.from('%PDF-'))) { await unlink(file.path).catch(() => {}); throw invalid('The uploaded file is not a valid PDF.') }
-  try {
-    const { drive } = await getCompanyRecruitmentDrive(companyUserId, driveId, dependencies)
-    const current = phaseExecutionFor(drive, phaseNumber)
-    const previous = current?.instructionPdf?.storagePath
-    const execution = await updateCompanyPhaseExecution(companyUserId, driveId, phaseNumber, { instructionPdf: { originalName: file.originalname, storagePath: file.path, mimeType: file.mimetype, size: file.size, uploadedAt: new Date() } }, dependencies)
-    if (previous && previous !== file.path) await unlink(previous).catch(() => {})
-    return execution
-  } catch (error) { await unlink(file.path).catch(() => {}); throw error }
+  validatePdfUpload(file, 'The uploaded file is not a valid PDF.', dependencies.maxFileSize)
+  const { drive } = await getCompanyRecruitmentDrive(companyUserId, driveId, dependencies)
+  const current = phaseExecutionFor(drive, phaseNumber)
+  const previousEntries = drive.phaseExecution
+  return persistPdfUpload(file, 'phase-instruction', current?.instructionPdf, async metadata => {
+    const entries = (drive.phaseExecution ?? []).filter(entry => entry.phaseNumber !== phaseNumber).map(plain)
+    entries.push({ ...(plain(current) ?? { phaseNumber, status: 'unscheduled', resources: [] }), instructionPdf: metadata })
+    entries.sort((left, right) => left.phaseNumber - right.phaseNumber)
+    try { assign(drive, { phaseExecution: entries }); await drive.save() }
+    catch (error) { assign(drive, { phaseExecution: previousEntries }); throw error }
+    return publicExecution((drive.phaseExecution ?? []).find(entry => entry.phaseNumber === phaseNumber))
+  }, dependencies)
 }
 
 export async function getCompanyPhaseInstructionPdf(companyUserId, driveId, phaseNumber, dependencies = {}) {

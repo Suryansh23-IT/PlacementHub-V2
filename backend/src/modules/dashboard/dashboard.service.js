@@ -6,6 +6,7 @@ import { Notification } from '../notifications/notification.model.js'
 import { PLACEMENT_DRIVE_LIFECYCLE_STATUSES, PLACEMENT_DRIVE_PROPOSAL_STATUSES } from '../placement-drives/placement-drive.constants.js'
 import { PlacementDrive } from '../placement-drives/placement-drive.model.js'
 import { evaluatePlacementDriveEligibility } from '../applications/application.service.js'
+import { PlacementRecord } from '../placements/placement-record.model.js'
 import { StudentProfile } from '../students/student.model.js'
 
 const publishedQuery = { proposalStatus: PLACEMENT_DRIVE_PROPOSAL_STATUSES.APPROVED, lifecycleStatus: PLACEMENT_DRIVE_LIFECYCLE_STATUSES.PUBLISHED }
@@ -17,7 +18,7 @@ export async function getStudentDashboardSummary(studentId, {
   placementDriveModel = PlacementDrive, applicationModel = Application, notificationModel = Notification, eligibilityService = evaluatePlacementDriveEligibility, ...dependencies
 } = {}) {
   const drives = await placementDriveModel.find(publishedQuery).select('_id')
-  const eligibility = await Promise.all(drives.map(drive => eligibilityService(studentId, drive._id, dependencies)))
+  const eligibility = await Promise.all(drives.map(drive => eligibilityService(studentId, drive._id, { ...dependencies, placementRecordModel: dependencies.placementRecordModel ?? PlacementRecord, enforceConfirmedPlacementLock: true })))
   const [activeApplications, unreadNotifications] = await Promise.all([
     applicationModel.countDocuments({ studentId, ...activeApplicationQuery }),
     countUnread(studentId, notificationModel),

@@ -1,3 +1,4 @@
+import { imageStorageReference } from '../../storage/image-metadata.js'
 import mongoose from 'mongoose'
 const tags = { type: [String], default: undefined }
 const socialProfileSchema = new mongoose.Schema({
@@ -9,6 +10,6 @@ const socialProfileSchema = new mongoose.Schema({
   links: { linkedin: String, github: String, portfolio: String, codingProfile: String },
   companyName: String, industry: String, location: String, website: String, hiringDomains: tags,
   representativeName: String, designation: String, publicEmail: String, publicPhone: String, representativeNote: String,
-  avatar: { filename: String, mimeType: String, size: Number },
+  avatar: { filename: String, mimeType: String, size: Number, storageReference: imageStorageReference('profile-avatar') },
 }, { timestamps: true })
 export const SocialProfile = mongoose.models.SocialProfile ?? mongoose.model('SocialProfile', socialProfileSchema)

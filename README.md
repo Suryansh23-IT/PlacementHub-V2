@@ -1,22 +1,34 @@
 <div align="center">
 
-# PlacementHub
+# PlacementHub-V2
 
 ### From professional profiles to verified placement outcomes.
 
-A full-stack placement platform for one college, three roles, and the complete recruitment journey.
+A MERN placement-management platform for one college, three roles, and the complete recruitment journey.
+
+**[Live Frontend](https://placement-hub-v2.vercel.app) · [Backend](https://placementhub-v2.onrender.com) · [API Health](https://placementhub-v2.onrender.com/api/v1/health)**
 
 <p>
-  <img src="https://img.shields.io/badge/Stack-MERN-0B2158?style=flat-square" alt="MERN stack" />
-  <img src="https://img.shields.io/badge/Cycle-2027_Current-2563EB?style=flat-square" alt="2027 current cycle" />
-  <img src="https://img.shields.io/badge/M0%E2%80%93M10-Complete-15803D?style=flat-square" alt="M0 through M10 complete" />
-  <img src="https://img.shields.io/badge/M11-Pending-64748B?style=flat-square" alt="M11 pending" />
-  <img src="https://img.shields.io/badge/AI-Local_Ollama-0B2158?style=flat-square" alt="Local AI" />
+  <img src="https://img.shields.io/badge/React-19-2563EB?style=flat-square&logo=react&logoColor=white" alt="React 19" />
+  <img src="https://img.shields.io/badge/Vite-8-2563EB?style=flat-square&logo=vite&logoColor=white" alt="Vite 8" />
+  <img src="https://img.shields.io/badge/Node.js-24-334155?style=flat-square&logo=nodedotjs&logoColor=white" alt="Node.js 24" />
+  <img src="https://img.shields.io/badge/Express-5-334155?style=flat-square&logo=express&logoColor=white" alt="Express 5" />
+  <img src="https://img.shields.io/badge/MongoDB-Atlas-334155?style=flat-square&logo=mongodb&logoColor=white" alt="MongoDB Atlas" />
+  <img src="https://img.shields.io/badge/Supabase-Private_Storage-334155?style=flat-square&logo=supabase&logoColor=white" alt="Supabase private storage" />
+  <br />
+  <img src="https://img.shields.io/badge/Vercel-Frontend-334155?style=flat-square&logo=vercel&logoColor=white" alt="Vercel frontend" />
+  <img src="https://img.shields.io/badge/Render-Backend-334155?style=flat-square&logo=render&logoColor=white" alt="Render backend" />
+  <img src="https://img.shields.io/badge/Ollama-Local_AI-334155?style=flat-square&logo=ollama&logoColor=white" alt="Ollama local AI" />
+  <img src="https://img.shields.io/badge/M0%E2%80%93M11-Complete-15803D?style=flat-square" alt="M0 through M11 functionally complete" />
 </p>
 
-[Explore the product](#key-capabilities) · [AI intelligence](#ai-intelligence) · [Run locally](#local-setup) · [Documentation](#documentation)
+<img src="frontend/public/images/public/placementhub-campus-hero.png" alt="PlacementHub campus-themed landing-page artwork" width="880" />
 
-**2027 Current** &nbsp; / &nbsp; **2026 Historical** &nbsp; / &nbsp; **Public deployment pending**
+*Existing landing-page artwork; not a dashboard screenshot.*
+
+**2027-only production · Private documents · Local advisory AI**
+
+[Features](#role-experiences) · [Architecture](#system-architecture) · [Acceptance](#final-live-acceptance) · [Run Locally](#run-locally) · [Documentation](#documentation)
 
 </div>
 
@@ -24,221 +36,237 @@ A full-stack placement platform for one college, three roles, and the complete r
 
 ## Overview
 
-PlacementHub-V2 brings Student preparation, Company recruitment, and Placement Admin oversight into one MERN application. Verified profiles, approved drives, rule-based eligibility, applications, recruitment phases, confirmed outcomes, and reports share one connected workflow—with contextual local AI alongside it.
+PlacementHub-V2 connects Student preparation, Company recruitment and Placement Admin oversight. Verified profiles, approved drives, deterministic eligibility, applications, recruitment phases, confirmed outcomes and reporting share one authorized workflow.
 
-Built as a final-year college project, the platform is complete through **M10**, including Student, Company, and Admin intelligence plus runtime recovery. **M11 has not started.** Final QA, visual polish, production readiness, and public deployment remain ahead.
-
-## Why PlacementHub
-
-Placement work spans resumes, approvals, applicant lists, phase updates, and reports. PlacementHub connects those records so each role works from the same recruitment state, with clear ownership and authorized access.
-
-| Need | PlacementHub approach |
-| :--- | :--- |
-| Prepare Students for recruitment | Professional profiles, resumes, verification, and preparation guidance |
-| Keep applications consistent | Backend eligibility rules with readable reasons; AI never overrides Apply |
-| Track recruitment progress | Company phases, scoped resources, progress history, and verified outcomes |
-| Understand placement performance | Trusted analytics, Excel reports, and grounded Admin insights |
-| Preserve historical records | Separate backend runtimes and databases for each placement cycle |
-
-## Key capabilities
-
-| Area | Implemented experience |
-| :--- | :--- |
-| **Identity & access** | Student, Company, Placement Admin; authentication, role and ownership checks |
-| **Profiles & resumes** | Skills, projects, experience, credentials, professional links, PDF resumes, verification |
-| **Placement drives** | Proposals, approval, publication, structured requirements, documents, lifecycle controls |
-| **Applications & recruitment** | Eligibility, Phase 0 screening, Company phases, provisional selection, confirmed outcomes |
-| **Resources & communication** | Schedules, instructions, authorized attachments, targeted notifications |
-| **Community** | Feed, Articles, social profiles, showcases, likes, comments, moderation |
-| **Analytics & exports** | Role dashboards, branch/company performance, drive monitoring, funnels, Excel reports |
-| **Local intelligence** | Career preparation, role fit, candidate review, placement insights, contextual Ask AI |
+**M0–M11 functionality is complete and deployed.** The core live end-to-end workflow passed successfully. A known Vercel nested-route refresh/direct-access limitation remains documented below; this is not a claim of zero-defect production acceptance.
 
 ## Role experiences
 
 | Student | Company | Placement Admin |
 | :--- | :--- | :--- |
-| Build a profile and upload a resume | Maintain an approved Company profile | Verify Students and approve Companies |
-| Browse drives and inspect eligibility | Propose drives and recruitment phases | Review proposals and publish drives |
-| Apply and follow recruitment progress | Explore applicants and manage phases | Monitor drives, outcomes, and performance |
-| Access phase resources and notifications | Share resources and notify applicants | Confirm placement records and export reports |
-| Use Career AI and Drive AI | Use objective matching, candidate AI, small batches, group questions | Generate insights, ask analytics questions, recover AI runtime |
+| Register/login; build a professional profile with academics, skills and projects | Register/login; complete Company profile, policy acceptance and Admin approval | Verify Students, approve Companies and maintain institution/placement oversight |
+| Upload resume/documents; accept policy; complete verification | Create drive proposals, eligibility criteria and recruitment phases | Approve and publish drives; monitor recruitment and placement outcomes |
+| Browse drives, inspect deterministic eligibility and apply | Explore candidates, inspect applicant profiles and access authorized resumes | Use dashboards, analytics, reports and Excel exports |
+| Follow Recruitment Journey, instructions, PDFs and notifications | Review objective match scores, advance candidates and send scoped notifications | Search Students by name, Group by Branch and filter candidate pools |
+| Participate in Community posts, articles, profiles, likes and comments | Share professional Community content and receive notifications | Participate in Community and apply ownership/moderation rules |
+| Local Career AI and Drive AI | Local Candidate AI and bounded comparisons | Local Placement AI insights and grounded data questions |
 
-A verified Student can replace a resume **without losing verification or requiring re-verification**. Resume-dependent AI context updates independently of unrelated professional inputs.
+**Rules stay authoritative:** AI never determines eligibility, applies for a Student, advances a candidate or confirms a placement. Community activity does not affect professional scoring. Production AI areas display **Coming Soon** while deterministic features remain available.
 
-## Placement workflow
-
-```mermaid
-flowchart LR
-    A[Propose and publish] --> B[Check eligibility and apply]
-    B --> C[Screen and recruit]
-    C --> D[Submit proof and confirm outcome]
-    D --> E[Track and report]
-```
-
-Companies define **1–5 recruitment phases**; Phase 0 is system-owned. Postponement, cancellation, and completion preserve records and history. Authorized people and backend rules control recruitment transitions and confirmed outcomes.
-
-## Community & notifications
-
-The current cycle includes **Feed, Articles, Profiles, and Notifications** with ownership/moderation rules and professional showcases. Recruitment notifications carry drive and phase context; Community notifications remain a separate domain.
-
-**Social activity never contributes to professional AI scoring or candidate ranking.**
-
-## Analytics & reporting
-
-Students see their placement journey, Companies see their drives and applicants, and Placement Admins see institutional performance.
-
-| Trusted analytics | Operational reporting |
-| :--- | :--- |
-| Eligible, placed, and unplaced Students | Drive history and monitoring |
-| Branch rates and Company performance | Applications, phases, exits, confirmed outcomes |
-| Package statistics and activity trends | Filters, scoped candidate pools, Excel exports |
-
-Admin AI explains backend facts. It cannot query MongoDB or change placement records. Offer-record counts and unique placed-Student counts retain their distinct reporting meanings.
-
-## AI intelligence
-
-**Ollama + `qwen3.5:4b`**, running locally in non-thinking mode, powers the current implementation. Inference stays behind the backend; the frontend never calls the model directly. A generic provider boundary supports future integration, with **no automatic external fallback**.
-
-| Feature | Instant trusted layer | Explicit AI layer |
-| :--- | :--- | :--- |
-| **Student Career** | Objective Profile Score with earned/max dimensions | Independent AI Assessment and profile/resume preparation advice |
-| **Student Drive** | Objective Match from documented requirements | Independent AI Role Fit and preparation questions |
-| **Company Candidate** | Fast objective matching across authorized applicants | Individual fit, serial batches, interviewer focus, bounded group comparisons |
-| **Admin Placement** | Aggregate analytics and exact fact answers | Placement insights and operational recommendations; no Admin AI score |
-
-### Grounded advice, separate decisions
+## System architecture
 
 ```mermaid
 flowchart TB
-    A[Authorized professional evidence or aggregate facts] --> B[Allowlisted context and deterministic facts]
-    B --> C[Shared gate and local Ollama]
-    C --> D[Zod and evidence validation]
-    D --> E[Scoped results in existing role interfaces]
+    USERS["Student / Company / Placement Admin"]
+    subgraph PROD["Production · 2027 only"]
+        WEB["React + Vite Frontend · Vercel"]
+        API["Node.js + Express API · Render"]
+        DB[("MongoDB Atlas")]
+        FILES["Supabase Private Storage"]
+        OFF["AI disabled · Coming Soon"]
+        WEB -->|"HTTPS API requests"| API
+        API --> DB
+        API -->|"Authorized file reads and writes"| FILES
+        API -.-> OFF
+    end
+    subgraph LOCAL["Local development · 2026 + 2027"]
+        DEV["Cycle-aware React Frontend"]
+        OLD["2026 Express + MongoDB · archive"]
+        CURRENT["2027 Express + MongoDB + local files"]
+        AI["Local Ollama · qwen3.5:4b"]
+        DEV --> OLD
+        DEV --> CURRENT
+        CURRENT -->|"Optional advisory inference"| AI
+    end
+    USERS --> WEB
+    USERS --> DEV
+    classDef production fill:#eff6ff,stroke:#2563eb,color:#0f172a;
+    classDef local fill:#f8fafc,stroke:#64748b,color:#0f172a;
+    class WEB,API,DB,FILES,OFF production;
+    class DEV,OLD,CURRENT,AI local;
 ```
 
-- **Independent scores:** objective and AI assessments are separate. No weighted combined score; eligibility and Apply remain authoritative.
-- **Actual resume evidence:** backend PDF extraction provides bounded professional text when available. Unreadable/scanned PDFs fall back gracefully; no OCR or unsupported ATS/layout claims.
-- **Professional context only:** gender, photos, MBTI/personality, hobbies, Community activity, and private contact details are excluded. Missing evidence means **not documented**, not proof of inability.
-- **Useful general knowledge:** technical learning and preparation suggestions are allowed. Person- and Company-specific claims must be grounded in supplied evidence.
-- **Manual analysis:** Generate/Refresh retains prior success, shows timestamps, and marks relevant changes stale. Reloads do not start inference.
-- **Latest answer only:** Ask AI replaces the previous question/answer. No chat-history database or accumulating conversation.
+The Express backend owns authorization and business rules; MongoDB stores application records. Supabase stores private PDFs and images in `placementhub-2027`. Protected files travel through authenticated backend routes after domain authorization—no public raw storage URLs, provider keys or internal storage references are exposed to clients.
 
-### Runtime safety & result retention
+The backend is a modular monolith with domain routes, controllers, services, Zod validation and Mongoose models. Frontend pages compose features and call API services. Local AI is mediated by the **2027 backend**, not called directly by the browser or the archived runtime.
 
-| Safeguard | Current behavior |
-| :--- | :--- |
-| **One shared generation** | `AI_MAX_CONCURRENT=1` across Student, Company, and Admin |
-| **Busy handling** | Other individual requests require retry; identical work may coalesce or use cache |
-| **Company batches** | Explicit, sequential; default 4 candidates, local hard cap 5; no automatic cohort scan |
-| **Group context** | Retrieve a small relevant set and send compact evidence, not every full resume |
-| **Timeout & recovery** | 180-second deadline, independent 1-second recovery grace, abort signals, epoch protection |
-| **Admin recovery** | Confirmed reset cancels active/pending work without deleting successful results |
-| **Durable Admin insights** | Latest insight survives reload, login, and backend restart in the 2027 database |
-| **Student/Company assessments** | Scoped memory results survive reload and recovery; expire after 24 hours or backend restart |
+## End-to-end placement journey
 
-Local CPU inference is conservative. Observed calls range from **8–21 seconds for short synthetic replies** to **about 1–2.5 minutes for richer live analyses**. Speed and wording quality depend on context and hardware. Invalid output is safely rejected; normal placement workflows remain usable without AI.
+```mermaid
+flowchart TB
+    COMPANY["New Company · Nexora Technologies Private Limited"]
+    APPROVAL["Admin approves Company"]
+    DRIVE["Create Software Engineer drive · INR 20 LPA"]
+    PUBLISH["Admin approves and publishes"]
+    ELIGIBLE["Deterministic Student eligibility"]
+    APPLY["Applications · 2 candidates"]
+    EXPLORER["Company Candidate Explorer"]
+    PHASE["Recruitment phases"]
+    ISHANT["Ishant · Phase 1 Online Assessment · Active"]
+    ANANYA["Ananya · Phase 0 Applied"]
+    NOTIFY["Scoped notifications"]
+    REPORT["Analytics / monitoring / Excel reporting"]
+    COMPANY --> APPROVAL --> DRIVE --> PUBLISH --> ELIGIBLE --> APPLY --> EXPLORER --> PHASE
+    PHASE --> ISHANT --> NOTIFY
+    PHASE --> ANANYA
+    PHASE --> REPORT
+    NOTIFY --> REPORT
+    classDef verified fill:#f0fdf4,stroke:#15803d,color:#14532d;
+    class APPLY,ISHANT,ANANYA verified;
+```
 
-[AI architecture and limitations →](docs/ai.md)
+Companies define 1–5 recruitment phases; Phase 0 is system-owned. Authorized transitions preserve application history. Selection and confirmed placement remain separate outcomes, backed by the appropriate review/proof workflow.
 
-## Placement cycles
+## Local vs production
 
-One codebase and frontend, **separate backend runtimes and databases**.
-
-| | 2027 · Current/default | 2026 · Archived/local |
+| Capability | Local | Production |
 | :--- | :--- | :--- |
-| API | `http://localhost:5001/api/v1` | `http://localhost:5000/api/v1` |
-| Database | `placementhub-v2-demo-2027` | `placementhub-v2` |
-| M10 AI | Enabled when configured | No AI UI, routes, provider, or cache initialization |
-| Purpose | Current workflows, Community, intelligence | Preserved historical records |
+| Placement cycle | 2026 archived + 2027 current | **2027 only** |
+| Frontend | Vite development server; cycle-aware sessions | React/Vite build on Vercel |
+| Backend | Separate Express runtimes: 2026 on 5000, 2027 on 5001 | Render Express API; Node 24.x |
+| Database | Separate local MongoDB databases | Atlas: `placementhub-v2-demo-2027` |
+| File storage | Existing local filesystem; legacy local metadata supported | Private Supabase Storage; no local fallback |
+| AI | Optional Ollama on the exact 2027 runtime | Disabled / Coming Soon; no Ollama process required |
+| Cycle selector | 2026/2027 switching available | Hidden; stale 2026 browser state resolves to 2027 |
 
-The AI guard checks the **exact database name**, not just a year label. Cycle selection also scopes frontend authentication sessions. Historical integrity is checked against the accepted baseline.
+The archived database remains `placementhub-v2`, independently configured and local-only. Production guards require the exact 2027 database identity and reject local storage fallback.
+
+## Final live acceptance
+
+**Core end-to-end workflow passed successfully** using a fresh fictional Company and Student alongside an existing Student.
+
+| Scenario | Verified result |
+| :--- | :--- |
+| Company | Nexora Technologies Private Limited — approved |
+| Drive / role | Software Engineer — 2027 Campus Hiring |
+| CTC / applicants | **₹20 LPA / 2** |
+| Ishant Singh · `PH27IT37` · IT | **Phase 1 — Online Assessment, Active** |
+| Ananya Rao · `AIT27CSMV4XF7IF` · CSE | **Phase 0 — Applied**, verified new Student |
+| Isolation | Advancing Ishant did not advance or send his phase update to Ananya |
+
+| Identity & approval | Placement operations | Delivery & quality |
+| :--- | :--- | :--- |
+| ✓ Registration and authentication | ✓ Eligibility and two applications | ✓ Authorized resume/private PDF access |
+| ✓ Student verification | ✓ Candidate Explorer and Recruitment Journey | ✓ Private feed-image delivery |
+| ✓ Company approval and policies | ✓ Scoped notifications and analytics | ✓ RBAC and storage-metadata privacy |
+| ✓ Drive approval and publishing | ✓ Correct two-candidate Excel export | ✓ Production AI disabled; responsive sanity |
+| ✓ Role-aware access | ✓ Company post/article; Student likes/comments | ✓ Separate candidate histories |
+
+Representative downloaded PDFs matched their uploaded bytes/SHA-256. Unauthorized requests were denied, and normal workflows remained operational with AI disabled. This was a focused live scenario, not a rerun of every historical regression suite. The routing limitation below prevented an unconditional final production acceptance verdict.
+
+## M0–M11 roadmap
+
+```mermaid
+flowchart TB
+    subgraph FOUNDATION["Foundation"]
+        direction LR
+        M0["M0 Planning"] --> M1["M1 Foundation"] --> M2["M2 Auth"] --> M3["M3 Student"]
+    end
+    subgraph PLACEMENT["Placement workflows"]
+        direction LR
+        M4["M4 Company"] --> M5["M5 Drives"] --> M6["M6 Applications"] --> M7["M7 Recruitment"]
+    end
+    subgraph DELIVERY["Insights and delivery"]
+        direction LR
+        M8["M8 Analytics"] --> M9["M9 Community"] --> M10["M10 AI"] --> M11["M11 Production"]
+    end
+    FOUNDATION --> PLACEMENT --> DELIVERY
+    classDef delivered fill:#eff6ff,stroke:#2563eb,color:#0f172a;
+    class M0,M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11 delivered;
+```
+
+<details>
+<summary><strong>Milestone deliveries — compact engineering record</strong></summary>
+
+| Milestone | Delivered |
+| :--- | :--- |
+| M0 | Planning, architecture, three-role model and roadmap |
+| M1 | MERN structure, environment validation, API foundation, routing and reusable UI states |
+| M2 | JWT authentication, protected routing, role-based access and authentication rate limits |
+| M3 | Professional/academic Student profiles, skills/projects, resumes/documents and verification |
+| M4 | Company profiles and approval, institution settings and placement policies |
+| M5 | Drive proposals/lifecycle, structured eligibility and notification foundation |
+| M6 | Deterministic eligibility, applications, discipline/restriction foundation and application workflows |
+| M7 | Recruitment phases/progression, external links, instructions/PDFs, selected-list Excel export and role-aware UI |
+| M8 | Dashboards, monitoring, analytics/reports, Student search, Group by Branch and notification improvements |
+| M9 | Community posts/articles, comments/likes, social profiles/media and current-cycle demo-data foundation |
+| M10 | Local role-specific AI, advisory boundaries and independently authoritative deterministic logic |
+| M11 | Production hardening, Atlas/private-file migration, Render/Vercel deployment, 2027 isolation and final live testing |
+
+Historical checkpoint documents retain their original phase context; this README summarizes the current deployed state.
+
+</details>
 
 ## Tech stack
 
-<p>
-  <img src="https://img.shields.io/badge/React-19-149ECA?style=flat-square&logo=react&logoColor=white" alt="React 19" />
-  <img src="https://img.shields.io/badge/Vite-8-646CFF?style=flat-square&logo=vite&logoColor=white" alt="Vite 8" />
-  <img src="https://img.shields.io/badge/Tailwind_CSS-4-0891B2?style=flat-square&logo=tailwindcss&logoColor=white" alt="Tailwind CSS 4" />
-  <img src="https://img.shields.io/badge/Node.js-Backend-43853D?style=flat-square&logo=nodedotjs&logoColor=white" alt="Node.js" />
-  <img src="https://img.shields.io/badge/Express-5-334155?style=flat-square&logo=express&logoColor=white" alt="Express 5" />
-  <img src="https://img.shields.io/badge/MongoDB-Mongoose-15803D?style=flat-square&logo=mongodb&logoColor=white" alt="MongoDB and Mongoose" />
-  <img src="https://img.shields.io/badge/Ollama-Qwen_3.5_4B-0B2158?style=flat-square&logo=ollama&logoColor=white" alt="Ollama with Qwen 3.5 4B" />
-</p>
-
-| Layer | Tools |
+| Layer | Technologies used |
 | :--- | :--- |
-| Web application | React Router, Vite, Tailwind CSS |
-| API & storage | Node.js, Express, MongoDB, Mongoose |
-| Contracts & access | Zod, JWT, bcryptjs, express-rate-limit |
-| Documents & exports | Multer, PDF.js, ExcelJS |
-| Local intelligence | Ollama, native fetch, structured JSON, evidence validation |
-| Verification | Node test runner, React/JSDOM, Oxlint, syntax checks, Vite build |
+| Frontend | React 19, Vite 8, Tailwind CSS 4, React Router, Zod |
+| Backend | Node.js 24.x, Express 5, Mongoose, JWT (`jsonwebtoken`), `bcryptjs`, Zod, `express-rate-limit` |
+| Files & reports | Multer, PDF.js, ExcelJS, `@supabase/storage-js` |
+| Infrastructure | Vercel, Render, MongoDB Atlas, Supabase Storage |
+| Local AI | Ollama, `qwen3.5:4b`, backend native fetch and structured/evidence-validated responses |
+| Checks | Node test runner, JSDOM, Oxlint, syntax checks and Vite build |
 
-## High-level architecture
+<details>
+<summary><strong>Local AI capabilities and boundaries</strong></summary>
 
-```mermaid
-flowchart TB
-    UI[React role-based frontend] --> CYCLE[Cycle-scoped API services]
-    CYCLE --> API27[2027 Express runtime]
-    CYCLE --> API26[2026 historical Express runtime]
-    API27 --> CORE[Placement domain services]
-    CORE --> DB27[(2027 MongoDB)]
-    API27 --> AI[Guarded backend AI module]
-    AI --> MODEL[Local Ollama - qwen3.5:4b]
-    AI -->|Latest Admin insight| DB27
-    API26 --> DB26[(Historical MongoDB)]
-```
+| Experience | Deterministic layer | Optional local AI |
+| :--- | :--- | :--- |
+| Student Career | Objective Profile Score | Profile/resume preparation advice |
+| Student Drive | Objective Match and eligibility | Independent role-fit assessment and preparation questions |
+| Company Candidate | Authorized objective candidate matching | Individual assessments, small sequential batches and bounded group questions |
+| Admin Placement | Trusted analytics and exact facts | Placement insights and grounded operational questions |
 
-The backend is a **modular monolith** with domain routes, controllers, services, validation, and models. Frontend pages compose features and use API services. AI supplements these modules rather than replacing business rules.
+AI uses allowlisted professional evidence, explicit Generate/Refresh actions, bounded context and a shared inference gate. Objective and AI scores remain separate. Reloading does not trigger inference; model failures do not block normal placement workflows. No Gemini or production RAG dependency is required.
 
-## Milestones
+Production sets `AI_ENABLED=false`; there is no live model dependency. See [AI architecture](docs/ai.md) for local evidence, privacy and runtime limitations.
 
-| Checkpoint | Delivered |
+</details>
+
+## Live deployment
+
+| Service | Destination |
 | :--- | :--- |
-| **M0–M2 · Complete** | Blueprint, MERN foundation, authentication, role authorization |
-| **M3–M4 · Complete** | Student profiles/resumes/verification, Company approval, institution settings |
-| **M5–M7 · Complete** | Drive proposals, eligibility, applications, recruitment, verified outcomes |
-| **M8 · Complete** | Dashboards, monitoring, analytics, reporting, Excel exports |
-| **M9 · Complete** | Community, social profiles, showcases, separate notifications |
-| **M10 · Complete** | Student, Company, Admin intelligence; AI runtime recovery |
-| **M11 · Not started** | Final QA, UI/responsive polish, production readiness, deployment, presentation |
+| Frontend · Vercel | [placement-hub-v2.vercel.app](https://placement-hub-v2.vercel.app) |
+| Backend · Render | [placementhub-v2.onrender.com](https://placementhub-v2.onrender.com) |
+| Health endpoint | [/api/v1/health](https://placementhub-v2.onrender.com/api/v1/health) |
+| Application data · Atlas | `placementhub-v2-demo-2027` |
+| Private files · Supabase | `placementhub-2027` bucket; authenticated API delivery |
 
-[Detailed roadmap →](docs/roadmap.md)
+Production credentials are configured in backend hosting secrets, not committed to the repository or included in `VITE_*` variables. The database and referenced-file transfers were verified separately before the final live workflow; baseline migration counts are not current live-data totals.
 
-## Testing & reliability
+## Known limitations
 
-Latest verified application checkpoint: **`bd2f0bd` — Admin AI runtime recovery**. These are recorded checkpoint results, not live CI badges.
+- **Deployment routing:** some nested SPA routes can return a Vercel 404 on direct access or browser refresh. Normal in-app navigation works correctly; the tested in-app demo workflow passed. This remains an unresolved deployment-routing limitation.
+- **Production AI:** intentionally disabled / Coming Soon; local Ollama features remain implemented.
+- **Hosting/build observations:** Render Free may introduce cold-start latency; Vite may report a non-blocking large-chunk warning.
 
-| Check | Verified result |
-| :--- | ---: |
-| Current-cycle backend regression | **428 / 428** |
-| AI suite · subset of backend tests | **96 / 96** |
-| Frontend tests | **100 / 100** |
-| AI syntax targets | **50 / 50** |
-| Archived collection count/hash checks | **20 / 20 unchanged** |
+## Security & design principles
 
-Automated AI tests use mocked providers. Live checks covered cancellation, fresh requests after recovery, retained Admin insights, and reload without inference. Authorization, privacy, stale fingerprints, timeouts, and late-output protection have focused coverage.
+| Boundary | Design |
+| :--- | :--- |
+| Identity | JWT authentication, role checks, ownership/domain authorization and login/registration rate limits |
+| Private files | Authenticated backend delivery; validated size, MIME/signature and storage references; no public raw storage URLs |
+| Credentials | Gitignored local environment files; backend-only production secrets; no real credentials in tracked examples |
+| Placement decisions | Backend deterministic eligibility and workflow rules; advisory AI cannot override them |
+| Cycle isolation | Exact 2027 production database; archived 2026 runtime/data preserved locally |
 
-Syntax, frontend lint/build, and whitespace checks passed. Six existing frontend lint warnings and a bundle-size advisory remain; these counts do not imply completed production QA.
+## Run locally
 
-[Testing notes →](docs/testing.md) · [Security boundaries →](docs/security.md)
+<details>
+<summary><strong>Prerequisites, install and start the 2027 runtime</strong></summary>
 
-## Local setup
-
-### 1. Prerequisites & dependencies
-
-Use **Node.js 24** (the verified local runtime), npm, and a running local MongoDB instance. Ollama is optional for normal workflows and required for AI replies.
+Use **Node.js 24.x**, npm and a running local MongoDB instance. Backend engines enforce Node 24.x. Ollama is optional unless local AI replies are needed.
 
 ```sh
-git clone --branch demo-2027-m9 https://github.com/Suryansh23-IT/PlacementHub-V2.git
+git clone --branch m11-production https://github.com/Suryansh23-IT/PlacementHub-V2.git
 cd PlacementHub-V2
-npm install --prefix backend
-npm install --prefix frontend
+npm ci --prefix backend
+npm ci --prefix frontend
 ```
 
-### 2. Configure a fresh clone
-
-PowerShell, from the repository root. Retain existing configured files when continuing an existing checkout:
+For a fresh checkout, create local configuration in PowerShell from the repository root. Preserve existing configured files when continuing an existing installation:
 
 ```powershell
 Copy-Item backend/.env.example backend/.env
@@ -246,11 +274,29 @@ Copy-Item backend/.env.cycle-2027.example backend/.env.cycle-2027
 Copy-Item frontend/.env.example frontend/.env
 ```
 
-In `backend/.env`, replace `JWT_SECRET` and `ADMIN_BOOTSTRAP_SECRET` with separate secure random values of at least 32 characters. First Placement Admin registration uses the bootstrap secret. Keep secrets out of version control.
+Configure the secrets described below, then start each service in a separate terminal:
 
-The supplied current-cycle example sets port **5001** and database **`placementhub-v2-demo-2027`**. The launcher loads it before backend defaults. Frontend defaults map 2027 to port 5001 and 2026 to port 5000.
+```sh
+npm run dev:cycle:2027 --prefix backend
+```
 
-For AI, set these values **only in `backend/.env.cycle-2027`**:
+```sh
+npm run dev:frontend
+```
+
+Open **http://localhost:5173**. The 2027 API runs at `http://localhost:5001/api/v1` with local database `placementhub-v2-demo-2027`. A fresh database contains no imported demo records: use normal registration, Company approval and Student verification. Startup does not seed, reset or migrate data.
+
+</details>
+
+<details>
+<summary><strong>Environment configuration and optional dual-cycle/local AI setup</strong></summary>
+
+- **Backend defaults — `backend/.env`:** replace `JWT_SECRET` and `ADMIN_BOOTSTRAP_SECRET` with separate secure random values of at least 32 characters. The bootstrap secret is required for first Placement Admin registration. Keep `NODE_ENV=development`, `STORAGE_PROVIDER=local` and the existing upload roots for local development.
+- **2027 overrides — `backend/.env.cycle-2027`:** port 5001 and exact database `placementhub-v2-demo-2027`. The cycle launcher loads these before backend defaults.
+- **Frontend — `frontend/.env`:** `VITE_API_URL_2027=http://localhost:5001/api/v1` and `VITE_API_URL_2026=http://localhost:5000/api/v1`. Development retains local cycle switching. These are public configuration values, never secrets.
+- **Existing 2026 archive:** use independently configured `backend/.env.cycle-2026`, port 5000 and database `placementhub-v2`. Run `npm run dev:cycle:2026 --prefix backend` in another terminal. A fresh clone does not recreate archived data; no historical reconstruction/reset is part of setup.
+
+To enable optional AI, set these values only in the 2027 backend environment:
 
 ```dotenv
 AI_ENABLED=true
@@ -261,53 +307,23 @@ AI_MAX_CONCURRENT=1
 AI_TIMEOUT_MS=180000
 ```
 
-Leave `AI_ENABLED=false` to run without inference. No paid API key is required.
-
-### 3. Start local services
-
-For a fresh Ollama installation, download the model once:
-
-```sh
-ollama pull qwen3.5:4b
-```
-
-If Ollama is not already serving, start it in its own PowerShell terminal:
+Download the local model once with `ollama pull qwen3.5:4b`. Start Ollama if it is not already running:
 
 ```powershell
 $env:OLLAMA_NUM_PARALLEL="1"
 ollama serve
 ```
 
-From the repository root, use separate terminals:
-
-```sh
-# Current-cycle backend
-npm run dev:cycle:2027 --prefix backend
-```
-
-```sh
-# Frontend
-npm run dev:frontend
-```
-
-Open **http://localhost:5173**. Register through the normal authentication flow; first Admin registration requires the bootstrap secret. Company approval and Student verification remain normal Admin workflows. Setup does not seed or reset any database.
-
-<details>
-<summary><strong>Optional: existing archived runtime</strong></summary>
-
-The historical cycle requires an existing dataset and configured `backend/.env.cycle-2026`, with port 5000 and database `placementhub-v2`. Start it separately:
-
-```sh
-npm run dev:cycle:2026 --prefix backend
-```
-
-It is independent of 2027 and needs no AI configuration. Historical reconstruction/integrity procedures are documented in [Testing](docs/testing.md); they are not part of ordinary startup.
+Leave `AI_ENABLED=false` to use deterministic workflows without inference. Production templates are separate: `backend/.env.production.example` and `frontend/.env.production.example`. Production requires Supabase, the exact Atlas database and disabled AI; never put cloud secrets in frontend variables.
 
 </details>
 
-### 4. Run checks
+<details>
+<summary><strong>Testing notes and available checks</strong></summary>
 
-From the repository root:
+Focused final frontend production/cycle checks passed **9/9**, including stale 2026 state resolving to 2027, local dual-cycle behavior and production-disabled AI. Live checks covered authorized file delivery, candidate isolation, notifications, analytics/export, Community and negative authorization requests. No live Ollama inference or broad historical acceptance rerun was performed during the final production test.
+
+Available commands from the repository root:
 
 ```sh
 npm test --prefix frontend
@@ -319,42 +335,43 @@ npm run build
 git diff --check
 ```
 
-The broader backend command is `npm run test:backend`. Its live historical reconciliation test requires the archived environment/dataset. Use the separation of current regression and historical checks described in [Testing](docs/testing.md), rather than treating the current database as the historical oracle. Automated AI tests do not call the live model.
+These commands are developer options, not a claim that every suite was rerun for the final README update. Broader backend checks (`npm run test:backend`) include historical tests requiring their own archived configuration/data. Automated AI tests mock providers. Consult [Testing](docs/testing.md) before running database-dependent suites.
 
-## Repository layout
+</details>
+
+## Development methodology
+
+The project was built milestone-by-milestone through the M0–M11 roadmap, with isolated features, incremental validation, regression checks, manual verification and reviewed Git checkpoints. **Codex** served as an AI coding partner; **ChatGPT** supported planning, architecture, review, debugging guidance and documentation. AI-assisted development complemented engineering decisions and verification; it did not replace deterministic business rules or manual testing.
+
+## Project structure
 
 ```text
 PlacementHub-V2/
-├── frontend/
-│   ├── src/          Pages, features, components, API services, cycle context
-│   └── test/         Frontend behavior and contract tests
-├── backend/
-│   ├── src/modules/  Domain modules, analytics, Community, AI
-│   ├── scripts/      Cycle startup, checks, controlled data utilities
-│   └── test/         Backend, AI, access, and workflow tests
-└── docs/             Architecture, APIs, workflows, security, checkpoints
+├── frontend/       React pages, features, components, API services and tests
+├── backend/        Domain modules, storage/AI services, scripts and tests
+├── docs/           Architecture, workflows, security and checkpoint records
+├── package.json    Root development/check commands
+└── README.md       Current project overview and setup
 ```
+
+## Demo & Screenshots
+
+[Open the live 2027 product](https://placement-hub-v2.vercel.app) to explore the Student, Company and Admin workflows. The demonstrated scenario covers Recruitment Journey, analytics, Community and private document delivery; local AI is demonstrated separately from production.
+
+The hero uses existing repository landing-page artwork. No tracked dashboard screenshots or demo recording are available for a verified gallery yet, so none are fabricated or linked here. A future recording can follow the same two-candidate scenario and show local AI with its advisory boundary.
 
 ## Documentation
 
-[Requirements](docs/requirements.md) · [Architecture](docs/architecture.md) · [Database](docs/database.md) · [API](docs/api.md) · [Workflows](docs/workflows.md) · [AI](docs/ai.md) · [Security](docs/security.md) · [Testing](docs/testing.md) · [UI](docs/ui.md) · [Decisions](docs/decisions.md) · [Roadmap](docs/roadmap.md)
+[Architecture](docs/architecture.md) · [Requirements](docs/requirements.md) · [Database](docs/database.md) · [API](docs/api.md) · [Workflows](docs/workflows.md) · [AI](docs/ai.md) · [Security](docs/security.md) · [Testing](docs/testing.md) · [UI](docs/ui.md) · [Decisions](docs/decisions.md)
 
-## Current status & next chapter
-
-**M0–M10 complete. M11 pending.** Verified locally; public deployment is not complete. M11 covers final QA, visual/responsive polish, production readiness, deployment, and presentation.
-
-| Live Demo | Screenshots | Deployment |
-| :--- | :--- | :--- |
-| Coming in M11 | Curated product gallery coming in M11 | Public hosting and inference configuration coming in M11 |
+The [roadmap](docs/roadmap.md) and [M11-E readiness record](docs/m11e-cloud-readiness.md) preserve historical checkpoint context; their phase-status wording is not the current deployment status summarized above.
 
 ---
 
 <div align="center">
 
-**PlacementHub-V2** · Built for a college placement cell.
+**PlacementHub-V2 · Three roles. One connected placement journey.**
 
-Clear workflows. Trusted placement records. Contextual intelligence.
-
-[Back to top](#placementhub)
+[Live Demo](https://placement-hub-v2.vercel.app) · [Back to Top](#placementhub-v2)
 
 </div>

@@ -1,4 +1,6 @@
 import { randomUUID } from 'node:crypto'
+import { semanticAiEnabled } from '../../config/runtime-policy.js'
+import { unavailable } from './ai.errors.js'
 import { User } from '../auth/auth.model.js'
 import { Company } from '../companies/company.model.js'
 import { PlacementDrive } from '../placement-drives/placement-drive.model.js'
@@ -71,10 +73,11 @@ export function createCompanyIntelligence(config, { userModel = User, companyMod
   }
   function prior(row) { const hit = latest.get(row.key); if (hit?.expires > now()) return { ...hit.assessment, stale: hit.revision !== row.revision }; latest.delete(row.key); return null }
   function result(row, provider = { status: 'not_requested' }, resume) { return { studentId: row.studentId, driveId: String(row.drive._id), applicationId: row.applicationId, deterministic: row.objective, assessment: prior(row), ai: provider, resumeStatus: resume?.status ?? prior(row)?.resumeStatus ?? (row.profile.resume ? 'not_analyzed' : 'not_uploaded') } }
-  async function read(actor, driveId, studentId) { return result(await candidate(actor, driveId, studentId)) }
+  async function read(actor, driveId, studentId) { return result(await candidate(actor, driveId, studentId), semanticAiEnabled(config) ? { status: 'not_requested' } : unavailable('disabled')) }
   async function analyze(actor, driveId, studentId, refresh = true) {
     const generation = ai.runtimeEpoch?.()
     const row = await candidate(actor, driveId, studentId)
+    if (!semanticAiEnabled(config)) return result(row, unavailable('disabled'))
     if (!refresh && prior(row) && !prior(row).stale) return result(row, { status: 'available', cached: true })
     const taskKey = `${row.key}:${row.revision}`
     if (running.has(taskKey)) { await running.get(taskKey); return read(actor, driveId, studentId) }
@@ -97,7 +100,9 @@ export function createCompanyIntelligence(config, { userModel = User, companyMod
     try { return await task } finally { if (running.get(taskKey) === task) running.delete(taskKey) }
   }
   async function ask(actor, driveId, studentId, question) {
-    const row = await candidate(actor, driveId, studentId); const resume = companyResumeEvidence(await extractor.extract(row.profile.resume))
+    const row = await candidate(actor, driveId, studentId)
+    if (!semanticAiEnabled(config)) return { ai: unavailable('disabled') }
+    const resume = companyResumeEvidence(await extractor.extract(row.profile.resume))
     const provider = await ai.analyze({ actor, scope: `company:${driveId}:${studentId}:ask`, kind: 'match', resumeDependent: true, authorize: async () => { await candidate(actor, driveId, studentId); return true }, loadContext: async () => ({ profile: row.profile, drive: row.drive }), enrichContext: () => ({ ...companyContext(row.context, row.drive, row.company, resume), userQuestion: safeQuestion(question) }), contract: createQuestionContract('this candidate’s documented professional fit for this role; no hiring decisions') })
     return { ai: provider }
   }
@@ -116,6 +121,7 @@ export function createCompanyIntelligence(config, { userModel = User, companyMod
     })
   }
   async function groupAsk(actor, driveId, question) {
+    if (!semanticAiEnabled(config)) { await owned(actor, driveId); return { ai: unavailable('disabled') } }
     const userQuestion = safeQuestion(question); const rows = await cohort(actor, driveId)
     const selected = retrieveCandidates(rows, userQuestion, companyLimits(config).group)
     if (!selected.length) return { ai: { status: 'available', analysis: { answer: 'Based on the documented evidence available, no matching professional evidence was found in the structured profiles or cached resume excerpts. This is not proof of inability.', candidateIds: [] } }, candidates: [], retrieval: 'structured profile + cached resume evidence' }
@@ -154,6 +160,7 @@ export function createCompanyIntelligence(config, { userModel = User, companyMod
     if (!studentIds.length || studentIds.length > companyLimits(config).batch || new Set(studentIds).size !== studentIds.length) throw invalid(`Select 1–${companyLimits(config).batch} unique candidates.`)
     const rows = []
     for (const id of studentIds) rows.push(await candidate(actor, driveId, id))
+    if (!semanticAiEnabled(config)) return { ai: unavailable('disabled') }
     for (const [id, job] of jobs) if (job.expires <= now() && job.status === 'completed') jobs.delete(id)
     const signature = fingerprint({ owner: String(actor._id), driveId, revisions: rows.map(row => `${row.studentId}:${row.revision}`).sort() })
     const duplicate = [...jobs.values()].find(job => job.signature === signature && job.items.every(item => item.status !== 'failed'))

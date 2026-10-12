@@ -1,5 +1,27 @@
 # Testing Strategy
 
+## M11-D UI/UX checks (2026-10-11)
+
+Frontend-only polish: existing frontend tests **111/111 passed**; lint/public production build and whitespace checks passed. Six existing lint warnings, test-runner HMR port notices and the existing bundle-size advisory remain. Backend product code was untouched, so backend suites and live Ollama generations were not repeated.
+
+Focused browser checks cover the three dashboards, Student/Company forms, Placement Center/drive detail, candidate table/detail, recruitment tabs and canceled confirmation, Admin tables/outcomes/reports, Community tabs/social profile, contact and public login. Representative layouts were checked at **1280px desktop / 390px mobile**, plus an **820px drive form**. All four public Coming Soon areas were inspected with semantic controls absent; local AI/objective interfaces remain. Browser console snapshots are empty. No broad acceptance workflow was rerun. Read-only hashes match accepted M11-C applications, placements and the entire 2026 archive. Details, screenshots, logs and review steps: [M11-D review](m11d-ui-polish.md), `artifacts/m11d/2026-10-11/`.
+
+## M11-C targeted acceptance (2026-10-11)
+
+All 19 authoritative M11-B defects are fixed and verified; no deferred defect. See [M11-C closure, changed files, verification and review steps](m11c-acceptance.md). Backend safe regression: **429/429**; frontend: **111/111**, plus **6/6** final targeted interaction checks. Backend syntax, AI syntax **52/52**, frontend lint, public production build and whitespace checks pass. Six existing lint warnings and the bundle-size advisory remain.
+
+Real-browser retests covered changed Student, Company, Admin and Community paths, plus desktop/mobile Admin header and brief public AI-disabled sanity. No broad M9/M10 sweep or live AI generation was repeated. Six live/reset database fixture scripts were excluded. Read-only before/after hashes confirm the 2026 archive and every 2027 application/placement record unchanged. Final state remains **62 eligible / 4 placed / 58 unplaced / 0 pending**, with Alpha/Beta confirmed and fresh-drive outcomes **2 confirmed / 3 rejected / 1 withdrawn**. Test evidence: `artifacts/m11c/2026-10-11/`. Changes await user approval before checkpoint; M11-D has not started.
+
+## M11-A foundation checks (2026-10-10)
+
+Full mocked current backend regression: **434/434**, excluding only historical-live-reconciliation.test.js (the live archived database oracle). Full frontend: **104/104**. New production suites: backend **3/3**, frontend **4/4**; additional disabled Student/Company/Admin domain tests cover objective retention and zero extraction/inference/jobs/writes. Existing enabled M10 tests and archived import/route isolation pass. Existing suites cover auth/ownership, eligibility/Apply, analytics, recruitment, uploads and Community.
+
+Backend syntax, expanded AI syntax **52/52**, frontend lint, public build and git diff --check pass. Six pre-existing frontend lint warnings, test-runner HMR-port notices and the existing bundle-size advisory remain. Backend HTTP tests initially hit sandbox loopback denial; the approved rerun passed. No live Ollama generation, database seed/reset/migration or placement mutation was run.
+
+Public build used VITE_APP_MODE=public, VITE_AI_ENABLED=false, VITE_API_URL_2027=/api/v1: an explicit foundation placeholder, not a configured Render URL. Real split-host URLs and persistent storage remain M11-E/F. Isolated browser visual QA used real feature wrappers with synthetic objective responses: all four Coming Soon cards at desktop and 390px width, objective scores retained, no semantic controls or console errors. Ignored screenshots: frontend/artifacts/m11-a-desktop.png and m11-a-mobile.png. No real role session was used; M11-B broad acceptance is not claimed.
+
+Manual steps: [M11-A foundation](m11a-foundation.md). Changes await testing approval before checkpoint; M11-B has not started.
+
 ## Automated checks
 
 Run frontend lint/build checks and backend test/lint checks once tooling exists. Add focused automated tests for registration, duplicate-email prevention, password hashing, login failure/inactive-account behavior, JWT verification, protected-route rejection, role authorization, student-verification transitions and enforcement, eligibility, duplicate-application prevention, ownership checks, recruitment transitions, deterministic dashboard aggregates, and AI-response validation.

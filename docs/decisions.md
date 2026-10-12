@@ -62,3 +62,7 @@ Use fast objective matching for every authorized applicant; invoke the local mod
 # M10-D: trusted aggregate Admin intelligence
 
 Admin insights use existing M8 analytics/report semantics, never model-generated queries or raw Student/Company dumps. Whole-2027 context is explicit and independent of dashboard filters. Exact bounded fact questions bypass inference; qualitative reasoning uses the shared controlled Ollama service. Only latest successful Admin insights persist in a guarded 2027 singleton collection. GET does not generate/write; refresh is explicit and preserves prior success on failure. Relevant facts/provider/contract changes mark retained insights stale. No Admin AI score, conversation history, Gemini fallback, Student/Company redesign or M11 work. Reference/numeric validation supplements concise structured output but does not establish complete semantic proof.
+
+## Approved M11-A environment and future free deployment
+
+Only M11-A is authorized now. Use explicit local/public frontend mode and backend NODE_ENV. Preserve local cycles and Ollama. Public 2027-only UI and production database guard retain archive isolation; production semantic AI shows shared Coming Soon cards. Keep deterministic scores, matching, exact facts and placement workflows. Direct API guards run before extraction/inference/jobs. Approved future stack: Vercel Hobby, Render Free, MongoDB Atlas Free, Supabase Storage Free. Storage migration belongs to M11-E; no cloud work, seed/reset or deployment in M11-A. See m11a-foundation.md. Commit/push awaits testing approval.

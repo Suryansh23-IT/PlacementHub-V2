@@ -3,9 +3,11 @@ import {useEffect,useRef,useState} from 'react'
 import {usePlacementCycle} from '../placement-cycle/usePlacementCycle.js'
 import {ContextualAskAi} from './ContextualAskAi.jsx'
 import * as api from '../../services/admin-ai.service.js'
+import { FRONTEND_RUNTIME } from '../placement-cycle/placement-cycle.js'
+import { AiComingSoon } from './AiComingSoon.jsx'
 
 export function AdminPlacementIntelligence({token,provider=api}){
-  const {cycle}=usePlacementCycle();const enabled=cycle.id==='2027'
+  const {cycle}=usePlacementCycle();const enabled=cycle.id==='2027' && FRONTEND_RUNTIME.aiEnabled
   const [data,setData]=useState(null);const [busy,setBusy]=useState(false);const [error,setError]=useState('');const pending=useRef(null)
   useEffect(()=>{
     if(!enabled)return
@@ -24,7 +26,9 @@ export function AdminPlacementIntelligence({token,provider=api}){
     }catch(error){if(!controller.signal.aborted)setError(error.statusCode===429?'Too many AI requests. Please wait before refreshing.':'Placement AI refresh failed. Previous insights and normal analytics remain available.')}
     finally{if(pending.current===controller){pending.current=null;if(!controller.signal.aborted)setBusy(false)}}
   }
-  if(!enabled)return null
+  if(cycle.id!=='2027')return null
+  if(!FRONTEND_RUNTIME.aiEnabled)return <AiComingSoon area="Admin Placement AI" />
+  if(data?.ai?.reason==='disabled')return <AiComingSoon area="Admin Placement AI" />
   const assessment=data?.assessment;const insight=assessment?.insight
   return <div className="space-y-4">
     <AiRuntimeControl token={token} provider={provider}/>

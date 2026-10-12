@@ -40,6 +40,24 @@ test('all-candidate objective reads are non-LLM, private data excluded and eligi
  assert.equal(results[0].deterministic.score,92); assert(results.every(row=>row.assessment===null)); assert.deepEqual(f.counts(),{calls:0,extracts:0}); assert.equal(JSON.stringify(f.applications),before)
 })
 
+test('disabled Company direct review, Ask, group and batch retain objectives without extraction/inference/jobs', async () => {
+  const f = fixture()
+  for (const policy of [{ AI_ENABLED: false }, { NODE_ENV: 'production', AI_ENABLED: true }]) {
+    const service = createCompanyIntelligence({ ...config, ...policy }, f.dependencies)
+    const read = await service.read(actor, driveId, ids[0])
+    assert.equal(read.deterministic.score, 92); assert.equal(read.ai.reason, 'disabled')
+    const reviewed = await service.analyze(actor, driveId, ids[0])
+    assert.equal(reviewed.deterministic.score, 92); assert.equal(reviewed.ai.reason, 'disabled')
+    assert.equal((await service.ask(actor, driveId, ids[0], 'What should I verify?')).ai.reason, 'disabled')
+    assert.equal((await service.groupAsk(actor, driveId, 'Compare backend evidence')).ai.reason, 'disabled')
+    const batch = await service.startBatch(actor, driveId, ids.slice(0, 2))
+    assert.equal(batch.ai.reason, 'disabled'); assert.equal(batch.id, undefined)
+    await assert.rejects(service.analyze({ ...actor, role: 'student' }, driveId, ids[0]), { statusCode: 404 })
+    await assert.rejects(service.startBatch(actor, 'foreign-drive', [ids[0]]), { statusCode: 404 })
+  }
+  assert.deepEqual(f.counts(), { calls: 0, extracts: 0 })
+})
+
 test('Company resume context excludes academic sections and grades; group output rejects academic ranking',()=>{
  const raw={status:'extracted',text:'Education\nCSE degree, CPI 9.9, graduation year 2027\nProjects\nBuilt a documented backend API with SQL and testing.\nCGPA 9.9'}
  const safe=companyResumeEvidence(raw)

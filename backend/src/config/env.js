@@ -1,7 +1,9 @@
 import 'dotenv/config'
 import { z } from 'zod'
+import { selectedStorageProvider, storageEnvironmentShape, validateStorageEnvironment, validatePublicEnvironment } from './storage-config.js'
 
 const environmentSchema = z.object({
+  NODE_ENV: z.enum(['development', 'test', 'production']).default('development'),
   PORT: z.coerce.number().int().min(1).max(65535).default(5000),
   MONGO_URI: z.string().url('MONGO_URI must be a valid MongoDB connection URL.'),
   CLIENT_URL: z.string().url('CLIENT_URL must be a valid URL.').default('http://localhost:5173'),
@@ -37,13 +39,30 @@ const environmentSchema = z.object({
   SOCIAL_IMAGE_MAX_BYTES: z.coerce.number().int().min(1).max(10 * 1024 * 1024).default(5 * 1024 * 1024),
   RESUME_MAX_FILE_SIZE_BYTES: z.coerce.number().int().min(1).max(10 * 1024 * 1024).default(5 * 1024 * 1024),
   PLACEMENT_WITHDRAWAL_RESTRICTION_DRIVES: z.coerce.number().int().min(1).max(50).default(5),
+  ...storageEnvironmentShape,
+}).superRefine((config, context) => {
+  validateStorageEnvironment(config, context)
+  if (config.NODE_ENV !== 'production') return
+  let databasePath
+  try { databasePath = new URL(config.MONGO_URI).pathname } catch { /* Zod reports invalid URI too. */ }
+  if (databasePath !== '/placementhub-v2-demo-2027') {
+    context.addIssue({ code: 'custom', path: ['MONGO_URI'], message: 'Production requires the current 2027 database (placementhub-v2-demo-2027).' })
+  }
+  if (config.AI_ENABLED) {
+    context.addIssue({ code: 'custom', path: ['AI_ENABLED'], message: 'Production AI must remain disabled for the initial public deployment.' })
+  }
 })
+
+try { validatePublicEnvironment(process.env) }
+catch { console.error('Backend credentials are forbidden in VITE_* environment variables.'); process.exit(1) }
 
 const parsedEnvironment = environmentSchema.safeParse(process.env)
 
 if (!parsedEnvironment.success) {
-  console.error('Invalid environment configuration:', parsedEnvironment.error.flatten().fieldErrors)
+  console.error('Invalid environment configuration:', process.env.NODE_ENV === 'production'
+    ? { message: 'Production configuration is invalid.', fields: Object.keys(parsedEnvironment.error.flatten().fieldErrors) }
+    : parsedEnvironment.error.flatten().fieldErrors)
   process.exit(1)
 }
 
-export const env = { ...parsedEnvironment.data, AI_TIMEOUT_MS: parsedEnvironment.data.AI_TIMEOUT_MS ?? 180_000 }
+export const env = { ...parsedEnvironment.data, STORAGE_PROVIDER: selectedStorageProvider(parsedEnvironment.data), SUPABASE_STORAGE_BUCKET: parsedEnvironment.data.SUPABASE_STORAGE_BUCKET ?? 'placementhub-2027', AI_TIMEOUT_MS: parsedEnvironment.data.AI_TIMEOUT_MS ?? 180_000 }

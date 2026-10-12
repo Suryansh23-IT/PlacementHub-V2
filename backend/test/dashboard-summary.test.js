@@ -17,6 +17,17 @@ test('Student dashboard summary is scoped to the logged-in Student and uses curr
   assert.deepEqual(summary, { publishedDriveCount: 2, eligibleDriveCount: 1, activeApplicationCount: 2, unreadNotificationCount: 3 })
 })
 
+test('M11C Student dashboard enforces the same confirmed-placement lock as drive eligibility', async () => {
+  const placementRecordModel = { findOne: async () => ({ verificationState: 'confirmed' }) }
+  const result = await getStudentDashboardSummary(ids.student, {
+    placementDriveModel: { find: () => ({ select: async () => [{ _id: ids.drive }] }) },
+    placementRecordModel,
+    eligibilityService: async (_, __, deps) => { assert.equal(deps.enforceConfirmedPlacementLock, true); assert.equal(deps.placementRecordModel, placementRecordModel); return { eligible: false } },
+    applicationModel: { countDocuments: async () => 0 }, notificationModel: { countDocuments: async () => 0 },
+  })
+  assert.equal(result.eligibleDriveCount, 0)
+})
+
 test('Company dashboard counts active candidates across its published recruitment workspace', async () => {
   const summary = await getCompanyDashboardSummary(ids.companyUser, {
     companyModel: { findOne: async query => query.userId === ids.companyUser ? { _id: ids.company } : null },

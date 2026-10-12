@@ -17,21 +17,22 @@ export function CommunityPage() {
   const { cycle } = usePlacementCycle()
   const { postId } = useParams()
   const [params, setParams] = useSearchParams()
+  const [detailType, setDetailType] = useState(null)
   const filters = { contentType: params.get('type') === 'article' ? 'article' : 'feed', search: params.get('search') || '', sort: params.get('sort') === 'oldest' ? 'oldest' : 'newest' }
   if (!communityAvailable(cycle.id)) return <ErrorState message="Community is available only in placement cycle 2027." />
   function filter(key, value) { const next = new URLSearchParams(params); next.set(key, value); setParams(next, { replace: true }) }
   return <section className="mx-auto w-full max-w-[660px] space-y-4">
     <h1 className="text-2xl font-extrabold tracking-tight text-slate-950">Community</h1>
-    <CommunityNavigation selected={filters.contentType} />
+    <CommunityNavigation selected={postId && detailType?.id === postId ? detailType.type : filters.contentType} />
     {!postId && <>
 
       <div className="flex gap-2"><input aria-label="Search Community" placeholder="Search Community" className="min-w-0 flex-1 rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm" value={filters.search} onChange={e => filter('search', e.target.value)} /><select aria-label="Sort" className="max-w-28 rounded-xl border border-slate-200 bg-white px-2 py-2 text-sm" value={filters.sort} onChange={e => filter('sort', e.target.value)}><option value="newest">Newest</option><option value="oldest">Oldest</option></select></div>
     </>}
-    <CommunityContent key={`${cycle.id}:${postId || JSON.stringify(filters)}`} postId={postId} filters={filters} />
+    <CommunityContent key={`${cycle.id}:${postId || JSON.stringify(filters)}`} postId={postId} filters={filters} onDetailLoaded={setDetailType} />
   </section>
 }
 
-function CommunityContent({ postId, filters }) {
+function CommunityContent({ postId, filters, onDetailLoaded }) {
   const { session } = useAuth()
   const token = session.accessToken
   const [feed, setFeed] = useState(null)
@@ -51,14 +52,14 @@ function CommunityContent({ postId, filters }) {
     try {
       if (postId) {
         const [p, c] = await Promise.all([social.getCommunityPost(token, postId), social.listCommunityComments(token, postId)])
-        if (requestGeneration === generation.current) { setError(''); setPost(p.data); setComments(c.data) }
+        if (requestGeneration === generation.current) { setError(''); setPost(p.data); setComments(c.data); onDetailLoaded({ id: postId, type: p.data.contentType }) }
       } else {
         const pages = await Promise.all(Array.from({ length: loadedPages.current }, (_, index) => social.listCommunityPosts(token, index + 1, { contentType, search, sort })))
         const result = pages.map(page => page.data).reduce((current, next) => current ? appendFeedPage(current, next, sort) : next, null)
         if (requestGeneration === generation.current) { setError(''); setFeed(result); loadedPages.current = Math.min(result.page, result.totalPages) }
       }
     } catch (e) { if (requestGeneration === generation.current) setError(e.message) }
-  }, [token, postId, contentType, search, sort])
+  }, [token, postId, contentType, search, sort, onDetailLoaded])
   // This effect starts an asynchronous server read; state changes occur after its response.
   // eslint-disable-next-line react/set-state-in-effect
   useEffect(() => { void load(); return () => { generation.current += 1 } }, [load])

@@ -1,3 +1,4 @@
+import { pdfStorageReference } from '../../storage/pdf-metadata.js'
 import mongoose from 'mongoose'
 
 const projectSchema = new mongoose.Schema(
@@ -20,7 +21,17 @@ const resumeSchema = new mongoose.Schema(
   },
   { _id: false },
 )
-const academicDocumentSchema = new mongoose.Schema({ board: { type: String, trim: true, maxlength: 120 }, schoolName: { type: String, trim: true, maxlength: 200 }, passingYear: { type: Number, min: 1990, max: 2100 }, score: { type: Number, min: 0, max: 100 }, marksheet: resumeSchema }, { _id: false })
+// Resume and academic documents keep legacy metadata while accepting private references.
+const uploadedResumeSchema = resumeSchema.clone()
+uploadedResumeSchema.add({ storageReference: { type: new mongoose.Schema({
+  provider: { type: String, enum: ['local', 'supabase'], required: true },
+  key: { type: String, required: true, match: /^2027\/resume\/[a-f\d]{8}-[a-f\d]{4}-4[a-f\d]{3}-[89ab][a-f\d]{3}-[a-f\d]{12}\.pdf$/ },
+}, { _id: false }), default: undefined } })
+uploadedResumeSchema.path('storagePath').required(function () { return this.storageReference?.provider !== 'supabase' })
+const academicPdfSchema = resumeSchema.clone()
+academicPdfSchema.add({ storageReference: pdfStorageReference(['class10', 'class12', 'college-result']) })
+academicPdfSchema.path('storagePath').required(function () { return this.storageReference?.provider !== 'supabase' })
+const academicDocumentSchema = new mongoose.Schema({ board: { type: String, trim: true, maxlength: 120 }, schoolName: { type: String, trim: true, maxlength: 200 }, passingYear: { type: Number, min: 1990, max: 2100 }, score: { type: Number, min: 0, max: 100 }, marksheet: academicPdfSchema }, { _id: false })
 const skillGroupSchema = new mongoose.Schema({ name: { type: String, trim: true, maxlength: 80 }, skills: [{ type: String, trim: true, maxlength: 60 }] }, { _id: true })
 const semesterSpiSchema = new mongoose.Schema({ semester: { type: Number, min: 1, max: 8 }, spi: { type: Number, min: 0, max: 10 } }, { _id: false })
 const codingProfileSchema = new mongoose.Schema({ platform: { type: String, trim: true, maxlength: 80 }, url: { type: String, trim: true, maxlength: 500 } }, { _id: true })
@@ -61,8 +72,8 @@ const studentProfileSchema = new mongoose.Schema(
     achievements: [achievementSchema],
     extracurriculars: [activitySchema],
     leadership: [activitySchema],
-    resume: resumeSchema,
-    collegeResult: resumeSchema,
+    resume: uploadedResumeSchema,
+    collegeResult: academicPdfSchema,
     verificationStatus: { type: String, enum: ['pending', 'verified', 'rejected'], default: 'pending', required: true },
     reviewedBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
     reviewedAt: { type: Date },

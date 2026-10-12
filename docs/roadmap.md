@@ -19,6 +19,10 @@ Only one milestone is active at a time. Each milestone requires implementation c
 
 ## Milestone protocol
 
+Active phase: **M11-D frontend/UI/UX polish**, following accepted and committed M11-C (`da1bdef210f595706248fcb0f87ffdefeb72e007`). Refine shared presentation and responsive behavior while preserving accepted workflows and placement data. See [M11-D review](m11d-ui-polish.md). Await user approval before checkpoint. M11-E has not started; no seed/reset, storage migration or deployment.
+
+Approved later free stack: Vercel Hobby, Render Free, MongoDB Atlas Free, Supabase Storage Free. Storage belongs to M11-E. Order: A foundation → B browser/API acceptance → C fixes/retests → D polish → E hardening/storage → F deployment → G smoke test → H documentation/release/freeze. Stop and report after each phase. See [M11-A contract](m11a-foundation.md).
+
 1. Inspect relevant files and documentation.
 2. Explain the scoped plan and affected files.
 3. Implement only the active milestone.

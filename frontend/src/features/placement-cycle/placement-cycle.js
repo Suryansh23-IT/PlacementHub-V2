@@ -1,6 +1,9 @@
 import { createPlacementCycleConfig, DEFAULT_PLACEMENT_CYCLE, PLACEMENT_CYCLE_STORAGE_KEY } from './placement-cycle-core.js'
 
-const config = createPlacementCycleConfig({ api2026: import.meta.env.VITE_API_URL_2026 ?? 'http://localhost:5000/api/v1', api2027: import.meta.env.VITE_API_URL_2027 ?? 'http://localhost:5001/api/v1' })
+import { createFrontendRuntime } from './runtime-config.js'
+
+export const FRONTEND_RUNTIME = createFrontendRuntime(import.meta.env, import.meta.env.PROD)
+const config = createPlacementCycleConfig(FRONTEND_RUNTIME)
 export const PLACEMENT_CYCLES = config.cycles
 export { DEFAULT_PLACEMENT_CYCLE, PLACEMENT_CYCLE_STORAGE_KEY }
 export const isPlacementCycle = config.isCycle

@@ -1,3 +1,4 @@
+import { pdfStorageReference } from '../../storage/pdf-metadata.js'
 import mongoose from 'mongoose'
 import { COMPANY_PHASE_TYPES, PHASE_EXECUTION_MODES, PHASE_EXECUTION_STATUSES, PHASE_RESOURCE_TYPES, PLACEMENT_DRIVE_LIFECYCLE_STATUSES, PLACEMENT_DRIVE_PROPOSAL_STATUSES } from './placement-drive.constants.js'
 
@@ -8,6 +9,12 @@ const pdfMetadataSchema = new mongoose.Schema({
   size: { type: Number, min: 1 },
   uploadedAt: Date,
 }, { _id: false })
+
+function documentSchema(category) {
+  const schema = pdfMetadataSchema.clone()
+  schema.add({ storageReference: pdfStorageReference(category) })
+  return schema
+}
 
 const phaseSchema = new mongoose.Schema({
   phaseNumber: { type: Number, required: true, min: 1, max: 5 },
@@ -32,7 +39,7 @@ const phaseExecutionSchema = new mongoose.Schema({
   venue: { type: String, trim: true, maxlength: 300 },
   instructions: { type: String, trim: true, maxlength: 3000 },
   resources: { type: [phaseResourceSchema], default: [] },
-  instructionPdf: pdfMetadataSchema,
+  instructionPdf: documentSchema('phase-instruction'),
   status: { type: String, required: true, enum: PHASE_EXECUTION_STATUSES, default: 'unscheduled' },
 }, { _id: false })
 
@@ -76,9 +83,9 @@ const placementDriveSchema = new mongoose.Schema({
     additionalRequirements: { type: String, trim: true, maxlength: 1500 },
   },
   documents: {
-    companyRecruitmentInformation: pdfMetadataSchema,
-    placementDriveJobDescription: pdfMetadataSchema,
-    recruitmentProcessInstructions: pdfMetadataSchema,
+    companyRecruitmentInformation: documentSchema('company-recruitment-information'),
+    placementDriveJobDescription: documentSchema('drive-job-description'),
+    recruitmentProcessInstructions: documentSchema('recruitment-process-instructions'),
   },
   // Phase 0 is system-owned by M6 and is deliberately absent from this array.
   phases: {
